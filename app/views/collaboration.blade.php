@@ -75,10 +75,10 @@ $count=0;
     </div>
     </div>
     <hr>
-    <p id="Content" onmousedown='return false;' onselectstart='return false;'>
+    <div id="Content" onmousedown='return false;' onselectstart='return false;'>
 
 
-    </p>
+    </div>
         <br><a href="{{route('user',User::find($collaboration->userid)->username)}}" style="text-decoration: none; font-size: 12px;">- By {{User::find($collaboration->userid)->first_name}} {{User::find($collaboration->userid)->last_name}}</a>
         <hr>
         <div>

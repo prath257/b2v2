@@ -71,10 +71,10 @@
     </div>
 
     <hr>
-    <p id="Content" onmousedown='return false;' onselectstart='return false;'>
+    <div id="Content" onmousedown='return false;' onselectstart='return false;'>
 
 
-    </p>
+    </div>
         <br><a href="{{route('user',User::find($book->userid)->username)}}" style="text-decoration: none; font-size: 12px;">- By {{User::find($book->userid)->first_name}} {{User::find($book->userid)->last_name}}</a>
         <hr>
         <div>
