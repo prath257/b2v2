@@ -1,0 +1,135 @@
+.fileUpload
+{
+    position: relative;
+    overflow: hidden;
+}
+
+.fileUpload input.upload
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.input-box
+{
+    height: 40px;
+}
+
+.line
+{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#summernote-line
+{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.double
+{
+    padding-top: 0px;
+}
+
+#defaultCover
+{
+    margin-bottom: 0px;
+}
+
+#venueContainer
+{
+    padding-bottom: 0px;
+}
+
+.bold
+{
+    font-weight: bold;
+}
+
+.zero-padding
+{
+    padding: 0px;
+}
+
+#event-title
+{
+    text-align: center;
+    font-weight: bold;
+}
+
+.event-details
+{
+    text-align: center;
+}
+
+.details-container
+{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#hr-first
+{
+    margin-top: 0px;
+}
+
+#hr-second
+{
+    margin-bottom: 0px;
+}
+
+#event-info
+{
+    padding-right: 0px;
+}
+
+#description-hr
+{
+    margin-top: 10px;
+}
+
+#event-description
+{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.waiting
+{
+    display: none;
+}
+
+#host-name
+{
+    text-align: center;
+}
+
+.center-align
+{
+    text-align: center;
+}
+
+.labels
+{
+    padding-top: 20px;
+}
+
+#main-info
+{
+    display: none;
+}
+
+#closed-registrations
+{
+    font-weight: bold;
+    color: darkred;
+    text-align: center;
+}

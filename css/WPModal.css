@@ -1,0 +1,8 @@
+@-ms-viewport {
+    width: auto;
+}
+
+html,body {
+    -ms-overflow-style: none !important;
+    word-wrap: break-word;
+}

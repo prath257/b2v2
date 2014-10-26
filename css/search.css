@@ -1,0 +1,33 @@
+/*Search CSS*/
+
+#searchModal
+{
+    background-color: #ffffff;
+    position: absolute;
+    margin-top: 5px;
+    border-radius: 5px;
+    z-index: 1;
+    background-color: #f5f5f5;
+    display: none;
+}
+#search
+{
+    width: 200px;
+    margin-top: 6px;
+    height: 25px;
+}
+#searchResultsModal
+{
+    width: 200px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1000px) {
+    #search
+    {
+        width: 150px;
+    }
+    #searchResultsModal
+    {
+        width: 150px;
+    }
+}

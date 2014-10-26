@@ -1,0 +1,22 @@
+#preview
+{
+    display: none;
+    position: absolute;
+    z-index: 5;
+    margin-top: 5%;
+    background-color: #f5f5f5;
+    border-radius: 2px;
+    box-shadow:0px 0px 5px #040404;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+#progressBarMedia
+{
+    width:300px;
+    visibility:collapse;
+    height: 25px;
+    float: right;
+    margin-left: 5%;
+}

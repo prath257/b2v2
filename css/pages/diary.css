@@ -1,0 +1,82 @@
+.current-year
+{
+    display: block;
+}
+
+.current-month
+{
+    display: block;
+}
+
+.un-current-year
+{
+    display: none;
+}
+
+.un-current-month
+{
+    display: none;
+}
+
+.center-align
+{
+    text-align: center;
+}
+
+.zero-padding
+{
+    padding: 0px;
+}
+
+.abnormal-hr
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.hand-over-me
+{
+    cursor: pointer;
+}
+
+.hand-over-me:hover
+{
+    color: #999;
+}
+
+.segoe
+{
+    font-family: "Segoe UI Light", "Helvetica Neue", 'RobotoLight', "Segoe UI", "Segoe WP", sans-serif;
+}
+
+.year-div
+{
+    padding: 5px;
+    border-bottom: solid 1px lightgray;
+}
+
+.date-div
+{
+    padding: 5px;
+    border-top: solid 1px lightgray;
+}
+
+.month-div
+{
+    padding: 5px;
+}
+
+#calendar
+{
+    min-height: 200px;
+}
+
+#access-levels
+{
+    min-height: 300px;
+}
+
+.right-align
+{
+    text-align: right;
+}

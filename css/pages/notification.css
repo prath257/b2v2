@@ -1,0 +1,35 @@
+/*Search CSS*/
+
+#notificationModal2
+{
+    border: solid 1px lightgray;
+    background-color: #ffffff;
+    position: absolute;
+    margin-top: 45px;
+    border-radius: 5px;
+    z-index: 1;
+    display: none;
+}
+
+#notification
+{
+    margin-top: 6px;
+    height: 30px;
+}
+
+#notificationResultsModal
+{
+    width: 500px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1000px)
+{
+    #notification
+    {
+        width: 150px;
+    }
+    #notificationResultsModal
+    {
+        width: 200px;
+    }
+}

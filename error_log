@@ -1,0 +1,19 @@
+[22-Jul-2014 10:24:31 UTC] PHP Fatal error:  Call to a member function getBlogBooks() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 28
+[22-Jul-2014 10:24:31 UTC] PHP Fatal error:  Call to a member function getArticles() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 10
+[22-Jul-2014 10:24:31 UTC] PHP Fatal error:  Call to a member function getQuizes() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 74
+[22-Jul-2014 10:24:31 UTC] PHP Fatal error:  Call to a member function getResources() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 63
+[22-Jul-2014 10:24:31 UTC] PHP Fatal error:  Call to a member function getOwnedCollaborations() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 45
+[22-Jul-2014 10:39:42 UTC] PHP Fatal error:  Class 'Chatdata' not found in /home/ksjoshi88/public_html/beta/app/controllers/ChatController.php on line 135
+[22-Jul-2014 10:46:32 UTC] PHP Fatal error:  Class 'Chatdata' not found in /home/ksjoshi88/public_html/beta/app/controllers/ChatController.php on line 135
+[22-Jul-2014 11:00:04 UTC] PHP Fatal error:  Call to a member function getArticles() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 10
+[22-Jul-2014 11:00:05 UTC] PHP Fatal error:  Call to a member function getBlogBooks() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 28
+[22-Jul-2014 11:00:05 UTC] PHP Fatal error:  Call to a member function getOwnedCollaborations() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 45
+[22-Jul-2014 11:00:05 UTC] PHP Fatal error:  Call to a member function getQuizes() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 74
+[22-Jul-2014 11:00:05 UTC] PHP Fatal error:  Call to a member function getResources() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 63
+[22-Jul-2014 11:00:54 UTC] PHP Fatal error:  Call to a member function getArticles() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 10
+[22-Jul-2014 11:00:54 UTC] PHP Fatal error:  Call to a member function getBlogBooks() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 28
+[22-Jul-2014 11:00:55 UTC] PHP Fatal error:  Call to a member function getQuizes() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 74
+[22-Jul-2014 11:00:55 UTC] PHP Fatal error:  Call to a member function getOwnedCollaborations() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 45
+[22-Jul-2014 11:00:55 UTC] PHP Fatal error:  Call to a member function getResources() on a non-object in /home/ksjoshi88/public_html/beta/app/controllers/GraphicsController.php on line 63
+[22-Jul-2014 13:15:03 UTC] PHP Fatal error:  Class 'Chatdata' not found in /home/ksjoshi88/public_html/beta/app/controllers/ChatController.php on line 135
+[22-Jul-2014 13:23:27 UTC] PHP Fatal error:  Class 'Chatdata' not found in /home/ksjoshi88/public_html/beta/app/controllers/ChatController.php on line 135

@@ -1,0 +1,562 @@
+@media only screen and (min-width: 0px) and (max-width: 800px)
+{
+    #PPPTdiv
+    {
+        margin-left: 25%;
+    }
+
+    #navbar
+    {
+        z-index: 99999;
+    }
+
+    #contentDiv
+    {
+        position: absolute;
+    }
+
+    .breaks
+    {
+        display: none;
+    }
+
+    .picnusername
+    {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 1200px)
+{
+    .bb
+    {
+        position: absolute;
+        width: 50%;
+    }
+
+    .bbAuth
+    {
+        position: absolute;
+        width: 33.33%;
+    }
+
+    #bottomLinks
+    {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
+
+#the-contento-div
+{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 1200px)
+{
+    #username-profiletune
+    {
+        padding-left: 15px;
+    }
+
+    .contento-images
+    {
+        width: 250px;
+    }
+
+    .contento-divs
+    {
+        width: 250px;
+    }
+
+    #the-contento-div
+    {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .contento-bottom-boxes
+    {
+        width: 50%;
+        float: left;
+    }
+}
+
+@media only screen and (min-width: 800px) and (max-width: 2000px)
+{
+    #profileDiv
+    {
+        z-index: 99997;
+    }
+
+    #bottomLinks
+    {
+        z-index: 99997;
+    }
+}
+
+.userDiv img
+{
+    margin-left: 25%;
+}
+
+@media only screen and (min-width: 800px) and (max-width: 1200px) {
+    #PPPTdiv {
+        margin-left: 40%;
+    }
+
+    .userDiv img
+    {
+        margin-left: 42.5%;
+    }
+}
+
+.noPadding
+{
+    padding: 0px;
+}
+
+#bodyDiv
+{
+    font-family: 'Arial';
+}
+
+#bottomLinks
+{
+    height: 45px;
+    background-color: #222;
+}
+
+.bottomButtons
+{
+    background-color: #222;
+    height: 45px;
+    border-color: #222;
+}
+
+.bottomButtons:hover
+{
+    background-color: #000000;
+    border-color: #222;
+}
+
+.buttonLinks
+{
+    color: #999;
+    text-decoration: none;
+}
+
+.buttonLinks:hover
+{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.blur
+{
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+}
+
+#PPPTdiv
+{
+    position: absolute;
+}
+
+a
+{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.darkDiv
+{
+    background-color: #000000;
+    opacity: 0.7;
+    z-index: 99998;
+    padding: 10px;
+}
+
+#profilePic
+{
+    border-radius: 50%;
+    box-shadow: 3px 3px 10px silver;
+}
+
+#name
+{
+    color: #ffffff;
+    padding: 5px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+#usernameProfiletune
+{
+    padding: 20px;
+    font-family: 'Segoe UI Light','Helvetica Neue','RobotoLight','Segoe UI','Segoe WP',sans-serif;
+}
+
+#PTglyphicon
+{
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#PTglyphicon:hover
+{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#readMore
+{
+    cursor: pointer;
+}
+
+.interestHeadings
+{
+    margin-top: 0px;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-family: Arial;
+    text-transform: none;
+}
+
+#navbar
+{
+    position: fixed;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
+.socialButtons
+{
+    padding-top: 10px;
+    color: #999;
+    text-align: center;
+}
+
+.socialButtons:hover
+{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.socialButtons2
+{
+    padding-top: 10px;
+    color: #999;
+    text-align: center;
+}
+
+.socialButtons2:hover
+{
+    text-decoration: none;
+    color: #000000;
+}
+
+.count
+{
+    font-size: 20px;
+}
+
+#backtotop
+{
+    position: fixed;
+    top: 20px;
+    margin-left: 49%;
+    z-index: 99999;
+}
+
+.slideshow {
+    overflow: hidden;
+    width: 150px;
+    height: 150px;
+    background-color: #000;
+}
+.slideshow img {
+    width: 150px;
+    height: 150px;
+}
+
+#notificationModal
+{
+    width: 30%;
+    margin-left: 67.5%;
+    margin-top: 5%;
+}
+
+@media only screen and (min-width: 100px) and (max-width: 500px)
+{
+    #notificationModal
+    {
+        width: 60%;
+        margin-left: 35%;
+        margin-top: 10%;
+    }
+}
+
+.minuses
+{
+    margin-top: 60px;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 1200px)
+{
+    .minuses
+    {
+        margin-top: -10%;
+        margin-left: 50%;
+    }
+
+    .ticks
+    {
+        width: 25px;
+        float: left;
+        margin-left: 30%;
+    }
+
+    .crosses
+    {
+        width: 25px;
+        float: left;
+        margin-left: 10px;
+    }
+
+    .crossesssss
+    {
+        width: 25px;
+        margin-left: 40%;
+    }
+
+    .div-spaces
+    {
+        display: none;
+    }
+}
+
+.wannabeInexed
+{
+    z-index: 100;
+}
+
+.modal
+{
+    z-index: 99999;
+}
+
+#interestDiv
+{
+     font-family: Arial;
+}
+
+#FullName
+{
+    font-family: Arial;
+    text-transform: none;
+    font-size: 36px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.contentTitle
+{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 18px;
+    font-family: Arial;
+    text-transform: none;
+}
+
+.socialImages
+{
+    height: 75px;
+    width: 75px;
+    padding: 0px;
+}
+
+.newLine
+{
+    display: none;
+}
+
+.cache
+{
+    display: none;
+}
+
+.relationName
+{
+    font-family: "Gotham Narrow SSm",sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.userName
+{
+    color: #006BB3;
+    text-align: center;
+}
+
+.noInterests
+{
+    text-align: left;
+    padding-left: 5em;
+    font-weight: bold;
+}
+
+.contentButtons
+{
+    background-color: #031722;
+    color: #ffffff;
+    text-decoration: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.contentButtons:hover
+{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.darkLinks
+{
+    color: darkblue;
+}
+
+
+/*Settings CSS*/
+.fileUpload
+{
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.upload:hover
+{
+    cursor: pointer;
+}
+.ierror{
+    width:400;padding:10px;margin:auto;border:1px solid #970F0F;border-radius:4px;background-color:#BA2222;color:#fff;
+}
+
+.wallpicsError
+{
+    width:400;
+    padding:10px;
+    margin:auto;
+    border:1px solid #970F0F;
+    border-radius:4px;
+    background-color:#BA2222;
+    color:#fff;
+}
+
+#friendRequestHeading
+{
+    text-transform: none;
+    font-size: 14px;
+}
+
+/*Style for fading effect of the logo*/
+#logo2 {
+    font-size: 40px;
+    font-family: "segoe UI";
+    color: #a9a9a9;
+    text-align: center;
+}
+.letter2 {
+    top: -webkit-calc(50% - 60px);
+    top: calc(50% - 60px);
+    text-shadow: 0px 0px 1px grey;
+    float: left;
+}
+.letter2:nth-child(1) {
+    -webkit-animation: fade 4s infinite 200ms;
+    animation: fade 4s infinite 200ms;
+    text-shadow: 1px 1px 1px green;
+    color: green
+}
+.letter2:nth-child(2) {
+    -webkit-animation: fade 4s infinite 400ms;
+    animation: fade 4s infinite 400ms;
+}
+.letter2:nth-child(3) {
+    -webkit-animation: fade 4s infinite 600ms;
+    animation: fade 4s infinite 600ms;
+}
+.letter2:nth-child(4) {
+    -webkit-animation: fade 4s infinite 800ms;
+    animation: fade 4s infinite 800ms;
+}
+.letter2:nth-child(5) {
+    -webkit-animation: fade 4s infinite 1000ms;
+    animation: fade 4s infinite 1000ms;
+}
+.letter2:nth-child(6) {
+    -webkit-animation: fade 4s infinite 1200ms;
+    animation: fade 4s infinite 1200ms;
+}
+.letter2:nth-child(7) {
+    -webkit-animation: fade 4s infinite 1400ms;
+    animation: fade 4s infinite 1400ms;
+}
+
+.letter2:nth-child(8) {
+    -webkit-animation: fade 4s infinite 1600ms;
+    animation: fade 4s infinite 1600ms;
+}
+
+@-webkit-keyframes fade {
+    25% {
+        opacity: 0.2;
+    }
+}
+
+@keyframes fade {
+    25% {
+        opacity: 0.2;
+    }
+}
+
+.friend-row
+{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.classicLinks
+{
+    color: #999;
+}
+
+.classicLinks:hover
+{
+    color: black;
+}

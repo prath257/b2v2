@@ -1,0 +1,36 @@
+.fileUpload
+{
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.upload:hover
+{
+    cursor: pointer;
+}
+.ierror{
+	width:400;padding:10px;margin:auto;border:1px solid #970F0F;border-radius:4px;background-color:#BA2222;color:#fff;
+}
+
+.wallpicsError
+{
+    width:400;
+    padding:10px;
+    margin:auto;
+    border:1px solid #970F0F;
+    border-radius:4px;
+    background-color:#BA2222;
+    color:#fff;
+}

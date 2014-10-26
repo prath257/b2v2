@@ -1,0 +1,266 @@
+/*CSS for view on Desktop*/
+/*#notificationModal
+{
+    width: 30%;
+    margin-left: 67.5%;
+    margin-top: 5%;
+}*/
+
+
+/*Style for view on smartphones*/
+@media only screen and (min-width: 100px) and (max-width: 500px) {
+  /*  #notificationModal
+    {
+        width: 60%;
+        margin-left: 35%;
+        margin-top: 10%;
+    }*/
+    #bbarticles
+    {
+        padding-top: 20px;
+    }
+}
+
+#searchModal
+{
+    background-color: #ffffff;
+    position: absolute;
+    margin-top: 5px;
+    border-radius: 5px;
+    z-index: 1;
+    background-color: #f5f5f5;
+    display: none;
+}
+#search
+{
+    width: 200px;
+    margin-top: 6px;
+    height: 25px;
+    border-color: #f5f5f5;
+}
+#searchResultsModal
+{
+    width: 200px;
+}
+
+#transferSearchModal
+{
+    background-color: #ffffff;
+    position: absolute;
+    margin-top: 5px;
+    border-radius: 5px;
+    z-index: 1;
+    background-color: #f5f5f5;
+    display: none;
+}
+#transferSearch
+{
+    width: 200px;
+}
+#transferSearchResultsModal
+{
+    width: 200px;
+}
+
+/*Style for view on smartphones*/
+@media only screen and (min-width: 768px) and (max-width: 1000px) {
+    #search
+    {
+        width: 150px;
+    }
+    #searchResultsModal
+    {
+        width: 150px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 850px) {
+    #extra-spaces
+    {
+        display: none;
+    }
+}
+
+.chats
+{
+    padding: 10px;
+    background-color: darkorange;
+    color: #ffffff;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.carousel.carousel-fade .item {
+    -webkit-transition: opacity 0.5s ease-in-out;
+    -moz-transition: opacity 0.5s ease-in-out;
+    -ms-transition: opacity 0.5s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+    opacity:0.5;
+}
+
+.carousel.carousel-fade .active.item {
+    opacity:1;
+}
+
+.carousel.carousel-fade .active.left,
+.carousel.carousel-fade .active.right {
+    left: 0;
+    z-index: 2;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.carousel.carousel-fade .next,
+.carousel.carousel-fade .prev {
+    left: 0;
+    z-index: 1;
+}
+
+.carousel.carousel-fade .carousel-control {
+    z-index: 3;
+}
+
+#marqee
+ {
+     width: 600px;
+     margin: auto;
+     margin-top: 30px;
+
+ }
+
+#marqee ul li div
+{
+    background: #ffffff;
+
+}
+
+#marqee::-webkit-scrollbar{
+    width:8px;
+    background-color:scrollbar;
+}
+}
+#marqee::-webkit-scrollbar-thumb{
+    background-color:#B03C3F;
+    border-radius:10px;
+}
+#marqee::-webkit-scrollbar-thumb:hover{
+    background-color:#BF4649;
+    border:1px solid #333333;
+}
+#marqee::-webkit-scrollbar-thumb:active{
+    background-color:#A6393D;
+    border:1px solid #333333;
+}
+
+#marqee::-webkit-scrollbar-track{
+
+    border-radius:10px;
+    -webkit-box-shadow:0 0 6px gray inset;
+
+}
+@media only screen and (min-width: 751px) and (max-width: 1200px) {
+    .carousel
+    {
+        width: 50%;
+        float: left;
+    }
+}
+
+/*Logo*/
+#logo {
+    font-size: 25px;
+    font-family: "segoe UI";
+    color: #ffffff;
+}
+.letter {
+    top: -webkit-calc(50% - 60px);
+    top: calc(50% - 60px);
+    text-shadow: 0px 0px 1px grey;
+    float: left;
+}
+.letter:nth-child(1) {
+    -webkit-animation: fade 4s infinite 200ms;
+    animation: fade 4s infinite 200ms;
+
+}
+.letter:nth-child(2) {
+    -webkit-animation: fade 4s infinite 400ms;
+    animation: fade 4s infinite 400ms;
+}
+.letter:nth-child(3) {
+    -webkit-animation: fade 4s infinite 600ms;
+    animation: fade 4s infinite 600ms;
+}
+.letter:nth-child(4) {
+    -webkit-animation: fade 4s infinite 800ms;
+    animation: fade 4s infinite 800ms;
+}
+.letter:nth-child(5) {
+    -webkit-animation: fade 4s infinite 1000ms;
+    animation: fade 4s infinite 1000ms;
+}
+.letter:nth-child(6) {
+    -webkit-animation: fade 4s infinite 1200ms;
+    animation: fade 4s infinite 1200ms;
+}
+.letter:nth-child(7) {
+    -webkit-animation: fade 4s infinite 1400ms;
+    animation: fade 4s infinite 1400ms;
+}
+
+.letter:nth-child(8) {
+    -webkit-animation: fade 4s infinite 1600ms;
+    animation: fade 4s infinite 1600ms;
+}
+
+@-webkit-keyframes fade {
+    25% {
+        opacity: 0.2;
+    }
+}
+
+@keyframes fade {
+    25% {
+        opacity: 0.2;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 1200px) {
+    .img1
+    {
+        width: 100%;
+    }
+    .img2
+    {
+        width: 100%;
+    }
+    .img3
+    {
+        width: 100%;
+    }
+    .img4
+    {
+        width: 100%;
+    }
+    .img5
+    {
+        width: 100%;
+    }
+    .img6
+    {
+        width: 100%;
+    }
+    .carousel-bottom-boxes
+    {
+        width: 50%;
+        float: left;
+    }
+}
+
+@media only screen and (min-width: 630px) and (max-width: 1200px) {
+    .action-jackson {
+        margin-bottom: 20px;
+    }
+}
