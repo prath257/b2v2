@@ -29,7 +29,7 @@ class ResourceController extends \BaseController
                 $ifc = $ifc-$discount;
             }
 
-            if (Auth::user()->profile->ifc > $ifc)
+            if (Auth::user()->profile->ifc >= $ifc)
             {
 				Auth::user()->profile->ifc-=$ifc;
 				Auth::user()->profile->save();
