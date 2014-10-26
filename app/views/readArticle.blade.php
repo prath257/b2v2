@@ -15,7 +15,7 @@
     <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
     <script src="{{asset('js/star-rating.min.js')}}" type="text/javascript"></script>
 </head>
-<body>
+<body onmousedown='return false;' onselectstart='return false;'>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -34,7 +34,7 @@
 <br>
 
 
-<div class="col-lg-10 col-lg-offset-1" onmousedown='return false;' onselectstart='return false;'>
+<div class="col-lg-10 col-lg-offset-1">
 	<h1>{{$article->title}}</h1>
 	<p class="pull-right" style="font-size: 16px"><strong>Category:</strong> {{Interest::find($article->category)->interest_name}}</p>
 	<br><hr><br>
