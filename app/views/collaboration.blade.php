@@ -16,7 +16,7 @@
     <script src="{{asset('js/star-rating.min.js')}}" type="text/javascript"></script>
 
 </head>
-<body>
+<body onmousedown='return false;' onselectstart='return false;'>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -51,7 +51,7 @@ $count=0;
     @endforeach
 
 </div>
-<div style="width: 100%" onmousedown='return false;' onselectstart='return false;'>
+<div style="width: 100%">
     <button id="indexButton" onclick="showIndex()" class="btn btn-success glyphicon glyphicon-list" style="float: left"></button>
     <button id="prevButton" onclick="showPrev()" class="btn btn-success glyphicon glyphicon-backward " style="float: left"></button>
     <button id="nextButton" onclick="showNext()" class="btn btn-success glyphicon glyphicon-forward"></button>
