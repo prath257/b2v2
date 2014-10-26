@@ -46,7 +46,7 @@
     @endforeach
 
 </div>
-<div style="width: 100%">
+<div style="width: 100%" onmousedown='return false;' onselectstart='return false;'>
     <button id="indexButton" onclick="showIndex()" class="btn btn-success glyphicon glyphicon-list" style="float: left"></button>
     <button id="prevButton" onclick="showPrev()" class="btn btn-success glyphicon glyphicon-backward " style="float: left"></button>
     <button id="nextButton" onclick="showNext()" class="btn btn-success glyphicon glyphicon-forward"></button>
@@ -71,7 +71,7 @@
     </div>
 
     <hr>
-    <div id="Content" onmousedown='return false;' onselectstart='return false;'>
+    <div id="Content">
 
 
     </div>
