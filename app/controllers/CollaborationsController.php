@@ -176,7 +176,7 @@ class CollaborationsController extends \BaseController
                         $contributor->profile->ifc += $ifc/$numberOfContributors;
                         $contributor->profile->save();
 
-                        TransactionController::insertToManager($contributor->id,"+".$ifc/$numberOfContributors,"Sold the collaboration '".$collaboration->title."' to",'http://localhost/b2v2/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
+                        TransactionController::insertToManager($contributor->id,"+".$ifc/$numberOfContributors,"Sold the collaboration '".$collaboration->title."' to",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
                     }
                     $collaboration->getAdmin->profile->ifc += $ifc/$numberOfContributors;
                     $collaboration->getAdmin->profile->save();
@@ -186,11 +186,11 @@ class CollaborationsController extends \BaseController
                     $collaboration->save();
                     $newUser=true;
 
-                    TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Bought collaboration:",'http://localhost/b2v2/collaborationPreview/'.$collaboration->id,$collaboration->title,"content");
+                    TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Bought collaboration:",'http://b2.com/collaborationPreview/'.$collaboration->id,$collaboration->title,"content");
 
-                    TransactionController::insertToManager($collaboration->getAdmin->id,"+".$ifc/$numberOfContributors,"Sold the collaboration '".$collaboration->title."' to",'http://localhost/b2v2/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
+                    TransactionController::insertToManager($collaboration->getAdmin->id,"+".$ifc/$numberOfContributors,"Sold the collaboration '".$collaboration->title."' to",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
 
-                    AjaxController::insertToNotification($collaboration->getAdmin->id,Auth::user()->id,"purchased","purchased your collaboration ".$collaboration->title,'http://localhost/b2v2/collaborationPreview/'.$collaboration->id);
+                    AjaxController::insertToNotification($collaboration->getAdmin->id,Auth::user()->id,"purchased","purchased your collaboration ".$collaboration->title,'http://b2.com/collaborationPreview/'.$collaboration->id);
                 }
                 else
                 {
@@ -242,7 +242,7 @@ class CollaborationsController extends \BaseController
                         });
 
                         DB::table('notification')->insert(
-                            array('userid' => $user->id, 'cuserid' => Auth::user()->id, 'type' => 'iContri', 'message' => 'invited you to contribute for \''.Collaboration::find(Input::get('colId'))->title.'\'', 'link' => 'http://localhost/b2v2/collaborationPreview/'.Input::get('colId'), 'chid' => Input::get('colId'))
+                            array('userid' => $user->id, 'cuserid' => Auth::user()->id, 'type' => 'iContri', 'message' => 'invited you to contribute for \''.Collaboration::find(Input::get('colId'))->title.'\'', 'link' => 'http://b2.com/collaborationPreview/'.Input::get('colId'), 'chid' => Input::get('colId'))
                         );
 
                         return "Success!";
@@ -374,7 +374,7 @@ class CollaborationsController extends \BaseController
         if ($collaboration->userid == Auth::user()->id || $collaboration->isContributor())
             return View::make('editCollaborationChapter')->with('chapter',$chapter)->with('collaboration',$collaboration);
         else
-            return View::make('errorPage')->with('error','you don\'t have enough privileges to edit this chapter.')->with('link','http://localhost/b2v2/home');
+            return View::make('errorPage')->with('error','you don\'t have enough privileges to edit this chapter.')->with('link','http://b2.com/home');
     }
 
     public function postUpdateCollaborationChapter()
@@ -446,7 +446,7 @@ class CollaborationsController extends \BaseController
         });
 
         DB::table('notification')->insert(
-            array('userid' => Collaboration::find(Input::get('id'))->userid, 'cuserid' => Auth::user()->id, 'type' => 'reqContri', 'message' => 'requested you to start contributing for \''.Collaboration::find(Input::get('id'))->title.'\'', 'link' => 'http://localhost/b2v2/user/'.Auth::user()->username, 'chid' => Input::get('id'))
+            array('userid' => Collaboration::find(Input::get('id'))->userid, 'cuserid' => Auth::user()->id, 'type' => 'reqContri', 'message' => 'requested you to start contributing for \''.Collaboration::find(Input::get('id'))->title.'\'', 'link' => 'http://b2.com/user/'.Auth::user()->username, 'chid' => Input::get('id'))
         );
 
         return 'success';

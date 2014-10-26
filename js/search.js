@@ -9,7 +9,7 @@ $(document).ready(function()
              {
                  $.ajax({
                      type: "POST",
-                     url: 'http://localhost/b2v2/numberOfNotifications',
+                     url: 'http://b2.com/numberOfNotifications',
                      beforeSend: function()
                      {
                          whenready=false;
@@ -17,7 +17,7 @@ $(document).ready(function()
                  }).done(function(data)
                  {
                      if(data=='wH@tS!nTheB0x')
-                        window.location = "http://localhost/b2v2/offline";
+                        window.location = "http://b2.com/offline";
                      else
                      {
                          $('#no_of_notification').html(data);
@@ -137,12 +137,12 @@ function executeSearch()
 
     if (keywords.length > 2)
     {
-        $.post('http://localhost/b2v2/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
+        $.post('http://b2.com/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
         {
             if(data)
             {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     $("#searchText").html(data);
@@ -165,7 +165,7 @@ function normalEffect(element)
 
 function visitProfile(username)
 {
-    window.location='http://localhost/b2v2/user/'+username;
+    window.location='http://b2.com/user/'+username;
 }
 
 function getNoti()
@@ -178,7 +178,7 @@ function getNoti()
         $.ajax({
 
             type: "POST",
-            url: 'http://localhost/b2v2/notificationList',
+            url: 'http://b2.com/notificationList',
             data:{d:d},
             beforeSend: function()
             {
@@ -191,7 +191,7 @@ function getNoti()
             if(data)
             {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                     $("#notificationText").html(data);
             }
@@ -212,7 +212,7 @@ function acceptFriendR(notiid,cuserid)
     $.ajax({
 
         type: "POST",
-        url: "http://localhost/b2v2/acceptFriend/"+cuserid,
+        url: "http://b2.com/acceptFriend/"+cuserid,
         data:{type:'kind'},
         beforeSend: function()
         {
@@ -222,7 +222,7 @@ function acceptFriendR(notiid,cuserid)
     }).done(function(response)
     {
         if(response=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
 
     });
 
@@ -232,10 +232,10 @@ function declineFriendR(notiid,cuserid)
 {
     $('#btns'+notiid).html("");
 
-    $.post("http://localhost/b2v2/declineFriend/"+cuserid,{type:'kind'},function(data)
+    $.post("http://b2.com/declineFriend/"+cuserid,{type:'kind'},function(data)
     {
         if(data=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
 
     });
 }
@@ -247,7 +247,7 @@ function acceptAboutR(notiid,id)
 {
     $('#btns'+notiid).html("");
 
-    $.post('http://localhost/b2v2/acceptAbout', {aid:id}, function(data)
+    $.post('http://b2.com/acceptAbout', {aid:id}, function(data)
     {
 
     });
@@ -259,7 +259,7 @@ function declineAboutR(notiid,id)
 
     $('#btns'+notiid).html("");
 
-    $.post('http://localhost/b2v2/declineAbout', {aid: id}, function(data)
+    $.post('http://b2.com/declineAbout', {aid: id}, function(data)
     {
 
     });
@@ -275,28 +275,28 @@ function acceptChatR(notiid,acid)
 
     $.ajax({
         type: "POST",
-        url: "http://localhost/b2v2/acceptChat",
+        url: "http://b2.com/acceptChat",
         data: {id:acid}
     }).done(function(error)
     {
         if(error=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         if (error!="success")
         {
 
         }
         else
         {
-            $.post('http://localhost/b2v2/getChatLink',{id: acid}, function(link)
+            $.post('http://b2.com/getChatLink',{id: acid}, function(link)
             {
                 if(link=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
-                // /*window.open('http://localhost/b2v2/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*//*
+                    window.location='http://b2.com/offline';
+                // /*window.open('http://b2.com/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*//*
                 else
-                    window.location='http://localhost/b2v2/chats/'+link;
+                    window.location='http://b2.com/chats/'+link;
 
                 /*
-                * *$.post('http://localhost/b2v2/getSecondPartyName',{id: acid}, function(name)
+                * *$.post('http://b2.com/getSecondPartyName',{id: acid}, function(name)
                  {
                  $("#ongoingChats").append("<div id='Chat"+acid+"' class='chats' onclick='openChat("+acid+")'>"+name+"</div><br>");
                  });
@@ -314,12 +314,12 @@ function declineChatR(notiid,dcid)
 
             $.ajax({
                 type: "POST",
-                url: "http://localhost/b2v2/declineChat",
+                url: "http://b2.com/declineChat",
                 data: {id:dcid}
             }).done(function(data)
             {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
 
             });
 
@@ -327,21 +327,21 @@ function declineChatR(notiid,dcid)
 
 function startChatR(scid)
 {
-    $.post('http://localhost/b2v2/getChatLink',{id: scid}, function(link)
+    $.post('http://b2.com/getChatLink',{id: scid}, function(link)
     {
         if(link=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
-        /*window.open('http://localhost/b2v2/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*/
+            window.location='http://b2.com/offline';
+        /*window.open('http://b2.com/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*/
         else
         {
             $("#notifyModal").modal('hide');
             $("#notifyText").html("");
 
 
-            window.location='http://localhost/b2v2/chats/'+link;
+            window.location='http://b2.com/chats/'+link;
 
 
-            /*$.post('http://localhost/b2v2/getSecondPartyName',{id: scid}, function(name)
+            /*$.post('http://b2.com/getSecondPartyName',{id: scid}, function(name)
              {
              $("#ongoingChats").append("<div id='Chat"+scid+"' class='chats' onclick='openChat("+scid+")'>"+name+"</div><br>");
              });*/

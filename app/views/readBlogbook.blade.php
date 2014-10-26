@@ -57,15 +57,15 @@
             <p style="float:left;font-size: 28px; font-family: 'Segoe UI'">{{$book->title}}</p>
 
         </div>
-    &nbsp;<div class="fb-share-button" data-href="http://localhost/b2v2/blogBookPreview/{{$book->id}}"></div>
+    &nbsp;<div class="fb-share-button" data-href="http://b2.com/blogBookPreview/{{$book->id}}"></div>
         <br><br>
     <div class="social" style="padding-top: 3%">
 	<div style="float: left">
-        <div class="fb-send" data-href="http://localhost/b2v2/blogBookPreview/{{$book->id}}" data-colorscheme="light"></div>
+        <div class="fb-send" data-href="http://b2.com/blogBookPreview/{{$book->id}}" data-colorscheme="light"></div>
         &nbsp;
     </div>
 	<div>
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://localhost/b2v2/blogBookPreview/{{$book->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters">Tweet</a>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://b2.com/blogBookPreview/{{$book->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters">Tweet</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
     </div>
     </div>
@@ -80,7 +80,7 @@
         <div>
             <p>Comments:</p>
 
-            <div class="fb-comments" data-href="http://localhost/b2v2/blogBookPreview/{{$book->id}}" data-width="600" data-numposts="10" data-colorscheme="light"></div>
+            <div class="fb-comments" data-href="http://b2.com/blogBookPreview/{{$book->id}}" data-width="600" data-numposts="10" data-colorscheme="light"></div>
         </div>
     </div>
 

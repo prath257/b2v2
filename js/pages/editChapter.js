@@ -143,12 +143,12 @@ function saveChapter(chapterId)
 
     $('#cancelEditButton').hide();
     $('#saveEditButton').hide();
-    $('#updatingMsg').html("<img src='http://localhost/b2v2/Images/icons/waiting.gif'> Updating...");
+    $('#updatingMsg').html("<img src='http://b2.com/Images/icons/waiting.gif'> Updating...");
     $('#updatingMsg').show();
-    $.post('http://localhost/b2v2/updateChapter', {id: chapterId, title: title, content: content}, function(message)
+    $.post('http://b2.com/updateChapter', {id: chapterId, title: title, content: content}, function(message)
     {
         if(message=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         if (message=="success")
         {
             submitted = true;
@@ -166,13 +166,13 @@ function saveChapter(chapterId)
 function anotherChapter(acBlogBookId)
 {
     $("#chapterSuccessfullyPostedModal").modal('hide');
-    window.location.href = "http://localhost/b2v2/newChapter/"+acBlogBookId;
+    window.location.href = "http://b2.com/newChapter/"+acBlogBookId;
 }
 
 function returnToDashboard()
 {
     $("#chapterSuccessfullyPostedModal").modal('hide');
-    window.location.href = "http://localhost/b2v2/blogBookDashboard";
+    window.location.href = "http://b2.com/blogBookDashboard";
 }
 
 //this is the function to uploadMedia
@@ -188,7 +188,7 @@ function getMedia()
     if (med == 0)
     {
         oTableMedia=$('#mediaTable').dataTable( {
-            "ajax": 'http://localhost/b2v2/getMediaWritingData',
+            "ajax": 'http://b2.com/getMediaWritingData',
             "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
         } );
         med++;
@@ -260,7 +260,7 @@ function uploadNewMedia()
         ajax.addEventListener("load", completeHandler, false);
         ajax.addEventListener("error", errorHandler, false);
         ajax.addEventListener("abort", abortHandler, false);
-        ajax.open("POST", "http://localhost/b2v2/uploadMedia");
+        ajax.open("POST", "http://b2.com/uploadMedia");
         ajax.send(formdata);
         $('#newMediaModal').modal('hide');
         $('#uploadMediaModal').modal('hide');
@@ -274,7 +274,7 @@ function completeHandler(event)
     var strpath=this.responseText;
 
     if(strpath=='wH@tS!nTheB0x')
-        window.location='http://localhost/b2v2/offline';
+        window.location='http://b2.com/offline';
     else
     {
         if ((strpath.search('.mp4') > 0) || (strpath.search('.webm') > 0) || (strpath.search('.ogg') > 0))
@@ -330,7 +330,7 @@ function addResource()
     if (res == 0)
     {
         oTableResource=$('#resourcesTable').dataTable( {
-            "ajax": 'http://localhost/b2v2/getResourceWritingData',
+            "ajax": 'http://b2.com/getResourceWritingData',
             "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
         } );
         res++;
@@ -341,7 +341,7 @@ function addResource()
 function useResource(rid,title)
 {
     var content = $('#summernote').code();
-    content+="<a href='http://localhost/b2v2/resource/"+rid+"' class='btn btn-success'>"+title+"</a>";
+    content+="<a href='http://b2.com/resource/"+rid+"' class='btn btn-success'>"+title+"</a>";
     $('#summernote').code(content);
     $('#getResourceModal').modal('hide');
 }

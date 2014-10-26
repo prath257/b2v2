@@ -14,10 +14,10 @@ $(document).ready(function()
     var newUser = document.getElementById('newUser').value;
     if (newUser=='true')
     {
-        $.post('http://localhost/b2v2/getIFCs', function(ifc)
+        $.post('http://b2.com/getIFCs', function(ifc)
         {
             if(ifc=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 $("#mycounter").fadeIn();

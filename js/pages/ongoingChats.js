@@ -18,15 +18,15 @@ $(document).ready(function()
     if (chatLink!="")
     {
         chatON=true;
-        $("#chatText").html('<img src="http://localhost/b2v2/Images/icons/waiting.gif" style="margin-left: 45% ">');
+        $("#chatText").html('<img src="http://b2.com/Images/icons/waiting.gif" style="margin-left: 45% ">');
         var chatId = $("#hiddenChatId").val();
-        $.post('http://localhost/b2v2/getChatData',{id: chatId}, function(data)
+        $.post('http://b2.com/getChatData',{id: chatId}, function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
-                /*window.open('http://localhost/b2v2/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*/
+                /*window.open('http://b2.com/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*/
 
 
                 /*            var w = window.innerWidth;
@@ -52,16 +52,16 @@ $(document).ready(function()
                  document.getElementById('chatbar').style.width = iframew+"px";*/
                 if (data != 'chat_over')
                 {
-                    $.post('http://localhost/b2v2/getSecondPartyName', {id: chatId}, function(name)
+                    $.post('http://b2.com/getSecondPartyName', {id: chatId}, function(name)
                     {
                         if(name=='wH@tS!nTheB0x')
-                            window.location='http://localhost/b2v2/offline';
+                            window.location='http://b2.com/offline';
                         else
                         {
-                            $.post('http://localhost/b2v2/getSecondPartyProfilePic', {id: chatId}, function(url)
+                            $.post('http://b2.com/getSecondPartyProfilePic', {id: chatId}, function(url)
                             {
                                 if(url=='wH@tS!nTheB0x')
-                                    window.location='http://localhost/b2v2/offline';
+                                    window.location='http://b2.com/offline';
                                 else
                                 {
                                     $("#chatProfilePic").html("<img src='"+url+"' height='40px' width='40px'>");
@@ -72,7 +72,7 @@ $(document).ready(function()
                                     /*$('#chatBPopup').bPopup({
                                      *//*content:'iframe', //'ajax', 'iframe' or 'image'*//*
                                  *//* contentContainer: '#chatIframe',*//*
-                                 *//*loadUrl:'http://localhost/b2v2/chatRoom/'+link+'#inputText', //Uses jQuery.load()*//*
+                                 *//*loadUrl:'http://b2.com/chatRoom/'+link+'#inputText', //Uses jQuery.load()*//*
                                  escClose: false,
                                  modalClose: false,
                                  positionStyle: 'fixed',
@@ -145,9 +145,9 @@ $(document).ready(function()
 
     window.onbeforeunload = function()
     {
-        $.post('http://localhost/b2v2/removeIsOnline',function(error){
+        $.post('http://b2.com/removeIsOnline',function(error){
             if(error=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
         });
     }
 
@@ -212,12 +212,12 @@ function requestData(days, chart, type)
     $.ajax({
         type: "POST",
         dataType: 'json',
-        url: "http://localhost/b2v2/get"+type+"ChartData", // This is the URL to the API
+        url: "http://b2.com/get"+type+"ChartData", // This is the URL to the API
         data: { days: days }
     })
         .done(function(data) {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 // When the response to the AJAX request comes back render the chart with new data
@@ -251,14 +251,14 @@ function retrieveOngoingChats()
 {
     try
     {
-        $.post('http://localhost/b2v2/retrieveOngoingChats', function(markup)
+        $.post('http://b2.com/retrieveOngoingChats', function(markup)
         {
             if(markup=='wH@tS!nTheB0x')
             {
                 var loggedout = $('#loggedout').val();
                 if (loggedout == 'false')
                 {
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                     $('#loggedout').val('true');
                 }
             }
@@ -277,7 +277,7 @@ function updateNotifications(){
     var notifyModalContent = $("#notifyText").html();
     if(notifyModalContent=="")
     {
-        $.post('http://localhost/b2v2/getChatNotifications',function(data)
+        $.post('http://b2.com/getChatNotifications',function(data)
         {
             if(data)
             {
@@ -298,14 +298,14 @@ function updateNotifications(){
 function checkNewMessages()
 {
     var status = $("#newMessagesStatus").val();
-    $.post('http://localhost/b2v2/checkNewMessages',function(chatid)
+    $.post('http://b2.com/checkNewMessages',function(chatid)
     {
         if(chatid=='wH@tS!nTheB0x')
         {
             var loggedout = $('#loggedout').val();
             if (loggedout == 'false')
             {
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
                 $('#loggedout').val('true');
             }
         }
@@ -362,12 +362,12 @@ function closeChat()
             $('#pageTitle').html("Chats | BBarters");
             $('#inputText').prop('disabled',true);
             $('#chatTextSubmit').prop('disabled',true);
-            $("#chatText").html('<img src="http://localhost/b2v2/Images/icons/waiting.gif" style="margin-left: 45% ">');
+            $("#chatText").html('<img src="http://b2.com/Images/icons/waiting.gif" style="margin-left: 45% ">');
             var chatId = $("#hiddenChatId").val();
-            $.post('http://localhost/b2v2/completeChat',{chatId: chatId}, function(error)
+            $.post('http://b2.com/completeChat',{chatId: chatId}, function(error)
             {
                 if(error=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     $("#hiddenChatId").val("");
@@ -389,9 +389,9 @@ function closeChat()
         /*else
         {
             var chId = $("#hiddenChatId").val();
-            $.post('http://localhost/b2v2/getChatData',{id: chId}, function(data)
+            $.post('http://b2.com/getChatData',{id: chId}, function(data)
             {
-                window.open('http://localhost/b2v2/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");
+                window.open('http://b2.com/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");
                 $("#hiddenChatId").val(ocid);
 
                 var w = window.innerWidth;
@@ -417,7 +417,7 @@ function closeChat()
                 $('#chatBPopup').bPopup({
                     content:'iframe', //'ajax', 'iframe' or 'image'
                     contentContainer: '#chatIframe',
-                    loadUrl:'http://localhost/b2v2/chatRoom/'+link+'#inputText', //Uses jQuery.load()
+                    loadUrl:'http://b2.com/chatRoom/'+link+'#inputText', //Uses jQuery.load()
                     escClose: false,
                     modalClose: false,
                     positionStyle: 'fixed',
@@ -436,24 +436,24 @@ function openChat(ocid,name)
 {
     if ($("#hiddenChatId").val() != ocid)
     {
-        $("#chatText").html('<img src="http://localhost/b2v2/Images/icons/waiting.gif" style="margin-left: 45% ">');
+        $("#chatText").html('<img src="http://b2.com/Images/icons/waiting.gif" style="margin-left: 45% ">');
         $("#pageTitle").html("Chats");
         $("#newMessagesStatus").val("");
         $("#Chat"+ocid).removeClass("success");
         $("#Chat"+ocid).addClass("info");
-        $.post('http://localhost/b2v2/getChatData',{id: ocid}, function(data)
+        $.post('http://b2.com/getChatData',{id: ocid}, function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
-                /*window.open('http://localhost/b2v2/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*/
+                /*window.open('http://b2.com/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*/
                 $("#hiddenChatId").val(ocid);
                 chatON=true;
-                $.post('http://localhost/b2v2/getSecondPartyName', {id: ocid}, function(name)
+                $.post('http://b2.com/getSecondPartyName', {id: ocid}, function(name)
                 {
                     if(name=='wH@tS!nTheB0x')
-                        window.location='http://localhost/b2v2/offline';
+                        window.location='http://b2.com/offline';
                     else
                     {
                         name = name.split(" ", 1);
@@ -481,10 +481,10 @@ function openChat(ocid,name)
                  document.getElementById('chatNameHolder').style.width = iframew+"px";
                  document.getElementById('chatbar').style.width = iframew+"px";*/
 
-                $.post('http://localhost/b2v2/getSecondPartyProfilePic', {id: ocid}, function(url)
+                $.post('http://b2.com/getSecondPartyProfilePic', {id: ocid}, function(url)
                 {
                     if(url=='wH@tS!nTheB0x')
-                        window.location='http://localhost/b2v2/offline';
+                        window.location='http://b2.com/offline';
                     else
                     {
                         $("#chatProfilePic").html("<img src='"+url+"' height='40px' width='40px'>");
@@ -495,7 +495,7 @@ function openChat(ocid,name)
                         /*$('#chatBPopup').bPopup({
                          *//*content:'iframe', //'ajax', 'iframe' or 'image'*//*
                      *//* contentContainer: '#chatIframe',*//*
-                     *//*loadUrl:'http://localhost/b2v2/chatRoom/'+link+'#inputText', //Uses jQuery.load()*//*
+                     *//*loadUrl:'http://b2.com/chatRoom/'+link+'#inputText', //Uses jQuery.load()*//*
                      escClose: false,
                      modalClose: false,
                      positionStyle: 'fixed',
@@ -542,12 +542,12 @@ function sendMessage()
         $("#chatText").append("<div style='word-wrap: break-word'><b>Me: </b>"+chatText+"</div><div class='col-lg-12'>&nbsp;</div>");
         $.ajax({
             type: "POST",
-            url: "http://localhost/b2v2/sendMessage",
+            url: "http://b2.com/sendMessage",
             data: {id:chatId, text:chatText}
         }).done(function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 isTypingFalse(chatId);
@@ -562,14 +562,14 @@ function retrieveChatData()
 {
     var chatId = $("#hiddenChatId").val();
     {
-        $.post('http://localhost/b2v2/retrieveChatData',{chatId: chatId},function(text)
+        $.post('http://b2.com/retrieveChatData',{chatId: chatId},function(text)
         {
             if(text=='wH@tS!nTheB0x')
             {
                 var loggedout = $('#loggedout').val();
                 if (loggedout == 'false')
                 {
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                     $('#loggedout').val('true');
                 }
             }
@@ -609,17 +609,17 @@ function isTypingFalse(chatId)
     $("#tunePlayed").val("false");
     if (chatId==null)
         chatId = $("#hiddenChatId").val();
-    $.post('http://localhost/b2v2/isTypingFalse',{id: chatId},function(error){
+    $.post('http://b2.com/isTypingFalse',{id: chatId},function(error){
         if(error=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
     });
 }
 function isTypingTrue()
 {
     var chatId = $("#hiddenChatId").val();
-    $.post('http://localhost/b2v2/isTypingTrue',{id: chatId},function(error){
+    $.post('http://b2.com/isTypingTrue',{id: chatId},function(error){
         if(error=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
     });
 }
 
@@ -628,14 +628,14 @@ function retrieveIsTyping()
 {
     var chatId = $("#hiddenChatId").val();
 
-    $.post('http://localhost/b2v2/retrieveIsTyping',{chatId: chatId},function(status)
+    $.post('http://b2.com/retrieveIsTyping',{chatId: chatId},function(status)
     {
         if(status=='wH@tS!nTheB0x')
         {
             var loggedout = $('#loggedout').val();
             if (loggedout == 'false')
             {
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
                 $('#loggedout').val('true');
             }
         }
@@ -661,14 +661,14 @@ function focusedSet()
 
 function checkClosedChats()
 {
-    $.post('http://localhost/b2v2/checkClosedChats',function(chatid)
+    $.post('http://b2.com/checkClosedChats',function(chatid)
     {
         if(chatid=='wH@tS!nTheB0x')
         {
             var loggedout = $('#loggedout').val();
             if (loggedout == 'false')
             {
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
                 $('#loggedout').val('true');
             }
         }
@@ -700,10 +700,10 @@ function getSuggestions()
 
     if (keywords.length > 2)
     {
-        $.post('http://localhost/b2v2/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
+        $.post('http://b2.com/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 if(data)
@@ -727,10 +727,10 @@ function normalEffect(element)
 
 function initiateChat(chatcost,profilePic,name,id)
 {
-    $.post('http://localhost/b2v2/getIFCs', function(ifcs)
+    $.post('http://b2.com/getIFCs', function(ifcs)
     {
         if(ifcs=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             if (ifcs >= chatcost)
@@ -757,12 +757,12 @@ function submitChatRequest(button)
     {
         $.ajax({
             type: "POST",
-            url: "http://localhost/b2v2/submitChatRequest",
+            url: "http://b2.com/submitChatRequest",
             data: {id: id, reason: reason}
         }).done(function(error)
         {
             if(error=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 if (error)
@@ -790,14 +790,14 @@ function initiateChatFriend(profilePic,name,id)
 
 function refreshOnlineFriends()
 {
-    $.post('http://localhost/b2v2/refreshOnlineFriends', function(data)
+    $.post('http://b2.com/refreshOnlineFriends', function(data)
     {
         if(data=='wH@tS!nTheB0x')
         {
             var loggedout = $('#loggedout').val();
             if (loggedout == 'false')
             {
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
                 $('#loggedout').val('true');
             }
         }
@@ -811,12 +811,12 @@ function acceptChat(acid)
 {
     $.ajax({
         type: "POST",
-        url: "http://localhost/b2v2/acceptChat",
+        url: "http://b2.com/acceptChat",
         data: {id:acid}
     }).done(function(error)
     {
         if(error=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             if (error)
@@ -825,21 +825,21 @@ function acceptChat(acid)
             }
             else
             {
-                /*window.open('http://localhost/b2v2/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*/
+                /*window.open('http://b2.com/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*/
                 $("#notifyModal").modal('hide');
                 $("#notifyText").html("");
 
-                $.post('http://localhost/b2v2/getSecondPartyName', {id: acid}, function(name)
+                $.post('http://b2.com/getSecondPartyName', {id: acid}, function(name)
                 {
                     if(name=='wH@tS!nTheB0x')
-                        window.location='http://localhost/b2v2/offline';
+                        window.location='http://b2.com/offline';
                     else
                         openChat(acid,name);
                 });
 
-                /*window.location='http://localhost/b2v2/chats/'+link;*/
+                /*window.location='http://b2.com/chats/'+link;*/
 
-                /*$.post('http://localhost/b2v2/getSecondPartyName',{id: acid}, function(name)
+                /*$.post('http://b2.com/getSecondPartyName',{id: acid}, function(name)
                  {
                  $("#ongoingChats").append("<div id='Chat"+acid+"' class='chats' onclick='openChat("+acid+")'>"+name+"</div><br>");
                  });*/
@@ -856,12 +856,12 @@ function declineChat(dcid)
         {
             $.ajax({
                 type: "POST",
-                url: "http://localhost/b2v2/declineChat",
+                url: "http://b2.com/declineChat",
                 data: {id:dcid}
             }).done(function(error)
             {
                 if(error=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     $("#notifyModal").modal('hide');
@@ -876,20 +876,20 @@ function declineChat(dcid)
 function startChat(scid)
 {
 
-    /*window.open('http://localhost/b2v2/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*/
+    /*window.open('http://b2.com/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*/
     $("#notifyModal").modal('hide');
     $("#notifyText").html("");
 
-    $.post('http://localhost/b2v2/getSecondPartyName', {id: scid}, function(name)
+    $.post('http://b2.com/getSecondPartyName', {id: scid}, function(name)
     {
         if(name=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
             openChat(scid,name);
     });
-    /*window.location='http://localhost/b2v2/chats/'+link;*/
+    /*window.location='http://b2.com/chats/'+link;*/
 
-    /*$.post('http://localhost/b2v2/getSecondPartyName',{id: scid}, function(name)
+    /*$.post('http://b2.com/getSecondPartyName',{id: scid}, function(name)
      {
      $("#ongoingChats").append("<div id='Chat"+scid+"' class='chats' onclick='openChat("+scid+")'>"+name+"</div><br>");
      });*/

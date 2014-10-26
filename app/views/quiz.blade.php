@@ -130,22 +130,22 @@
                 <fieldset>
                 <br>
                 Would you like to send this quiz to your friends?
-                   <div class="fb-send" data-href="https://localhost/b2v2/quiz/{{$quiz->id}}" data-colorscheme="light"></div>
+                   <div class="fb-send" data-href="https://b2.com/quiz/{{$quiz->id}}" data-colorscheme="light"></div>
                 <br>
                 <br>
                 Or would you share this on facebook/twitter?
                 <br>
                 <div class="col-lg-2">
-                <div class="fb-share-button" data-href="http://localhost/b2v2/quizPreview/{{$quiz->id}}"></div>
+                <div class="fb-share-button" data-href="http://b2.com/quizPreview/{{$quiz->id}}"></div>
                 </div>
                 <div class="col-lg-2" style="padding: 3px">
-                <a href="https://twitter.com/share" style="padding-top: 5px; margin-top: 5px" class="twitter-share-button" data-url="http://localhost/b2v2/quiz/{{$quiz->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters">Tweet</a>
+                <a href="https://twitter.com/share" style="padding-top: 5px; margin-top: 5px" class="twitter-share-button" data-url="http://b2.com/quiz/{{$quiz->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters">Tweet</a>
                 </div>
 
 
 
                 <br>
-                   <a href="http://localhost/b2v2/quizDashboard" class="btn btn-primary pull-right">Exit</a>
+                   <a href="http://b2.com/quizDashboard" class="btn btn-primary pull-right">Exit</a>
                 </fieldset>
             </div>
         </div>

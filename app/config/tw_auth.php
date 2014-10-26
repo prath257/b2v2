@@ -1,6 +1,6 @@
 <?php
 return array(
-    "base_url" => "http://localhost/b2v2/twauth/auth",
+    "base_url" => "http://b2.com/twauth/auth",
     "providers" => array (
         "Twitter" => array (
             "enabled" => true,

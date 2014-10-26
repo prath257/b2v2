@@ -31,7 +31,14 @@
     </div>
     <div class="col-lg-6 col-lg-offset-3">
         Create and contribute content. You can set a fixed price to your products. When people wish to read/use your content, they got to pay the price.<br><br>
-        <button class="btn btn-block" onClick="showContentModal()">Learn more about creating content</button>
+        <button class="btn btn-default">Write an Article</button>
+        <button class="btn btn-info">Write a BlogBook</button>
+        <button class="btn btn-primary">Start a Collaboration</button>
+        <br><br>
+        <button class="btn btn-success">Upload a Resource</button>
+        <button class="btn btn-warning">Create a new Quiz</button>
+        <button class="btn btn-danger">Create a Poll</button>
+        <button class="btn btn-default" onClick="showContentModal()">Know more</button>
         <hr><br>
     </div>
     <div class="col-lg-6 col-lg-offset-3">

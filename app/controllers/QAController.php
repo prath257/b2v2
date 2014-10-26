@@ -31,7 +31,7 @@ class QAController extends \BaseController
             $question->private = false;
 		$question->save();
 
-        AjaxController::insertToNotification(Input::get('userid'),Auth::user()->id,"question","asked you a question for ".Input::get('questionIFC'),'http://localhost/b2v2/user/'.Auth::user()->username);
+        AjaxController::insertToNotification(Input::get('userid'),Auth::user()->id,"question","asked you a question for ".Input::get('questionIFC'),'http://b2.com/user/'.Auth::user()->username);
 
 		QAController::$user = User::find(Input::get('userid'));
 
@@ -63,16 +63,16 @@ class QAController extends \BaseController
 		$user->profile->ifc+=$question->ifc;
 		$user->profile->save();
 
-        AjaxController::insertToNotification($question->askedBy_id,Auth::user()->id,"question","answered your question",'http://localhost/b2v2/user/'.Auth::user()->username);
+        AjaxController::insertToNotification($question->askedBy_id,Auth::user()->id,"question","answered your question",'http://b2.com/user/'.Auth::user()->username);
 
 		$userid=$question->askedBy_id;
 		QAController::$user = User::find($userid);
 		QAController::$user->profile->ifc-=$question->ifc;
 		QAController::$user->profile->save();
 
-        TransactionController::insertToManager($user->id,"+".$question->ifc,"Answered a question by",'http://localhost/b2v2/user/'.User::find($userid)->username,User::find($userid)->first_name.' '.User::find($userid)->last_name,"profile");
+        TransactionController::insertToManager($user->id,"+".$question->ifc,"Answered a question by",'http://b2.com/user/'.User::find($userid)->username,User::find($userid)->first_name.' '.User::find($userid)->last_name,"profile");
 
-        TransactionController::insertToManager(User::find($userid)->id,"-".$question->ifc,"Your question was answered by",'http://localhost/b2v2/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
+        TransactionController::insertToManager(User::find($userid)->id,"-".$question->ifc,"Your question was answered by",'http://b2.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
 
         if (QAController::$user->settings->notifications)
         {
@@ -115,7 +115,7 @@ class QAController extends \BaseController
 
 		QAController::$user = User::where('id','=',Input::get('wfor'))->first();
 
-        AjaxController::insertToNotification(Input::get('wfor'),Auth::user()->id,"about"," wrote about you ",'http://localhost/b2v2/user/'.Auth::user()->username);
+        AjaxController::insertToNotification(Input::get('wfor'),Auth::user()->id,"about"," wrote about you ",'http://b2.com/user/'.Auth::user()->username);
 
         if (QAController::$user->settings->notifications)
         {
@@ -140,19 +140,19 @@ class QAController extends \BaseController
 		$about->status='accepted';
 		$about->save();
 
-        AjaxController::insertToNotification($about->writtenby,Auth::user()->id,"aboutR","accepted your Statement",'http://localhost/b2v2/user/'.Auth::user()->username);
+        AjaxController::insertToNotification($about->writtenby,Auth::user()->id,"aboutR","accepted your Statement",'http://b2.com/user/'.Auth::user()->username);
 
 
         $user=Auth::user();
         $user->profile->ifc+=$about->ifc;
         $user->profile->save();
-        TransactionController::insertToManager($user->id,"+".$about->ifc,"Accepted 'about you' written by",'http://localhost/b2v2/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->first_name,"profile");
+        TransactionController::insertToManager($user->id,"+".$about->ifc,"Accepted 'about you' written by",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->first_name,"profile");
 
 
         $user=User::find($about->writtenby);
         $user->profile->ifc-=$about->ifc;
         $user->profile->save();
-        TransactionController::insertToManager($user->id,"-".$about->ifc,"You wrote about",'http://localhost/b2v2/user/'.User::find($about->writtenfor)->username,User::find($about->writtenfor)->first_name.' '.User::find($about->writtenfor)->last_name,"profile");
+        TransactionController::insertToManager($user->id,"-".$about->ifc,"You wrote about",'http://b2.com/user/'.User::find($about->writtenfor)->username,User::find($about->writtenfor)->first_name.' '.User::find($about->writtenfor)->last_name,"profile");
 
 
 

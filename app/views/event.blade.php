@@ -78,8 +78,8 @@
                 <div style="text-align: center">To register, <a href="{{route('home')}}" target="_blank">sign in</a> and then refresh this page.</div>
             @endif
             <div class="pull-right">
-                <div class="fb-share-button" style="padding: 5px" data-href="http://localhost/b2v2/event/{{$event->id}}"></div><br>
-                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://localhost/b2v2/event/{{$event->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters" style="margin-top: 2px">Tweet</a>
+                <div class="fb-share-button" style="padding: 5px" data-href="http://b2.com/event/{{$event->id}}"></div><br>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://b2.com/event/{{$event->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters" style="margin-top: 2px">Tweet</a>
                 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
             </div>
 

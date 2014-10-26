@@ -24,10 +24,10 @@ function postResponse()
     var ifc = $("#ifc").val();
     var response = $("#response").val();
 
-    $.post('http://localhost/b2v2/respondToBug', {id: id, ifc: ifc, response: response}, function(error)
+    $.post('http://b2.com/respondToBug', {id: id, ifc: ifc, response: response}, function(error)
     {
         if(error=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         window.close();
     });
@@ -43,10 +43,10 @@ function postResponseProblem(id)
     var ifc = $("#ifc").val();
     var response = $("#response").val();
 
-    $.post('http://localhost/b2v2/respondToProblem', {id: id, ifc: ifc, response: response}, function(error)
+    $.post('http://b2.com/respondToProblem', {id: id, ifc: ifc, response: response}, function(error)
     {
         if(error=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         window.close();
     });

@@ -338,7 +338,7 @@
     Route::post('getTypes',array('as'=>'getTypes','uses'=>'BlogController@getTypes'));
     Route::post('getArticleTemplate',array('as'=>'getArticleTemplate','uses'=>'BlogController@getArticleTemplate'));
 
- /* Route::group(array('domain' => '{username}.localhost/b2v2'), function()
+ /* Route::group(array('domain' => '{username}.b2.com'), function()
         {
             Route::get('/', function($username)
             {

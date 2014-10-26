@@ -163,10 +163,10 @@ function deleteCollaboration(bid,dcid)
     bootbox.confirm("Are you sure?", function(result) {
         if (result==true)
         {
-            $.post('http://localhost/b2v2/deleteCollaboration',{id:dcid},function(data)
+            $.post('http://b2.com/deleteCollaboration',{id:dcid},function(data)
             {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     var row = $(bid).closest("tr").get(0);
@@ -209,7 +209,7 @@ function inviteFriend()
 
         $.ajax({
             type: "POST",
-            url: 'http://localhost/b2v2/inviteContributor',
+            url: 'http://b2.com/inviteContributor',
             data: {email: userEmail, colId: colId},
             beforeSend: function()
             {
@@ -221,7 +221,7 @@ function inviteFriend()
         }).done(function(response)
         {
             if(response=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 $("#responseBox").html("<strong>"+response+"</strong>");
@@ -237,7 +237,7 @@ function inviteFriend()
         });
 
 
-    /*    $.post('http://localhost/b2v2/inviteContributor', {email: userEmail, colId: colId}, function(response)
+    /*    $.post('http://b2.com/inviteContributor', {email: userEmail, colId: colId}, function(response)
         {
             $("#responseBox").html("<strong>"+response+"</strong>");
             $("#friend").val("");
@@ -257,10 +257,10 @@ function inviteOthers()
     $("#inviteViaEmailSubmit").html("Loading...");
     var email = $('#inviteEmail').val();
     var colId = $("#collaborationIdForInvite").val();
-    $.post('http://localhost/b2v2/inviteContributor', {email: email, colId: colId}, function(response)
+    $.post('http://b2.com/inviteContributor', {email: email, colId: colId}, function(response)
     {
         if(response=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $("#responseBox").html("<strong>"+response+"</strong>");
@@ -277,10 +277,10 @@ function stopContributing(bid,colid)
     bootbox.confirm("Are you sure?", function(result) {
         if (result==true)
         {
-            $.post('http://localhost/b2v2/deleteContribution',{id:colid},function(error)
+            $.post('http://b2.com/deleteContribution',{id:colid},function(error)
             {
                 if(error=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     var row = $(bid).closest("tr").get(0);
@@ -294,14 +294,14 @@ function stopContributing(bid,colid)
 function shareCollaboration(pid)
 {
     $('#shareCollaboration').html('');
-    var lnk='Share the following Link with your friends: <h3> http://localhost/b2v2/collaborationPreview/'+pid+'</h3>';
+    var lnk='Share the following Link with your friends: <h3> http://b2.com/collaborationPreview/'+pid+'</h3>';
     $('#shareCollaboration').append(lnk);
     // create a clone of the twitter share button template
     var clone = $('.sharing').clone()
 
 // fix up our clone
     clone.removeAttr("style"); // unhide the clone
-    clone.attr("data-url", "http://localhost/b2v2/collaborationPreview/"+pid);
+    clone.attr("data-url", "http://b2.com/collaborationPreview/"+pid);
     clone.attr("class", "twitter-share-button");
 
 // copy cloned button into div that we can clear later
@@ -309,7 +309,7 @@ function shareCollaboration(pid)
     // reload twitter scripts to force them to run, converting a to iframe
     $.getScript("https://platform.twitter.com/widgets.js");
 
-    var fbclone = '<br><button onclick="fbDialog('+pid+')" style="height:23px;padding:1px;font-size:12px"><img src="http://localhost/b2v2/Images/icons/facebook.jpg">&nbsp;<b>Share</b></button>'
+    var fbclone = '<br><button onclick="fbDialog('+pid+')" style="height:23px;padding:1px;font-size:12px"><img src="http://b2.com/Images/icons/facebook.jpg">&nbsp;<b>Share</b></button>'
     // copy cloned button into div that we can clear later
     $('#shareCollaboration').append(fbclone);
 
@@ -325,7 +325,7 @@ function fbDialog(pid)
 {
     FB.ui({
         method: 'share',
-        href: 'http://localhost/b2v2/collaborationPreview/'+pid
+        href: 'http://b2.com/collaborationPreview/'+pid
     }, function(response){});
 }
 
@@ -348,10 +348,10 @@ function executeSearch()
 
     if (keywords.length > 2)
     {
-        $.post('http://localhost/b2v2/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
+        $.post('http://b2.com/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 if(data)
@@ -375,5 +375,5 @@ function normalEffect(element)
 
 function visitProfile(username)
 {
-    window.location='http://localhost/b2v2/user/'+username;
+    window.location='http://b2.com/user/'+username;
 }

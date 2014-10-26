@@ -471,7 +471,7 @@ function createProfile()
         ajax.addEventListener("load", completeHandler, false);
         ajax.addEventListener("error", errorHandler, false);
         ajax.addEventListener("abort", abortHandler, false);
-        ajax.open("POST", "http://localhost/b2v2/createProfile");
+        ajax.open("POST", "http://b2.com/createProfile");
         ajax.send(formdata);
         $('#myCancel').hide();
     }
@@ -484,7 +484,7 @@ function completeHandler(event)
 {
 var error = this.responseText;
     if(error=='wH@tS!nTheB0x')
-        window.location='http://localhost/b2v2/offline';
+        window.location='http://b2.com/offline';
     else
     {
         if(isPhone)
@@ -504,7 +504,7 @@ var error = this.responseText;
             $('#demoSlides').show();
             $('#dpMessage').fadeIn();
             var uname=$('#userName').val();
-            $("#profilePicture").attr('src','http://localhost/b2v2/Users/'+uname+'/profilePic/'+uname+'.'+extension);
+            $("#profilePicture").attr('src','http://b2.com/Users/'+uname+'/profilePic/'+uname+'.'+extension);
             $('#profilePic').attr('disabled', true);
             $('#mysubmit').hide();
             $('.mycounter').fadeIn();
@@ -549,7 +549,7 @@ function cancelPhoto()
     $('#mysubmit').hide();
     $('#dpSelect').show();
     $('#myCancel').hide();
-    var srcString='<img src="http://localhost/b2v2/Images/Anony.jpg" id="load_img" />';
+    var srcString='<img src="http://b2.com/Images/Anony.jpg" id="load_img" />';
     $('#image_div').html(srcString);
 }
 
@@ -612,7 +612,7 @@ function show4()
         }).done(function( msg )
         {
             if(msg=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 if(isPhone)
@@ -665,10 +665,10 @@ function show5()
 
         if(!other)
             other="None";
-        $.post("http://localhost/b2v2/saveInterests", {interests: allVals,otheri:other},function(data)
+        $.post("http://b2.com/saveInterests", {interests: allVals,otheri:other},function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 if(isPhone)
@@ -727,10 +727,10 @@ function profileFinal()
     else
     {
         $('#primeError').html('');
-        $.post("http://localhost/b2v2/primaryBuilder", {prime:primary},function(data)
+        $.post("http://b2.com/primaryBuilder", {prime:primary},function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             window.location=data;
         });
@@ -753,10 +753,10 @@ function mobileFinal()
     else
     {
         $('#primeError').html('');
-        $.post("http://localhost/b2v2/primaryBuilder", {prime:primary},function(data)
+        $.post("http://b2.com/primaryBuilder", {prime:primary},function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             window.location=data;
         });

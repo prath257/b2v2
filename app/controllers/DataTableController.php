@@ -14,7 +14,7 @@ class DataTableController extends \BaseController {
 			->orderColumns('title')
 			->addColumn('title',function($model)
 			{
-				return "<a href='http://localhost/b2v2/readArticle/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
+				return "<a href='http://b2.com/readArticle/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
 			})
 			->addColumn('category',function($model)
 			{
@@ -94,7 +94,7 @@ class DataTableController extends \BaseController {
 			->orderColumns('title')
 			->addColumn('title',function($model)
 			{
-				return "<a href='http://localhost/b2v2/blogBook/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
+				return "<a href='http://b2.com/blogBook/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
 			})
 			->addColumn('category',function($model)
 			{
@@ -117,7 +117,7 @@ class DataTableController extends \BaseController {
 			->addColumn('edit',function($model)
 			{
 				if ($model->review == 'passed')
-					return "<a href='newChapter/".$model->id."'class='btn btn-primary'>Add Chapter</a> <a href='editBlogBook/".$model->id."'class='btn btn-primary'>Edit</a> <button type='button' onclick='deleteBlogBook(this,".$model->id.")'class='btn btn-danger'>Delete</button> <button id='ReviewBlogBook".$model->id."' type='button' class='btn btn-primary' onclick='reviewBlogBook(".$model->id.")'>Submit for Review</button> <img id='waitingPic".$model->id."' src='http://localhost/b2v2/Images/icons/waiting.gif' style='display: none' height='35px' width='35px'>";
+					return "<a href='newChapter/".$model->id."'class='btn btn-primary'>Add Chapter</a> <a href='editBlogBook/".$model->id."'class='btn btn-primary'>Edit</a> <button type='button' onclick='deleteBlogBook(this,".$model->id.")'class='btn btn-danger'>Delete</button> <button id='ReviewBlogBook".$model->id."' type='button' class='btn btn-primary' onclick='reviewBlogBook(".$model->id.")'>Submit for Review</button> <img id='waitingPic".$model->id."' src='http://b2.com/Images/icons/waiting.gif' style='display: none' height='35px' width='35px'>";
 				else
 					return "<a href='newChapter/".$model->id."'class='btn btn-primary'>Add Chapter</a> <a href='editBlogBook/".$model->id."'class='btn btn-primary'>Edit</a> <button type='button' onclick='deleteBlogBook(this,".$model->id.")'class='btn btn-danger'>Delete</button> ";
 			})
@@ -133,7 +133,7 @@ class DataTableController extends \BaseController {
 			->orderColumns('title')
 			->addColumn('edit',function($model)
 			{
-				return "<a href='http://localhost/b2v2/editChapter/".$model->id."'class='btn btn-primary'>Edit</a> <button type='button' onclick='deleteChapter(this,".$model->id.")'class='btn btn-danger'>Delete</button>";
+				return "<a href='http://b2.com/editChapter/".$model->id."'class='btn btn-primary'>Edit</a> <button type='button' onclick='deleteChapter(this,".$model->id.")'class='btn btn-danger'>Delete</button>";
 			})
 			->make();
 	}
@@ -145,7 +145,7 @@ class DataTableController extends \BaseController {
 			->orderColumns('title','category')
 			->addColumn('title',function($model)
 			{
-				return "<a href='http://localhost/b2v2/readArticle/".$model->article_id."' target='_blank' style='text-decoration: none'>".$model->title."</a>";
+				return "<a href='http://b2.com/readArticle/".$model->article_id."' target='_blank' style='text-decoration: none'>".$model->title."</a>";
 			})
 			->addColumn('category',function($model)
 			{
@@ -163,7 +163,7 @@ class DataTableController extends \BaseController {
 			->orderColumns('title','category')
 			->addColumn('title',function($model)
 			{
-				return "<a href='http://localhost/b2v2/blogBook/".$model->blog_book_id."' target='_blank' style='text-decoration: none'>".$model->title."</a>";
+				return "<a href='http://b2.com/blogBook/".$model->blog_book_id."' target='_blank' style='text-decoration: none'>".$model->title."</a>";
 			})
 			->addColumn('category',function($model)
 			{
@@ -195,11 +195,11 @@ class DataTableController extends \BaseController {
                 $alreadyInvited = DB::table('invite_contributors')->where('collaborationid',$model->collaboration_id)->where('useremail',Auth::user()->email)->first();
                 if (Collaboration::find($model->collaboration_id)->isContributor() || $requestAlreadySent != null || $alreadyInvited != null)
                 {
-                        return "<a href='http://localhost/b2v2/collaboration/".$model->collaboration_id."' class='btn btn-primary' target='_blank'>Read</a>";
+                        return "<a href='http://b2.com/collaboration/".$model->collaboration_id."' class='btn btn-primary' target='_blank'>Read</a>";
                 }
 
                 else
-                    return "<a href='http://localhost/b2v2/collaboration/".$model->collaboration_id."' class='btn btn-primary' target='_blank'>Read</a>&nbsp;&nbsp;<button type='button' id='PlusContribute".$model->collaboration_id."' class='btn btn-info' onclick='plusContribute(".$model->collaboration_id.")'>+ Contribute</button>";
+                    return "<a href='http://b2.com/collaboration/".$model->collaboration_id."' class='btn btn-primary' target='_blank'>Read</a>&nbsp;&nbsp;<button type='button' id='PlusContribute".$model->collaboration_id."' class='btn btn-info' onclick='plusContribute(".$model->collaboration_id.")'>+ Contribute</button>";
             })
             ->make();
     }
@@ -237,7 +237,7 @@ class DataTableController extends \BaseController {
                 ->addColumn('actions',function($model)
                 {
                     if (DataTableController::$uid == Auth::user()->id || $model->isReader() || (User::find($model->userid)->settings->freeforfriends == true && Friend::isFriend($model->userid)))
-                        return "<a href='http://localhost/b2v2/blogBook/".$model->id."' class='btn btn-primary' role='button'>Read</a>";
+                        return "<a href='http://b2.com/blogBook/".$model->id."' class='btn btn-primary' role='button'>Read</a>";
                     else
                         return "<a href='#' class='btn btn-default' role='button' onclick='showPreview(".$model->id.")'>Show Preview</a> <a href='#' class='btn btn-default' role='button' id='".$model->title."' name='book' onclick='showPurchase(this,".$model->ifc.",".Auth::user()->profile->ifc.",".$model->id.")'>Read</a>";
                 })
@@ -289,7 +289,7 @@ class DataTableController extends \BaseController {
                 ->addColumn('actions',function($model)
                 {
                     if (DataTableController::$uid== Auth::user()->id || $model->isReader() || (User::find($model->userid)->settings->freeforfriends == true && Friend::isFriend($model->userid)))
-                        return "<a href='http://localhost/b2v2/readArticle/".$model->id."' class='btn btn-primary' role='button'>Read</a>";
+                        return "<a href='http://b2.com/readArticle/".$model->id."' class='btn btn-primary' role='button'>Read</a>";
                     else
                         return "<a href='#' class='btn btn-default' role='button' id='".$model->title."' name='article' onclick='showPurchase(this,".$model->ifc.",".Auth::user()->profile->ifc.",".$model->id.")'>Read</a>";
                 })
@@ -329,7 +329,7 @@ class DataTableController extends \BaseController {
                 ->addColumn('actions',function($model)
                 {
                     if (DataTableController::$uid == Auth::user()->id)
-                        return "<a href='http://localhost/b2v2/sym140Nb971wzb4284/".$model->id."' class='btn btn-primary' role='button'>Download</a>";
+                        return "<a href='http://b2.com/sym140Nb971wzb4284/".$model->id."' class='btn btn-primary' role='button'>Download</a>";
                     else
                         return "<a href='#' class='btn btn-default' role='button' id='".$model->title."' name='resource' onclick='showPurchase(this,".$model->ifc.",".Auth::user()->profile->ifc.",".$model->id.")'>Read</a>";
                 })
@@ -383,7 +383,7 @@ class DataTableController extends \BaseController {
                 ->addColumn('actions',function($model)
                 {
                     if (DataTableController::$uid == Auth::user()->id || $model->isReader() || $model->isContributor() || (User::find($model->userid)->settings->freeforfriends == true && Friend::isFriend($model->userid)))
-                        return "<a href='http://localhost/b2v2/collaboration/".$model->id."' class='btn btn-primary' role='button'>Read</a>";
+                        return "<a href='http://b2.com/collaboration/".$model->id."' class='btn btn-primary' role='button'>Read</a>";
                     else
                         return "<a href='#' class='btn btn-default' role='button' onclick='showCollaborationPreview(".$model->id.")'>Show Preview</a> <a href='#' class='btn btn-default' role='button' id='".$model->title."' name='collaboration' onclick='showPurchase(this,".$model->ifc.",".Auth::user()->profile->ifc.",".$model->id.")'>Read</a>";
                 })
@@ -460,7 +460,7 @@ class DataTableController extends \BaseController {
                 ->addColumn('actions',function($model)
                 {
                     if (DataTableController::$uid == Auth::user()->id || $model->isReader() || $model->isContributor() || $model->userid==Auth::user()->id)
-                        return "<a href='http://localhost/b2v2/collaboration/".$model->id."' class='btn btn-primary' role='button'>Read</a>";
+                        return "<a href='http://b2.com/collaboration/".$model->id."' class='btn btn-primary' role='button'>Read</a>";
                     else
                         return "<a href='#' class='btn btn-default' role='button' onclick='showCollaborationPreview(".$model->id.")'>Show Preview</a> <a href='#' class='btn btn-default' role='button' id='".$model->title."' name='collaboration' onclick='showPurchase(this,".$model->ifc.",".Auth::user()->profile->ifc.",".$model->id.")'>Read</a>";
                 })
@@ -502,7 +502,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('title')
             ->addColumn('title',function($model)
             {
-                return "<a href='http://localhost/b2v2/collaboration/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
+                return "<a href='http://b2.com/collaboration/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
             })
             ->addColumn('category',function($model)
             {
@@ -541,7 +541,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('title')
             ->addColumn('title',function($model)
             {
-                return "<a href='http://localhost/b2v2/collaboration/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
+                return "<a href='http://b2.com/collaboration/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
             })
             ->addColumn('category',function($model)
             {
@@ -577,14 +577,14 @@ class DataTableController extends \BaseController {
             ->orderColumns('title')
             ->addColumn('writer',function($model)
             {
-                return "<a href='http://localhost/b2v2/user/".User::find($model->userid)->username."' style='text-decoration: none' target='_blank'>".User::find($model->userid)->first_name." ".User::find($model->userid)->last_name."</a>";
+                return "<a href='http://b2.com/user/".User::find($model->userid)->username."' style='text-decoration: none' target='_blank'>".User::find($model->userid)->first_name." ".User::find($model->userid)->last_name."</a>";
             })
             ->addColumn('edit',function($model)
             {
                 if (Auth::user()->id == Collaboration::find($model->collaborationid)->userid)
-                    return "<a href='http://localhost/b2v2/editCollaborationChapter/".$model->id."'class='btn btn-primary'>Edit</a> <button type='button' onclick='deleteChapter(this,".$model->id.")'class='btn btn-danger'>Delete</button>";
+                    return "<a href='http://b2.com/editCollaborationChapter/".$model->id."'class='btn btn-primary'>Edit</a> <button type='button' onclick='deleteChapter(this,".$model->id.")'class='btn btn-danger'>Delete</button>";
                 else
-                    return "<a href='http://localhost/b2v2/editCollaborationChapter/".$model->id."'class='btn btn-primary'>Edit</a>";
+                    return "<a href='http://b2.com/editCollaborationChapter/".$model->id."'class='btn btn-primary'>Edit</a>";
             })
             ->make();
     }
@@ -597,7 +597,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('name')
             ->addColumn('name',function($model)
             {
-                return "<a href='http://localhost/b2v2/user/".$model->username."' style='text-decoration: none' target='_blank'>".$model->first_name." ".$model->last_name."</a>";
+                return "<a href='http://b2.com/user/".$model->username."' style='text-decoration: none' target='_blank'>".$model->first_name." ".$model->last_name."</a>";
             })
             ->addColumn('actions',function($model)
             {
@@ -796,7 +796,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('question')
             ->addColumn('question',function($model)
             {
-                return "<a href='http://localhost/b2v2/poll/".$model->id."' style='text-decoration: none'>".Str::limit($model->question,60)."</a>";
+                return "<a href='http://b2.com/poll/".$model->id."' style='text-decoration: none'>".Str::limit($model->question,60)."</a>";
             })
             ->addColumn('category',function($model)
             {
@@ -829,7 +829,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('question')
             ->addColumn('question',function($model)
             {
-                return "<a href='http://localhost/b2v2/poll/".$model->id."' style='text-decoration: none'>".Str::limit($model->question,60)."</a>";
+                return "<a href='http://b2.com/poll/".$model->id."' style='text-decoration: none'>".Str::limit($model->question,60)."</a>";
             })
             ->addColumn('category',function($model)
             {
@@ -862,7 +862,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('question')
             ->addColumn('question',function($model)
             {
-                return "<a href='http://localhost/b2v2/poll/".$model->id."' style='text-decoration: none'>".Str::limit($model->question,60)."</a>";
+                return "<a href='http://b2.com/poll/".$model->id."' style='text-decoration: none'>".Str::limit($model->question,60)."</a>";
             })
             ->addColumn('category',function($model)
             {
@@ -894,7 +894,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('question')
             ->addColumn('question',function($model)
             {
-                return "<a href='http://localhost/b2v2/poll/".$model->id."' style='text-decoration: none'>".Str::limit($model->question,60)."</a>";
+                return "<a href='http://b2.com/poll/".$model->id."' style='text-decoration: none'>".Str::limit($model->question,60)."</a>";
             })
             ->addColumn('category',function($model)
             {
@@ -917,7 +917,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('title','ifc')
             ->addColumn('title',function($model)
             {
-                return "<a href='http://localhost/b2v2/quizPreview/".$model->id."' style='text-decoration: none'>".Str::limit($model->title,60)."</a>";
+                return "<a href='http://b2.com/quizPreview/".$model->id."' style='text-decoration: none'>".Str::limit($model->title,60)."</a>";
             })
             ->addColumn('category',function($model)
             {
@@ -933,11 +933,11 @@ class DataTableController extends \BaseController {
                 $status=$model->ispublic;
                 if($status==0)
                 {
-                    return "<a href='http://localhost/b2v2/editQuiz/".$model->id."' class='btn btn-primary'>Edit Quiz</a> <button type='button' onclick='showStats(".$model->id.")'class='btn btn-success'>Stats</button> <button type='button' onclick='closeQuiz(this,".$model->id.")'class='btn btn-danger'>Open</button> <button type='button' onclick='deleteQuiz(this,".$model->id.")'class='btn btn-danger'>Delete</button>";
+                    return "<a href='http://b2.com/editQuiz/".$model->id."' class='btn btn-primary'>Edit Quiz</a> <button type='button' onclick='showStats(".$model->id.")'class='btn btn-success'>Stats</button> <button type='button' onclick='closeQuiz(this,".$model->id.")'class='btn btn-danger'>Open</button> <button type='button' onclick='deleteQuiz(this,".$model->id.")'class='btn btn-danger'>Delete</button>";
                 }
                 else
                 {
-                    return "<a href='http://localhost/b2v2/editQuiz/".$model->id."' class='btn btn-primary'>Edit Quiz</a> <button type='button' onclick='showStats(".$model->id.")'class='btn btn-success'>Stats</button> <button type='button' onclick='closeQuiz(this,".$model->id.")'class='btn btn-danger'>Close</button> <button type='button' onclick='deleteQuiz(this,".$model->id.")'class='btn btn-danger'>Delete</button>";
+                    return "<a href='http://b2.com/editQuiz/".$model->id."' class='btn btn-primary'>Edit Quiz</a> <button type='button' onclick='showStats(".$model->id.")'class='btn btn-success'>Stats</button> <button type='button' onclick='closeQuiz(this,".$model->id.")'class='btn btn-danger'>Close</button> <button type='button' onclick='deleteQuiz(this,".$model->id.")'class='btn btn-danger'>Delete</button>";
                 }
             })
             ->make();
@@ -950,7 +950,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('title')
             ->addColumn('title',function($model)
             {
-                return "<a href='http://localhost/b2v2/quizPreview/".$model->id."' style='text-decoration: none'>".Str::limit($model->title,60)."</a>";
+                return "<a href='http://b2.com/quizPreview/".$model->id."' style='text-decoration: none'>".Str::limit($model->title,60)."</a>";
             })
             ->addColumn('category',function($model)
             {
@@ -963,7 +963,7 @@ class DataTableController extends \BaseController {
             })
             ->addColumn('owner',function($model)
             {
-                return "<a href='http://localhost/b2v2/user/".User::find($model->ownerid)->username."' style='text-decoration: none' target='_blank'>".User::find($model->ownerid)->first_name." ".User::find($model->ownerid)->last_name."</a>";
+                return "<a href='http://b2.com/user/".User::find($model->ownerid)->username."' style='text-decoration: none' target='_blank'>".User::find($model->ownerid)->first_name." ".User::find($model->ownerid)->last_name."</a>";
             })
             ->make();
     }
@@ -987,7 +987,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('title')
             ->addColumn('title',function($model)
             {
-                return "<a href='http://localhost/b2v2/quizPreview/".$model->id."' style='text-decoration: none'>".Str::limit($model->title,60)."</a>";
+                return "<a href='http://b2.com/quizPreview/".$model->id."' style='text-decoration: none'>".Str::limit($model->title,60)."</a>";
             })
             ->addColumn('category',function($model)
             {
@@ -1000,7 +1000,7 @@ class DataTableController extends \BaseController {
             })
             ->addColumn('owner',function($model)
             {
-                return "<a href='http://localhost/b2v2/user/".User::find($model->ownerid)->username."' style='text-decoration: none' target='_blank'>".User::find($model->ownerid)->first_name." ".User::find($model->ownerid)->last_name."</a>";
+                return "<a href='http://b2.com/user/".User::find($model->ownerid)->username."' style='text-decoration: none' target='_blank'>".User::find($model->ownerid)->first_name." ".User::find($model->ownerid)->last_name."</a>";
             })
             ->make();
     }
@@ -1023,7 +1023,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('title')
             ->addColumn('title',function($model)
             {
-                return "<a href='http://localhost/b2v2/quizPreview/".$model->id."' style='text-decoration: none'>".Str::limit($model->title,60)."</a>";
+                return "<a href='http://b2.com/quizPreview/".$model->id."' style='text-decoration: none'>".Str::limit($model->title,60)."</a>";
             })
             ->addColumn('category',function($model)
             {
@@ -1036,7 +1036,7 @@ class DataTableController extends \BaseController {
             })
             ->addColumn('owner',function($model)
             {
-                return "<a href='http://localhost/b2v2/user/".User::find($model->ownerid)->username."' style='text-decoration: none' target='_blank'>".User::find($model->ownerid)->first_name." ".User::find($model->ownerid)->last_name."</a>";
+                return "<a href='http://b2.com/user/".User::find($model->ownerid)->username."' style='text-decoration: none' target='_blank'>".User::find($model->ownerid)->first_name." ".User::find($model->ownerid)->last_name."</a>";
             })
             ->make();
     }
@@ -1049,7 +1049,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('Name','ifc')
             ->addColumn('Name',function($model)
             {
-                return "<a href='http://localhost/b2v2/user/".User::find($model->user_id)->username."' style='text-decoration: none'>".User::find($model->user_id)->first_name." ".User::find($model->user_id)->last_name."</a>";
+                return "<a href='http://b2.com/user/".User::find($model->user_id)->username."' style='text-decoration: none'>".User::find($model->user_id)->first_name." ".User::find($model->user_id)->last_name."</a>";
             })
             ->addColumn('ifc',function($model)
             {
@@ -1137,7 +1137,7 @@ class DataTableController extends \BaseController {
             })
             ->addColumn('Name',function($model)
             {
-               return "<a href='http://localhost/b2v2/user/".$model->username."'>$model->first_name $model->last_name</a>";
+               return "<a href='http://b2.com/user/".$model->username."'>$model->first_name $model->last_name</a>";
             })
             ->addColumn('unfriend',function($model)
             {
@@ -1167,7 +1167,7 @@ class DataTableController extends \BaseController {
             })
             ->addColumn('Name',function($model)
             {
-                return "<a href='http://localhost/b2v2/user/".$model->username."'>$model->first_name $model->last_name</a>";
+                return "<a href='http://b2.com/user/".$model->username."'>$model->first_name $model->last_name</a>";
             })
             ->addColumn('decision',function($model)
             {
@@ -1197,7 +1197,7 @@ class DataTableController extends \BaseController {
             })
             ->addColumn('Name',function($model)
             {
-                return "<a href='http://localhost/b2v2/user/".$model->username."'>$model->first_name $model->last_name</a>";
+                return "<a href='http://b2.com/user/".$model->username."'>$model->first_name $model->last_name</a>";
             })
             ->addColumn('cancel',function($model)
             {
@@ -1220,7 +1220,7 @@ class DataTableController extends \BaseController {
             })
             ->addColumn('Name',function($model)
             {
-                return "<a href='http://localhost/b2v2/user/".$model->username."'>$model->first_name $model->last_name</a>";
+                return "<a href='http://b2.com/user/".$model->username."'>$model->first_name $model->last_name</a>";
             })
             ->addColumn('block',function($model)
             {
@@ -1247,7 +1247,7 @@ class DataTableController extends \BaseController {
             })
             ->addColumn('Name',function($model)
             {
-                return "<a href='http://localhost/b2v2/user/".$model->username."'>$model->first_name $model->last_name</a>";
+                return "<a href='http://b2.com/user/".$model->username."'>$model->first_name $model->last_name</a>";
             })
             ->addColumn('unfollow',function($model)
             {
@@ -1377,7 +1377,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('name')
             ->addColumn('name',function($model)
             {
-                return "<a href='http://localhost/b2v2/event/".$model->id."'>".$model->name."</a>";
+                return "<a href='http://b2.com/event/".$model->id."'>".$model->name."</a>";
             })
             ->addColumn('venue',function($model)
             {
@@ -1400,7 +1400,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('name')
             ->addColumn('name',function($model)
             {
-                return "<a href='http://localhost/b2v2/event/".$model->id."'>".$model->name."</a>";
+                return "<a href='http://b2.com/event/".$model->id."'>".$model->name."</a>";
             })
             ->addColumn('venue',function($model)
             {

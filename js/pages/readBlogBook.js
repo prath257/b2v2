@@ -12,7 +12,7 @@ $(document).ready(function()
 {
     bookId=$('#bookId').val();
     currentIndex=-1;
-    $.post('http://localhost/b2v2/getBlogbookContent',{id:-1,bid:bookId},function(data)
+    $.post('http://b2.com/getBlogbookContent',{id:-1,bid:bookId},function(data)
     {
         $('#Content').fadeOut(500);
 
@@ -28,10 +28,10 @@ $(document).ready(function()
 
     });
 
-    $.post('http://localhost/b2v2/getBookChapterList',{bid:bookId},function(data)
+    $.post('http://b2.com/getBookChapterList',{bid:bookId},function(data)
     {
         if(data=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             chaptersNos=data;
@@ -55,10 +55,10 @@ $(document).ready(function()
     newUser = $('#newUser').val();
     if (newUser==true)
     {
-        $.post('http://localhost/b2v2/getIFCs', function(ifc)
+        $.post('http://b2.com/getIFCs', function(ifc)
         {
             if(ifc=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 $("#mycounter").fadeIn();
@@ -91,8 +91,8 @@ function showContent(th)
     currentIndex=parseInt(th.name);
     cid=chaptersNos[currentIndex];
 
-    $('#Content').html("<img src='http://localhost/b2v2/Images/icons/waiting.gif'> Loading...");
-     $.post('http://localhost/b2v2/getBlogbookContent',{id:cid,bid:bookId},function(data)
+    $('#Content').html("<img src='http://b2.com/Images/icons/waiting.gif'> Loading...");
+     $.post('http://b2.com/getBlogbookContent',{id:cid,bid:bookId},function(data)
     {
         if(data=='wH@tS!nTheB0x')
         {
@@ -132,8 +132,8 @@ function showNext()
     {
         cid=chaptersNos[currentIndex];
 
-        $('#Content').html("<img src='http://localhost/b2v2/Images/icons/waiting.gif'> Loading...");
-        $.post('http://localhost/b2v2/getBlogbookContent',{id:cid,bid:bookId},function(data)
+        $('#Content').html("<img src='http://b2.com/Images/icons/waiting.gif'> Loading...");
+        $.post('http://b2.com/getBlogbookContent',{id:cid,bid:bookId},function(data)
         {
             if(data=='wH@tS!nTheB0x')
             {
@@ -178,8 +178,8 @@ function showPrev()
         else
             cid=chaptersNos[currentIndex];
 
-        $('#Content').html("<img src='http://localhost/b2v2/Images/icons/waiting.gif'> Loading...");
-        $.post('http://localhost/b2v2/getBlogbookContent',{id:cid,bid:bookId},function(data)
+        $('#Content').html("<img src='http://b2.com/Images/icons/waiting.gif'> Loading...");
+        $.post('http://b2.com/getBlogbookContent',{id:cid,bid:bookId},function(data)
         {
             if(data=='wH@tS!nTheB0x')
             {

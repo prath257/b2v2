@@ -120,7 +120,7 @@ function deleteQuiz(bid,pid)
 	bootbox.confirm("Are you sure?", function(result) {
 		if (result==true)
 		{
-			$.post('http://localhost/b2v2/deleteQuiz/'+pid,{data:'none'},function(data)
+			$.post('http://b2.com/deleteQuiz/'+pid,{data:'none'},function(data)
 			{
 				var row = $(bid).closest("tr").get(0);
 				oTable1.fnDeleteRow(oTable1.fnGetPosition(row));
@@ -143,10 +143,10 @@ function closeQuiz(bid,pid)
     bootbox.confirm("Are you sure to "+keyword+" the Quiz?", function(result) {
         if (result==true)
         {
-            $.post('http://localhost/b2v2/closeQuiz/'+pid,{data:'none'},function(data)
+            $.post('http://b2.com/closeQuiz/'+pid,{data:'none'},function(data)
             {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                $(bid).html(data);
 
@@ -158,10 +158,10 @@ function closeQuiz(bid,pid)
 function showStats(pid)
 {
 
-            $.post('http://localhost/b2v2/getQuizStats/'+pid,{data:'none'},function(data)
+            $.post('http://b2.com/getQuizStats/'+pid,{data:'none'},function(data)
             {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     $('#quizStats').html(data);

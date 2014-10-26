@@ -93,10 +93,10 @@ function showDescription(descrption)
 
 function showAnswer(aid)
 {
-    $.post('http://localhost/b2v2/getAnswer',{id: aid},function(answer)
+    $.post('http://b2.com/getAnswer',{id: aid},function(answer)
     {
         if(answer=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $("#readAnswerContent").html(answer);

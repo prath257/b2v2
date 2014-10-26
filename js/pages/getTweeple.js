@@ -96,10 +96,10 @@ function checkUname()
 	if(uname)
 	{
 		//ajax post the form
-		$.post("http://localhost/b2v2/checkUsername",{username: uname},function(data)
+		$.post("http://b2.com/checkUsername",{username: uname},function(data)
 		{
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
 			if(data=='username already taken')
 			{
 				$('#uerror').text(data);
@@ -122,10 +122,10 @@ function checkEmail()
     if(email)
     {
         //ajax post the form
-        $.post("http://localhost/b2v2/checkEmail",{mail: email},function(data)
+        $.post("http://b2.com/checkEmail",{mail: email},function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             if(data=='email already registered')
             {
                 $('#merror').text(data);

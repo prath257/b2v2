@@ -135,10 +135,10 @@ function deletePoll(bid,pid)
 	bootbox.confirm("Are you sure?", function(result) {
 		if (result==true)
 		{
-			$.post('http://localhost/b2v2/deletePoll/'+pid,{data:'none'},function(data)
+			$.post('http://b2.com/deletePoll/'+pid,{data:'none'},function(data)
 			{
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
 				else
                 {
                     var row = $(bid).closest("tr").get(0);
@@ -160,10 +160,10 @@ function closePoll(bid,pid)
     bootbox.confirm("Are you sure to "+action+" the Polling?", function(result) {
         if (result==true)
         {
-            $.post('http://localhost/b2v2/closePoll/'+pid,{data:'none'},function(data)
+            $.post('http://b2.com/closePoll/'+pid,{data:'none'},function(data)
             {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                    $(bid).html(data);
 
@@ -178,10 +178,10 @@ function closePoll(bid,pid)
 function showResult(pid)
 {
 
-            $.post('http://localhost/b2v2/getResult/'+pid,{data:'none'},function(data)
+            $.post('http://b2.com/getResult/'+pid,{data:'none'},function(data)
             {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     $('#pollResult').html(data);

@@ -23,20 +23,20 @@ function submitPoll(pid)
             var res=$("input[name="+pid+"]:checked").val();
             if(res)
             {
-                $.post('http://localhost/b2v2/submitPoll',{pollId:pid,response:res},function(data)
+                $.post('http://b2.com/submitPoll',{pollId:pid,response:res},function(data)
                 {
 
                     if(data=='wH@tS!nTheB0x')
-                        window.location='http://localhost/b2v2/offline';
+                        window.location='http://b2.com/offline';
                     else
                     {
                         $('#pollResult').html(data);
                         $('#pollResult').fadeIn();
 
-                        $.post('http://localhost/b2v2/getIFCs', function(ifc)
+                        $.post('http://b2.com/getIFCs', function(ifc)
                         {
                             if(ifc=='wH@tS!nTheB0x')
-                                window.location='http://localhost/b2v2/offline';
+                                window.location='http://b2.com/offline';
                             else
                             {
                                 $('#mycounter').fadeIn();
@@ -53,10 +53,10 @@ function submitPoll(pid)
 
 function getResults(pid)
 {
-    $.post('http://localhost/b2v2/getResult/'+pid,{data:'none'},function(data)
+    $.post('http://b2.com/getResult/'+pid,{data:'none'},function(data)
     {
         if(data=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('#pollResult').html(data);
@@ -72,7 +72,7 @@ function pleaseLogin()
     bootbox.confirm("You need to be logged in to do that. Would you like to log in?",function(result){
         if(result==true)
         {
-            window.location='http://localhost/b2v2/';
+            window.location='http://b2.com/';
         }
     });
 }

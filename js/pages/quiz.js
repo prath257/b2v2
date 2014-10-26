@@ -69,10 +69,10 @@ function checkAnswers()
         }
         else
             var answer = $('input[name="answer'+i+'"]:checked').val();
-        $.post('http://localhost/b2v2/checkAns', {id: qId, answer: answer, type: qType}, function(correct)
+        $.post('http://b2.com/checkAns', {id: qId, answer: answer, type: qType}, function(correct)
         {
             if(correct=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 if (correct=='true')
@@ -86,10 +86,10 @@ function checkAnswers()
     {
         var quizId = $("#quizId").val();
         quizId = parseInt(quizId);
-        $.post('http://localhost/b2v2/postQuizResults', {id: quizId, correct: correctAnswers}, function(data)
+        $.post('http://b2.com/postQuizResults', {id: quizId, correct: correctAnswers}, function(data)
         {
             if(ifc=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 $('#resultBody').prepend(data);

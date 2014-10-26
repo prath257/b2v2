@@ -19,7 +19,7 @@ class ChatController extends \BaseController
             $chat->status = 'pending';
             $chat->save();
 
-            AjaxController::insertToNotification(Input::get('id'),Auth::user()->id,"chat","sent you a chat request '".Input::get('reason')."'",'http://localhost/b2v2/user/'.Auth::user()->username);
+            AjaxController::insertToNotification(Input::get('id'),Auth::user()->id,"chat","sent you a chat request '".Input::get('reason')."'",'http://b2.com/user/'.Auth::user()->username);
             AjaxController::insertNid($chat->id,Input::get('id'));
         }
         else
@@ -50,14 +50,14 @@ class ChatController extends \BaseController
                     $user2->getChataudit->earning+=$user2->settings->chatcost;
                     $user2->getChataudit->save();
 
-                    TransactionController::insertToManager($user1->id,"-".$user2->settings->chatcost,"IFCs spent on chatting with","http://localhost/b2v2/user/".$user2->username,$user2->first_name." ".$user2->last_name,"profile");
-                    TransactionController::insertToManager($user2->id,"+".$user2->settings->chatcost,"IFCs earned by chatting with","http://localhost/b2v2/user/".$user1->username,$user1->first_name." ".$user1->last_name,"profile");
+                    TransactionController::insertToManager($user1->id,"-".$user2->settings->chatcost,"IFCs spent on chatting with","http://b2.com/user/".$user2->username,$user2->first_name." ".$user2->last_name,"profile");
+                    TransactionController::insertToManager($user2->id,"+".$user2->settings->chatcost,"IFCs earned by chatting with","http://b2.com/user/".$user1->username,$user1->first_name." ".$user1->last_name,"profile");
 
                 }
                 $chat->status = 'ongoing';
                 $chat->save();
 
-                AjaxController::insertToNotification($user1->id,Auth::user()->id,"chatAcc","accepted your chat request",'http://localhost/b2v2/user/'.Auth::user()->username);
+                AjaxController::insertToNotification($user1->id,Auth::user()->id,"chatAcc","accepted your chat request",'http://b2.com/user/'.Auth::user()->username);
                 AjaxController::insertNidAcc($chat->id,$user1->id);
 
                  //DB::table('notification')->where('chid','=',Input::get('id'))->update(array('type' =>'chatR'));

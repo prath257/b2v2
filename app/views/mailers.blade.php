@@ -25,13 +25,13 @@
     <br>
     {{$bug->text}}&nbsp;<div>&nbsp;
     <br>Posted By:
-    <a href="http://localhost/b2v2/user/{{User::find($bug->userid)->username}}" style="text-decoration: none">
+    <a href="http://b2.com/user/{{User::find($bug->userid)->username}}" style="text-decoration: none">
         {{User::find($bug->userid)->first_name}} {{User::find($bug->userid)->last_name}}
     </a>
     <br>
     <br>
     <br>
-    Respond to this bug HERE: http://localhost/b2v2/respondToBug/{{$bug->id}}
+    Respond to this bug HERE: http://b2.com/respondToBug/{{$bug->id}}
     <hr></div>
 @elseif($page=='bugResponseMailer')
     <h3>Hey there!</h3>
@@ -80,7 +80,7 @@
     {{Auth::user()->first_name}} {{Auth::user()->last_name}} has invited you
     to join and contribute for a collaboration called '{{$collaboration->title}}' on BBarters.<div><br></div><div>
         Click On the following link to accept.<br>
-        <strong>Link: </strong> http://localhost/b2v2/acceptCollaboration/{{$invite->link}}/{{$invite->collaborationid}}
+        <strong>Link: </strong> http://b2.com/acceptCollaboration/{{$invite->link}}/{{$invite->collaborationid}}
         <br>
         <hr>
         <br>
@@ -92,9 +92,9 @@
     <hr>
     {{Auth::user()->first_name}} {{Auth::user()->last_name}} has invited you to join and contribute for a collaboration called '{{$collaboration->title}}' on BBarters.<div><br>
         It seems like you aren't already there on BBarters. No worries, click on the link below and get started! Once you are done, don't forget to come back and click the link at the bottom of this page to accept the collaboration.<br>
-        Sign Up here: http://localhost/b2v2&nbsp;</div><div><br>
+        Sign Up here: http://b2.com&nbsp;</div><div><br>
         And here's the link to accept the invitation. Remember, click this only when you've completed all SignUp and ProfileSetup steps, and you got to register with us using THIS E-mail only.<br>
-        <strong><br></strong></div><div><strong>Link: </strong> http://localhost/b2v2/acceptCollaboration/{{$invite->link}}/{{$invite->collaborationid}}
+        <strong><br></strong></div><div><strong>Link: </strong> http://b2.com/acceptCollaboration/{{$invite->link}}/{{$invite->collaborationid}}
         <br>
         <hr><br>
         Regards,<br>
@@ -198,22 +198,22 @@
 @elseif($page=='newFriendRequestMailer')
     <h3>Hello {{$receiver->first_name}}</h3> <hr>
 
-    <p><a href="http://localhost/b2v2/user/{{$user->username}}">{{$user->first_name}} {{$user->last_name}}</a> just sent you a friend request on BBarters!</p>
-    <p>Visit <a href="http://localhost/b2v2">BBarters</a> and respond to his request.</p>
+    <p><a href="http://b2.com/user/{{$user->username}}">{{$user->first_name}} {{$user->last_name}}</a> just sent you a friend request on BBarters!</p>
+    <p>Visit <a href="http://b2.com">BBarters</a> and respond to his request.</p>
     <br>
     <hr>
     <p>Regards,<br>Team BBarters.</p>
 @elseif($page=='friendRequestAcceptedMailer')
     <h3>Hello {{$receiver->first_name}}!</h3>
     <hr>
-    <p><a href="http://localhost/b2v2/user/{{$user->username}}">{{$user->first_name}} {{$user->last_name}}</a> just accepted your friend request on BBarters!</p>
+    <p><a href="http://b2.com/user/{{$user->username}}">{{$user->first_name}} {{$user->last_name}}</a> just accepted your friend request on BBarters!</p>
     <br>
     <hr>
     <p>Regards,<br>Team BBarters.</p>
 @elseif($page=='newSubscriber')
     <h3>Hello {{$receiver->first_name}}!</h3>
     <hr>
-    <p><a href="http://localhost/b2v2/user/{{$user->username}}">{{$user->first_name}} {{$user->last_name}}</a> has subscribed to you on BBarters!</p>
+    <p><a href="http://b2.com/user/{{$user->username}}">{{$user->first_name}} {{$user->last_name}}</a> has subscribed to you on BBarters!</p>
     <p>And that increments your IFC count by {{$receiver->settings->subcost}}<i>i</i>!</p>
     <hr>
     <p>Regards,<br>Team BBarters.</p>
@@ -292,7 +292,7 @@
         <span style="color: inherit; font-family: inherit; line-height: 1.1;">{{$user->first_name}} {{$user->last_name}} just posted something about you on BBarters. Visit your profile to read and approve the post.</span>
     </h4>
     <h4 style="font-family: 'Segoe UI'; color: rgb(51, 51, 51);">
-        <a href="http://localhost/b2v2/profile" target="_blank">Visit your profile</a>
+        <a href="http://b2.com/profile" target="_blank">Visit your profile</a>
     </h4>
     <div>
         <hr>

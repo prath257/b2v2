@@ -299,10 +299,10 @@ function checkUname()
     {
         try
         {
-            $.post("http://localhost/b2v2/checkUsername",{username: uname},function(data)
+            $.post("http://b2.com/checkUsername",{username: uname},function(data)
             {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 if(data=='username already taken')
                 {
                     $('#uerror').text(data);
@@ -329,7 +329,7 @@ function forgotPassword()
     {
         $.ajax({
             type: "POST",
-            url:'http://localhost/b2v2/forgotPassword',
+            url:'http://b2.com/forgotPassword',
             data:{username: username, email: email},
             beforeSend: function()
             {
@@ -341,7 +341,7 @@ function forgotPassword()
         }).done(function(response)
         {
             if(response=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 $('#forgotPasswordSubmit').prop('disabled', false);
@@ -380,10 +380,10 @@ function showResetPassword()
 
     try
     {
-        $.post('http://localhost/b2v2/checkFpLink', {link: enteredLink, email: email}, function(verify)
+        $.post('http://b2.com/checkFpLink', {link: enteredLink, email: email}, function(verify)
         {
             if(verify=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 if (verify == 'true')
@@ -413,12 +413,12 @@ function postResetPassword()
 
     try
     {
-        $.post('http://localhost/b2v2/postResetPassword', {username: username, password: password1}, function(error)
+        $.post('http://b2.com/postResetPassword', {username: username, password: password1}, function(error)
         {
             if(error=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
-                window.location = "http://localhost/b2v2/home";
+                window.location = "http://b2.com/home";
         });
     }
     catch(error)
@@ -436,10 +436,10 @@ function checkEmail()
     {
         try
         {
-            $.post("http://localhost/b2v2/checkEmail",{mail: email},function(data)
+            $.post("http://b2.com/checkEmail",{mail: email},function(data)
             {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 if(data=='email already registered')
                 {
                     $('#merror').text(data);
@@ -492,27 +492,27 @@ function showConverge()
 //Open Resource/Article/Book/Collaboration when a user clicks on an image/heading in carousel
 function openResource(id)
 {
-    window.location='http://localhost/b2v2/resource/'+id;
+    window.location='http://b2.com/resource/'+id;
 }
 
 function openArticle(id)
 {
-    window.location='http://localhost/b2v2/articlePreview/'+id;
+    window.location='http://b2.com/articlePreview/'+id;
 }
 
 function openBook(id)
 {
-    window.location='http://localhost/b2v2/blogBookPreview/'+id;
+    window.location='http://b2.com/blogBookPreview/'+id;
 }
 
 function openCollab(id)
 {
-    window.location='http://localhost/b2v2/collaborationPreview/'+id;
+    window.location='http://b2.com/collaborationPreview/'+id;
 }
 
 function openMedia(id)
 {
-    window.location='http://localhost/b2v2/mediaPreview/'+id;
+    window.location='http://b2.com/mediaPreview/'+id;
 }
 
 //Bootstrap Validator is unable to validate this. Thus..
@@ -574,7 +574,7 @@ function startTour()
 function showTour(tt)
 {
     var tourid=tt.id;
-    var srcString='<source src="http://localhost/b2v2/Tour/'+tourid+'.mp4" type="video/mp4">';
+    var srcString='<source src="http://b2.com/Tour/'+tourid+'.mp4" type="video/mp4">';
     $('#tourVideo').html(srcString);
     var name  = parseInt(tt.name) + 1;
     $('[name='+name+']').removeClass('disabled');

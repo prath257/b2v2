@@ -8,7 +8,7 @@ $(document).ready(function()
     var y= d.getFullYear();
     var m= d.getMonth()+1;
     getDates(y,m,userid);
-/*    $.post('http://localhost/b2v2/getCalendar', {userid: userid}, function(markup)
+/*    $.post('http://b2.com/getCalendar', {userid: userid}, function(markup)
     {
         $('#calendar').html(markup);
     });*/
@@ -67,20 +67,20 @@ function accessSetting(type)
         $('#semi').prop('disabled',true);
         $.ajax({
             type: "POST",
-            url: "http://localhost/b2v2/delSuser",
+            url: "http://b2.com/delSuser",
             data:{type : 'all'}
         }).done(function(data){
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
             });
         $.ajax({
             type: "POST",
-            url: "http://localhost/b2v2/setDiaryAccess",
+            url: "http://b2.com/setDiaryAccess",
             data: {type:'public'}// This is the URL to the API
         })
             .done(function(data) {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     $('#private').prop('disabled',false);
@@ -99,21 +99,21 @@ function accessSetting(type)
         $('#semi').prop('disabled',true);
         $.ajax({
             type: "POST",
-            url: "http://localhost/b2v2/delSuser",
+            url: "http://b2.com/delSuser",
             data:{type : 'all'}
         })
             .done(function(data){
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
             });
         $.ajax({
             type: "POST",
-            url: "http://localhost/b2v2/setDiaryAccess",
+            url: "http://b2.com/setDiaryAccess",
             data: {type:'private'}// This is the URL to the API
         })
             .done(function( data ) {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     $('#public').prop('disabled',false);
@@ -133,13 +133,13 @@ function accessSetting(type)
         $('#public').prop('disabled',true);
         $.ajax({
             type: "POST",
-            url: "http://localhost/b2v2/setDiaryAccess",
+            url: "http://b2.com/setDiaryAccess",
             data: {type:'semi'}// This is the URL to the API
         })
 
             .done(function( data ) {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     $('#private').prop('disabled',false);
@@ -159,12 +159,12 @@ function getUsers()
     $('#semidiv').fadeIn();
     $.ajax({
         type:'POST',
-        url:'http://localhost/b2v2/getUsers'
+        url:'http://b2.com/getUsers'
     })
         .done(function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
                 $('#friendSelect').html(data);
         });
@@ -174,12 +174,12 @@ function getSusers()
 {
     $.ajax({
         type:'POST',
-        url:'http://localhost/b2v2/getSusers'
+        url:'http://b2.com/getSusers'
     })
         .done(function(markup)
         {
             if(markup=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
                 $('#friendList').html(markup);
         });
@@ -190,13 +190,13 @@ function addNew()
     var suserid=$('#friend').val();
     $.ajax({
         type: 'POST',
-        url: 'http://localhost/b2v2/addSuser',
+        url: 'http://b2.com/addSuser',
         data: {suserid: suserid}
     })
         .done(function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
                 $('#friendList').append(data);
 
@@ -208,13 +208,13 @@ function delSuser(id)
 {
     $.ajax({
         type: 'POST',
-        url: 'http://localhost/b2v2/delSuser',
+        url: 'http://b2.com/delSuser',
         data: {id: id}
     })
         .done(function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
                 $('#suserbtn'+data).fadeOut();
 
@@ -256,7 +256,7 @@ function showEdit(id)
 function save(id,type)
 {
     var message=$('#summernote'+id).code();
-    $('.saveNedit'+id).html("<img src='http://localhost/b2v2/Images/icons/waiting.gif'> Saving..");
+    $('.saveNedit'+id).html("<img src='http://b2.com/Images/icons/waiting.gif'> Saving..");
 
 
 
@@ -280,12 +280,12 @@ function save(id,type)
 
     $.ajax({
         type: "POST",
-        url: "http://localhost/b2v2/saveDiary",
+        url: "http://b2.com/saveDiary",
         data: {message:message,type:type,id:id}
     }).done(function(data)
     {
         if(data=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('#newPostModal').modal('hide');
@@ -298,9 +298,9 @@ function save(id,type)
             var y= d.getFullYear();
             var m= d.getMonth()+1;
             var diaryDates = '{';
-            $.post('http://localhost/b2v2/getMonthlyDates', {year: y, month: m, userid: userid}, function (data) {
+            $.post('http://b2.com/getMonthlyDates', {year: y, month: m, userid: userid}, function (data) {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     datesJson = data;
@@ -343,12 +343,12 @@ function createSingle()
 
     $.ajax({
         type: "POST",
-        url: "http://localhost/b2v2/createDiary",
+        url: "http://b2.com/createDiary",
         data: {type:type}
     }).done(function(data)
     {
         if(data=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('#summernoteDiv').html(data);  // append div after the div
@@ -362,7 +362,7 @@ function createSingle()
 
 function newPost()
 {
-    $('#summernoteDiv').html('<div class="center-align"><img src="http://localhost/b2v2/Images/icons/waiting.gif"></div>');
+    $('#summernoteDiv').html('<div class="center-align"><img src="http://b2.com/Images/icons/waiting.gif"></div>');
     
     $('#newPostModal').modal({
         keyboard:false,
@@ -377,10 +377,10 @@ function showDelt(id)
     bootbox.confirm("Quite sure about that?", function(result) {
         if (result==true)
         {
-            $.post("http://localhost/b2v2/deleteDiaryPost",{id:id},function(error)
+            $.post("http://b2.com/deleteDiaryPost",{id:id},function(error)
             {
                 if(error=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     var userid = $('#userid').val();
@@ -392,9 +392,9 @@ function showDelt(id)
                     var y= d.getFullYear();
                     var m= d.getMonth()+1;
                     var diaryDates = '{';
-                    $.post('http://localhost/b2v2/getMonthlyDates', {year: y, month: m, userid: userid}, function (data) {
+                    $.post('http://b2.com/getMonthlyDates', {year: y, month: m, userid: userid}, function (data) {
                         if(data=='wH@tS!nTheB0x')
-                            window.location='http://localhost/b2v2/offline';
+                            window.location='http://b2.com/offline';
                         else
                         {
                             datesJson = data;
@@ -444,10 +444,10 @@ function updateTitle()
 {
     var title = $('#diaryTitleInput').val();
 
-    $.post('http://localhost/b2v2/updateDiaryTitle',{title: title}, function(error)
+    $.post('http://b2.com/updateDiaryTitle',{title: title}, function(error)
     {
         if(error=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('#diaryTitleInput').val('');
@@ -464,9 +464,9 @@ function getDates(year,month,id) {
 
     var diaryDates = '{';
 
-    $.post('http://localhost/b2v2/getMonthlyDates', {year: year, month: month, userid: id}, function (data) {
+    $.post('http://b2.com/getMonthlyDates', {year: year, month: month, userid: id}, function (data) {
         if(data=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             datesJson = data;
@@ -501,9 +501,9 @@ function getDates(year,month,id) {
                     var userid = $('#userid').val();
                     month+=1;
                     var diaryDates = '{';
-                    $.post('http://localhost/b2v2/getMonthlyDates', {year: year, month: month, userid: userid}, function (data) {
+                    $.post('http://b2.com/getMonthlyDates', {year: year, month: month, userid: userid}, function (data) {
                         if(data=='wH@tS!nTheB0x')
-                            window.location='http://localhost/b2v2/offline';
+                            window.location='http://b2.com/offline';
                         else
                         {
                             datesJson = data;
@@ -529,19 +529,19 @@ function getDates(year,month,id) {
 
 function retrieveAll(d,m,y,userid)
 {
-    $('#posts').html('<div class="center-align"><img src="http://localhost/b2v2/Images/icons/waiting.gif"></div>');
+    $('#posts').html('<div class="center-align"><img src="http://b2.com/Images/icons/waiting.gif"></div>');
     var type="all";
     var date=""+y+"-"+m+"-"+d+" 18:07:00";
     //the date to retrive from the database
 
     $.ajax({
         type: "POST",
-        url: "http://localhost/b2v2/createDiary",
+        url: "http://b2.com/createDiary",
         data: {type:type,date:date,userid:userid}
     }).done(function(data)
     {
         if(data=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('#posts').html(data);  // append div after the div
@@ -556,14 +556,14 @@ function retrieveAll(d,m,y,userid)
 
 /*function retrieveAll(d,m,y,userid)
  {
- $('#posts').html('<div class="center-align"><img src="http://localhost/b2v2/Images/icons/waiting.gif"></div>');
+ $('#posts').html('<div class="center-align"><img src="http://b2.com/Images/icons/waiting.gif"></div>');
  var type="all";
  var date=""+y+"-"+m+"-"+d+" 18:07:00"; //the date to retrive from the database
 
 
  $.ajax({
  type: "GET",
- url: "http://localhost/b2v2/createDiary",
+ url: "http://b2.com/createDiary",
  data: {type:type,date:date,userid:userid}
  }).done(function(data)
  {

@@ -41,7 +41,7 @@
                @if (Str::contains($link,'sym140Nb971wzb4284'))
                    <a class="btn btn-primary" onclick="purchaseRes('{{$link}}')">Purchase Content</a>
                @else
-                   <a href="http://localhost/b2v2/{{$link}}" class="btn btn-primary">Purchase Content</a>
+                   <a href="http://b2.com/{{$link}}" class="btn btn-primary">Purchase Content</a>
                @endif
            @else
            <a href="{{route('ifcDeficit')}}" class="btn btn-success">Earn IFCs</a>

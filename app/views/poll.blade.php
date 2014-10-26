@@ -70,19 +70,19 @@
     <div class="col-lg-12" style="padding: 15px">
      <div class="col-lg-3"> Share this Poll:</div>
     <div class="col-lg-9">
-        <div class="fb-share-button" style="padding: 5px" data-href="http://localhost/b2v2/poll/{{$poll->id}}"></div>
+        <div class="fb-share-button" style="padding: 5px" data-href="http://b2.com/poll/{{$poll->id}}"></div>
         <br>
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://localhost/b2v2/poll/{{$poll->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters">Tweet</a>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://b2.com/poll/{{$poll->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters">Tweet</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         <br>
-       <div class="fb-send" data-href="http://localhost/b2v2/poll/{{$poll->id}}" data-colorscheme="light"></div>
+       <div class="fb-send" data-href="http://b2.com/poll/{{$poll->id}}" data-colorscheme="light"></div>
     </div>
     </div>
 <br><br>
 
     <br><br>
     <p>Comments:</p>
-    <div class="fb-comments" data-href="http://localhost/b2v2/poll/{{$poll->id}}" data-width="600" data-numposts="10" data-colorscheme="light"></div>
+    <div class="fb-comments" data-href="http://b2.com/poll/{{$poll->id}}" data-width="600" data-numposts="10" data-colorscheme="light"></div>
 </div>
 
 <input type="hidden" id="refreshed" value="no">

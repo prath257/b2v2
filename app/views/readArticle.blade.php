@@ -61,16 +61,16 @@
     </div>
     <div class="col-lg-10" style="padding: 0px">
         <br>
-        <div class="fb-share-button" style="padding-bottom:7px" data-href="http://localhost/b2v2/articlePreview/{{$article->id}}"></div><br>
-    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://localhost/b2v2/readArticle/{{$article->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters">Tweet</a><br>
+        <div class="fb-share-button" style="padding-bottom:7px" data-href="http://b2.com/articlePreview/{{$article->id}}"></div><br>
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://b2.com/readArticle/{{$article->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters">Tweet</a><br>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-   <div class="fb-send" data-href="http://localhost/b2v2/readArticle/{{$article->id}}" data-colorscheme="light"></div>
+   <div class="fb-send" data-href="http://b2.com/readArticle/{{$article->id}}" data-colorscheme="light"></div>
         <br>
     </div>
     <br><br><br><br><br>
     <p>Comments:</p>
 
-    <div class="fb-comments" data-href="http://localhost/b2v2/articlePreview/{{$article->id}}" data-width="600" data-numposts="10" data-colorscheme="light"></div>
+    <div class="fb-comments" data-href="http://b2.com/articlePreview/{{$article->id}}" data-width="600" data-numposts="10" data-colorscheme="light"></div>
     </div>
 </div>
 

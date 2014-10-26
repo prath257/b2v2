@@ -8,7 +8,7 @@ $(document).ready(function()
     }
 
 	oTable=$('#example').dataTable( {
-		"ajax": 'http://localhost/b2v2/getArticleData',
+		"ajax": 'http://b2.com/getArticleData',
 		"lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
 	} );
 
@@ -125,10 +125,10 @@ function deleteArticle(bid,aid)
 	bootbox.confirm("Are you sure?", function(result) {
 		if (result==true)
 		{
-			$.post('http://localhost/b2v2/deleteArticle/'+aid,{data:'none'},function(data)
+			$.post('http://b2.com/deleteArticle/'+aid,{data:'none'},function(data)
 			{
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     var row = $(bid).closest("tr").get(0);
@@ -150,10 +150,10 @@ function openNewArticleModal(interestName,interestId)
         device='Desktop';
     }
 
-    $.post('http://localhost/b2v2/getTypes', {interestName: interestName, device: device}, function(markup)
+    $.post('http://b2.com/getTypes', {interestName: interestName, device: device}, function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('#optionsDiv').html(markup);
@@ -197,10 +197,10 @@ function executeSearch()
 
     if (keywords.length > 2)
     {
-        $.post('http://localhost/b2v2/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
+        $.post('http://b2.com/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 if(data)
@@ -224,5 +224,5 @@ function normalEffect(element)
 
 function visitProfile(username)
 {
-    window.location='http://localhost/b2v2/user/'+username;
+    window.location='http://b2.com/user/'+username;
 }

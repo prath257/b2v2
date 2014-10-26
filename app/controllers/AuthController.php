@@ -343,11 +343,11 @@ class AuthController extends \BaseController {
                 if(Auth::check())
                 {
                     //send him to home page, else login page
-                    return Redirect::intended('http://localhost/b2v2/home');
+                    return Redirect::intended('http://b2.com/home');
                 }
                 else
                 {
-                    return View::make('errorPage')->with('error','there seems some problem in Facebook Login, please try again later!')->with('link','http://localhost/b2v2');
+                    return View::make('errorPage')->with('error','there seems some problem in Facebook Login, please try again later!')->with('link','http://b2.com');
                 }
             }
             else
@@ -360,7 +360,7 @@ class AuthController extends \BaseController {
                         if($user->email==$profile->email)
                         {
                             return $user->email.' '.$profile->email;
-                            return View::make('errorPage')->with('error','this email has already been registered!')->with('link','http://localhost/b2v2');
+                            return View::make('errorPage')->with('error','this email has already been registered!')->with('link','http://b2.com');
                         }
                     }
                     $user=new User();
@@ -501,11 +501,11 @@ class AuthController extends \BaseController {
             if(Auth::check())
             {
                 //send him to home page, else login page
-                return Redirect::intended('http://localhost/b2v2/home');
+                return Redirect::intended('http://b2.com/home');
             }
             else
             {
-                return View::make('errorPage')->with('error','there seems some problem in Twitter Login, please try again later!')->with('link','http://localhost/b2v2');
+                return View::make('errorPage')->with('error','there seems some problem in Twitter Login, please try again later!')->with('link','http://b2.com');
             }
 
         }
@@ -519,7 +519,7 @@ class AuthController extends \BaseController {
                 $user->password=Hash::make('kastya_88twadvait_b2');
                 $user->username='tweeple'.$profile->identifier;
                 $user->country="Global";
-                $user->email='teamb2@localhost/b2v2';
+                $user->email='teamb2@b2.com';
                 $user->save();
                 //this is the code to set the default user settings
                 $uset=new UserSetting();
@@ -751,11 +751,11 @@ class AuthController extends \BaseController {
             if(Auth::check())
             {
                 //send him to home page, else login page
-                return Redirect::intended('http://localhost/b2v2/home');
+                return Redirect::intended('http://b2.com/home');
             }
             else
             {
-                return View::make('errorPage')->with('error','there seems some problem in Facebook Login, please try again later!')->with('link','http://localhost/b2v2');
+                return View::make('errorPage')->with('error','there seems some problem in Facebook Login, please try again later!')->with('link','http://b2.com');
             }
         }
         else
@@ -770,7 +770,7 @@ class AuthController extends \BaseController {
                 if($user->email==$profile->email)
                 {
                     $oauth->logoutAllProviders();
-                    return View::make('errorPage')->with('error','this email has already been registered!')->with('link','http://localhost/b2v2');
+                    return View::make('errorPage')->with('error','this email has already been registered!')->with('link','http://b2.com');
                 }
             }
 

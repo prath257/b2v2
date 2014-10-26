@@ -172,7 +172,7 @@
 <input type="hidden" id="refreshed" value="no">
 <script src="{{asset('js/reload.js')}}"></script>
 
-<a href="https://twitter.com/share" class="sharing" data-url="http://localhost/b2v2" data-counturl="http://localhost/b2v2" data-lang="en" data-count="vertical" style="display: none">Tweet</a>
+<a href="https://twitter.com/share" class="sharing" data-url="http://b2.com" data-counturl="http://b2.com" data-lang="en" data-count="vertical" style="display: none">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
 <script src="{{asset('js/bootstrapValidator.min.js')}}"></script>

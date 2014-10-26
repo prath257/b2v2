@@ -48,13 +48,13 @@
          @elseif($note->type=='iContri')
                 <?php $link = DB::table('invite_contributors')->where('collaborationid',$note->chid)->where('useremail',Auth::user()->email)->pluck('link'); ?>
                 <div id="btns{{$note->id}}">
-                <a class="btn btn-success" href="http://localhost/b2v2/acceptCollaboration/{{$link}}/{{$note->chid}}" target="_blank">Accept</a>
+                <a class="btn btn-success" href="http://b2.com/acceptCollaboration/{{$link}}/{{$note->chid}}" target="_blank">Accept</a>
                 </div>
 
         @elseif($note->type=='reqContri')
             <?php $link = DB::table('requestcontribution')->where('collaboration_id',$note->chid)->where('user_id',$note->cuserid)->pluck('link'); ?>
             <div id="btns{{$note->id}}">
-            <a class="btn btn-success" href="http://localhost/b2v2/acceptContributionRequest/{{$link}}" target="_blank">Accept</a>
+            <a class="btn btn-success" href="http://b2.com/acceptContributionRequest/{{$link}}" target="_blank">Accept</a>
             </div>
 
          @endif

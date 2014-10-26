@@ -40,7 +40,7 @@
                                 </span> <h4 id="no_of_notification" class="text-primary"></h4>
                                 </buttton>
 
-                                <a class="btn btn-success" href="http://localhost/b2v2/ifcManager">
+                                <a class="btn btn-success" href="http://b2.com/ifcManager">
                                 IFC Manager
                                 </a>-->
                                     <!-- Modal to display search results -->

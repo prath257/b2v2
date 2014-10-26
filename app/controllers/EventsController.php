@@ -91,10 +91,10 @@ class EventsController extends \BaseController
         $host = User::find($event->userid);
         EventsController::$email = $host->email;
 
-        TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Registered to the event ",'http://localhost/b2v2/event/'.$event->id,$event->title,"content");
-        TransactionController::insertToManager(User::find($event->userid)->id,"+".$ifc,"New attendee to the event '".$event->title."' :",'http://localhost/b2v2/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
+        TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Registered to the event ",'http://b2.com/event/'.$event->id,$event->title,"content");
+        TransactionController::insertToManager(User::find($event->userid)->id,"+".$ifc,"New attendee to the event '".$event->title."' :",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
 
-        AjaxController::insertToNotification($event->userid,Auth::user()->id,"purchased","Registered to your Event ".$event->title,'http://localhost/b2v2/event/'.$event->id);
+        AjaxController::insertToNotification($event->userid,Auth::user()->id,"purchased","Registered to your Event ".$event->title,'http://b2.com/event/'.$event->id);
 
         Mail::send('mailers', array('host'=>$host, 'attendee'=>Auth::user(), 'event'=>$event, 'contact'=>Input::get('number'),'page'=>'newAttendeeMailer'), function($message)
         {
@@ -143,7 +143,7 @@ class EventsController extends \BaseController
             return View::make('attendeeList')->with('attendees',$attendees)->with('event',BEvent::find($id));
         }
         else
-            return View::make('errorPage')->with('error','you don\t have access to this page')->with('link','http://localhost/b2v2/home');
+            return View::make('errorPage')->with('error','you don\t have access to this page')->with('link','http://b2.com/home');
     }
 
     public function getUpdateEvent($id)
@@ -155,7 +155,7 @@ class EventsController extends \BaseController
             return View::make('updateEvent')->with('event',$event)->with('categories',$categories);
         }
         else
-            return View::make('errorPage')->with('error','you don\t have access to this page')->with('link','http://localhost/b2v2/home');
+            return View::make('errorPage')->with('error','you don\t have access to this page')->with('link','http://b2.com/home');
     }
 
     public function postUpdateEvent()

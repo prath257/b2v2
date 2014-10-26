@@ -71,12 +71,12 @@ function postReview()
                 var articleId = $("#articleId").val();
                 var reviewId = $("#reviewId").val();
 
-                $.post('http://localhost/b2v2/articleReview', {ifc: ifc, suggestions: suggestions, articleId: articleId, reviewId: reviewId, zero: zero}, function(error)
+                $.post('http://b2.com/articleReview', {ifc: ifc, suggestions: suggestions, articleId: articleId, reviewId: reviewId, zero: zero}, function(error)
                 {
                     if(error=='wH@tS!nTheB0x')
-                        window.location='http://localhost/b2v2/offline';
+                        window.location='http://b2.com/offline';
                     else
-                    window.location = "http://localhost/b2v2/home";
+                    window.location = "http://b2.com/home";
                 });
             }
             else
@@ -96,12 +96,12 @@ function postReview()
         var articleId = $("#articleId").val();
         var reviewId = $("#reviewId").val();
 
-        $.post('http://localhost/b2v2/articleReview', {ifc: ifc, suggestions: suggestions, articleId: articleId, reviewId: reviewId, zero: zero}, function(error)
+        $.post('http://b2.com/articleReview', {ifc: ifc, suggestions: suggestions, articleId: articleId, reviewId: reviewId, zero: zero}, function(error)
         {
             if(error=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
-            window.location = "http://localhost/b2v2/home";
+            window.location = "http://b2.com/home";
         });
     }
 }

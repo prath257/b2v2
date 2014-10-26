@@ -44,12 +44,12 @@ $(document).ready(function() {
     else if ($('#view').val() == 'manageEvents')
     {
         /*oTableHosted=$('#hostedEvents').dataTable( {
-            "ajax": 'http://localhost/b2v2/getHostedEvents',
+            "ajax": 'http://b2.com/getHostedEvents',
             "lengthMenu": [[2, 10, 15, -1], [2, 10, 15, "All"]]
         } );
 
         oTableRegistered=$('#registeredEvents').dataTable( {
-            "ajax": 'http://localhost/b2v2/getRegisteredEvents',
+            "ajax": 'http://b2.com/getRegisteredEvents',
             "lengthMenu": [[2, 10, 15, -1], [2, 10, 15, "All"]]
         } );*/
     }
@@ -341,10 +341,10 @@ function changeEventCover()
 function plusRegister()
 {
 
-    $.post('http://localhost/b2v2/getIFCs', function(ifc)
+    $.post('http://b2.com/getIFCs', function(ifc)
     {
         if(ifc=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             var eventIFCs = $('#ifcs').html();
@@ -361,7 +361,7 @@ function plusRegister()
 
             $.ajax({
                 type: "POST",
-                url: 'http://localhost/b2v2/ifcModal/'+eventIFCs,
+                url: 'http://b2.com/ifcModal/'+eventIFCs,
                 data: {link:link,content:content},
                 beforeSend: function()
                 {
@@ -371,7 +371,7 @@ function plusRegister()
             }).done(function(response)
             {
                 if(response=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     $("#ifcWaiting").hide();
@@ -392,7 +392,7 @@ function checkForPurchase()
 {
     if($('#purchaseButton').html()=='Get IFC')
     {
-        window.location='http://localhost/b2v2/ifcDeficit';
+        window.location='http://b2.com/ifcDeficit';
     }
     else
     {
@@ -412,10 +412,10 @@ function register()
     $('#contact-no-submit').hide();
     $('#waiting-one').fadeIn();
 
-    $.post('http://localhost/b2v2/eventRegister', {id: id, number: number}, function(response)
+    $.post('http://b2.com/eventRegister', {id: id, number: number}, function(response)
     {
         if(response=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         if (response == 'success')
         {
             $('#waiting-one').hide();
@@ -445,10 +445,10 @@ function cancelRegister()
             var id = $('#event-id').val();
             id = parseInt(id);
 
-            $.post('http://localhost/b2v2/cancelRegister', {id: id}, function(response)
+            $.post('http://b2.com/cancelRegister', {id: id}, function(response)
             {
                 if(response=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 if (response == 'success')
                 {
                     bootbox.alert('Done, all you got is free time now!');
@@ -469,10 +469,10 @@ function deleteEvent(id)
     bootbox.confirm('Are you sure', function(result) {
         if (result==true)
         {
-            $.post('http://localhost/b2v2/deleteEvent', {id: id}, function(response)
+            $.post('http://b2.com/deleteEvent', {id: id}, function(response)
             {
                 if(response=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 if (response == 'success')
                 {
                     $('#Event'+id).fadeOut();
@@ -492,10 +492,10 @@ function toggleEvent(button,id)
     bootbox.confirm(message, function(result) {
         if (result==true)
         {
-            $.post('http://localhost/b2v2/toggleEvent', {id: id}, function(response)
+            $.post('http://b2.com/toggleEvent', {id: id}, function(response)
             {
                 if(response=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 if (response == 'success')
                 {
                     if (button.innerHTML == 'Open Registrations')
@@ -517,10 +517,10 @@ function cancelRegisterMY(id)
             $('#cancel-register-'+id).hide();
             $('#waiting').fadeIn();
 
-            $.post('http://localhost/b2v2/cancelRegister', {id: id}, function(response)
+            $.post('http://b2.com/cancelRegister', {id: id}, function(response)
             {
                 if(response=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 if (response == 'success')
                 {
                     bootbox.alert('Done, all you got is free time now!');
@@ -537,10 +537,10 @@ function mailMe(id)
     $('#mail-me').hide();
     $('.waiting').show();
 
-    $.post('http://localhost/b2v2/mailMe', {id: id}, function(error)
+    $.post('http://b2.com/mailMe', {id: id}, function(error)
     {
         if(error=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('.waiting').hide();

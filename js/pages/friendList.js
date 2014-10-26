@@ -28,11 +28,11 @@ function friendsModalUnfriend(rowid,id9)
         {
              $.ajax({
                 type: "POST",
-                url: "http://localhost/b2v2/deleteFriend/"+id9,
+                url: "http://b2.com/deleteFriend/"+id9,
                 data: {type:'kind'}
             }).done(function(data)
             {   if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     var row = $(rowid).closest("tr").get(0);
@@ -49,10 +49,10 @@ function cancelRequest(rowid,id5)
     {
         if (result==true)
         {
-            $.post("http://localhost/b2v2/cancelRequest/"+id5,{type:'kind'},function(error)
+            $.post("http://b2.com/cancelRequest/"+id5,{type:'kind'},function(error)
             {
                 if(error=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     var row = $(rowid).closest("tr").get(0);
@@ -66,10 +66,10 @@ function cancelRequest(rowid,id5)
 
 function acceptRequest(rowid,id6)
 {
-    $.post("http://localhost/b2v2/acceptFriend/"+id6,{type:'kind'},function(error)
+    $.post("http://b2.com/acceptFriend/"+id6,{type:'kind'},function(error)
     {
         if(error=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             var row = $(rowid).closest("tr").get(0);
@@ -86,10 +86,10 @@ function acceptRequest(rowid,id6)
 function declineRequest(rowid,id7)
 {
 
-    $.post("http://localhost/b2v2/declineFriend/"+id7,{type:'kind'},function(error)
+    $.post("http://b2.com/declineFriend/"+id7,{type:'kind'},function(error)
     {
         if(error=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             var row = $(rowid).closest("tr").get(0);

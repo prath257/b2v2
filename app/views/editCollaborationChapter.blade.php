@@ -70,9 +70,9 @@
                     <button type="button" id="mediaButton" class="btn btn-success" onclick="uploadMedia()">Upload Media</button>
                     <button type="button" id="resourceButton" class="btn btn-danger" onclick="addResource()">Add Resource</button>
                     @if ($chapter->getCollaboration->userid == Auth::user()->id)
-                    <a id="cancel" class="btn btn-default" href="http://localhost/b2v2/collaborationSettings/{{$chapter->getCollaboration->id}}" onclick="goToSettings()">Cancel</a>
+                    <a id="cancel" class="btn btn-default" href="http://b2.com/collaborationSettings/{{$chapter->getCollaboration->id}}" onclick="goToSettings()">Cancel</a>
                     @else
-                    <a id="cancel" class="btn btn-default" href="http://localhost/b2v2/editCollaborationChapters/{{$chapter->getCollaboration->id}}" onclick="goToChapters()">Cancel</a>
+                    <a id="cancel" class="btn btn-default" href="http://b2.com/editCollaborationChapters/{{$chapter->getCollaboration->id}}" onclick="goToChapters()">Cancel</a>
                     @endif
                     <strong><span id="error-box" style="color: darkred"></span></strong>
                 </div>
@@ -96,10 +96,10 @@
                 <fieldset>
                     @if ($chapter->getCollaboration->userid == Auth::user()->id)
                     <p>Chapter: '{{$chapter->title}}' in Collaboration: '{{$collaboration->title}}' has been successfully updated.</p><br>
-                    <a class="btn btn-primary pull-right" href="http://localhost/b2v2/collaborationSettings/{{$chapter->getCollaboration->id}}" style="margin-right: 2.5%">Okay</a>
+                    <a class="btn btn-primary pull-right" href="http://b2.com/collaborationSettings/{{$chapter->getCollaboration->id}}" style="margin-right: 2.5%">Okay</a>
                     @else
                     <p>New edit copy of chapter: '{{$chapter->title}}' in collaboration: '{{$collaboration->title}}' has been sent to the admin for approval.</p><br>
-                    <a class="btn btn-primary pull-right" href="http://localhost/b2v2/editCollaborationChapters/{{$chapter->getCollaboration->id}}" style="margin-right: 2.5%">Okay</a>
+                    <a class="btn btn-primary pull-right" href="http://b2.com/editCollaborationChapters/{{$chapter->getCollaboration->id}}" style="margin-right: 2.5%">Okay</a>
                     @endif
                 </fieldset>
             </div>

@@ -21,12 +21,12 @@ function block_unblock(bid,sid)
         {
             $.ajax({
                 type: "POST",
-                url: "http://localhost/b2v2/blockUnblockSubscriber",
+                url: "http://b2.com/blockUnblockSubscriber",
                 data: {id: sid}
             }).done(function(error)
             {
                 if(error=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';s
+                    window.location='http://b2.com/offline';s
                 else
                 {
                     var button=$(bid).html();
@@ -52,12 +52,12 @@ function unfollow(rowid,id2)
         {
             $.ajax({
                 type: "POST",
-                url: "http://localhost/b2v2/unSubscribe",
+                url: "http://b2.com/unSubscribe",
                 data: {id: id2}
             }).done(function(error)
             {
                 if(error=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     var row = $(rowid).closest("tr").get(0);

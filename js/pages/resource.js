@@ -145,7 +145,7 @@ function showPurchase(ifcr)
 
     $.ajax({
         type: "POST",
-        url: 'http://localhost/b2v2/ifcModal/'+ifcr,
+        url: 'http://b2.com/ifcModal/'+ifcr,
         data: {link:link,content:content},
         beforeSend: function()
         {
@@ -154,7 +154,7 @@ function showPurchase(ifcr)
     }).done(function(response)
     {
         if(response=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $("#ifcWaiting").hide();
@@ -190,24 +190,24 @@ function purchase()
     var cid=$('#cid').val();
     if(type=='book')
     {
-        window.location='http://localhost/b2v2/blogBook/'+cid;
+        window.location='http://b2.com/blogBook/'+cid;
     }
     else if(type=='article')
     {
-        window.location='http://localhost/b2v2/readArticle/'+cid;
+        window.location='http://b2.com/readArticle/'+cid;
     }
     else if(type=='collaboration')
     {
-        window.location='http://localhost/b2v2/collaboration/'+cid;
+        window.location='http://b2.com/collaboration/'+cid;
     }
     else
     {
         $('#ifcPurchasingModal').modal('hide');
-        window.location='http://localhost/b2v2/sym140Nb971wzb4284/'+cid;
-        $.post('http://localhost/b2v2/getIFCs', function(ifc)
+        window.location='http://b2.com/sym140Nb971wzb4284/'+cid;
+        $.post('http://b2.com/getIFCs', function(ifc)
         {
             if(ifc=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 $("#mycounter").fadeIn();
@@ -249,12 +249,12 @@ function postInvite()
 
         $.ajax({
             type: "POST",
-            url: "http://localhost/b2v2/invite",
+            url: "http://b2.com/invite",
             data: {name:name, email:email}
         }).done(function(msg)
         {
             if(msg=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 $('#inviteLinkAndErrors').html(msg);
@@ -283,14 +283,14 @@ function closeInviteModal()
 
 function showBlogBookPreview(bookId)
 {
-    $("#previewDivContent").html("<iframe id='bbPreview' class='col-lg-12' src='http://localhost/b2v2/previewBlogBook/"+bookId+"' style='margin-top: 3%' height='500' frameborder='0'></iframe>");
+    $("#previewDivContent").html("<iframe id='bbPreview' class='col-lg-12' src='http://b2.com/previewBlogBook/"+bookId+"' style='margin-top: 3%' height='500' frameborder='0'></iframe>");
     $("#blogBookDiv").css("opacity","0");
     $("#previewDiv").fadeIn();
 }
 
 function showCollaborationPreview(bookId)
 {
-    $("#previewDivContent").html("<iframe id='cPreview' class='col-lg-12' src='http://localhost/b2v2/previewCollaboration/"+bookId+"' style='margin-top: 3%' height='500' frameborder='0'></iframe>");
+    $("#previewDivContent").html("<iframe id='cPreview' class='col-lg-12' src='http://b2.com/previewCollaboration/"+bookId+"' style='margin-top: 3%' height='500' frameborder='0'></iframe>");
     $("#blogBookDiv").css("opacity","0");
     $("#previewDiv").fadeIn();
 }
@@ -313,10 +313,10 @@ function postRequest(id)
     var reason = $('#contributeReason').val();
     if (reason.length > 9 && reason.length <301)
     {
-        $.post('http://localhost/b2v2/request2contribute', {id: id, reason: reason}, function(response)
+        $.post('http://b2.com/request2contribute', {id: id, reason: reason}, function(response)
         {
             if(response=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 $('#plusContributeSubmit').show();
@@ -351,10 +351,10 @@ function executeSearch()
 
     if (keywords.length > 2)
     {
-        $.post('http://localhost/b2v2/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
+        $.post('http://b2.com/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 if(data)
@@ -378,7 +378,7 @@ function normalEffect(element)
 
 function visitProfile(username)
 {
-    window.location='http://localhost/b2v2/user/'+username;
+    window.location='http://b2.com/user/'+username;
 }
 
 function viewMedia(id,path)
@@ -387,27 +387,27 @@ function viewMedia(id,path)
     ifc = parseInt(ifc);
     $('#viewMedia').prop('disabled',true);
     $('#viewMedia').html('Please Wait..');
-    $.post('http://localhost/b2v2/getIFCs', function(uifc)
+    $.post('http://b2.com/getIFCs', function(uifc)
     {
         if(uifc=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('#viewMedia').prop('disabled',false);
             $('#viewMedia').html('View Media');
             uifc = parseInt(uifc);
             if (ifc > uifc)
-                bootbox.alert("Sorry, looks like you haven\'t got enough IFCs to view this! Visit this <a href='http://localhost/b2v2/ifcDeficit' target='_blank'>link</a> to know more about earning IFCs.");
+                bootbox.alert("Sorry, looks like you haven\'t got enough IFCs to view this! Visit this <a href='http://b2.com/ifcDeficit' target='_blank'>link</a> to know more about earning IFCs.");
             else
             {
                 var message = 'You have '+uifc+' IFCs left with you and viewing this media will cost you '+ifc+' IFCs. Do you want to proceed?';
                 bootbox.confirm(message, function(result) {
                     if (result==true)
                     {
-                        $.post('http://localhost/b2v2/viewMedia', {id: id}, function(success)
+                        $.post('http://b2.com/viewMedia', {id: id}, function(success)
                         {
                             if(success=='wH@tS!nTheB0x')
-                                window.location='http://localhost/b2v2/offline';
+                                window.location='http://b2.com/offline';
                             else
                             {
                                 if (success == 'success')
@@ -457,7 +457,7 @@ function viewMedia2(path)
 function purchaseRes(link)
 {
     $('#ifcPurchasingModal').modal('hide');
-    window.location = 'http://localhost/b2v2/'+link;
+    window.location = 'http://b2.com/'+link;
 }
 
 function stopPlayingMedia()

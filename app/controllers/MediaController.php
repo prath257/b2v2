@@ -21,7 +21,7 @@ class MediaController extends \BaseController
 		$username=Auth::user()->username;
 		Input::file('userMedia')->move('Users/'.$username.'/Media/', $name);
 		//Set the path in database, allocate IFCs
-		$filePath='http://localhost/b2v2/Users/'.$username.'/Media/'.$name;
+		$filePath='http://b2.com/Users/'.$username.'/Media/'.$name;
 		$media->path=$filePath;
 		$media->title=Input::get('mediaTitle');
 		$media->type=$extension;
@@ -54,7 +54,7 @@ class MediaController extends \BaseController
         $username=Auth::user()->username;
         Input::file('media')->move('Users/'.$username.'/Media/', $name);
         //Set the path in database, allocate IFCs
-        $filePath='http://localhost/b2v2/Users/'.$username.'/Media/'.$name;
+        $filePath='http://b2.com/Users/'.$username.'/Media/'.$name;
         $media->path=$filePath;
         $media->title=Input::get('title');
         $media->type=$extension;
@@ -203,10 +203,10 @@ class MediaController extends \BaseController
         $media->users ++;
         $media->save();
 
-        AjaxController::insertToNotification($media->getAuthor->id,Auth::user()->id,"purchased","purchased your media ".$media->title,'http://localhost/b2v2/mediaPreview/'.$media->id);
+        AjaxController::insertToNotification($media->getAuthor->id,Auth::user()->id,"purchased","purchased your media ".$media->title,'http://b2.com/mediaPreview/'.$media->id);
 
-        TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Bought media",'http://localhost/b2v2/mediaPreview/'.$media->id,$media->title,"content");
-        TransactionController::insertToManager(User::find($media->userid)->id,"+".$ifc,"Sold media '".$media->title."' to",'http://localhost/b2v2/user/'.Auth::user()->username, Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
+        TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Bought media",'http://b2.com/mediaPreview/'.$media->id,$media->title,"content");
+        TransactionController::insertToManager(User::find($media->userid)->id,"+".$ifc,"Sold media '".$media->title."' to",'http://b2.com/user/'.Auth::user()->username, Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
 
         return 'success';
     }

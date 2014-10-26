@@ -15,11 +15,11 @@ function submitProblem()
 
     $('#submitProblem').hide();
     $('#waiting').show();
-    $.post('http://localhost/b2v2/submitProblemOnException', {past: past, future: future, present: present}, function()
+    $.post('http://b2.com/submitProblemOnException', {past: past, future: future, present: present}, function()
     {
         $('#reportThisModal').modal('hide');
         bootbox.alert("Well, we truly appreciate that! Thank you for your time.", function() {
-            window.location = 'http://localhost/b2v2/home';
+            window.location = 'http://b2.com/home';
         });
     });
 }

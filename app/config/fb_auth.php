@@ -1,6 +1,6 @@
 <?php
 return array(
-    "base_url" => "http://localhost/b2v2/fbauth/auth",
+    "base_url" => "http://b2.com/fbauth/auth",
     "providers" => array (
         "Facebook" => array (
             "enabled" => TRUE,

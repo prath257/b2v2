@@ -7,7 +7,7 @@ $(document).ready(function()
     }
 
 	oTable=$('#example').dataTable( {
-		"ajax": 'http://localhost/b2v2/getResourceData',
+		"ajax": 'http://b2.com/getResourceData',
 		"lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
 	} );
 
@@ -89,10 +89,10 @@ function deleteResource(bid,rid)
 	bootbox.confirm("Are you sure?", function(result) {
 		if (result==true)
 		{
-			$.post('http://localhost/b2v2/deleteResource',{id:rid},function(data)
+			$.post('http://b2.com/deleteResource',{id:rid},function(data)
 			{
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
 				else
                 {
                     var row = $(bid).closest("tr").get(0);
@@ -132,7 +132,7 @@ function uploadResource()
 		ajax.addEventListener("load", completeHandler, false);
 		ajax.addEventListener("error", errorHandler, false);
 		ajax.addEventListener("abort", abortHandler, false);
-		ajax.open("POST", "http://localhost/b2v2/createResource");
+		ajax.open("POST", "http://b2.com/createResource");
 		ajax.send(formdata);
 
 	}
@@ -141,7 +141,7 @@ function completeHandler(event)
 {
     var error= this.responseText;
     if(error=='wH@tS!nTheB0x')
-        window.location='http://localhost/b2v2/offline';
+        window.location='http://b2.com/offline';
     else
 	window.location.reload();
 }

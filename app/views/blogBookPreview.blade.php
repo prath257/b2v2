@@ -51,7 +51,7 @@
 <?php
 
     $ttext = 'read this BlogBook.';
-    $tlink = 'http://localhost/b2v2/blogBook/'.$book->id;
+    $tlink = 'http://b2.com/blogBook/'.$book->id;
 
 ?>
 
@@ -137,7 +137,7 @@
             <div class="col-lg-9" style="padding-top: 10px">
                 <p style="font-size: 22px">{{$owner->first_name}} {{$owner->last_name}}</p>
 
-                <a href="http://localhost/b2v2/user/{{$owner->username}}" target="_blank">Visit Profile</a>
+                <a href="http://b2.com/user/{{$owner->username}}" target="_blank">Visit Profile</a>
                 <div class="col-lg-12" style="padding-top: 20px; padding-left: 0px; height: 125px">
                     {{$owner->profile->aboutMe}}
                 </div>

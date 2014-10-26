@@ -74,7 +74,7 @@ class HomeController extends BaseController
                 $invite->email=Input::get('email');
                 $invite->link_id=str_random(8);
                 $invite->save();
-                return "Share the following link with your friend and urge him/her to join. If he/she clicks on the link and signs up, you earn 300 i. <b>Link: http://localhost/b2v2/signup/".$invite->link_id."</b><button class=' btn btn-primary pull-right' type='button' onclick='inviteAnother()'>Invite one more</button>";
+                return "Share the following link with your friend and urge him/her to join. If he/she clicks on the link and signs up, you earn 300 i. <b>Link: http://b2.com/signup/".$invite->link_id."</b><button class=' btn btn-primary pull-right' type='button' onclick='inviteAnother()'>Invite one more</button>";
             }
             else
             {
@@ -174,11 +174,11 @@ class HomeController extends BaseController
 
         $subscriptionid = DB::table('subscriptions')->where('subscribed_to_id',Input::get('id'))->where('subscriber_id',Auth::user()->id)->pluck('id');
 
-        TransactionController::insertToManager(Auth::user()->id,"-".$user->settings->subcost,"Subscribed to",'http://localhost/b2v2/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
+        TransactionController::insertToManager(Auth::user()->id,"-".$user->settings->subcost,"Subscribed to",'http://b2.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
 
-        TransactionController::insertToManager($user->id,"+".$user->settings->subcost,"New subscriber:",'http://localhost/b2v2/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
+        TransactionController::insertToManager($user->id,"+".$user->settings->subcost,"New subscriber:",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
 
-        AjaxController::insertToNotification($user->id,Auth::user()->id,"subscription"," subscribed to you ",'http://localhost/b2v2/user/'.$user->username);
+        AjaxController::insertToNotification($user->id,Auth::user()->id,"subscription"," subscribed to you ",'http://b2.com/user/'.$user->username);
 
         HomeController::$user = $user;
 
@@ -245,10 +245,10 @@ class HomeController extends BaseController
                 $senderprofile->ifc-=$ifc;
                 $senderprofile->save();
 
-                TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"IFCs transferred to","http://localhost/b2v2/user/".User::find(Input::get('userid'))->username,User::find(Input::get('userid'))->first_name." ".User::find(Input::get('userid'))->last_name,"profile");
-                TransactionController::insertToManager($receiverid,"+".$ifc,"IFCs transferred by","http://localhost/b2v2/user/".Auth::user()->username,Auth::user()->first_name." ".Auth::user()->last_name,"profile");
+                TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"IFCs transferred to","http://b2.com/user/".User::find(Input::get('userid'))->username,User::find(Input::get('userid'))->first_name." ".User::find(Input::get('userid'))->last_name,"profile");
+                TransactionController::insertToManager($receiverid,"+".$ifc,"IFCs transferred by","http://b2.com/user/".Auth::user()->username,Auth::user()->first_name." ".Auth::user()->last_name,"profile");
 
-                AjaxController::insertToNotification(Input::get('userid'),Auth::user()->id,"transfered"," Transfered ".Input::get('ifc')." ifc to your account",'http://localhost/b2v2/user/'.Auth::user()->username);
+                AjaxController::insertToNotification(Input::get('userid'),Auth::user()->id,"transfered"," Transfered ".Input::get('ifc')." ifc to your account",'http://b2.com/user/'.Auth::user()->username);
 
                 QAController::$user = User::find($receiverid);
                 $sender = User::find($senderid);
@@ -370,7 +370,7 @@ class HomeController extends BaseController
             $user->profile->save();
             $article->save();
 
-            TransactionController::insertToManager($user->id,"+".Input::get('ifc'),"IFCs awarded after reviewing the article","http://localhost/b2v2/readArticle/".$article->id,$article->title,"content");
+            TransactionController::insertToManager($user->id,"+".Input::get('ifc'),"IFCs awarded after reviewing the article","http://b2.com/readArticle/".$article->id,$article->title,"content");
         }
     }
         else
@@ -404,7 +404,7 @@ class HomeController extends BaseController
             $user->profile->save();
             $blogBook->save();
 
-            TransactionController::insertToManager($user->id,"+".Input::get('ifc'),"IFCs awarded after reviewing the BlogBook","http://localhost/b2v2/blogBook/".$blogBook->id,$blogBook->title,"content");
+            TransactionController::insertToManager($user->id,"+".Input::get('ifc'),"IFCs awarded after reviewing the BlogBook","http://b2.com/blogBook/".$blogBook->id,$blogBook->title,"content");
         }
     }
         else

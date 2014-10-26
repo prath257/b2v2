@@ -8,7 +8,7 @@ $(document).ready(function()
     }
 
 	oTable=$('#example').dataTable( {
-		"ajax": 'http://localhost/b2v2/getMediaData',
+		"ajax": 'http://b2.com/getMediaData',
 		"lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
 	} );
 
@@ -195,7 +195,7 @@ function uploadNewMedia()
 		ajax.addEventListener("load", completeHandler, false);
 		ajax.addEventListener("error", errorHandler, false);
 		ajax.addEventListener("abort", abortHandler, false);
-		ajax.open("POST", "http://localhost/b2v2/uploadMedia");
+		ajax.open("POST", "http://b2.com/uploadMedia");
 		ajax.send(formdata);
 	}
 }
@@ -204,7 +204,7 @@ function completeHandler(event)
 {
     var response = this.responseText;
     if(response=='wH@tS!nTheB0x')
-        window.location='http://localhost/b2v2/offline';
+        window.location='http://b2.com/offline';
     else
     {
         if (response == 'success')
@@ -267,7 +267,7 @@ function uploadNewMedia2()
         ajax.addEventListener("load", completeHandler2, false);
         ajax.addEventListener("error", errorHandler2, false);
         ajax.addEventListener("abort", abortHandler2, false);
-        ajax.open("POST", "http://localhost/b2v2/uploadPublicMedia");
+        ajax.open("POST", "http://b2.com/uploadPublicMedia");
         ajax.send(formdata);
     }
 }
@@ -277,14 +277,14 @@ function completeHandler2(event)
 
     var response = this.responseText;
     if(response=='wH@tS!nTheB0x')
-        window.location='http://localhost/b2v2/offline';
+        window.location='http://b2.com/offline';
     else
     {
         if (response == 'success')
         {
             bootbox.alert("Upload Successfull!", function() {
 
-                window.location = 'http://localhost/b2v2/mediaDashboard';
+                window.location = 'http://b2.com/mediaDashboard';
             });
         }
         else
@@ -335,10 +335,10 @@ function deleteMedia(bid,mid)
 	bootbox.confirm("Are you sure?", function(result) {
 		if (result==true)
 		{
-			$.post('http://localhost/b2v2/deleteMedia',{id:mid},function(data)
+			$.post('http://b2.com/deleteMedia',{id:mid},function(data)
 			{
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
 				else
                 {
                     var row = $(bid).closest("tr").get(0);
@@ -366,10 +366,10 @@ function editDetails(id)
     $('#loading').show();
     $('#fieldset').html('');
     $('#editMediaModal').modal('show');
-    $.post('http://localhost/b2v2/getMediaDetails', {id: id}, function(markup)
+    $.post('http://b2.com/getMediaDetails', {id: id}, function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('#loading').hide();
@@ -468,7 +468,7 @@ function editMedia(id)
         formdata.append("cover", cover);
     var ajax = new XMLHttpRequest();
     ajax.addEventListener("load", completeHandler3, false);
-    ajax.open("POST", "http://localhost/b2v2/editPublicMedia");
+    ajax.open("POST", "http://b2.com/editPublicMedia");
     ajax.send(formdata);
 }
 
@@ -476,7 +476,7 @@ function completeHandler3(event)
 {
     var error = this.responseText;
     if(error=='wH@tS!nTheB0x')
-        window.location='http://localhost/b2v2/offline';
+        window.location='http://b2.com/offline';
     else
     {
         $('#waiting').hide();

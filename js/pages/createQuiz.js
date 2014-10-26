@@ -324,7 +324,7 @@ function quizSubmit()
     var access = $('#quizAccess').val();
     var time=$('#quizTime').val();
 
-    $.post('http://localhost/b2v2/createQuiz',
+    $.post('http://b2.com/createQuiz',
         {
             count: count,
             questions: allQuestions,
@@ -345,11 +345,11 @@ function quizSubmit()
         },function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 bootbox.alert("Done! Check your quiz dashboard for latest stats!", function() {
-                    window.location='http://localhost/b2v2/quizDashboard';
+                    window.location='http://b2.com/quizDashboard';
                 });
             }
         });
@@ -362,7 +362,7 @@ function showExistingQuestions()
     {
         var id = $('#quizid').val();
         oTableExistingQuestions=$('#existingQuestionsTable').dataTable( {
-            "ajax": 'http://localhost/b2v2/getExistingQuizQuestionsData/'+id,
+            "ajax": 'http://b2.com/getExistingQuizQuestionsData/'+id,
             "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
         } );
         datatable++;
@@ -374,10 +374,10 @@ function removeExistingQuestion(bid,id)
     bootbox.confirm("Are you sure?", function(result) {
         if (result == true)
         {
-            $.post('http://localhost/b2v2/removeExistingQuestion', {id: id}, function(error)
+            $.post('http://b2.com/removeExistingQuestion', {id: id}, function(error)
             {
                 if(error=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     var row = $(bid).closest("tr").get(0);
@@ -390,10 +390,10 @@ function removeExistingQuestion(bid,id)
 
 function editExistingQuestion(id)
 {
-    $.post('http://localhost/b2v2/editExistingQuestion', {id: id}, function(markup)
+    $.post('http://b2.com/editExistingQuestion', {id: id}, function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('#editExistingQuestionBody').html(markup);
@@ -575,10 +575,10 @@ function submitEdit(id,type)
         var option4 = null;
     }
 
-    $.post('http://localhost/b2v2/updateQuizQuestion', {id: id, question: question, answer: answer, option1: option1, option2: option2, option3: option3, option4: option4}, function(error)
+    $.post('http://b2.com/updateQuizQuestion', {id: id, question: question, answer: answer, option1: option1, option2: option2, option3: option3, option4: option4}, function(error)
     {
         if(error=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             bootbox.alert("Saved successfully.", function() {
@@ -586,7 +586,7 @@ function submitEdit(id,type)
                 oTableExistingQuestions.dataTable().fnDestroy();
                 var id = $('#quizid').val();
                 oTableExistingQuestions=$('#existingQuestionsTable').dataTable( {
-                    "ajax": 'http://localhost/b2v2/getExistingQuizQuestionsData/'+id,
+                    "ajax": 'http://b2.com/getExistingQuizQuestionsData/'+id,
                     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
                 } );
             });

@@ -20,13 +20,13 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 <div id="comments" style="display: none; margin-left: 20%">
-    <div class="fb-comments" data-href="http://localhost/b2v2/blogBookPreview/{{$book->id}}" data-width="600" data-numposts="5" data-colorscheme="light"></div>
+    <div class="fb-comments" data-href="http://b2.com/blogBookPreview/{{$book->id}}" data-width="600" data-numposts="5" data-colorscheme="light"></div>
 </div>
 <a href="{{route('blogBookDashboard')}}" style="background-color: darkorange; color: #ffffff;float: left; padding: 5px; border: solid">Back</a>
 <a id="fbc" href="#" onclick="showComments()" style="background-color:#002166; color: #ffffff; float: left; padding: 5px; border: solid">Comments</a>
 
-<div class="fb-share-button" style="padding: 5px" data-href="http://localhost/b2v2/blogBookPreview/{{$book->id}}"></div><br>
-    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://localhost/b2v2/blogBook/{{$book->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters" style="margin-top: 2px">Tweet</a>
+<div class="fb-share-button" style="padding: 5px" data-href="http://b2.com/blogBookPreview/{{$book->id}}"></div><br>
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://b2.com/blogBook/{{$book->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters" style="margin-top: 2px">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 <div id="container" class="container" style="margin-top: 20px">
@@ -73,7 +73,7 @@
                 <div class="content">
                     <div class="scroller" style="word-wrap: break-word">
                         <h2>{{$book->title}}</h2>
-                         <div class="fb-like" data-href="https://localhost/b2v2/beta/blogBook/{{$book->id}}" data-layout="standard" data-action="recommend" data-show-faces="false" data-share="false"></div>
+                         <div class="fb-like" data-href="https://b2.com/beta/blogBook/{{$book->id}}" data-layout="standard" data-action="recommend" data-show-faces="false" data-share="false"></div>
                         <img src="{{asset($book->cover)}}" width="100%" style="overflow: hidden">
 
                     </div>

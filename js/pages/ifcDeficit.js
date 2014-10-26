@@ -55,12 +55,12 @@ function postInvite()
 
         $.ajax({
             type: "POST",
-            url: "http://localhost/b2v2/invite",
+            url: "http://b2.com/invite",
             data: {name:name, email:email}
         }).done(function(msg)
         {
             if(msg=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 $('#inviteLinkAndErrors').html(msg);

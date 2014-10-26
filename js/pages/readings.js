@@ -12,17 +12,17 @@ $(document).ready(function()
     }
 
 	oTablea=$('#articleData').dataTable( {
-		"ajax": 'http://localhost/b2v2/getMyArticlesData',
+		"ajax": 'http://b2.com/getMyArticlesData',
 		"lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
 	} );
 
 	oTableb=$('#bookData').dataTable( {
-		"ajax": 'http://localhost/b2v2/getMyBooksData',
+		"ajax": 'http://b2.com/getMyBooksData',
 		"lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
 	} );
 
     oTablec=$('#collaborationData').dataTable( {
-        "ajax": 'http://localhost/b2v2/getMyCollaborationsData',
+        "ajax": 'http://b2.com/getMyCollaborationsData',
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
     } );
 
@@ -46,10 +46,10 @@ function postRequest()
     var id = $('#collaborationId').val();
     var reason = $('#contributeReason').val();
 
-        $.post('http://localhost/b2v2/request2contribute', {id: id, reason: reason}, function(response)
+        $.post('http://b2.com/request2contribute', {id: id, reason: reason}, function(response)
         {
             if(error=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 $('#plusContributeSubmit').show();

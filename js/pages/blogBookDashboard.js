@@ -133,10 +133,10 @@ function deleteBlogBook(bid,dbbid)
     bootbox.confirm("Are you sure?", function(result) {
         if (result==true)
         {
-            $.post('http://localhost/b2v2/deleteBlogBook',{id:dbbid},function(data)
+            $.post('http://b2.com/deleteBlogBook',{id:dbbid},function(data)
             {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     var row = $(bid).closest("tr").get(0);
@@ -156,7 +156,7 @@ function reviewBlogBook(rbbid)
 
     $.ajax({
         type: "POST",
-        url: 'http://localhost/b2v2/reviewBlogBook',
+        url: 'http://b2.com/reviewBlogBook',
         data:{id: rbbid},
         beforeSend: function()
         {
@@ -167,7 +167,7 @@ function reviewBlogBook(rbbid)
     }).done(function(message)
     {
         if(message=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $("#waitingPic"+rbbid).fadeOut();
@@ -205,10 +205,10 @@ function executeSearch()
 
     if (keywords.length > 2)
     {
-        $.post('http://localhost/b2v2/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
+        $.post('http://b2.com/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 if(data)
@@ -232,5 +232,5 @@ function normalEffect(element)
 
 function visitProfile(username)
 {
-    window.location='http://localhost/b2v2/user/'+username;
+    window.location='http://b2.com/user/'+username;
 }

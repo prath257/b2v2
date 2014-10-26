@@ -9,10 +9,10 @@ $(document).ready(function()
 {
     var type = $('#type').val();
    // $(".rating-kv").rating();
-    $.post('http://localhost/b2v2/getArticleTemplate', {type: type, count: ListItem}, function(markup)
+    $.post('http://b2.com/getArticleTemplate', {type: type, count: ListItem}, function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             if (type == 'Article')
@@ -727,7 +727,7 @@ content += "<h3>The Review</h3>";
 
     $.ajax({
         type: "POST",
-        url: 'http://localhost/b2v2/createArticle',
+        url: 'http://b2.com/createArticle',
         data:{title: title, extension: extension, description:description, category: category, ifc: ifc, type:type, content: content, review: method},
         beforeSend: function()
         {
@@ -748,7 +748,7 @@ content += "<h3>The Review</h3>";
     }).done(function(message)
     {
         if(message=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             if(method=='toreview')
@@ -782,7 +782,7 @@ content += "<h3>The Review</h3>";
 
 
     /*
-    $.post('http://localhost/b2v2/createArticle', {title: title, extension: extension, description:description, category: category, ifc: ifc, type:type, content: content, review: method}, function(message)
+    $.post('http://b2.com/createArticle', {title: title, extension: extension, description:description, category: category, ifc: ifc, type:type, content: content, review: method}, function(message)
     {
         if (message=="success")
         {
@@ -806,7 +806,7 @@ content += "<h3>The Review</h3>";
 function returnToDashboard()
 {
 	$("#articleSuccessfullyPostedModal").modal('hide');
-	window.location.href = "http://localhost/b2v2/articleDashboard";
+	window.location.href = "http://b2.com/articleDashboard";
 }
 
 //this is the function to uploadMedia
@@ -822,7 +822,7 @@ function getMedia()
     if (med == 0)
     {
         oTableMedia=$('#mediaTable').dataTable( {
-            "ajax": 'http://localhost/b2v2/getMediaWritingData',
+            "ajax": 'http://b2.com/getMediaWritingData',
             "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
         } );
         med++;
@@ -904,7 +904,7 @@ function uploadNewMedia()
         ajax.addEventListener("load", completeHandler, false);
         ajax.addEventListener("error", errorHandler, false);
         ajax.addEventListener("abort", abortHandler, false);
-        ajax.open("POST", "http://localhost/b2v2/uploadMedia");
+        ajax.open("POST", "http://b2.com/uploadMedia");
         ajax.send(formdata);
         $('#newMediaModal').modal('hide');
         $('#uploadMediaModal').modal('hide');
@@ -918,7 +918,7 @@ function completeHandler(event)
 	var strpath=this.responseText;
 
     if(strpath=='wH@tS!nTheB0x')
-        window.location='http://localhost/b2v2/offline';
+        window.location='http://b2.com/offline';
     else
     {
         if ((strpath.search('.mp4') > 0) || (strpath.search('.webm') > 0) || (strpath.search('.ogg') > 0))
@@ -974,7 +974,7 @@ function addResource()
     if (res == 0)
     {
         oTableResource=$('#resourcesTable').dataTable( {
-            "ajax": 'http://localhost/b2v2/getResourceWritingData',
+            "ajax": 'http://b2.com/getResourceWritingData',
             "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
         } );
         res++;
@@ -985,7 +985,7 @@ function addResource()
 function useResource(rid,title)
 {
     var content = $('#summernote').code();
-    content+="<a href='http://localhost/b2v2/resource/"+rid+"' class='btn btn-success'>"+title+"</a>";
+    content+="<a href='http://b2.com/resource/"+rid+"' class='btn btn-success'>"+title+"</a>";
     $('#summernote').code(content);
     $('#getResourceModal').modal('hide');
 }
@@ -1000,10 +1000,10 @@ function addNewListItem()
 {
     ListItem++;
 
-    $.post('http://localhost/b2v2/getArticleTemplate', {type: 'List', count: ListItem}, function(markup)
+    $.post('http://b2.com/getArticleTemplate', {type: 'List', count: ListItem}, function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('#articleFields').append("<br>"+markup);
@@ -1023,10 +1023,10 @@ function addNewTrack()
 {
     ListItem++;
 
-    $.post('http://localhost/b2v2/getArticleTemplate', {type: 'Music Review', count: ListItem}, function(markup)
+    $.post('http://b2.com/getArticleTemplate', {type: 'Music Review', count: ListItem}, function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('#trackList').append("<br>"+markup);
@@ -1048,10 +1048,10 @@ function addNewBlock()
 {
     ListItem++;
 
-    $.post('http://localhost/b2v2/getArticleTemplate', {type: 'Code Article', count: ListItem}, function(markup)
+    $.post('http://b2.com/getArticleTemplate', {type: 'Code Article', count: ListItem}, function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('#articleFields').append("<br>"+markup);

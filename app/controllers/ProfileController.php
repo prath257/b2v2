@@ -135,7 +135,7 @@ class ProfileController extends \BaseController {
 
         TransactionController::insertToManager($user->id,"+310","Profile Built","nope","nope","nope");
 
-	    return "http://localhost/b2v2/profile";
+	    return "http://b2.com/profile";
 
 	}
         else

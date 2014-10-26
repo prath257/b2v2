@@ -3,10 +3,10 @@ var oTable=null;
 $(document).ready(function()
 {
     $("#mycounter").flipCounterInit({'speed': 0.05});
-    $.post('http://localhost/b2v2/getIFCs', function(ifcs)
+    $.post('http://b2.com/getIFCs', function(ifcs)
     {
         if(ifcs=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
             $("#mycounter").flipCounterUpdate(ifcs);
     });
@@ -18,7 +18,7 @@ $(document).ready(function()
     }
 
     oTable=$('#example').dataTable( {
-        "ajax": 'http://localhost/b2v2/getIFCManagerData',
+        "ajax": 'http://b2.com/getIFCManagerData',
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
         "order": [[0, "desc" ]]
     } );
@@ -139,12 +139,12 @@ function postTransfer()
 
         $.ajax({
             type: "POST",
-            url: "http://localhost/b2v2/transfer",
+            url: "http://b2.com/transfer",
             data: {userid:userid, ifc:ifc},
             beforeSend: function()
             {
 
-                //  $("#submitTransfer").html("<img src='http://localhost/b2v2/Images/icons/waiting.gif'>");
+                //  $("#submitTransfer").html("<img src='http://b2.com/Images/icons/waiting.gif'>");
 
                 $("#submitTransfer").hide();
                 $("#waiting").show();
@@ -152,7 +152,7 @@ function postTransfer()
         }).done(function(response)
         {
             if(response=='wH@tS!nTheB0x')
-                window.loaction='http://localhost/b2v2/offline';
+                window.loaction='http://b2.com/offline';
             else
             {
                 $("#submitTransfer").show();
@@ -193,12 +193,12 @@ function postInvite()
 
         $.ajax({
             type: "POST",
-            url: "http://localhost/b2v2/invite",
+            url: "http://b2.com/invite",
             data: {name:name, email:email}
         }).done(function(msg)
         {
             if(msg=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 $('#inviteLinkAndErrors').html(msg);

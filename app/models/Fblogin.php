@@ -11,7 +11,7 @@ class Fblogin
 
 	public  static $appId = '431744100304343';
 	public  static $secret = '7b2e85f3a9a67f2b1e5163e7714e64e6';
-	public  static $returnurl = 'http://localhost/b2v2/b2v2/fbverify';
+	public  static $returnurl = 'http://b2.com/b2v2/fbverify';
 	public  static $permissions = 'public_profile,email';
 
 

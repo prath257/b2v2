@@ -140,11 +140,11 @@
         @else
         <p id="aboutUser">{{$user->profile->aboutMe}} <a id="readMore" class="darkLinks" onclick="showAboutUser()">Read more..</a></p>
         @if (Auth::user()->id == $user->id)
-        <p><a href="http://localhost/b2v2/diary/{{$user->username}}">Read Diary</a></p>
+        <p><a href="http://b2.com/diary/{{$user->username}}">Read Diary</a></p>
         @else
             <?php $susers=Diaryshare::where('duserid','=',$user->id)->where('suserid','=',Auth::user()->id)->first(); ?>
             @if ((count($susers) >0 && $user->settings->diaryAccess == 'semi') || $user->settings->diaryAccess == 'public')
-            <p><a href="http://localhost/b2v2/diary/{{$user->username}}" class="darkLinks">Read Diary</a></p>
+            <p><a href="http://b2.com/diary/{{$user->username}}" class="darkLinks">Read Diary</a></p>
             @endif
         @endif
         <br>
@@ -234,33 +234,27 @@
                 @endif
             @endforeach
             @if ($PIcount == 0)
-                @if (Auth::User()->id==$user->id)
-                    <div id="noInterests" class="well col-lg-12 ">
-                        <p col-lg-12 class="noInterests">Looks like you haven't created any content from any one of your primary interests</p>
-                        <br>
-                        <p class="noInterests col-lg-12">Other Barters visiting your profile will see this section as blank.</p>
-                        <div class="col-lg-12">
-                            <div class="pull-right">
-                                <a class="navbar-brand" id="logo2" href="http://localhost/b2v2/home">
-                                    <span class='letter2' style="text-shadow: 1px 1px 1px green; color: green">B</span>
-                                    <span class='letter2'>B</span>
-                                    <span class='letter2'>a</span>
-                                    <span class='letter2'>r</span>
-                                    <span class='letter2'>t</span>
-                                    <span class='letter2'>e</span>
-                                    <span class='letter2'>r</span>
-                                    <span class='letter2'>s</span>
-                                </a>
+                <div class="col-lg-4">
+                    <div class="col-lg-12" style="padding: 5px; color: white">
+                        <div class="col-lg-12 noPadding contento-divs" style="background-color: #1c5a5e; border-radius: 4px">
+                            <img src="{{asset('Images/no-content.jpg')}}" class="col-lg-12 noPadding contento-images" style="height: 150px">
+                            <div class="col-lg-12">
+                                <h4 style="font-weight: bolder"><a style="color: white">No work yet.</a></h4>
+                                <p>It seems like {{$user->first_name}} hasn't got any work up there. Rest assured it will be up there soon.</p>
+                            </div>
+                            <div class="col-lg-12 ifc-readerr" style="text-align: center; background-color: #185256">
+                                <div id="ifc-readerr" class="col-lg-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px; border-right: 2px solid #1c5a5e">
+                                    <div class="col-lg-12 noPadding"><b>None</b></div>
+                                    <div class="col-lg-12 noPadding" style="font-size: 12px">IFCs</div>
+                                </div>
+                                <div class="col-lg-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px">
+                                    <div class="col-lg-12 noPadding"><b>Many</b></div>
+                                    <div class="col-lg-12 noPadding" style="font-size: 12px">Readers <i class="fa fa-clock-o"></i></div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <small class="pull-right">
-                                <i>Don't be users, be barters.</i>
-                            </small><br>
-                        </div>
-                        <br><br>
                     </div>
-                @endif
+                </div>
             @else
                 <input type="hidden" id="PICOUNT" value="{{$PIcount}}">
             @endif
@@ -351,11 +345,11 @@
             <br><br>
                 <p id="aboutUser">{{$user->profile->aboutMe}} <a id="readMore" class="darkLinks" onclick="showAboutUser()">Read more..</a></p>
                     @if (Auth::user()->id == $user->id)
-                    <p><a class="darkLinks" href="http://localhost/b2v2/diary/{{$user->username}}">Read Diary</a></p>
+                    <p><a class="darkLinks" href="http://b2.com/diary/{{$user->username}}">Read Diary</a></p>
                     @else
                         <?php $susers=Diaryshare::where('duserid','=',$user->id)->where('suserid','=',Auth::user()->id)->first(); ?>
                         @if ((count($susers) >0 && $user->settings->diaryAccess == 'semi') || $user->settings->diaryAccess == 'public')
-                        <p><a class="darkLinks" href="http://localhost/b2v2/diary/{{$user->username}}">Read Diary</a></p>
+                        <p><a class="darkLinks" href="http://b2.com/diary/{{$user->username}}">Read Diary</a></p>
                         @endif
                     @endif
             </div>
@@ -480,33 +474,27 @@
                 @endforeach
                 @if ($PIcount == 0)
                 <input type="hidden" id="PICOUNT" value="0">
-                    @if (Auth::User()->id==$user->id)
-                        <div id="noInterests" class="well col-lg-12 ">
-                            <p col-lg-12 class="noInterests">Looks like you haven't created any content from any one of your primary interests</p>
-                            <br>
-                            <p class="noInterests col-lg-12">Other Barters visiting your profile will see this section as blank.</p>
-                            <div class="col-lg-12">
-                                <div class="pull-right">
-                                    <a class="navbar-brand" id="logo2" href="http://localhost/b2v2/home">
-                                        <span class='letter2' style="text-shadow: 1px 1px 1px green; color: green">B</span>
-                                        <span class='letter2'>B</span>
-                                        <span class='letter2'>a</span>
-                                        <span class='letter2'>r</span>
-                                        <span class='letter2'>t</span>
-                                        <span class='letter2'>e</span>
-                                        <span class='letter2'>r</span>
-                                        <span class='letter2'>s</span>
-                                    </a>
+                    <div class="col-lg-4 col-lg-offset-2">
+                        <div class="col-lg-12" style="padding: 5px; color: white">
+                            <div class="col-lg-12 noPadding contento-divs" style="background-color: #1c5a5e; border-radius: 4px">
+                                <img src="{{asset('Images/no-content.jpg')}}" class="col-lg-12 noPadding contento-images">
+                                <div class="col-lg-12">
+                                    <h4 style="font-weight: bolder"><a style="color: white">No work yet.</a></h4>
+                                    <p>It seems like {{$user->first_name}} hasn't got any work up there. Rest assured it will be up there soon.</p>
+                                </div>
+                                <div class="col-lg-12 ifc-readerr" style="text-align: center; background-color: #185256">
+                                    <div id="ifc-readerr" class="col-lg-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px; border-right: 2px solid #1c5a5e">
+                                        <div class="col-lg-12 noPadding"><b>None</b></div>
+                                        <div class="col-lg-12 noPadding" style="font-size: 12px">IFCs</div>
+                                    </div>
+                                    <div class="col-lg-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px">
+                                        <div class="col-lg-12 noPadding"><b>Many</b></div>
+                                        <div class="col-lg-12 noPadding" style="font-size: 12px">Readers <i class="fa fa-clock-o"></i></div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                <small class="pull-right">
-                                    <i>Don't be users, be barters.</i>
-                                </small><br>
-                            </div>
-                            <br><br>
                         </div>
-                    @endif
+                    </div>
                 @else
                 <input type="hidden" id="PICOUNT" value="{{$PIcount}}">
                 @endif

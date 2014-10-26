@@ -89,15 +89,15 @@ class PollController extends \BaseController {
                 $tr+=$r->responses;
             }
 
-            TransactionController::insertToManager(Auth::user()->id,"-".$poll->ifc,"Took poll:",'http://localhost/b2v2/poll/'.$poll->id,$poll->question,"content");
+            TransactionController::insertToManager(Auth::user()->id,"-".$poll->ifc,"Took poll:",'http://b2.com/poll/'.$poll->id,$poll->question,"content");
 
-            TransactionController::insertToManager($user->id,"+".$poll->ifc,"New vote to poll (".$poll->question.") by",'http://localhost/b2v2/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
+            TransactionController::insertToManager($user->id,"+".$poll->ifc,"New vote to poll (".$poll->question.") by",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
 
             return View::make('pollResult')->with('responses',$responses)->with('total',$tr);
         }
         else
         {
-            return '<br>Sorry, you need '.$poll->ifc.' IFCs to submit this Poll and as of now, you\'ve got '.Auth::user()->profile->ifc.' IFCs left. Learn more about earning IFCs <a href="http://localhost/b2v2/earnIFCs" style="text-decoration: none"><b>HERE.</b></a>';
+            return '<br>Sorry, you need '.$poll->ifc.' IFCs to submit this Poll and as of now, you\'ve got '.Auth::user()->profile->ifc.' IFCs left. Learn more about earning IFCs <a href="http://b2.com/earnIFCs" style="text-decoration: none"><b>HERE.</b></a>';
         }
     }
         else

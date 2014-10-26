@@ -18,14 +18,14 @@ function submitBug()
     {
         $('#submitBugButton').prop('disabled', true);
         $("#submitBugButton").html("Please Wait...");
-        $.post('http://localhost/b2v2/reportBug', {content: content}, function(text)
+        $.post('http://b2.com/reportBug', {content: content}, function(text)
         {
             if(text=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 bootbox.alert("Posted! Thank you on behalf of TeamBBarters. Keep an eye on your mail to check the Admin's response to your post.", function() {
-                    window.location="http://localhost/b2v2/home";
+                    window.location="http://b2.com/home";
                 });
             }
         });

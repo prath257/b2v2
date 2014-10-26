@@ -3,7 +3,7 @@ $(document).ready(function()
 {
     var bbId = $("#blogBookId").val();
     oTable=$('#example').dataTable( {
-        "ajax": 'http://localhost/b2v2/getChapterData/'+bbId,
+        "ajax": 'http://b2.com/getChapterData/'+bbId,
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
     } );
 
@@ -112,7 +112,7 @@ function updateBlogBook(blogBookId)
 
     var ajax = new XMLHttpRequest();
     ajax.addEventListener("load", completeUpdateHandler, false);
-    ajax.open("POST", "http://localhost/b2v2/editBlogBook");
+    ajax.open("POST", "http://b2.com/editBlogBook");
     ajax.send(formdata);
 }
 
@@ -120,7 +120,7 @@ function completeUpdateHandler()
 {
     var error= this.responseText;
     if(error=='wH@tS!nTheB0x')
-        window.location='http://localhost/b2v2/offline';
+        window.location='http://b2.com/offline';
     else
         $("#messages").html("<strong>Done!</strong>");
 }
@@ -131,10 +131,10 @@ function deleteChapter(bid,dcid)
     bootbox.confirm("Are you sure?", function(result) {
         if (result==true)
         {
-            $.post('http://localhost/b2v2/deleteChapter',{id:dcid},function(data)
+            $.post('http://b2.com/deleteChapter',{id:dcid},function(data)
             {
                 if(data=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     var row = $(bid).closest("tr").get(0);

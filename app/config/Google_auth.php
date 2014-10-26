@@ -1,7 +1,7 @@
 <?php
 
 return array(
-"base_url" => "http://localhost/b2v2/gauth/auth",
+"base_url" => "http://b2.com/gauth/auth",
 "providers" => array (
 "Google" => array (
 "enabled" => true,

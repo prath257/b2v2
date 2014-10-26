@@ -77,10 +77,10 @@ $(document).ready(function()
 
 function showMoreArticles()
 {
-    $.post('http://localhost/b2v2/getContentArticles', {userId: userId, interestId: interestId, articleCount: articleCount}, function (data)
+    $.post('http://b2.com/getContentArticles', {userId: userId, interestId: interestId, articleCount: articleCount}, function (data)
     {
         if(data=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         if (data)
         {
             if (articleCount == 0)
@@ -103,10 +103,10 @@ function showMoreArticles()
 
 function showMoreBooks()
 {
-    $.post('http://localhost/b2v2/getContentBooks', {userId: userId, interestId: interestId, bookCount: bookCount}, function (data)
+    $.post('http://b2.com/getContentBooks', {userId: userId, interestId: interestId, bookCount: bookCount}, function (data)
     {
         if(data=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         if (data)
         {
             if (bookCount == 0)
@@ -129,10 +129,10 @@ function showMoreBooks()
 
 function showMoreResources()
 {
-    $.post('http://localhost/b2v2/getContentResources', {userId: userId, interestId: interestId, resourceCount: resourceCount}, function (data)
+    $.post('http://b2.com/getContentResources', {userId: userId, interestId: interestId, resourceCount: resourceCount}, function (data)
     {
         if(data=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         if (data)
         {
             if (resourceCount == 0)
@@ -155,10 +155,10 @@ function showMoreResources()
 
 function showMorePollsNQuizes()
 {
-    $.post('http://localhost/b2v2/getContentPollsNQuizes', {userId: userId, interestId: interestId, pollQuizCount: pollQuizCount}, function (data)
+    $.post('http://b2.com/getContentPollsNQuizes', {userId: userId, interestId: interestId, pollQuizCount: pollQuizCount}, function (data)
     {
         if(data=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         if (data)
         {
             if (pollQuizCount == 0)
@@ -184,10 +184,10 @@ function showPurchase(bid,ifc,uifc,cid)
 {
     if(ifc>uifc)
     {
-        $.post('http://localhost/b2v2/getIFCs', function(ifcee)
+        $.post('http://b2.com/getIFCs', function(ifcee)
          {
              if(ifcee=='wH@tS!nTheB0x')
-                 window.location='http://localhost/b2v2/offline';
+                 window.location='http://b2.com/offline';
                 $("#ifcModalContent").html("This "+bid.name+" [<i>"+bid.id+"</i>] is costed at <b>"+ifc+"</b><i>i</i>, and you have got "+ifcee+" <i>i</i> remaining in your account!");
                 $('#cid').val(cid);
                 $("#ifc").val(ifc);
@@ -197,10 +197,10 @@ function showPurchase(bid,ifc,uifc,cid)
     }
     else
     {
-        $.post('http://localhost/b2v2/getIFCs', function(ifcee)
+        $.post('http://b2.com/getIFCs', function(ifcee)
          {
              if(ifcee=='wH@tS!nTheB0x')
-                 window.location='http://localhost/b2v2/offline';
+                 window.location='http://b2.com/offline';
              $("#purchaseModalContent").html("This "+bid.name+" [<i>"+bid.id+"</i>] is costed at <b>"+ifc+"</b><i>i</i>, and you have got "+ifcee+" <i>i</i> remaining in your account!");
              $("#type").html(bid.name);
              $('#cid').val(cid);
@@ -216,30 +216,30 @@ function purchase()
 	var cid=$('#cid').val();
 	if(type=='book')
 	{
-		window.location='http://localhost/b2v2/blogBook/'+cid;
+		window.location='http://b2.com/blogBook/'+cid;
 	}
 	else if(type=='article')
 	{
-		window.location='http://localhost/b2v2/readArticle/'+cid;
+		window.location='http://b2.com/readArticle/'+cid;
 	}
     else if(type=='collaboration')
     {
-        window.location='http://localhost/b2v2/collaboration/'+cid;
+        window.location='http://b2.com/collaboration/'+cid;
     }
 	else
 	{
         $("#purchaseModal").modal('hide');
-        $.post('http://localhost/b2v2/getIFCs', function(ifcee)
+        $.post('http://b2.com/getIFCs', function(ifcee)
         {
             if(ifcee=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             var ifccc = $("#ifc").val();
             ifccc = parseInt(ifccc);
             ifcee = parseInt(ifcee);
             $("#mycounter").fadeIn();
             $("#mycounter").flipCounterInit({'speed': 0.05});
             $("#mycounter").flipCounterUpdate(ifcee-ifccc);
-            window.location='http://localhost/b2v2/sym140Nb971wzb4284/'+cid;
+            window.location='http://b2.com/sym140Nb971wzb4284/'+cid;
         });
 
 
@@ -257,14 +257,14 @@ function cancelPurchase()
 
 function showPreview(blogBookId)
 {
-    $("#previewDivContent").html("<iframe id='bbPreview' class='col-lg-12' src='http://localhost/b2v2/previewBlogBook/"+blogBookId+"' style='margin-top: 3%' height='500' frameborder='0'></iframe>");
+    $("#previewDivContent").html("<iframe id='bbPreview' class='col-lg-12' src='http://b2.com/previewBlogBook/"+blogBookId+"' style='margin-top: 3%' height='500' frameborder='0'></iframe>");
     $("#mainContainer").css("opacity","0");
     $("#previewDiv").fadeIn();
 }
 
 function showCollaborationPreview(collaborationId)
 {
-    $("#previewDivContent").html("<iframe id='cPreview' class='col-lg-12' src='http://localhost/b2v2/previewCollaboration/"+collaborationId+"' style='margin-top: 3%' height='500' frameborder='0'></iframe>");
+    $("#previewDivContent").html("<iframe id='cPreview' class='col-lg-12' src='http://b2.com/previewCollaboration/"+collaborationId+"' style='margin-top: 3%' height='500' frameborder='0'></iframe>");
     $("#mainContainer").css("opacity","0");
     $("#previewDiv").fadeIn();
 }
@@ -298,12 +298,12 @@ function postInvite()
 
         $.ajax({
             type: "POST",
-            url: "http://localhost/b2v2/invite",
+            url: "http://b2.com/invite",
             data: {name:name, email:email}
         }).done(function(msg)
         {
             if(msg=='wH@tS!nTheB0x')
-                window.location='http::/localhost/b2v2/offline';
+                window.location='http::/b2.com/offline';
             $('#inviteLinkAndErrors').html(msg);
             $("#inviteLinkAndErrors").show();
         });
@@ -329,14 +329,14 @@ function closeInviteModal()
 
 function showArticlePreview(id)
 {
-    $("#previewDivContent").html("<iframe id='cPreview' class='col-lg-12' src='http://localhost/b2v2/articlePreviewIframe/"+id+"' style='margin-top: 3%' height='500' frameborder='0'></iframe>");
+    $("#previewDivContent").html("<iframe id='cPreview' class='col-lg-12' src='http://b2.com/articlePreviewIframe/"+id+"' style='margin-top: 3%' height='500' frameborder='0'></iframe>");
     $("#mainContainer").css("opacity","0");
     $("#previewDiv").fadeIn();
 }
 
 function showResourcePreview(id)
 {
-    $("#previewDivContent").html("<iframe id='cPreview' class='col-lg-12' src='http://localhost/b2v2/resourceIframe/"+id+"' style='margin-top: 3%' height='500' frameborder='0'></iframe>");
+    $("#previewDivContent").html("<iframe id='cPreview' class='col-lg-12' src='http://b2.com/resourceIframe/"+id+"' style='margin-top: 3%' height='500' frameborder='0'></iframe>");
     $("#mainContainer").css("opacity","0");
     $("#previewDiv").fadeIn();
 }

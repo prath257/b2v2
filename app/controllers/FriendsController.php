@@ -113,7 +113,7 @@ class FriendsController extends \BaseController
 		//$rid=DB::table('friends')->where('friend1','=',Auth::user()->id)->where('friend2','=',$id)->lists('id');
 		$rid = DB::table('friends')->where('friend1', Auth::user()->id)->where('friend2',$id)->pluck('id');
 
-        AjaxController::insertToNotification($id,Auth::user()->id,"friendR"," sent you a Friend Request ",'http://localhost/b2v2/user/'.User::find(Auth::user()->id)->username);
+        AjaxController::insertToNotification($id,Auth::user()->id,"friendR"," sent you a Friend Request ",'http://b2.com/user/'.User::find(Auth::user()->id)->username);
 
 		FriendsController::$user = User::find($id);
 
@@ -151,11 +151,11 @@ class FriendsController extends \BaseController
 
             DB::table('notification')->where('userid','=',Auth::user()->id)->where('cuserid','=',$id)->where('type','=','friendR')->update(array('type' =>'friendRR'));
 
-            TransactionController::insertToManager(Auth::user()->id,"+".Auth::user()->settings->friendcost,"Accepted friend request by",'http://localhost/b2v2/user/'.$user->username,$user->first_name.' '.$user->last_name,"content");
+            TransactionController::insertToManager(Auth::user()->id,"+".Auth::user()->settings->friendcost,"Accepted friend request by",'http://b2.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"content");
 
-            TransactionController::insertToManager($user->id,"-".Auth::user()->settings->friendcost,"Friend request accepted by",'http://localhost/b2v2/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
+            TransactionController::insertToManager($user->id,"-".Auth::user()->settings->friendcost,"Friend request accepted by",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
 
-            AjaxController::insertToNotification($id,Auth::user()->id,"friendRR","Accepted your Friend Request ",'http://localhost/b2v2/user/'.User::find(Auth::user()->id)->username);
+            AjaxController::insertToNotification($id,Auth::user()->id,"friendRR","Accepted your Friend Request ",'http://b2.com/user/'.User::find(Auth::user()->id)->username);
 
             FriendsController::$user = $user;
 

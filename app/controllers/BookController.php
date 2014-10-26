@@ -134,11 +134,11 @@ class BookController extends \BaseController
                     $book->save();
                     $newUser=true;
 
-                    TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Bought blogBook:",'http://localhost/b2v2/blogBookPreview/'.$book->id,$book->title,"content");
+                    TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Bought blogBook:",'http://b2.com/blogBookPreview/'.$book->id,$book->title,"content");
 
-                    TransactionController::insertToManager($book->getAuthor->id,"+".$ifc,"Sold the Blogbook '".$book->title."' to",'http://localhost/b2v2/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
+                    TransactionController::insertToManager($book->getAuthor->id,"+".$ifc,"Sold the Blogbook '".$book->title."' to",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
 
-                    AjaxController::insertToNotification($book->getAuthor->id,Auth::user()->id,"purchased","purchased your blogBook ".$book->title,'http://localhost/b2v2/blogBookPreview/'.$book->id);
+                    AjaxController::insertToNotification($book->getAuthor->id,Auth::user()->id,"purchased","purchased your blogBook ".$book->title,'http://b2.com/blogBookPreview/'.$book->id);
                 }
                 else
                 {

@@ -3,12 +3,12 @@ $(document).ready(function()
 {
     var cId = $("#collaborationId").val();
     oTable1=$('#example').dataTable( {
-        "ajax": 'http://localhost/b2v2/getCollaborationChapterData/'+cId,
+        "ajax": 'http://b2.com/getCollaborationChapterData/'+cId,
         "lengthMenu": [[2, 10, 15, -1], [2, 10, 15, "All"]]
     } );
 
     oTable2=$('#example2').dataTable( {
-        "ajax": 'http://localhost/b2v2/getCollaborationContributorData/'+cId,
+        "ajax": 'http://b2.com/getCollaborationContributorData/'+cId,
         "lengthMenu": [[2, 10, 15, -1], [2, 10, 15, "All"]]
     } );
 
@@ -152,7 +152,7 @@ function updateCollaboration(collaborationId)
 
     var ajax = new XMLHttpRequest();
     ajax.addEventListener("load", completeUpdateHandler, false);
-    ajax.open("POST", "http://localhost/b2v2/editCollaboration");
+    ajax.open("POST", "http://b2.com/editCollaboration");
     ajax.send(formdata);
 }
 
@@ -160,7 +160,7 @@ function completeUpdateHandler()
 {
     var error=this.responseText;
     if(error=='wH@tS!nTheB0x')
-        window.location='http://localhost/b2v2/offline';
+        window.location='http://b2.com/offline';
     else
         $("#messages").html("<strong>Done!</strong>");
 }
@@ -171,10 +171,10 @@ function deleteChapter(bid,dcid)
     bootbox.confirm("Are you sure?", function(result) {
         if (result==true)
         {
-            $.post('http://localhost/b2v2/deleteCollaborationChapter',{id:dcid},function(error)
+            $.post('http://b2.com/deleteCollaborationChapter',{id:dcid},function(error)
             {
                 if(error=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     var row = $(bid).closest("tr").get(0);
@@ -192,10 +192,10 @@ function deleteUser(bid,uid)
         {
             var cId = $("#collaborationId").val();
             cId = parseInt(cId);
-            $.post('http://localhost/b2v2/deleteContributor', {cid: cId, uid: uid}, function(error)
+            $.post('http://b2.com/deleteContributor', {cid: cId, uid: uid}, function(error)
             {
                 if(error=='wH@tS!nTheB0x')
-                    window.location='http://localhost/b2v2/offline';
+                    window.location='http://b2.com/offline';
                 else
                 {
                     var row = $(bid).closest("tr").get(0);
@@ -225,10 +225,10 @@ function executeSearch()
 
     if (keywords.length > 2)
     {
-        $.post('http://localhost/b2v2/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
+        $.post('http://b2.com/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 if(data)
@@ -252,5 +252,5 @@ function normalEffect(element)
 
 function visitProfile(username)
 {
-    window.location='http://localhost/b2v2/user/'+username;
+    window.location='http://b2.com/user/'+username;
 }

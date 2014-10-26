@@ -69,7 +69,7 @@
                     <button type="button" id="previewButton" class="btn btn-primary" onclick="showPreview()">Preview & Submit</button>
                     <button type="button" id="mediaButton" class="btn btn-success" onclick="uploadMedia()">Upload Media</button>
                     <button type="button" id="resourceButton" class="btn btn-danger" onclick="addResource()">Add Resource</button>
-                    <a id="cancel" class="btn btn-default" href="http://localhost/b2v2/editBlogBook/{{$chapter->writtenIn->id}}">Cancel</a>
+                    <a id="cancel" class="btn btn-default" href="http://b2.com/editBlogBook/{{$chapter->writtenIn->id}}">Cancel</a>
                     <strong><span id="error-box" style="color: darkred"></span></strong>
                 </div>
 
@@ -91,7 +91,7 @@
             <div class="modal-body">
                 <fieldset>
                     <p>Chapter: '{{$chapter->title}}' in Blogbook: '{{$blogBook->title}}' has been successfully updated.</p>
-                    <a class="btn btn-primary pull-right" href="http://localhost/b2v2/editBlogBook/{{$chapter->writtenIn->id}}" style="margin-right: 2.5%">Okay</a>
+                    <a class="btn btn-primary pull-right" href="http://b2.com/editBlogBook/{{$chapter->writtenIn->id}}" style="margin-right: 2.5%">Okay</a>
                 </fieldset>
             </div>
         </div>

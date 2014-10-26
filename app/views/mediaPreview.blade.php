@@ -69,12 +69,12 @@
                              @endif
                         @endif
                     <div class="col-lg-3">
-                        <div class="fb-share-button" style="padding: 5px" data-href="http://localhost/b2v2/mediaPreview/{{$media->id}}"></div><br>
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://localhost/b2v2/mediaPreview/{{$media->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters" style="margin-top: 2px">Tweet</a>
+                        <div class="fb-share-button" style="padding: 5px" data-href="http://b2.com/mediaPreview/{{$media->id}}"></div><br>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://b2.com/mediaPreview/{{$media->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters" style="margin-top: 2px">Tweet</a>
                         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                     </div>
                 @else
-                <div style="text-align: center"><a href="http://localhost/b2v2/media/{{$media->id}}" style="cursor: pointer">Sign in</a> to view this media file.<br/></div>
+                <div style="text-align: center"><a href="http://b2.com/media/{{$media->id}}" style="cursor: pointer">Sign in</a> to view this media file.<br/></div>
                     @endif
             </div>
             </div>
@@ -91,7 +91,7 @@
             <div class="col-lg-9" style="padding-top: 10px">
                 <p style="font-size: 22px">{{$owner->first_name}} {{$owner->last_name}}</p>
 
-                <a href="http://localhost/b2v2/user/{{$owner->username}}" target="_blank">Visit Profile</a>
+                <a href="http://b2.com/user/{{$owner->username}}" target="_blank">Visit Profile</a>
                 <div class="col-lg-12" style="padding-top: 20px; padding-left: 0px; height: 125px">
                     {{$owner->profile->aboutMe}}
                 </div>

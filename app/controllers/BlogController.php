@@ -91,11 +91,11 @@ class BlogController extends \BaseController
                     $article->save();
                     $newUser = 'true';
 
-                    TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Bought article:",'http://localhost/b2v2/articlePreview/'.$article->id,$article->title,"content");
+                    TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Bought article:",'http://b2.com/articlePreview/'.$article->id,$article->title,"content");
 
-                    TransactionController::insertToManager($article->getAuthor->id,"+".$ifc,"Sold article '".$article->title."' to",'http://localhost/b2v2/user/'.Auth::user()->username,Auth::user()->first_name." ".Auth::user()->last_name,"profile");
+                    TransactionController::insertToManager($article->getAuthor->id,"+".$ifc,"Sold article '".$article->title."' to",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name." ".Auth::user()->last_name,"profile");
 
-                    AjaxController::insertToNotification($article->getAuthor->id,Auth::user()->id,"purchased","purchased your article ".$article->title,'http://localhost/b2v2/articlePreview/'.$article->id);
+                    AjaxController::insertToNotification($article->getAuthor->id,Auth::user()->id,"purchased","purchased your article ".$article->title,'http://b2.com/articlePreview/'.$article->id);
                 }
                 else
                 {

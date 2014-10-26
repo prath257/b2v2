@@ -31,7 +31,7 @@ class QuizController extends \BaseController {
     public function getNewQuiz()
     {
         $error = 'you aren\'t allowed to do that! You have to first create a quiz from the Quiz Dashboard.';
-        return View::make('errorPage')->with('error',$error)->with('link','http://localhost/b2v2/quizDashboard');
+        return View::make('errorPage')->with('error',$error)->with('link','http://b2.com/quizDashboard');
     }
 
     //this is the function to create a new quiz in database
@@ -125,7 +125,7 @@ class QuizController extends \BaseController {
         $flag = 0;
         if(Auth::user()->id==$quiz->ownerid)
         {
-           return View::make('errorPage')->with('error','quiz owner can\'t take the quiz')->with('link','http://localhost/b2v2/quizDashboard');
+           return View::make('errorPage')->with('error','quiz owner can\'t take the quiz')->with('link','http://b2.com/quizDashboard');
         }
         $quiztakers = $quiz->getTakers()->get();
         foreach ($quiztakers as $quiztaker)
@@ -146,7 +146,7 @@ class QuizController extends \BaseController {
         }
 
         else if ($flag==1)
-            return View::make('errorPage')->with('error','seems like you have already taken this quiz')->with('link','http://localhost/b2v2/quizDashboard');
+            return View::make('errorPage')->with('error','seems like you have already taken this quiz')->with('link','http://b2.com/quizDashboard');
     }
 
     public function checkAns()
@@ -247,11 +247,11 @@ class QuizController extends \BaseController {
         $user->profile->ifc += $ifcQuizMaker;
         $user->profile->save();
 
-        TransactionController::insertToManager(Auth::user()->id,"+".$ifcQuizzer,"Earned from quiz",'http://localhost/b2v2/quizPreview/'.$quiz->id,$quiz->title,"content");
+        TransactionController::insertToManager(Auth::user()->id,"+".$ifcQuizzer,"Earned from quiz",'http://b2.com/quizPreview/'.$quiz->id,$quiz->title,"content");
 
-        TransactionController::insertToManager($user->id,"+".$ifcQuizMaker,"Earned from quiz",'http://localhost/b2v2/quizPreview/'.$quiz->id,$quiz->title,"content");
+        TransactionController::insertToManager($user->id,"+".$ifcQuizMaker,"Earned from quiz",'http://b2.com/quizPreview/'.$quiz->id,$quiz->title,"content");
 
-        AjaxController::insertToNotification($quiz->ownerid,Auth::user()->id,"purchased","Took your Quiz ".$quiz->title,'http://localhost/b2v2/quizPreview/'.$quiz->id);
+        AjaxController::insertToNotification($quiz->ownerid,Auth::user()->id,"purchased","Took your Quiz ".$quiz->title,'http://b2.com/quizPreview/'.$quiz->id);
 
         DB::table('quiztakers')->where('quiz_id',$quiz->id)->where('user_id',Auth::user()->id)->update(array('ifc' => $ifcQuizzer));
 
@@ -334,7 +334,7 @@ class QuizController extends \BaseController {
         if (Auth::user()->id == $quiz->ownerid)
             return View::make('editQuiz')->with('quiz',$quiz);
         else
-            return View::make('errorPage')->with('error','the quiz owner is the only person authorized to edit the Quiz.')->with('link','http://localhost/b2v2/quizDashboard');
+            return View::make('errorPage')->with('error','the quiz owner is the only person authorized to edit the Quiz.')->with('link','http://b2.com/quizDashboard');
     }
 
     public function removeExistingQuestion()

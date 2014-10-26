@@ -12,10 +12,10 @@ $(document).ready(function()
 {
     collabId=$('#collabId').val();
     currentIndex=-1;
-    $.post('http://localhost/b2v2/getCollaborationContent',{id:-1,colid:collabId},function(data)
+    $.post('http://b2.com/getCollaborationContent',{id:-1,colid:collabId},function(data)
     {
         if(data=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             $('#Content').fadeOut(500);
@@ -32,10 +32,10 @@ $(document).ready(function()
         }
     });
 
-    $.post('http://localhost/b2v2/getCollabChapterList',{cid:collabId},function(data)
+    $.post('http://b2.com/getCollabChapterList',{cid:collabId},function(data)
     {
         if(data=='wH@tS!nTheB0x')
-            window.location='http://localhost/b2v2/offline';
+            window.location='http://b2.com/offline';
         else
         {
             chaptersNos=data;
@@ -58,10 +58,10 @@ $(document).ready(function()
     newUser = $('#newUser').val();
     if (newUser==true)
     {
-        $.post('http://localhost/b2v2/getIFCs', function(ifc)
+        $.post('http://b2.com/getIFCs', function(ifc)
         {
             if(ifc=='wH@tS!nTheB0x')
-                window.location='http://localhost/b2v2/offline';
+                window.location='http://b2.com/offline';
             else
             {
                 $("#mycounter").fadeIn();
@@ -93,8 +93,8 @@ function showContent(th)
     currentIndex=parseInt(th.name);
     cid=chaptersNos[currentIndex];
 
-    $('#Content').html("<img src='http://localhost/b2v2/Images/icons/waiting.gif'> Loading...");
-    $.post('http://localhost/b2v2/getCollaborationContent',{id:cid,colid:collabId},function(data)
+    $('#Content').html("<img src='http://b2.com/Images/icons/waiting.gif'> Loading...");
+    $.post('http://b2.com/getCollaborationContent',{id:cid,colid:collabId},function(data)
     {
         if(data=='wH@tS!nTheB0x')
         {
@@ -133,8 +133,8 @@ function showNext()
     else
     {
         cid=chaptersNos[currentIndex];
-        $('#Content').html("<img src='http://localhost/b2v2/Images/icons/waiting.gif'> Loading...");
-        $.post('http://localhost/b2v2/getCollaborationContent',{id:cid,colid:collabId},function(data)
+        $('#Content').html("<img src='http://b2.com/Images/icons/waiting.gif'> Loading...");
+        $.post('http://b2.com/getCollaborationContent',{id:cid,colid:collabId},function(data)
         {
             if(data=='wH@tS!nTheB0x')
             {
@@ -178,8 +178,8 @@ function showPrev()
             cid=-1;
         else
             cid=chaptersNos[currentIndex];
-        $('#Content').html("<img src='http://localhost/b2v2/Images/icons/waiting.gif'> Loading...");
-        $.post('http://localhost/b2v2/getCollaborationContent',{id:cid,colid:collabId},function(data)
+        $('#Content').html("<img src='http://b2.com/Images/icons/waiting.gif'> Loading...");
+        $.post('http://b2.com/getCollaborationContent',{id:cid,colid:collabId},function(data)
         {
             if(data=='wH@tS!nTheB0x')
             {
