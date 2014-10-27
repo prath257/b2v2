@@ -30,11 +30,11 @@
 
         <div class="col-lg-12">
             <div class="col-lg-6" style="border-right: 1px solid black; text-align: right">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#newMediaModal">+ Upload Media (Private)</button><br><br>
+                <button class="btn btn-primary" onclick="openNewMediaModal()">+ Upload Media (Private)</button><br><br>
                 Upload media with private access. Only you can view it and use in any of your Articles and BlogBooks and Collaborations.
             </div>
             <div class="col-lg-6">
-                <a href="{{route('newPublicMedia')}}" class="btn btn-primary" >+ Upload Media (Public)</a><br><br>
+                <a href="{{route('newPublicMedia')}}" class="btn btn-primary" target="_blank">+ Upload Media (Public)</a><br><br>
                 Upload media with public access. All can view it, and you can use it in your Articles and BlogBooks and Collaborations as well.
             </div>
         </div>

@@ -484,3 +484,12 @@ function completeHandler3(event)
         window.location.reload();
     }
 }
+
+function openNewMediaModal()
+{
+    $('#newMediaModal').modal({
+        keyboard:false,
+        show:true,
+        backdrop:'static'
+    });
+}

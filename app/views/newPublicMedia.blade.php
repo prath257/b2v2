@@ -35,11 +35,11 @@
                             <h3 style="text-align: center">Media Cover</h3>
                         </div>
 
-                        <img id="defaultCover" class="col-lg-6 col-lg-offset-3" height="150px" src="{{asset('Images/Media.jpg')}}">
+                        <img id="defaultCover" class="col-lg-5 col-lg-offset-4" height="150px" src="{{asset('Images/Media.jpg')}}">
 
                         <div class="col-lg-12">&nbsp;</div>
 
-                        <div class="col-lg-6 col-lg-offset-3 fileUpload btn btn-default">
+                        <div class="col-lg-5 col-lg-offset-4 fileUpload btn btn-default">
                             <span>Upload Cover</span>
                             <input type="file" id="uploadCover" class="upload" name="uploadCover" style="width: 100%" onchange="changeMediaCover()" />
                         </div>
