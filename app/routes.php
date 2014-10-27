@@ -57,7 +57,7 @@
     Route::post('createProfile',array('as'=>'create.Profile','uses'=>'ProfileController@createProfile'));
     Route::post('saveAbout',array('as'=>'about.Profile','uses'=>'ProfileController@saveAbout'));
     Route::post('saveInterests',array('as'=>'interests.Profile','uses'=>'ProfileController@saveInterests'));
-    Route::post('settings',array('as'=>'settings','before'=>'auth','uses'=>'ProfileController@getSettings'));
+    Route::post('settings',array('as'=>'settings','uses'=>'ProfileController@getSettings'));
     Route::post('editProfilePic',array('as'=>'editProfilePic','before'=>'auth','uses'=>'ProfileController@postEditProfilePic'));
     Route::post('editProfileTune',array('as'=>'editProfileTune','before'=>'auth','uses'=>'ProfileController@postEditProfileTune'));
     Route::post('/aboutYou',array('as'=>'editAbout','before'=>'auth','uses'=>'ProfileController@postEditAboutYou'));

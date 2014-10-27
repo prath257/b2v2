@@ -109,6 +109,7 @@ function showContent(th)
 
 
                 $('#Content').html(data);
+                $('.embed').bind('contextmenu',function() { return false; });
                 $('#Content').fadeIn(500);
 
                 clearInterval(timer);
@@ -151,6 +152,7 @@ function showNext()
 
 
                     $('#Content').html(data);
+                    $('.embed').bind('contextmenu',function() { return false; });
                     $('#Content').fadeIn(500);
 
                     clearInterval(timer);
@@ -196,6 +198,7 @@ function showPrev()
 
 
                     $('#Content').html(data);
+                    $('.embed').bind('contextmenu',function() { return false; });
                     $('#Content').fadeIn(500);
 
                     clearInterval(timer);

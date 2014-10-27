@@ -146,10 +146,21 @@
         <div class="col-lg-12">&nbsp;</div>
         <p>Secondary Interests:</p>
         <div class="col-lg-12">
-            <a onclick="showUserContent()">Politics</a>
-            <a  onclick="showUserContent()">Literature</a>
-            <a  onclick="showUserContent()">Travel</a>
-        </div>
+                    <?php $secondaryInterestCount=0; ?>
+                    @foreach($interests as $interest)
+                    <?php $type = DB::table('user_interests')->where('user_id',$user->id)->where('interest_id',$interest->id)->first(); ?>
+                        @if ($type->type == 'secondary')
+                            <?php $secondaryInterestCount++; ?>
+                            <a class="darkLinks" onclick="showUserContent({{$interest->id}})">{{$interest->interest_name}}</a>
+                        @endif
+                    @endforeach
+
+                </div>
+                    @if ($secondaryInterestCount == 0)
+                    <input type="hidden" id="secondaryInterestsStatus" value="false">
+                    @else
+                    <input type="hidden" id="secondaryInterestsStatus" value="true">
+                    @endif
     </div>
 
     <div id="contentDiv" class="col-lg-12" style="display: none; padding: 0px" onmouseover="showBacktotop()">

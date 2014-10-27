@@ -207,14 +207,9 @@ class QAController extends \BaseController
 
     public function getAbout($id)
     {
-        if(Auth::check())
-        {
-            $approved = User::find($id)->about()->where('status','=','accepted')->get();
-            $unapproved = User::find($id)->about()->where('status','=','new')->get();
-            return View::make('about')->with('Aboutuser',User::find($id))->with('trivia',User::find($id)->getTrivia()->get())->with('approved',$approved)->with('unapproved',$unapproved);
-        }
-        else
-            return 'wH@tS!nTheB0x';
+        $approved = User::find($id)->about()->where('status','=','accepted')->get();
+        $unapproved = User::find($id)->about()->where('status','=','new')->get();
+        return View::make('about')->with('Aboutuser',User::find($id))->with('trivia',User::find($id)->getTrivia()->get())->with('approved',$approved)->with('unapproved',$unapproved);
     }
 
 }

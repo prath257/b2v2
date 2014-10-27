@@ -448,8 +448,6 @@ class ProfileController extends \BaseController {
 
 	public  function showContent($iid,$uid)
 	{
-        if(Auth::check())
-        {
 		$interest = Interest::find($iid);
 		$user = User::find($uid);
 
@@ -457,10 +455,8 @@ class ProfileController extends \BaseController {
 		    return View::make('content')->with('interest',$interest)->with('user',$user);
         else
             return View::make('dummyContent')->with('interest',$interest)->with('user',$user);
-	}
-        else
-            return 'wH@tS!nTheB0x';
     }
+
 	public function getIFCs()
 	{
         if(Auth::check())

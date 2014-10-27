@@ -199,7 +199,7 @@
                 <form class="form-horizontal" id="newMediaForm">
                     <div class="form-group">
                         <label class="col-lg-3">Media Title</label>
-                        <input type="text" id="mediaTitle" class="form-control col-lg-9" required>
+                        <input type="text" id="mediaTitle" name="mediaTitle" class="form-control col-lg-9" required>
                     </div>
                     <div class="form-group">
                         <div class="fileUpload btn btn-primary" id="changePP">
