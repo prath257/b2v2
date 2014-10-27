@@ -415,11 +415,11 @@ function viewMedia(id,path)
                                     var content;
                                     if((path.search('.mkv')== -1)||(path.search('.flv')== -1)||(path.search('.m4a')== -1))
                                     {
-                                        content="<div style='text-align: center'><br><object class='mediaFiles' autoplay='false' width='300' height='200' data='"+path+"'><a href='"+path+"'>Click here.</a></object></div>";
+                                        content="<div onmousedown='return false;' style='text-align: center'><br><object class='mediaFiles' autoplay='false' width='300' height='200' data='"+path+"'><a href='"+path+"'>Click here.</a></object></div>";
                                     }
                                     else
                                     {
-                                        content="<div style='text-align: center'><br><br><embed class='mediaFiles' autoplay='false' width='300' height='200' src='"+path+"'></embed></div>";
+                                        content="<div onmousedown='return false;' style='text-align: center'><br><br><embed class='mediaFiles' autoplay='false' width='300' height='200' src='"+path+"'></embed></div>";
                                     }
                                     $('#preview').html(content);
                                     $('#previewMediaModal').modal('show');
@@ -444,11 +444,11 @@ function viewMedia2(path)
     var content;
     if((path.search('.mkv')== -1)||(path.search('.flv')== -1)||(path.search('.m4a')== -1))
     {
-        content="<div style='text-align: center'><br><object class='mediaFiles' autoplay='false'width='300' height='200' data='"+path+"'><a href='"+path+"'>Click here.</a></object></div>";
+        content="<div onmousedown='return false;' style='text-align: center'><br><object class='mediaFiles' autoplay='false'width='300' height='200' data='"+path+"'><a href='"+path+"'>Click here.</a></object></div>";
     }
     else
     {
-        content="<div style='text-align: center'><br><br><embed class='mediaFiles' autoplay='false' width='300' height='200' src='"+path+"'></embed></div>";
+        content="<div onmousedown='return false;' style='text-align: center'><br><br><embed class='mediaFiles' autoplay='false' width='300' height='200' src='"+path+"'></embed></div>";
     }
     $('#preview').html(content);
     $('#previewMediaModal').modal('show');

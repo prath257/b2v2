@@ -234,15 +234,15 @@ function useMedia(path,title)
 
 	if ((strpath.search('.mp4') > 0) || (strpath.search('.webm') > 0))
 	{
-		content += "<video class='embed' width='320' height='240' controls><source src='"+path+"'></video>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
+		content += "<video onmousedown='return false;' class='embed' width='320' height='240' controls><source src='"+path+"'></video>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
 	}
 	else if ((strpath.search('.mp3') > 0) || (strpath.search('.wav') > 0))
 	{
-        content += "<audio class='embed' controls><source src='"+path+"'></audio>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
+        content += "<audio onmousedown='return false;' class='embed' controls><source src='"+path+"'></audio>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
 	}
 	else if ((strpath.search('.avi') > 0) || (strpath.search('.asf') > 0) || (strpath.search('.wmv') > 0))
 	{
-		content += "<embed class='embed' width='320' height='240' src='"+path+"'></embed>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
+		content += "<embed onmousedown='return false;' class='embed' width='320' height='240' src='"+path+"'></embed>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
 	}
 	else if ((strpath.search('.m4a') > 0) || (strpath.search('.mkv') > 0) || (strpath.search('.flv') > 0))
 	{
@@ -302,15 +302,15 @@ function completeHandler(event)
     {
         if ((strpath.search('.mp4') > 0) || (strpath.search('.webm') > 0) || (strpath.search('.ogg') > 0))
         {
-            content += "<video class='embed' width='320' height='240' controls><source src='"+strpath+"'></video>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
+            content += "<video onmousedown='return false;' class='embed' width='320' height='240' controls><source src='"+strpath+"'></video>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
         }
         else if ((strpath.search('.mp3') > 0) || (strpath.search('.wav') > 0) || (strpath.search('.ogg') > 0))
         {
-            content += "<audio controls><source src='"+strpath+"'></audio>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
+            content += "<audio onmousedown='return false;' controls><source src='"+strpath+"'></audio>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
         }
         else if ((strpath.search('.avi') > 0) || (strpath.search('.asf') > 0) || (strpath.search('.wmv') > 0))
         {
-            content += "<embed class='embed' width='320' height='240' src='"+strpath+"'></embed>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
+            content += "<embed onmousedown='return false;' class='embed' width='320' height='240' src='"+strpath+"'></embed>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
         }
         else if ((strpath.search('.m4a') > 0) || (strpath.search('.mkv') > 0) || (strpath.search('.flv') > 0))
         {
