@@ -104,9 +104,13 @@
 
 
                             @else
-                                    <div style="text-align: center"><a href="{{$tlink}}" style="cursor: pointer">Sign in</a> to {{$ttext}}<br/></div>
+                                    <div style="font-size: 20px"><a href="{{$tlink}}" style="cursor: pointer">Sign in</a> to {{$ttext}}<br/></div>
                             @endif
-
+<div class="col-lg-3">
+                                                    <div class="fb-share-button" style="padding: 5px" data-href="http://b2.com/articlePreview/{{$book->id}}"></div><br>
+                                                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://b2.com/articlePreview/{{$book->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters" style="margin-top: 2px">Tweet</a>
+                                                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                                                </div>
 
                 </div>
                 </div>

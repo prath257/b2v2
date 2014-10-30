@@ -166,6 +166,26 @@
         width: 50%;
         float: left;
     }
+    #bbarticles
+    {
+        float: left;
+    }
+    #listo
+    {
+        float: left;
+    }
+    .pivot-item
+    {
+        float: left;
+    }
+    .metro-pivot
+    {
+        float: left;
+    }
+    #ActionCentre
+    {
+        float: left;
+    }
 }
 
 /*Logo*/
@@ -256,6 +276,11 @@
     {
         width: 50%;
         float: left;
+    }
+    .carousel-box-holders
+    {
+        float: left;
+        width: 100%;
     }
 }
 

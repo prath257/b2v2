@@ -15,13 +15,13 @@ class ResourceController extends \BaseController
 	public function downloadResource($resourceId)
 	{
 		$resource = Resource::find($resourceId);
-		$file = $resource->path;
+
 		if($resource->userid!=Auth::user()->id)
 		{
             $ifc = $resource->ifc;
             $owner = User::find($resource->userid);
             if (Friend::isFriend($owner->id) && $owner->settings->freeforfriends)
-                return Response::download($file);
+                return Crypt::encrypt($resourceId);
 
             if(Friend::isSubscriber($owner->id) && $owner->settings->discountforfollowers > 0)
             {
@@ -46,8 +46,16 @@ class ResourceController extends \BaseController
             else
                 return View::make('ifcDeficit')->with('contentIFC',$ifc)->with('userIFC',Auth::user()->profile->ifc);
 		}
-		return Response::download($file);
+		return Crypt::encrypt($resourceId);
 	}
+
+    public function startDownload($resId)
+    {
+        $id = Crypt::decrypt($resId);
+        $resource = Resource::find($id);
+        $file = $resource->path;
+        return Response::download($file);
+    }
 
     public function getResource($resourceId)
     {

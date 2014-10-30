@@ -171,10 +171,10 @@
   </div>
     @else
     <div class="alert alert-info alert-dismissable col-lg-6 col-lg-offset-3">
-        <strong>Attention! </strong> You can't access this  Dashboard as you haven't built your profile yet.
+        <strong>Attention! </strong> You can't access this  Dashboard as you haven't completed your profile yet.
         Without a valid profile you won't be able to create any content or interact with anyone. So, build it now and earn yourself upto 300i
         <br>
-        <a href="{{route('buildProfile')}}"><h3>Build Profile</h3></a>
+        <a href="{{route('buildProfile')}}"><h3>Complete Profile</h3></a>
     </div>
     @endif
     </div>

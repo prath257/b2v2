@@ -33,16 +33,35 @@
          </div>
 
          @elseif($note->type=='chat')
-         <div id="btns{{$note->id}}">
-         <button class="btn btn-success" onclick="acceptChatR('{{$note->id}}','{{$note->chid}}')">Accept</button> <button class="btn btn-danger" onclick="declineChatR('{{$note->id}}','{{$note->chid}}')">Decline</button>
-         </div>
+         <?php $chat = Chat::find($note->chid);
+            $currentTime = new DateTime();
+            $lastSeen = $chat->created_at;
+            $form = $currentTime->diff($lastSeen);
+         ?>
+            @if($form->i>15 || $form->h>0 || $form->d>0 || $form->m>0 || $form->y>0)
+                <small style="color: darkred">EXPIRED</small>
+            @else
+                <div id="btns{{$note->id}}">
+                     <button class="btn btn-success" onclick="acceptChatR('{{$note->id}}','{{$note->chid}}')">Accept</button> <button class="btn btn-danger" onclick="declineChatR('{{$note->id}}','{{$note->chid}}')">Decline</button>
+                </div>
+            @endif
 
          @elseif($note->type=='chatAcc')
               <?php $chat = Chat::find($note->chid); ?>
               @if ($chat->status != 'completed')
-              <div id="btns{{$note->id}}">
-              <button class="btn btn-success" onclick="startChatR('{{$note->chid}}')">Join chat</button>
-              </div>
+              <?php
+                  $currentTime = new DateTime();
+                  $lastSeen = $chat->created_at;
+                  $form = $currentTime->diff($lastSeen);
+               ?>
+                  @if($form->i>15 || $form->h>0 || $form->d>0 || $form->m>0 || $form->y>0)
+                      <small style="color: darkred">EXPIRED</small>
+                  @else
+                <div id="btns{{$note->id}}">
+                              <button class="btn btn-success" onclick="startChatR('{{$note->chid}}')">Join chat</button>
+                  </div>
+                  @endif
+
               @endif
 
          @elseif($note->type=='iContri')

@@ -23,7 +23,7 @@
     @elseif($action->type=='BB new chapter')
 
     <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> posted a new chapter in BlogBook
-            <a href="{{route('blogBookPreview',BlogBook::find($action->contentid)->id)}}">{{BlogBook::find($action->contentid)->title}} </p>
+            <a href="{{route('blogBookPreview',BlogBook::find($action->contentid)->id)}}">{{BlogBook::find($action->contentid)->title}}</a> </p>
 
 
 
@@ -82,7 +82,7 @@
 
     @elseif($action->type=='P new')
     <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> posted a new Poll:
-            <a href="{{route('poll',Poll::find($action->contentid)->id)}}">"<i>{{Str::limit(Poll::find($action->contentid)->question,50)}}</i>></a>" </p>
+            <a href="{{route('poll',Poll::find($action->contentid)->id)}}"><i>{{Str::limit(Poll::find($action->contentid)->question,50)}}</i></a> </p>
 
 
 

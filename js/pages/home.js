@@ -346,11 +346,12 @@ $(document).ready(function()
     $("#peopleLabel").addClass("btn-info");
     document.getElementById('search').placeholder="Search Barters";
 
-    actionAjax();
-    loadActionCenter();
+
 
 
     getFriendsContent();
+    actionAjax();
+    loadActionCenter();
     getCategoryNotifications(cat);
     $('#aboutCollaborations').tooltip();
     getChats();
@@ -412,6 +413,7 @@ function getFriendsContent()
                     $('.img4').height(180);
                     $('.img5').height(180);
                     $('.img6').height(180);
+
                 }
                 $("#listo").fadeIn();
             }

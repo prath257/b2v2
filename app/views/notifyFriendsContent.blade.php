@@ -1,30 +1,30 @@
 <?php
     $i=0;
-    $colors = array("#555450", "#1c5a5e", "#5fa09d", "#6e2f40", "#989d27", "#db562e", "#403e6f");
-    $darkColors = array("#4c4b47","#185256","#559693","#5f2535","#898e21", "#c94a24", "#393939");
+    $colors = array("#555450", "#1c5a5e", "#5fa09d", "#6e2f40", "#989d27", "#403e6f");
+    $darkColors = array("#4c4b47","#185256","#559693","#5f2535","#898e21", "#373563");
 ?>
 
 <div id="bbarticles" class="col-lg-4" style="padding-left: 5px; padding-right: 5px; padding-bottom: 5px">
 <?php if (count($articles) > 0)
 {
-    $colorIndex = rand(0, 6); ?>
+    $colorIndex = rand(0, 5); ?>
 <div id="carousel2" class="carousel slide carousel-fade col-lg-12 well" style="color: white; background-color: {{$colors[$colorIndex]}}">
 <div class="carousel-inner">
     <?php $j=0; ?>
     @foreach($articles as $article)
     <?php $j++; ?>
     @if ($j == 1)
-    <div class="item active">
+    <div class="item active" style="height: 100%">
         @else
-        <div class="item">
+        <div class="item" style="height: 100%">
             @endif
-            <div class="col-lg-12" style="padding: 0px">
+            <div class="col-lg-12" style="padding: 0px; height: 100%">
 
                 <img class="col-lg-12 img1" src="{{asset($article->cover)}}" onclick="viewArticle({{$article->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
                 <div class="col-lg-12" style="padding: 15px">
-                <a class="col-lg-12" href="{{route('articlePreview',$article->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px">{{$article->title}}</a>
+                <a class="col-lg-12" href="{{route('articlePreview',$article->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px"><b>{{Str::title($article->title)}}</b></a>
                 </div>
-                <div class="col-lg-12" style="padding: 10px; background-color: {{$darkColors[6]}}; text-align: center">
+                <div class="col-lg-12 carousel-box-holders" style="padding: 10px; background-color: {{$darkColors[$colorIndex]}}; text-align: center;">
                     <div class="col-lg-6 carousel-bottom-boxes" style="padding: 0px; border-right: solid 2px {{$colors[$colorIndex]}}">
                         <?php $name = $article->getAuthor->first_name.' '.$article->getAuthor->last_name; ?>
                         <?php $username = $article->getAuthor->username; ?>
@@ -48,7 +48,7 @@
 ?>
 <?php if (count($blogbooks) > 0)
 {
-        $colorIndex = rand(0, 6); ?>
+        $colorIndex = rand(0, 5); ?>
     <div id="carousel1" class="carousel slide carousel-fade col-lg-12 well" style="color: white; margin-bottom: 0px; background-color: {{$colors[$colorIndex]}}">
     <div class="carousel-inner">
         <?php $j=0; ?>
@@ -63,9 +63,9 @@
 
                     <img class="col-lg-12 img2" src="{{asset($book->cover)}}" onclick="viewBlogBook({{$book->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
                     <div class="col-lg-12" style="padding: 15px">
-                        <a class="col-lg-12" href="{{route('blogBookPreview',$book->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px">{{$book->title}}</a>
+                        <a class="col-lg-12" href="{{route('blogBookPreview',$book->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px"><b>{{Str::title($book->title)}}</b></a>
                     </div>
-                <div class="col-lg-12" style="padding: 10px; background-color: {{$darkColors[6]}}; text-align: center">
+                <div class="col-lg-12 carousel-box-holders" style="padding: 10px; background-color: {{$darkColors[$colorIndex]}}; text-align: center">
                     <div class="col-lg-6 carousel-bottom-boxes" style="padding: 0px; border-right: solid 2px {{$colors[$colorIndex]}}">
                         <?php $name = $book->getAuthor->first_name.' '.$book->getAuthor->last_name; ?>
                         <?php $username = $book->getAuthor->username; ?>
@@ -93,7 +93,7 @@
     <div class="col-lg-4" style="padding-left: 5px; padding-right: 5px; padding-bottom: 5px">
 <?php if (count($resources) > 0)
 {
-    $colorIndex = rand(0, 6); ?>
+    $colorIndex = rand(0, 5); ?>
 <div id="carousel3" class="carousel slide carousel-fade col-lg-12 well" style="color: white; background-color: {{$colors[$colorIndex]}}">
 <div class="carousel-inner">
     <?php $j=0; ?>
@@ -108,9 +108,9 @@
 
                 <img class="col-lg-12 img3" src="{{asset('Images/Resource.jpg')}}" onclick="viewResource({{$resource->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
                 <div class="col-lg-12" style="padding: 15px">
-                    <a class="col-lg-12" href="{{route('resource',$resource->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px">{{$resource->title}}</a>
+                    <a class="col-lg-12" href="{{route('resource',$resource->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px"><b>{{Str::title($resource->title)}}</b></a>
                 </div>
-                <div class="col-lg-12" style="padding: 10px; background-color: {{$darkColors[6]}}; text-align: center">
+                <div class="col-lg-12 carousel-box-holders" style="padding: 10px; background-color: {{$darkColors[$colorIndex]}}; text-align: center">
                     <div class="col-lg-6 carousel-bottom-boxes" style="padding: 0px; border-right: solid 2px {{$colors[$colorIndex]}}">
                         <?php $name = $resource->getAuthor->first_name.' '.$resource->getAuthor->last_name; ?>
                         <?php $username = $resource->getAuthor->username; ?>
@@ -135,7 +135,7 @@
 
 <?php if (count($collaborations) > 0 || count($contributions) > 0)
 {
-    $colorIndex = rand(0, 6); ?>
+    $colorIndex = rand(0, 5); ?>
 <div id="carousel4" class="carousel slide carousel-fade col-lg-12 well" style="color: white; margin-bottom: 0px; background-color: {{$colors[$colorIndex]}}">
 <div class="carousel-inner">
     <?php $j=0; ?>
@@ -150,9 +150,9 @@
 
                     <img class="col-lg-12 img4" src="{{asset($collab->cover)}}" onclick="viewCollaboration({{$collab->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
                     <div class="col-lg-12" style="padding: 15px">
-                        <a class="col-lg-12" href="{{route('collaborationPreview',$collab->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px">{{$collab->title}}</a>
+                        <a class="col-lg-12" href="{{route('collaborationPreview',$collab->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px"><b>{{Str::title($collab->title)}}</b></a>
                     </div>
-                <div class="col-lg-12" style="padding: 10px; background-color: {{$darkColors[6]}}; text-align: center">
+                <div class="col-lg-12 carousel-box-holders" style="padding: 10px; background-color: {{$darkColors[$colorIndex]}}; text-align: center">
                     <div class="col-lg-6 carousel-bottom-boxes" style="padding: 0px; border-right: solid 2px {{$colors[$colorIndex]}}">
                     <?php $name = $collab->getAdmin->first_name.' '.$collab->getAdmin->last_name; ?>
                     <?php $username = $collab->getAdmin->username; ?>
@@ -181,9 +181,9 @@
 
                 <img class="col-lg-12 img5" src="{{asset($collab->cover)}}" onclick="viewCollaboration({{$collab->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
                 <div class="col-lg-12" style="padding: 15px">
-                    <a class="col-lg-12" href="{{route('collaborationPreview',$collab->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px">{{$collab->title}}</a>
+                    <a class="col-lg-12" href="{{route('collaborationPreview',$collab->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px"><b>{{Str::title($collab->title)}}</b></a>
                 </div>
-                <div class="col-lg-12" style="padding: 10px; background-color: {{$darkColors[6]}}; text-align: center">
+                <div class="col-lg-12 carousel-box-holders" style="padding: 10px; background-color: {{$darkColors[$colorIndex]}}; text-align: center">
                     <div class="col-lg-6 carousel-bottom-boxes" style="padding: 0px; border-right: solid 2px {{$colors[$colorIndex]}}">
                     <?php $name = $collab->getAdmin->first_name.' '.$collab->getAdmin->last_name; ?>
                     <?php $username = $collab->getAdmin->username; ?>
@@ -211,7 +211,7 @@
     <div class="col-lg-4" style="padding-left: 5px; padding-right: 5px; padding-bottom: 5px">
 <?php if (count($media) > 0)
 {
-    $colorIndex = rand(0, 6); ?>
+    $colorIndex = rand(0, 5); ?>
 <div id="carousel5" class="carousel slide carousel-fade col-lg-12 well" style="color: white; background-color: {{$colors[$colorIndex]}}">
 <div class="carousel-inner">
     <?php $j=0; ?>
@@ -226,9 +226,9 @@
 
                 <img class="col-lg-12 img5" src="{{asset($med->cover)}}" onclick="viewMedia({{$med->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
                 <div class="col-lg-12" style="padding: 15px">
-                    <a class="col-lg-12" href="{{route('mediaPreview',$med->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px">{{$med->title}}</a>
+                    <a class="col-lg-12" href="{{route('mediaPreview',$med->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px"><b>{{Str::title($med->title)}}</b></a>
                 </div>
-                <div class="col-lg-12" style="padding: 10px; background-color: {{$darkColors[6]}}; text-align: center">
+                <div class="col-lg-12 carousel-box-holders" style="padding: 10px; background-color: {{$darkColors[$colorIndex]}}; text-align: center">
                     <div class="col-lg-6 carousel-bottom-boxes" style="padding: 0px; border-right: solid 2px {{$colors[$colorIndex]}}">
                     <?php $name = $med->getAuthor->first_name.' '.$med->getAuthor->last_name; ?>
                     <?php $username = $med->getAuthor->username; ?>
@@ -254,7 +254,7 @@
 
 <?php if (count($pollsnquizes) > 0)
 {
-    $colorIndex = rand(0, 6); ?>
+    $colorIndex = rand(0, 5); ?>
 <div id="carousel6" class="carousel slide carousel-fade col-lg-12 well" style="color: white; margin-bottom: 0px; background-color: {{$colors[$colorIndex]}}">
 <div class="carousel-inner">
     <?php $j=0; ?>
@@ -270,9 +270,9 @@
 
                 <img class="col-lg-12 img6" src="{{asset('Images/Quiz.jpg')}}" onclick="viewQuiz({{$pnq->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
                 <div class="col-lg-12" style="padding: 15px">
-                    <a class="col-lg-12" href="{{route('quizPreview',$pnq->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px">{{$pnq->title}}</a>
+                    <a class="col-lg-12" href="{{route('quizPreview',$pnq->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px"><b>{{Str::title($pnq->title)}}</b></a>
                 </div>
-                <div class="col-lg-12" style="padding: 10px; background-color: {{$darkColors[6]}}; text-align: center">
+                <div class="col-lg-12 carousel-box-holders" style="padding: 10px; background-color: {{$darkColors[$colorIndex]}}; text-align: center">
                     <div class="col-lg-6 carousel-bottom-boxes" style="padding: 0px; border-right: solid 2px {{$colors[$colorIndex]}}">
                     <?php $name = User::find($pnq->ownerid)->first_name.' '.User::find($pnq->ownerid)->last_name; ?>
                     <?php $username = User::find($pnq->ownerid)->username; ?>
@@ -288,9 +288,9 @@
 
                 <img class="col-lg-12 img6" src="{{asset('Images/Poll.png')}}" onclick="viewPoll({{$pnq->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
                 <div class="col-lg-12" style="padding: 15px">
-                    <a class="col-lg-12" href="{{route('poll',$pnq->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px">{{$pnq->question}}</a>
+                    <a class="col-lg-12" href="{{route('poll',$pnq->id)}}" style="text-decoration: none; padding: 0px; color: white; font-size: 15px"><b>{{Str::title($pnq->question)}}</b></a>
                 </div>
-                <div class="col-lg-12" style="padding: 10px; background-color: {{$darkColors[6]}}; text-align: center">
+                <div class="col-lg-12 carousel-box-holders" style="padding: 10px; background-color: {{$darkColors[$colorIndex]}}; text-align: center">
                     <div class="col-lg-6 carousel-bottom-boxes" style="padding: 0px; border-right: solid 2px {{$colors[$colorIndex]}}">
                     <?php $name = User::find($pnq->ownerid)->first_name.' '.User::find($pnq->ownerid)->last_name; ?>
                     <?php $username = User::find($pnq->ownerid)->username; ?>

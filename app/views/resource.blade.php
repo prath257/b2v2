@@ -86,7 +86,7 @@
 
 
                                                 @if (Auth::user()->id == $book->userid)
-                                                 <a href="{{route('downloadResource',$book->id)}}" class="btn btn-success col-lg-4" style="padding: 10px">Download</a>
+                                                 <a href="{{route('downloadResource',Crypt::encrypt($book->id))}}" class="btn btn-success col-lg-4" style="padding: 10px">Download</a>
                                                  @else
                                                          <a href='#' class='btn btn-success col-lg-4' role='button' id='{{$book->title}}' name='resource' style='padding: 10px' onclick='showPurchase({{$book->ifc}})'>Download</a>
 
@@ -112,7 +112,7 @@
 
 
                             @else
-                                    <div style="text-align: center"><a href="{{$tlink}}" style="cursor: pointer">Sign in</a> to {{$ttext}}<br/></div>
+                                    <div style="font-size: 20px"><a href="{{$tlink}}" style="cursor: pointer">Sign in</a> to {{$ttext}}<br/></div>
                             @endif
 
 

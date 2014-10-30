@@ -457,7 +457,10 @@ function viewMedia2(path)
 function purchaseRes(link)
 {
     $('#ifcPurchasingModal').modal('hide');
-    window.location = 'http://b2.com/'+link;
+    $.post('http://b2.com/'+link, function(crypt)
+    {
+        window.location = 'http://b2.com/downloadResource/'+crypt;
+    });
 }
 
 function stopPlayingMedia()

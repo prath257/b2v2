@@ -82,7 +82,7 @@ class DataTableController extends \BaseController {
 			})
 			->addColumn('edit',function($model)
 			{
-				return "<a href='sym140Nb971wzb4284/".$model->id."'class='btn btn-primary'>Download</a> <button type='button' onclick='deleteResource(this,".$model->id.")'class='btn btn-danger'>Delete</button>";
+				return "<a href='downloadResource/".Crypt::encrypt($model->id)."'class='btn btn-primary'>Download</a> <button type='button' onclick='deleteResource(this,".$model->id.")'class='btn btn-danger'>Delete</button>";
 			})
 			->make();
 	}

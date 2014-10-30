@@ -41,8 +41,8 @@
 @if($user==Auth::user())
 <div class="alert alert-info alert-dismissable col-lg-6 col-lg-offset-3">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>Attention! </strong> You haven't build your profile yet, earn 300 by doing it now.
-    <a href="{{route('buildProfile')}}">Build Profile</a>
+    <strong>Attention! </strong> You haven't completed your profile yet, earn 300 by doing it now.
+    <a href="{{route('buildProfile')}}">Complete Profile</a>
 </div>
 @else
 <div class="alert alert-info alert-dismissable col-lg-6 col-lg-offset-3">

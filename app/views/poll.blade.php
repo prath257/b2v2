@@ -14,7 +14,7 @@
     <link href="{{asset('css/jquery.flipcounter.css')}}" rel="stylesheet">
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
 
-    <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+
 </head>
 <body style="font-family: 'Segoe UI'">
 <div id="fb-root"></div>
@@ -41,7 +41,7 @@
     <h2>{{$poll->question}}</h2>
     <br>
     @foreach($poll->getOptions()->get() as $option)
-    <input type="radio" value="{{$option->id}}" name="{{$poll->id}}">{{$option->option}}</input>
+    <input type="radio" value="{{$option->id}}" name="{{$poll->id}}">{{$option->option}}>
     <br><br>
     @endforeach
     @if(Auth::check())
@@ -85,8 +85,11 @@
     <div class="fb-comments" data-href="http://b2.com/poll/{{$poll->id}}" data-width="600" data-numposts="10" data-colorscheme="light"></div>
 </div>
 
+<script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+
 <input type="hidden" id="refreshed" value="no">
 <script src="{{asset('js/reload.js')}}"></script>
+
 
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
 <script src="{{asset('js/bootstrapValidator.min.js')}}"></script>

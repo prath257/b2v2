@@ -133,9 +133,9 @@
         <h1 id="FullName">{{Str::title($user->first_name)}} {{Str::title($user->last_name)}}</h1>
         @if(!Auth::user()->pset)
             <div class="alert alert-info alert-dismissable col-lg-6">
-                <strong>Attention! </strong> Without a valid profile you won't be able to create any content or interact with anyone. So, build it now and earn yourself upto 300i
+                <strong>Attention! </strong> Without a valid profile you won't be able to create any content or interact with anyone. So, complete it now and earn yourself upto 300i
                 <br>
-                <a href="{{route('buildProfile')}}"><h3>Build Profile</h3></a>
+                <a href="{{route('buildProfile')}}"><h3>Complete Profile</h3></a>
             </div>
         @else
         <p id="aboutUser">{{$user->profile->aboutMe}} <a id="readMore" class="darkLinks" onclick="showAboutUser()">Read more..</a></p>
@@ -379,9 +379,9 @@
             <div id="interestsContainer">
             @if(!Auth::user()->pset)
                 <div class="alert alert-info alert-dismissable col-lg-6">
-                    <strong>Attention! </strong> Without a valid profile you won't be able to create any content or interact with anyone. So, build it now and earn yourself upto 300i
+                    <strong>Attention! </strong> Without a valid profile you won't be able to create any content or interact with anyone. So, complete it now and earn yourself upto 300i
                     <br>
-                    <a href="{{route('buildProfile')}}"><h3>Build Profile</h3></a>
+                    <a href="{{route('buildProfile')}}"><h3>Complete Profile</h3></a>
                 </div>
             @else
 
