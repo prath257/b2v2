@@ -10,7 +10,7 @@ class Profile extends Eloquent
 {
 
 
-    protected $table='profile';
+    protected $table='newprofile';
 
 	//Relationships
 
