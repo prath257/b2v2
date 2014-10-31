@@ -1073,7 +1073,7 @@ function confirmPostRecco(imageURL)
             window.location='http://b2.com/offline';
         else
         {
-            var sort = $('RECCO-FILTER').val();
+            var sort = $('#RECCO-FILTER').val();
             loadRecco(0,allReccoCount,'gibber','none',sort);
             loadMyRecco(0,myReccoCount,'gibber','none',sort);
             $('#newRecommendationModal').modal('hide');
