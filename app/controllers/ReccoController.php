@@ -82,8 +82,8 @@ class ReccoController extends \BaseController {
     {
         if (Auth::check())
         {
-            $reccos = Recco::orderBy(Input::get('sort'),'DESC')->skip(Input::get('count'))->take(Input::get('count2'))->get();
-            $moreReccos = Recco::orderBy(Input::get('sort'),'DESC')->skip(Input::get('count')+Input::get('count2'))->take(1)->get();
+            $reccos = Recco::where('userid','!=',Auth::user()->id)->orderBy(Input::get('sort'),'DESC')->skip(Input::get('count'))->take(Input::get('count2'))->get();
+            $moreReccos = Recco::where('userid','!=',Auth::user()->id)->orderBy(Input::get('sort'),'DESC')->skip(Input::get('count')+Input::get('count2'))->take(1)->get();
             return View::make('reccos')->with('reccos',$reccos)->with('moreReccos',count($moreReccos))->with('target','all')->with('count',Input::get('count'));
         }
         else
@@ -133,6 +133,8 @@ class ReccoController extends \BaseController {
 
     public function searchRecco()
     {
+        if (Auth::check())
+        {
         $users = Recco::all();
         $realUsers = User::all();
         $searchUsers=new \Illuminate\Database\Eloquent\Collection();
@@ -168,5 +170,8 @@ class ReccoController extends \BaseController {
 
         $searchUsers = $searchUsers->sortByDesc(Input::get('sort'));
         return View::make('reccos')->with('reccos',$searchUsers)->with('moreReccos',0)->with('target','my')->with('count',0);
+        }
+        else
+            return 'wH@tS!nTheB0x';
     }
 }

@@ -510,25 +510,92 @@ class AjaxController extends \BaseController {
 
     public function article_write()
     {
+        if (Auth::check())
+        {
         $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
         $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
         $primary = array_merge($primary, $secondary);
         return View::make('homeContent')->with('primary',$primary)->with('data','articles');
+        }
+        else
+            return 'wH@tS!nTheB0x';
     }
 
     public function bb_write()
     {
+        if (Auth::check())
+        {
         $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
         $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
         $primary = array_merge($primary, $secondary);
         return View::make('homeContent')->with('primary',$primary)->with('data','bb');
+        }
+        else
+            return 'wH@tS!nTheB0x';
     }
 
     public function collab_write()
     {
+        if (Auth::check())
+        {
         $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
         $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
         $primary = array_merge($primary, $secondary);
         return View::make('homeContent')->with('primary',$primary)->with('data','collab');
+        }
+        else
+            return 'wH@tS!nTheB0x';
+    }
+
+    public function res_write()
+    {
+        if (Auth::check())
+        {
+            $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
+            $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
+            $primary = array_merge($primary, $secondary);
+            return View::make('homeContent')->with('primary',$primary)->with('data','res');
+        }
+        else
+            return 'wH@tS!nTheB0x';
+    }
+
+    public function media_write()
+    {
+        if (Auth::check())
+        {
+            $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
+            $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
+            $primary = array_merge($primary, $secondary);
+            return View::make('homeContent')->with('primary',$primary)->with('data','media');
+        }
+        else
+            return 'wH@tS!nTheB0x';
+    }
+
+    public function quiz_write()
+    {
+        if (Auth::check())
+        {
+            $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
+            $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
+            $primary = array_merge($primary, $secondary);
+            return View::make('homeContent')->with('primary',$primary)->with('data','quiz');
+        }
+        else
+            return 'wH@tS!nTheB0x';
+    }
+
+    public function poll_write()
+    {
+        if (Auth::check())
+        {
+            $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
+            $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
+            $primary = array_merge($primary, $secondary);
+            return View::make('homeContent')->with('primary',$primary)->with('data','poll');
+        }
+        else
+            return 'wH@tS!nTheB0x';
     }
 }

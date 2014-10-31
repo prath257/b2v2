@@ -475,4 +475,8 @@ Route::post('searchRecco', array('uses' => 'ReccoController@searchRecco'));
 Route::post('article_write', array('uses' => 'AjaxController@article_write'));
 Route::post('bb_write', array('uses' => 'AjaxController@bb_write'));
 Route::post('collab_write', array('uses' => 'AjaxController@collab_write'));
+Route::post('res_write', array('uses' => 'AjaxController@res_write'));
+Route::post('poll_write', array('uses' => 'AjaxController@poll_write'));
+Route::post('quiz_write', array('uses' => 'AjaxController@quiz_write'));
+Route::post('media_write', array('uses' => 'AjaxController@media_write'));
 

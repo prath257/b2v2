@@ -170,18 +170,24 @@
         <br>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist" id="myTab">
-            <li id="resourceTab"  class="active" role="presentation"><a href="#resourceNew" role="tab" data-toggle="tab">Resource</a></li>
-            <li id="mediaTab" role="presentation"><a href="#mediaNew" role="tab" data-toggle="tab">Media</a></li>
+            <li id="resourceTab" class="active" role="presentation"><a href="#resourceNew" role="tab" data-toggle="tab">Resource</a></li>
+            <li id="mediaTab" role="presentation" onclick="mediaData()"><a href="#mediaNew" role="tab" data-toggle="tab">Media</a></li>
         </ul>
          <br>
         <!-- Tab panes -->
         <div class="tab-content">
         @if(Auth::user()->pset)
           <div role="tabpanel" class="tab-pane active fade in" id="resourceNew">
-                <a href="resourceDashboard" class="col-lg-3 btn btn-success">Resources</a>
+                <a href="resourceDashboard" class="col-lg-3 btn btn-success">Resources</a><br><br>
+                @if (Auth::user()->pset)
+               <div id="resDisplay" class="col-lg-12"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
+               @endif
           </div>
           <div role="tabpanel" class="tab-pane fade" id="mediaNew">
-                <a href="mediaDashboard" class="col-lg-3 btn btn-warning">Media</a>
+                <a href="mediaDashboard" class="col-lg-3 btn btn-warning">Media</a><br><br>
+                @if (Auth::user()->pset)
+                   <div id="mediaDisplay" class="col-lg-12"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
+                   @endif
           </div>
         @endif
         </div>
@@ -194,17 +200,23 @@
          <!-- Nav tabs -->
            <ul class="nav nav-tabs" role="tablist" id="myTab">
                 <li id="quizTab"  class="active" role="presentation"><a href="#quizNew" role="tab" data-toggle="tab">Quiz</a></li>
-                <li id="pollTab" role="presentation"><a href="#pollNew" role="tab" data-toggle="tab">Poll</a></li>
+                <li id="pollTab" role="presentation" onclick="pollData()"><a href="#pollNew" role="tab" data-toggle="tab">Poll</a></li>
            </ul>
            <br>
            <!-- Tab panes -->
            <div class="tab-content">
            @if(Auth::user()->pset)
                   <div role="tabpanel" class="tab-pane active fade in" id="quizNew">
-                        <a href="quizDashboard" class="col-lg-3 btn btn-warning">Quizes</a>
+                        <a href="quizDashboard" class="col-lg-3 btn btn-warning">Quizes</a><br><br>
+                        @if (Auth::user()->pset)
+                           <div id="quizDisplay" class="col-lg-12"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
+                           @endif
                   </div>
                   <div role="tabpanel" class="tab-pane fade" id="pollNew">
-                         <a href="pollDashboard" class="col-lg-3 btn btn-success">Polls</a>
+                         <a href="pollDashboard" class="col-lg-3 btn btn-success">Polls</a><br><br>
+                         @if (Auth::user()->pset)
+                            <div id="pollDisplay" class="col-lg-12"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
+                            @endif
                   </div>
            @endif
            </div>

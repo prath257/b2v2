@@ -15,6 +15,10 @@ var defaults = {
 bbflag = false;
 artflag = false;
 collabflag = false;
+resflag = false;
+mediaflag = false;
+pollflag = false;
+quizflag = false;
 
 var cat=0;
 
@@ -50,13 +54,13 @@ $(document).ready(function()
         }
         if(item==2)
         {
-
+            resData();
 
         }
         if(item==3)
         {
 
-
+            quizData();
         }
     };
 
@@ -1163,7 +1167,7 @@ function deleteRecco(id)
                    window.location='http://b2.com/offline';
                else
                {
-                   loadRecco(0,allReccoCount,'gibber','none',sort);
+                   //loadRecco(0,allReccoCount,'gibber','none',sort);
                    bootbox.alert('Recommendation successfully deleted.');
                    $('#my-recco').html('<br>'+markup);
                    $('#load-more-recco-my-'+myReccoCount).show();
@@ -1224,7 +1228,11 @@ function searchRecco(sort)
         $('#'+category+'-recco').html("<div style='text-align: center'><br><img src='http://b2.com/Images/icons/waiting.gif'> Searching..</div>");
         $.post('http://b2.com/searchRecco', {keywords: keywords, sort: sort, category: category}, function(markup)
         {
-            $('#'+category+'-recco').html('<br>'+markup);
+            if (markup == 'wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
+            else {
+                $('#' + category + '-recco').html('<br>' + markup);
+            }
         });
     }
     else
@@ -1250,8 +1258,12 @@ function writeData()
     {
         $.post('http://b2.com/article_write', function(markup)
         {
-            $('#articleDisplay').html(markup);
-            artflag = true;
+            if (markup == 'wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
+            else {
+                $('#articleDisplay').html(markup);
+                artflag = true;
+            }
         });
     }
 }
@@ -1261,8 +1273,12 @@ function writebb()
     if (!bbflag)
     {
         $.post('http://b2.com/bb_write', function (markup) {
-            $('#blogBookDisplay').html(markup);
-            bbflag = true;
+            if (markup == 'wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
+            else {
+                $('#blogBookDisplay').html(markup);
+                bbflag = true;
+            }
         });
     }
 }
@@ -1272,8 +1288,72 @@ function writecollab()
     if (!collabflag)
     {
         $.post('http://b2.com/collab_write', function (markup) {
-            $('#collaborationDisplay').html(markup);
-            collabflag = true;
+            if (markup == 'wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
+            else {
+                $('#collaborationDisplay').html(markup);
+                collabflag = true;
+            }
+        });
+    }
+}
+
+function resData()
+{
+    if (!resflag)
+    {
+        $.post('http://b2.com/res_write', function (markup) {
+            if (markup == 'wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
+            else {
+                $('#resDisplay').html(markup);
+                resflag = true;
+            }
+        });
+    }
+}
+
+function mediaData()
+{
+    if (!mediaflag)
+    {
+        $.post('http://b2.com/media_write', function (markup) {
+            if (markup == 'wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
+            else {
+                $('#mediaDisplay').html(markup);
+                mediaflag = true;
+            }
+        });
+    }
+}
+
+function quizData()
+{
+    if (!quizflag)
+    {
+        $.post('http://b2.com/quiz_write', function (markup) {
+            if (markup == 'wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
+            else {
+                $('#quizDisplay').html(markup);
+                quizflag = true;
+            }
+        });
+    }
+}
+
+function pollData()
+{
+    if (!pollflag)
+    {
+        $.post('http://b2.com/poll_write', function (markup) {
+            if (markup == 'wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
+            else {
+                $('#pollDisplay').html(markup);
+                pollflag = true;
+            }
         });
     }
 }
