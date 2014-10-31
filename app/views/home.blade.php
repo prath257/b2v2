@@ -118,64 +118,39 @@
      </div>
     <div class="pivot-item">
         <h3>Write</h3>
-        <p> Manage your content, blogbooks and Collaborations</p>
-        <br>
-        <div class="col-lg-4">
-            <div style="text-align: center">
-            <a href="articleDashboard" class="btn btn-success">+ Content</a>
-            <br>
-            <br>
-            <p style="color:black; font-family: arial, helvetica, sans-serif">A single page article about anything that's making rounds of your mind.</p>
-            </div>
-            <div id="donut-articles" style="height: 250px; width: 270px"></div>
-            <br>
-            <br>
-            <ul id="articlesData" class="nav nav-pills ranges">
-                <li style="padding: 10px">Days:</li>
-                <li id="a7"><a href="#" data-range='7'>7</a></li>
-                <li id="a30"><a href="#" data-range='30'>30</a></li>
-                <li id="a60"><a href="#" data-range='60'>60</a></li>
-                <li id="a90" class="active"><a href="#" data-range='90'>90</a></li>
-            </ul>
-            <br>
-        </div>
+               <br>
+               <!-- Nav tabs -->
+                   <ul class="nav nav-tabs" role="tablist" id="myTab">
+                       <li id="articlesTab"  class="active" role="presentation"><a href="#articleNew" role="tab" data-toggle="tab">Articles</a></li>
+                       <li id="blogbookTab" role="presentation"><a href="#blogbookNew" role="tab" data-toggle="tab">Blogbooks</a></li>
+                       <li id="collaborationsTab" role="presentation"><a href="#collabNew" role="tab" data-toggle="tab">Collaborations</a></li>
+                    </ul>
+               <br>
+                <!-- Tab panes -->
+                   <div class="tab-content">
+                   @if(Auth::user()->pset)
+                   <div role="tabpanel" class="tab-pane active fade in" id="articleNew">
 
-        <div class="col-lg-4">
-        <div style="text-align: center">
-            <a href="blogBookDashboard" class="btn btn-success">+ BlogBooks</a>
-            <br>
-            <br>
-            <p style="color:black; font-family: arial, helvetica, sans-serif">You can start with a book, have chapters in it and keep updating it time-to-time.</p>
-        </div>
-            <div id="donut-books" style="height: 250px; width: 270px"></div>
-            <br>
-            <br>
-            <ul id="booksData" class="nav nav-pills ranges">
-                <li style="padding: 10px">Days:</li>
-                <li id="b7"><a href="#" data-range='7'>7</a></li>
-                <li id="b30"><a href="#" data-range='30'>30</a></li>
-                <li id="b60"><a href="#" data-range='60'>60</a></li>
-                <li id="b90" class="active"><a href="#" data-range='90'>90</a></li>
-            </ul>
-            <br>
-        </div>
-        <div class="col-lg-4">
-        <div style="text-align: center">
-            <a href="{{route('collaborationsDashboard')}}" class="btn btn-success">+ Collaborations</a>
-            <br><br>
-            <p style="color:black; font-family: arial, helvetica, sans-serif">Similar to a BlogBook, but written my multiple barters acting as contributors.</p>
-        </div>
-            <div id="donut-collaborations" style="height: 250px; width: 280px"></div>
-            <br>
-            <br>
-            <ul id="collaborationsData" class="nav nav-pills ranges">
-                <li style="padding: 10px">Days:</li>
-                <li id="c7"><a href="#" data-range='7'>7</a></li>
-                <li id="c30"><a href="#" data-range='30'>30</a></li>
-                <li id="c60"><a href="#" data-range='60'>60</a></li>
-                <li id="c90" class="active"><a href="#" data-range='90'>90</a></li>
-            </ul>
-        </div>
+                   <a href="articleDashboard" class="btn btn-success">+ Content</a>
+                   <br>
+                   <br>
+                   <p style="color:black; font-family: arial, helvetica, sans-serif">A single page article about anything that's making rounds of your mind.</p>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade" id="blogbookNew">
+        <a href="blogBookDashboard" class="btn btn-success">+ BlogBooks</a>
+                   <br>
+                   <br>
+                   <p style="color:black; font-family: arial, helvetica, sans-serif">You can start with a book, have chapters in it and keep updating it time-to-time.</p>
+                       </div>
+
+                   <div role="tabpanel" class="tab-pane fade" id="collabNew">
+        <a href="{{route('collaborationsDashboard')}}" class="btn btn-success">+ Collaborations</a>
+                   <br><br>
+                   <p style="color:black; font-family: arial, helvetica, sans-serif">Similar to a BlogBook, but written my multiple barters acting as contributors.</p>
+                   </div>
+                   @endif
+                   </div>
 
     </div>
 
