@@ -11,6 +11,11 @@ var defaults = {
     controlInitialized: undefined
 };
 
+//load content
+bbflag = false;
+artflag = false;
+collabflag = false;
+
 var cat=0;
 
 var noOfInterests = $('#noOfInterests').val();
@@ -41,7 +46,7 @@ $(document).ready(function()
     defaults.selectedItemChanged=function(item){
         if(item==1)
         {
-
+            writeData();
         }
         if(item==2)
         {
@@ -153,7 +158,7 @@ $(document).ready(function()
         }
     }
 
-   
+
     var chartResources = Morris.Bar({
         // ID of the element in which to draw the chart.
         element: 'resources-stats-container',
@@ -1309,4 +1314,38 @@ function cacheMarkup()
 {
     var category = $('#recco-tab').val();
     cachedMarkup = $('#'+category+'-recco').html();
+}
+
+function writeData()
+{
+    if (!artflag)
+    {
+        $.post('http://b2.com/article_write', function(markup)
+        {
+            $('#articleDisplay').html(markup);
+            artflag = true;
+        });
+    }
+}
+
+function writebb()
+{
+    if (!bbflag)
+    {
+        $.post('http://b2.com/bb_write', function (markup) {
+            $('#blogBookDisplay').html(markup);
+            bbflag = true;
+        });
+    }
+}
+
+function writecollab()
+{
+    if (!collabflag)
+    {
+        $.post('http://b2.com/collab_write', function (markup) {
+            $('#collaborationDisplay').html(markup);
+            collabflag = true;
+        });
+    }
 }

@@ -122,8 +122,8 @@
                <!-- Nav tabs -->
                    <ul class="nav nav-tabs" role="tablist" id="myTab">
                        <li id="articlesTab"  class="active" role="presentation"><a href="#articleNew" role="tab" data-toggle="tab">Articles</a></li>
-                       <li id="blogbookTab" role="presentation"><a href="#blogbookNew" role="tab" data-toggle="tab">Blogbooks</a></li>
-                       <li id="collaborationsTab" role="presentation"><a href="#collabNew" role="tab" data-toggle="tab">Collaborations</a></li>
+                       <li id="blogbookTab" role="presentation" onclick="writebb()"><a href="#blogbookNew" role="tab" data-toggle="tab">Blogbooks</a></li>
+                       <li id="collaborationsTab" role="presentation" onclick="writecollab()"><a href="#collabNew" role="tab" data-toggle="tab">Collaborations</a></li>
                     </ul>
                <br>
                 <!-- Tab panes -->
@@ -131,23 +131,32 @@
                    @if(Auth::user()->pset)
                    <div role="tabpanel" class="tab-pane active fade in" id="articleNew">
 
-                   <a href="articleDashboard" class="btn btn-success">+ Content</a>
+                   <a href="{{route('articleDashboard')}}" class="btn btn-success">+ Content</a>
                    <br>
                    <br>
-                   <p style="color:black; font-family: 'arial, helvetica, sans-serif'">A single page article about anything that's making rounds of your mind.</p>
+                   <p style="color:black">A single page article about anything that's making rounds of your mind.</p>
+                   @if (Auth::user()->pset)
+                   <div id="articleDisplay"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div> </div>
+                   @endif
                     </div>
 
                     <div role="tabpanel" class="tab-pane fade" id="blogbookNew">
-        <a href="blogBookDashboard" class="btn btn-success">+ BlogBooks</a>
+                    <a href="{{route('blogBookDashboard')}}" class="btn btn-success">+ BlogBooks</a>
                    <br>
                    <br>
-                   <p style="color:black; font-family: 'arial, helvetica, sans-serif'">You can start with a book, have chapters in it and keep updating it time-to-time.</p>
+                   <p style="color:black">You can start with a book, have chapters in it and keep updating it time-to-time.</p>
+                   @if (Auth::user()->pset)
+                   <div id="blogBookDisplay"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
+                   @endif
                        </div>
 
                    <div role="tabpanel" class="tab-pane fade" id="collabNew">
-        <a href="{{route('collaborationsDashboard')}}" class="btn btn-success">+ Collaborations</a>
+                    <a href="{{route('collaborationsDashboard')}}" class="btn btn-success">+ Collaborations</a>
                    <br><br>
-                   <p style="color:black; font-family: 'arial, helvetica, sans-serif'">Similar to a BlogBook, but written my multiple barters acting as contributors.</p>
+                   <p style="color:black">Similar to a BlogBook, but written my multiple barters acting as contributors.</p>
+                   @if (Auth::user()->pset)
+                   <div id="collaborationDisplay"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
+                   @endif
                    </div>
                    @endif
                    </div>
@@ -275,28 +284,25 @@
     <div class="pivot-item">
         <h3>recco</h3>
         <br>
-        <div>You can recommend links to fellow Barters from web pages around the world or visit recommendations made by other Barters. Every Barter earns 20<i>i</i> for every recommendation that he/she makes.</div>
-        <br>
-        <button class="btn btn-warning" data-toggle="modal" data-target="#newRecommendationModal">Make new Recommendation</button>
 
-        <br><br>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
         <input type="hidden" id="recco-tab" value="all">
           <li role="presentation" class="active recco-duo-tabs"><a href="#all-recco" role="tab" data-toggle="tab" onclick="toggleTab('all')">All Recommendations</a></li>
           <li role="presentation" class="recco-duo-tabs"><a href="#my-recco" role="tab" data-toggle="tab" onclick="toggleTab('my')">My Recommendations</a></li>
-          <li role="presentation" class="col-lg-4"><input id="searchRecco" type="text" class="form-control" placeholder="Search provider or recommendation." onkeyup="upRecco(event)" onkeydown="downRecco()" onfocus="cacheMarkup()"></li>
-          <li role="presentation" class="col-lg-3">
-          <div class="col-lg-5" style="padding-left: 0px; padding-right: 5px; padding-top: 5px">
+          <li role="presentation" class="col-lg-3"><input id="searchRecco" type="text" class="form-control" placeholder="Search recco or provider." onkeyup="upRecco(event)" onkeydown="downRecco()" onfocus="cacheMarkup()"></li>
+          <li role="presentation" class="col-lg-3" style="padding-left: 0px">
+          <div class="col-lg-4" style="padding-left: 0px; padding-right: 5px; padding-top: 5px">
             <small><b>SORT BY: </b></small>
           </div>
-          <div class="col-lg-7" style="padding: 0px">
+          <div class="col-lg-8" style="padding: 0px">
               <select id="RECCO-FILTER" class="form-control" name="RECCO-FILTER" onchange="sortRecco()" style="padding-left: 0px; padding-right: 5px">
                  <option value="created_at">Latest</option>
                  <option value="hits">Popular</option>
               </select>
           </div>
           </li>
+          <li role="presentation"><button class="btn btn-warning" data-toggle="modal" data-target="#newRecommendationModal">+ New</button></li>
         </ul>
 
         <!-- Tab panes -->

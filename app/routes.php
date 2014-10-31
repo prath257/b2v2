@@ -471,3 +471,8 @@ Route::post('incrementHits', array('uses' => 'ReccoController@incrementHits'));
 Route::post('deleteRecco', array('uses' => 'ReccoController@deleteRecco'));
 Route::post('searchRecco', array('uses' => 'ReccoController@searchRecco'));
 
+//home data article bb collab
+Route::post('article_write', array('uses' => 'AjaxController@article_write'));
+Route::post('bb_write', array('uses' => 'AjaxController@bb_write'));
+Route::post('collab_write', array('uses' => 'AjaxController@collab_write'));
+

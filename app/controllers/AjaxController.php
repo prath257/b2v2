@@ -507,4 +507,28 @@ class AjaxController extends \BaseController {
         else
             return 'wH@tS!nTheB0x';
     }
+
+    public function article_write()
+    {
+        $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
+        $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
+        $primary = array_merge($primary, $secondary);
+        return View::make('homeContent')->with('primary',$primary)->with('data','articles');
+    }
+
+    public function bb_write()
+    {
+        $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
+        $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
+        $primary = array_merge($primary, $secondary);
+        return View::make('homeContent')->with('primary',$primary)->with('data','bb');
+    }
+
+    public function collab_write()
+    {
+        $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
+        $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
+        $primary = array_merge($primary, $secondary);
+        return View::make('homeContent')->with('primary',$primary)->with('data','collab');
+    }
 }
