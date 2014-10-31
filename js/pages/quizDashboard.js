@@ -31,6 +31,72 @@ $(document).ready(function()
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
     } );
 
+    //this is the code for handing quiz stats
+    var chartQuiz = Morris.Bar({
+        // ID of the element in which to draw the chart.
+        element: 'quiz-stats-container',
+        data: [0, 0], // Set initial data (ideally you would provide an array of default data)
+        xkey: 'Quiz', // Set the key for X-axis
+        ykeys: ['value'], // Set the key for Y-axis
+        labels: ['Earnings']      // Set the label when bar is rolled over
+
+    });
+
+    // Create a function that will handle AJAX requests
+    function requestData(days, chart, type)
+    {
+        try
+        {
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "http://b2.com/get"+type+"ChartData", // This is the URL to the API
+                data: { days: days }
+            })
+                .done(function( data ) {
+                    if(data=='wH@tS!nTheB0x')
+                        window.location='http://b2.com/offline';
+                    else
+                    {
+                        // When the response to the AJAX request comes back render the chart with new data
+                        chart.setData(data);
+                    }
+                })
+                .fail(function() {
+                    // If there is no communication between the server, show an error
+                    // alert( "error occured" );
+                });
+        }
+        catch(error)
+        {
+            //do nothing about the error
+        }
+    }
+
+    requestData(90, chartQuiz,'Quiz');
+
+    $('ul.ranges a').click(function(e){
+        e.preventDefault();
+
+        // Get the number of days from the data attribute
+        var el = $(this);
+        days = el.attr('data-range');
+        var pp=el.closest('li');
+        var p=pp[0];
+
+        if (p.id=='q'+days)
+        {
+            $("#quizData>li.active").removeClass("active");
+            pp.addClass('active');
+            requestData(days, chartQuiz,'Quiz');
+
+        }
+
+        // Request the data and render the chart using our handy function
+
+
+    })
+
     $('#newQuizForm').bootstrapValidator({
 		live:'enabled',
 		submitButtons: 'button[id="newQuizSubmit"]',

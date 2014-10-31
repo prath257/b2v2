@@ -11,7 +11,71 @@ $(document).ready(function()
 		"lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
 	} );
 
-	$('#newResourceForm').bootstrapValidator({
+    //this is the code for showing the stats of resources
+    var chartResources = Morris.Bar({
+        // ID of the element in which to draw the chart.
+        element: 'resources-stats-container',
+        data: [0, 0], // Set initial data (ideally you would provide an array of default data)
+        xkey: 'resource', // Set the key for X-axis
+        ykeys: ['value'], // Set the key for Y-axis
+        labels: ['Downloads'] // Set the label when bar is rolled over
+    });
+
+    // Create a function that will handle AJAX requests
+    function requestData(days, chart, type)
+    {
+        try
+        {
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "http://b2.com/get"+type+"ChartData", // This is the URL to the API
+                data: { days: days }
+            })
+                .done(function( data ) {
+                    if(data=='wH@tS!nTheB0x')
+                        window.location='http://b2.com/offline';
+                    else
+                    {
+                        // When the response to the AJAX request comes back render the chart with new data
+                        chart.setData(data);
+                    }
+                })
+                .fail(function() {
+                    // If there is no communication between the server, show an error
+                    // alert( "error occured" );
+                });
+        }
+        catch(error)
+        {
+            //do nothing about the error
+        }
+    }
+
+    // Request initial data for the past 7 days:
+    requestData(90, chartResources,'Resources');
+
+
+    $('ul.ranges a').click(function(e){
+        e.preventDefault();
+
+        // Get the number of days from the data attribute
+        var el = $(this);
+        days = el.attr('data-range');
+        var pp=el.closest('li');
+        var p=pp[0];
+
+        if (p.id=='r'+days)
+        {
+            $("#resourcesData>li.active").removeClass("active");
+            pp.addClass('active');
+            requestData(days, chartResources,'Resources');
+
+        }
+    })
+
+
+    $('#newResourceForm').bootstrapValidator({
 		live:'enabled',
 		submitButtons: 'button[id="newResourceSubmit"]',
 		message: 'This value is not valid',

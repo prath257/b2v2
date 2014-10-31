@@ -45,13 +45,13 @@ $(document).ready(function()
         }
         if(item==2)
         {
-            requestData(90, chartResources,'Resources');
+
 
         }
         if(item==3)
         {
 
-            requestData(90, chartQuiz,'Quiz');
+
         }
     };
 
@@ -152,60 +152,8 @@ $(document).ready(function()
             //do nothing about the error
         }
     }
-
-   
-    var chartResources = Morris.Bar({
-        // ID of the element in which to draw the chart.
-        element: 'resources-stats-container',
-        data: [0, 0], // Set initial data (ideally you would provide an array of default data)
-        xkey: 'resource', // Set the key for X-axis
-        ykeys: ['value'], // Set the key for Y-axis
-        labels: ['Downloads'] // Set the label when bar is rolled over
-    });
-
-    var chartQuiz = Morris.Bar({
-        // ID of the element in which to draw the chart.
-        element: 'quiz-stats-container',
-        data: [0, 0], // Set initial data (ideally you would provide an array of default data)
-        xkey: 'Quiz', // Set the key for X-axis
-        ykeys: ['value'], // Set the key for Y-axis
-        labels: ['Earnings']      // Set the label when bar is rolled over
-
-    });
-
-
-    // Request initial data for the past 7 days:
+     // Request initial data for the past 7 days:
        requestData(7, chartUserData,'User');
-
-
-    $('ul.ranges a').click(function(e){
-        e.preventDefault();
-
-        // Get the number of days from the data attribute
-        var el = $(this);
-        days = el.attr('data-range');
-        var pp=el.closest('li');
-        var p=pp[0];
-
-        if (p.id=='r'+days)
-        {
-            $("#resourcesData>li.active").removeClass("active");
-            pp.addClass('active');
-            requestData(days, chartResources,'Resources');
-
-        }
-        else if (p.id=='q'+days)
-        {
-            $("#quizData>li.active").removeClass("active");
-            pp.addClass('active');
-            requestData(days, chartQuiz,'Quiz');
-
-        }
-
-        // Request the data and render the chart using our handy function
-
-
-    })
 
 
     $('#categoryData a').click(function(e)

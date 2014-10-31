@@ -118,7 +118,8 @@
      </div>
     <div class="pivot-item">
         <h3>Write</h3>
-               <br>
+       <p>Create content by using our ever expanding set of templates</p>
+       <br>
                <!-- Nav tabs -->
                    <ul class="nav nav-tabs" role="tablist" id="myTab">
                        <li id="articlesTab"  class="active" role="presentation"><a href="#articleNew" role="tab" data-toggle="tab">Articles</a></li>
@@ -158,46 +159,46 @@
         <h3>Upload</h3>
         <p> Upload useful resources for community or media files for your private use</p>
         <br>
-        <div class="col-lg-6">
-
-        </div>
-        <div class="col-lg-6">
-            <a href="resourceDashboard" class="col-lg-3 btn btn-success">Resources</a>
-
-            <a href="mediaDashboard" class="col-lg-3 col-lg-offset-1 btn btn-warning">Media</a>
-         </div>
-        <div id="resources-stats-container" style="height:370px;width: 280px;"></div>
-        <br>
-        <ul id="resourcesData" class="nav nav-pills ranges">
-            <li id="r7" ><a href="#" data-range='7'>7 Days</a></li>
-            <li id="r30"><a href="#" data-range='30'>30 Days</a></li>
-            <li id="r60"><a href="#" data-range='60'>60 Days</a></li>
-            <li id="r90" class="active"><a href="#" data-range='90'>90 Days</a></li>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist" id="myTab">
+            <li id="resourceTab"  class="active" role="presentation"><a href="#resourceNew" role="tab" data-toggle="tab">Resource</a></li>
+            <li id="mediaTab" role="presentation"><a href="#mediaNew" role="tab" data-toggle="tab">Media</a></li>
         </ul>
-
+         <br>
+        <!-- Tab panes -->
+        <div class="tab-content">
+        @if(Auth::user()->pset)
+          <div role="tabpanel" class="tab-pane active fade in" id="resourceNew">
+                <a href="resourceDashboard" class="col-lg-3 btn btn-success">Resources</a>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="mediaNew">
+                <a href="mediaDashboard" class="col-lg-3 btn btn-warning">Media</a>
+          </div>
+        @endif
+        </div>
     </div>
 
     <div class="pivot-item">
         <h3>Polls&Quizes</h3>
-        <p> Conduct polls or undertake quizes of your interest to earn quick IFCs</p>
-
-        <div class="col-lg-6">
-
-       </div>
-        <div class="col-lg-6">
-            <a href="quizDashboard" class="col-lg-3 btn btn-warning">Quizes</a>&nbsp;&nbsp;&nbsp;
-            <a href="pollDashboard" class="col-lg-3 col-lg-offset-1 btn btn-success">Polls</a>
-         </div>
-        <div id="quiz-stats-container"  style="height:370px;width:280px"></div>
+        <p> Conduct polls or undertake quizzes of your interest to earn some quick IFCs</p>
         <br>
-        <br>
-        <ul id="quizData" class="nav nav-pills ranges">
-            <li id="q7"><a href="#" data-range='7'>7 Days</a></li>
-            <li id="q30"><a href="#" data-range='30'>30 Days</a></li>
-            <li id="q60"><a href="#" data-range='60'>60 Days</a></li>
-            <li id="q90"  class="active"><a href="#" data-range='90'>90 Days</a></li>
-        </ul>
-
+         <!-- Nav tabs -->
+           <ul class="nav nav-tabs" role="tablist" id="myTab">
+                <li id="quizTab"  class="active" role="presentation"><a href="#quizNew" role="tab" data-toggle="tab">Quiz</a></li>
+                <li id="pollTab" role="presentation"><a href="#pollNew" role="tab" data-toggle="tab">Poll</a></li>
+           </ul>
+           <br>
+           <!-- Tab panes -->
+           <div class="tab-content">
+           @if(Auth::user()->pset)
+                  <div role="tabpanel" class="tab-pane active fade in" id="quizNew">
+                        <a href="quizDashboard" class="col-lg-3 btn btn-warning">Quizes</a>
+                  </div>
+                  <div role="tabpanel" class="tab-pane fade" id="pollNew">
+                         <a href="pollDashboard" class="col-lg-3 btn btn-success">Polls</a>
+                  </div>
+           @endif
+           </div>
     </div>
 
     <div class="pivot-item">

@@ -12,15 +12,16 @@
     <link href="{{asset('css/fileUpload.css')}}" rel="stylesheet">
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
     <link href="{{asset('css/search.css')}}" rel="stylesheet">
+    <link href="{{asset('css/morris.css')}}" rel="stylesheet">
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
 	<!-- Data tables CDN -->
     <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.js')}}"></script>
-
 	<script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-
+    <script src="{{asset('js/raphael.js')}}"></script>
+    <script src="{{asset('js/morris.js')}}"></script>
 </head>
 <body>
 
@@ -37,7 +38,7 @@
 	<br>
     <br>
     <br>
-    <div class="table-responsive">
+    <div class="table-responsive col-lg-8">
 	<table id="example"  class="table table-condensed table-hover" cellspacing="0" width="100%">
 		<thead>
 		<tr>
@@ -58,7 +59,17 @@
 		</tr>
 		</tbody>
 	</table>
-        </div>
+    </div>
+    <div class="col-lg-4">
+    <div id="resources-stats-container" style="height:370px;"></div>
+            <br>
+            <ul id="resourcesData" class="nav nav-pills ranges">
+                <li id="r7" ><a href="#" data-range='7'>7 Days</a></li>
+                <li id="r30"><a href="#" data-range='30'>30 Days</a></li>
+                <li id="r60"><a href="#" data-range='60'>60 Days</a></li>
+                <li id="r90" class="active"><a href="#" data-range='90'>90 Days</a></li>
+            </ul>
+    </div>
     @else
     <div class="alert alert-info alert-dismissable col-lg-6 col-lg-offset-3">
         <strong>Attention! </strong> You can't access this  Dashboard as you haven't completed your profile yet.
