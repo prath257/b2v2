@@ -186,28 +186,8 @@ $(document).ready(function()
         days = el.attr('data-range');
         var pp=el.closest('li');
         var p=pp[0];
-        if(p.id=='a'+days)
-        {
-            $("#articlesData>li.active").removeClass("active");
-            pp.addClass('active');
-            requestData(days, chartArticle,'Article');
 
-        }
-        else if (p.id=='b'+days)
-        {
-            $("#booksData>li.active").removeClass("active");
-            pp.addClass('active');
-            requestData(days, chartBooks,'Books');
-
-        }
-        else if (p.id=='c'+days)
-        {
-            $("#collaborationsData>li.active").removeClass("active");
-            pp.addClass('active');
-            requestData(days,chartCollaborations,'Collaborations');
-
-        }
-        else if (p.id=='r'+days)
+        if (p.id=='r'+days)
         {
             $("#resourcesData>li.active").removeClass("active");
             pp.addClass('active');

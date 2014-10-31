@@ -35,6 +35,65 @@ $(document).ready(function()
         }
     });
 
+    //this is the code to show the blogbook stats
+    var chartBooks =Morris.Donut({
+        element: 'donut-books',
+        data: [0,0]
+    });
+
+    // Create a function that will handle AJAX requests
+    function requestData(days, chart, type)
+    {
+        try
+        {
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "http://b2.com/get"+type+"ChartData", // This is the URL to the API
+                data: { days: days }
+            })
+                .done(function( data ) {
+                    if(data=='wH@tS!nTheB0x')
+                        window.location='http://b2.com/offline';
+                    else
+                    {
+                        // When the response to the AJAX request comes back render the chart with new data
+                        chart.setData(data);
+                    }
+                })
+                .fail(function() {
+                    // If there is no communication between the server, show an error
+                    // alert( "error occured" );
+                });
+        }
+        catch(error)
+        {
+            //do nothing about the error
+        }
+    }
+
+    requestData(90, chartBooks,'Books');
+
+    $('ul.ranges a').click(function(e)
+    {
+        e.preventDefault();
+
+        // Get the number of days from the data attribute
+        var el = $(this);
+        days = el.attr('data-range');
+        var pp=el.closest('li');
+        var p=pp[0];
+        if (p.id=='b'+days)
+        {
+            $("#booksData>li.active").removeClass("active");
+            pp.addClass('active');
+            requestData(days, chartBooks,'Books');
+
+        }
+
+
+    })
+
     $('#newBlogBookForm').bootstrapValidator({
         live:'enabled',
         submitButtons: 'button[id="newBlogBookSubmit"]',
