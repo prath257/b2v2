@@ -134,20 +134,20 @@
                    <a href="articleDashboard" class="btn btn-success">+ Content</a>
                    <br>
                    <br>
-                   <p style="color:black; font-family: arial, helvetica, sans-serif">A single page article about anything that's making rounds of your mind.</p>
+                   <p style="color:black; font-family: 'arial, helvetica, sans-serif'">A single page article about anything that's making rounds of your mind.</p>
                     </div>
 
                     <div role="tabpanel" class="tab-pane fade" id="blogbookNew">
         <a href="blogBookDashboard" class="btn btn-success">+ BlogBooks</a>
                    <br>
                    <br>
-                   <p style="color:black; font-family: arial, helvetica, sans-serif">You can start with a book, have chapters in it and keep updating it time-to-time.</p>
+                   <p style="color:black; font-family: 'arial, helvetica, sans-serif'">You can start with a book, have chapters in it and keep updating it time-to-time.</p>
                        </div>
 
                    <div role="tabpanel" class="tab-pane fade" id="collabNew">
         <a href="{{route('collaborationsDashboard')}}" class="btn btn-success">+ Collaborations</a>
                    <br><br>
-                   <p style="color:black; font-family: arial, helvetica, sans-serif">Similar to a BlogBook, but written my multiple barters acting as contributors.</p>
+                   <p style="color:black; font-family: 'arial, helvetica, sans-serif'">Similar to a BlogBook, but written my multiple barters acting as contributors.</p>
                    </div>
                    @endif
                    </div>

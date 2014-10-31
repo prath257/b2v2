@@ -41,9 +41,7 @@ $(document).ready(function()
     defaults.selectedItemChanged=function(item){
         if(item==1)
         {
-            requestData(90, chartArticle,'Article');
-            requestData(90, chartBooks,'Books');
-            requestData(90, chartCollaborations,'Collaborations');
+
         }
         if(item==2)
         {
@@ -155,24 +153,7 @@ $(document).ready(function()
         }
     }
 
-    var chartArticle =Morris.Donut({
-        element: 'donut-articles',
-        data: [0,0]
-
-    });
-
-
-
-    var chartBooks =Morris.Donut({
-        element: 'donut-books',
-        data: [0,0]
-    });
-
-    var chartCollaborations =Morris.Donut({
-        element: 'donut-collaborations',
-        data: [0,0]
-    });
-
+   
     var chartResources = Morris.Bar({
         // ID of the element in which to draw the chart.
         element: 'resources-stats-container',
