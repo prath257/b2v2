@@ -12,6 +12,7 @@
     <link href="{{asset('css/pages/quizDashboard.css')}}" rel="stylesheet">
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
     <link href="{{asset('css/search.css')}}" rel="stylesheet">
+    <link href="{{asset('css/morris.css')}}" rel="stylesheet">
     <!-- Optional theme -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
     <!-- Data tables CDN -->
@@ -19,7 +20,8 @@
     <script type="text/javascript" src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
     <script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
     <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-
+    <script src="{{asset('js/raphael.js')}}"></script>
+    <script src="{{asset('js/morris.js')}}"></script>
     <link href="{{asset('css/bootstrap-switch.css')}}" rel="stylesheet">
 
 </head>
@@ -35,7 +37,7 @@
     @if(Auth::user()->pset)
     <a data-toggle="modal" data-target="#newQuizModal" class="btn btn-success col-lg-2"> + New Quiz</a>
     <br><br><br>
-    <div class="panel-group" id="accordion">
+    <div class="panel-group col-lg-8" id="accordion">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -168,6 +170,17 @@
                 </div>
             </div>
         </div>
+  </div>
+  <div class="col-lg-4">
+  <div id="quiz-stats-container"  style="height:370px;"></div>
+    <br>
+    <br>
+      <ul id="quizData" class="nav nav-pills ranges">
+          <li id="q7"><a href="#" data-range='7'>7 Days</a></li>
+          <li id="q30"><a href="#" data-range='30'>30 Days</a></li>
+          <li id="q60"><a href="#" data-range='60'>60 Days</a></li>
+          <li id="q90"  class="active"><a href="#" data-range='90'>90 Days</a></li>
+      </ul>
   </div>
     @else
     <div class="alert alert-info alert-dismissable col-lg-6 col-lg-offset-3">

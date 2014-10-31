@@ -10,6 +10,7 @@
     <link href="{{asset('css/bootstrapValidator.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/articleDashboard.css')}}" rel="stylesheet">
     <link href="{{asset('css/logo.css')}}" rel="stylesheet">
+    <link href="{{asset('css/morris.css')}}" rel="stylesheet">
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
@@ -18,8 +19,8 @@
 	<script type="text/javascript" src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
 	<script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-
-
+    <script src="{{asset('js/raphael.js')}}"></script>
+    <script src="{{asset('js/morris.js')}}"></script>
 </head>
 <body style="font-family: 'Segoe UI'">
 <div id="fb-root"></div>
@@ -49,28 +50,40 @@
     <br>
     <br>
     <br>
-    <div class="table-responsive">
-	<table id="example"  class="table table-condensed table-hover" cellspacing="0" width="100%">
-		<thead>
-		<tr>
-			<th>Title</th>
-			<th>Category</th>
-			<th>Cost</th>
-			<th>Readers</th>
-			<th>Action</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		</tbody>
-	</table>
-        </div>
+   <div class="table-responsive col-lg-8">
+   	<table id="example"  class="table table-condensed table-hover" cellspacing="0" width="100%">
+   		<thead>
+   		<tr>
+   			<th>Title</th>
+   			<th>Category</th>
+   			<th>Cost</th>
+   			<th>Readers</th>
+   			<th>Action</th>
+   		</tr>
+   		</thead>
+   		<tbody>
+   		<tr>
+   			<td></td>
+   			<td></td>
+   			<td></td>
+   			<td></td>
+   			<td></td>
+   		</tr>
+   		</tbody>
+   	</table>
+       </div>
+       <div class="col-lg-4">
+            <div id="donut-articles" style="height: 250px;"></div>
+             <br>
+             <br>
+             <ul id="articlesData" class="nav nav-pills ranges col-lg-offset-3">
+                            <li style="padding: 10px">Days:</li>
+                            <li id="a7"><a href="#" data-range='7'>7</a></li>
+                            <li id="a30"><a href="#" data-range='30'>30</a></li>
+                            <li id="a60"><a href="#" data-range='60'>60</a></li>
+                            <li id="a90" class="active"><a href="#" data-range='90'>90</a></li>
+             </ul>
+       </div>
 
  @else
 <div class="alert alert-info alert-dismissable col-lg-6 col-lg-offset-3">

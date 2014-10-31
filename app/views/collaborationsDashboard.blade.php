@@ -11,6 +11,7 @@
     <link href="{{asset('css/pages/blogBookDashboard.css')}}" rel="stylesheet">
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
     <link href="{{asset('css/logo.css')}}" rel="stylesheet">
+    <link href="{{asset('css/morris.css')}}" rel="stylesheet">
     <!-- Optional theme -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
     <!-- Data tables CDN -->
@@ -18,7 +19,8 @@
     <script type="text/javascript" src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
     <script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
     <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-
+    <script src="{{asset('js/raphael.js')}}"></script>
+    <script src="{{asset('js/morris.js')}}"></script>
 </head>
 <body>
 <div id="fb-root"></div>
@@ -41,83 +43,94 @@
     @if(Auth::user()->pset)
     <a data-toggle="modal" data-target="#newCollaborationModal" class="btn btn-success col-lg-2">+ Start New Collaboration</a>
     <br><br><br>
-    <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                        Collaborations Owned
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in">
-                <div class="panel-body">
-                    <div class="table-responsive">
-                    <table id="example"  class="table table-condensed table-hover" cellspacing="0" width="100%">
-                        <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Chapters</th>
-                            <th>Readers</th>
-                            <th>Cost</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                        </div>
+    <div class="panel-group col-lg-10" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            Collaborations Owned
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                        <table id="example"  class="table table-condensed table-hover" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Chapters</th>
+                                <th>Readers</th>
+                                <th>Cost</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                            </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                        Collaborations Contributed
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div class="table-responsive">
-                    <table id="example2"  class="table table-condensed table-hover" cellspacing="0" width="100%">
-                        <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Chapters</th>
-                            <th>Readers</th>
-                            <th>Cost</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                        </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                            Collaborations Contributed
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                        <table id="example2"  class="table table-condensed table-hover" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Chapters</th>
+                                <th>Readers</th>
+                                <th>Cost</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                            </div>
+                    </div>
                 </div>
             </div>
+
         </div>
 
-    </div>
+         <div class="col-lg-2">
+             <div id="donut-collaborations" style="height: 250px; width: 280px"></div>
+                 <br>
+                 <br>
+                 <ul id="collaborationsData" class="nav nav-pills ranges col-lg-offset-1">
+                      <li id="c7"><a href="#" data-range='7'>7</a></li>
+                      <li id="c30"><a href="#" data-range='30'>30</a></li>
+                      <li id="c90" class="active"><a href="#" data-range='90'>90</a></li>
+                 </ul>
+         </div>
     @else
     <div class="alert alert-info alert-dismissable col-lg-6 col-lg-offset-3">
         <strong>Attention! </strong> You can't access this  Dashboard as you haven't completed your profile yet.
