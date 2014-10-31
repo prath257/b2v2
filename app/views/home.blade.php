@@ -284,8 +284,6 @@
     </div>
     <div class="pivot-item">
         <h3>recco</h3>
-        <br>
-
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
         <input type="hidden" id="recco-tab" value="all">
