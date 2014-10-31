@@ -462,4 +462,12 @@ Route::post('getMonthlyDates', array('as'=>'getMonthlyDates', 'uses'=>'DiaryCont
 
 Route::get('offline', array('uses' => 'BaseController@accidentialLogout'));
 
+//recco
+Route::post('post_recco', array('uses' => 'ReccoController@post_recco'));
+Route::post('publish_recco', array('uses' => 'ReccoController@publish_recco'));
+Route::post('loadRecco', array('uses' => 'ReccoController@loadRecco'));
+Route::post('loadMyRecco', array('uses' => 'ReccoController@loadMyRecco'));
+Route::post('incrementHits', array('uses' => 'ReccoController@incrementHits'));
+Route::post('deleteRecco', array('uses' => 'ReccoController@deleteRecco'));
+Route::post('searchRecco', array('uses' => 'ReccoController@searchRecco'));
 

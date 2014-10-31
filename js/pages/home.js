@@ -30,6 +30,12 @@ for (i=1; i<noOfInterests; i++)
     intCount[i] = 0;
 }
 
+//recco
+var myReccoCount = 0;
+var allReccoCount = 0;
+var reccoTimer;
+var cachedMarkup;
+
 $(document).ready(function()
 {
     defaults.selectedItemChanged=function(item){
@@ -91,6 +97,16 @@ $(document).ready(function()
             $('#searchModal').fadeOut();
         }
     });
+
+    $(document).click(function(e){
+        if (!$(e.target).is('#searchRecco,#searhRecco *,#RECCO-FILTER,#RECCO-FILTER *,.recco-duo-tabs,.recco-duo-tabs *'))
+        {
+            var category = $('#recco-tab').val();
+            $('#'+category+'-recco').html(cachedMarkup);
+            var keywords = $('#searchRecco').val('');
+        }
+    });
+
     var width = $(window).width();
     if (width>1200)
     {
@@ -313,6 +329,24 @@ $(document).ready(function()
         }
     });
 
+    $('#recco-form').bootstrapValidator({
+        live:'enabled',
+        submitButtons: 'button[id="recco-submit"]',
+        message: 'This value is not valid',
+        fields: {
+            reccoLink: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please enter a website address.'
+                    },
+                    uri: {
+                        message: 'The website address is not valid.'
+                    }
+                }
+            }
+        }
+    });
+
     $('#inviteForm').submit(function(event)
     {
 
@@ -321,6 +355,13 @@ $(document).ready(function()
     });
 
     $('#transferForm').submit(function(event)
+    {
+
+        /* stop form from submitting normally */
+        event.preventDefault();
+    });
+
+    $('#recco-form').submit(function(event)
     {
 
         /* stop form from submitting normally */
@@ -352,9 +393,11 @@ $(document).ready(function()
     getFriendsContent();
     actionAjax();
     loadActionCenter();
-    getCategoryNotifications(cat);
-    $('#aboutCollaborations').tooltip();
-    getChats();
+    loadRecco(0,allReccoCount+5,'gibber','increment','created_at');
+    loadMyRecco(0,myReccoCount+5,'gibber','increment','created_at');
+    //getCategoryNotifications(cat);
+    //$('#aboutCollaborations').tooltip();
+    //getChats();
     /*$(document).mouseover(function(e){
         if (!$(e.target).is('#ActionCentre,#ActionCentre *'))
             focusAction = false;
@@ -1071,4 +1114,218 @@ function searchAction()
 function clearSearchInterval()
 {
     clearInterval(tmr);
+}
+
+//recco
+
+function postRecommendation()
+{
+    $('#recco-form').data('bootstrapValidator').validate();
+
+    if($('#recco-form').data('bootstrapValidator').isValid())
+    {
+        $('#recco-data').html('<div style="text-align: center"><br><img src="http://b2.com/Images/icons/waiting.gif"> Loading site data..</div>');
+        var url = $('#reccoLink').val();
+
+        $.post('http://b2.com/post_recco', {url: url}, function(response)
+        {
+            if (response == 'wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
+            else if (response == 'failure')
+            {
+                $('#newRecommendationModal').modal('hide');
+                bootbox.alert('Sorry, the entered link didn\'t yeild any data.');
+                $('#recco-data').html('');
+                $('#reccoLink').val('');
+            }
+            else
+            {
+                $('#recco-data').html(response);
+            }
+        });
+    }
+}
+
+function confirmPostRecco(imageURL)
+{
+    $('#recco-post-button-container').html('<div style="text-align: right"><img src="http://b2.com/Images/icons/waiting.gif"> Saving..</div>');
+    var url = $('#reccoLink').val();
+    var title = $('#recco-preview-title').html();
+    var description = $('#recco-preview-description').html();
+
+    $.post('http://b2.com/publish_recco', {url: url, title: title, desc: description, image: imageURL}, function(response)
+    {
+        if (response == 'wH@tS!nTheB0x')
+            window.location='http://b2.com/offline';
+        else
+        {
+            var sort = $('RECCO-FILTER').val();
+            loadRecco(0,allReccoCount,'gibber','none',sort);
+            loadMyRecco(0,myReccoCount,'gibber','none',sort);
+            $('#newRecommendationModal').modal('hide');
+            bootbox.alert('Recco posted succesfully!');
+            $('#recco-data').html('');
+            $('#reccoLink').val('');
+        }
+    });
+}
+
+function loadRecco(skip,take,id,call,sort)
+{
+    $('.load-more-recco-all').hide();
+    $('#waiting-all-'+id).show();
+    if (skip == 0)
+        $('#all-recco').html("<div style='text-align: center'><br><img src='http://b2.com/Images/icons/waiting.gif'></div>");
+    $.post('http://b2.com/loadRecco', {count: skip, count2: take, sort: sort}, function(markup)
+    {
+        if (markup == 'wH@tS!nTheB0x')
+            window.location='http://b2.com/offline';
+        else
+        {
+            $('#waiting-all-'+id).hide();
+            $('.recco-wait-all').html('');
+            if (skip == 0)
+                $('#all-recco').html('<br>'+markup);
+            else
+                $('#all-recco').append('<br>'+markup);
+            $('#load-more-recco-all-'+skip).show();
+            if (call == 'increment')
+                allReccoCount += 5;
+        }
+    });
+}
+
+function loadMyRecco(skip,take,id,call,sort)
+{
+    $('.load-more-recco-my').hide();
+    $('#waiting-my-'+id).show();
+    if (skip == 0)
+        $('#my-recco').html("<div style='text-align: center'><br><img src='http://b2.com/Images/icons/waiting.gif'></div>");
+    $.post('http://b2.com/loadMyRecco', {count: skip, count2: take, sort: sort}, function(markup)
+    {
+        if (markup == 'wH@tS!nTheB0x')
+            window.location='http://b2.com/offline';
+        else
+        {
+            $('#waiting-my-'+id).hide();
+            $('.recco-wait-my').html('');
+            if (skip == 0)
+                $('#my-recco').html('<br>'+markup);
+            else
+                $('#my-recco').append('<br>'+markup);
+            $('#load-more-recco-my-'+skip).show();
+            if (call == 'increment')
+                myReccoCount += 5;
+        }
+    });
+}
+
+function readMoreRecco(id)
+{
+    $('#moreRecco'+id).hide();
+    var data = $('#original'+id).html();
+    data = data.substring(0, 140);
+    data += $('#remaining'+id).html();
+    $('#original'+id).html(data);
+}
+
+function visitRecco(id,url)
+{
+    $.post('http://b2.com/incrementHits', {id: id});
+    window.open(url);
+}
+
+function deleteRecco(id)
+{
+    bootbox.confirm('Are you sure?',function(response)
+    {
+       if (response == true)
+       {
+           var sort = $('#RECCO-FILTER').val();
+           $('#my-recco').html("<div style='text-align: center'><br><img src='http://b2.com/Images/icons/waiting.gif'></div>");
+           $.post('http://b2.com/deleteRecco', {id: id, count: myReccoCount, sort: sort}, function(markup)
+           {
+               if (markup == 'wH@tS!nTheB0x')
+                   window.location='http://b2.com/offline';
+               else
+               {
+                   loadRecco(0,allReccoCount,'gibber','none',sort);
+                   bootbox.alert('Recommendation successfully deleted.');
+                   $('#my-recco').html('<br>'+markup);
+                   $('#load-more-recco-my-'+myReccoCount).show();
+               }
+           });
+       }
+    });
+}
+
+function loadMoreReccos(target,cnt)
+{
+    var sort = $('#RECCO-FILTER').val();
+    if (target == 'all')
+        loadRecco(allReccoCount,5,cnt,'increment',sort);
+    else
+        loadMyRecco(myReccoCount,5,cnt,'increment',sort);
+}
+
+function sortRecco()
+{
+    var sort = $('#RECCO-FILTER').val();
+    var keywords = $('#searchRecco').val();
+    if (keywords.length == 0)
+    {
+        loadRecco(0,allReccoCount,'gibber','none',sort);
+        loadMyRecco(0,myReccoCount,'gibber','none',sort);
+    }
+    else
+        searchRecco(sort);
+}
+
+function upRecco(e)
+{
+    if (e.keyCode == 27)
+    {
+        var category = $('#recco-tab').val();
+        $('#'+category+'-recco').html(cachedMarkup);
+        var keywords = $('#searchRecco').val('');
+    }
+    else if (e.keyCode != 13)
+    {
+        var sort = $('#RECCO-FILTER').val();
+        reccoTimer = setTimeout(function(){searchRecco(sort)}, 700);
+    }
+}
+
+function downRecco()
+{
+    clearTimeout(reccoTimer);
+}
+
+function searchRecco(sort)
+{
+    var keywords = $('#searchRecco').val();
+    var category = $('#recco-tab').val();
+    if (keywords.length > 0)
+    {
+        $('#'+category+'-recco').html("<div style='text-align: center'><br><img src='http://b2.com/Images/icons/waiting.gif'> Searching..</div>");
+        $.post('http://b2.com/searchRecco', {keywords: keywords, sort: sort, category: category}, function(markup)
+        {
+            $('#'+category+'-recco').html('<br>'+markup);
+        });
+    }
+    else
+    {
+        $('#'+category+'-recco').html(cachedMarkup);
+    }
+}
+
+function toggleTab(tab)
+{
+    $('#recco-tab').val(tab);
+}
+
+function cacheMarkup()
+{
+    var category = $('#recco-tab').val();
+    cachedMarkup = $('#'+category+'-recco').html();
 }

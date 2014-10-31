@@ -233,7 +233,7 @@
 
                 <a href="{{route('manageEvents')}}" class="btn btn-success col-lg-2 col-lg-offset-3">Manage Events</a>
 
-                <a href="{{route('myEvents')}}" class="btn btn-success col-lg-2 col-lg-offset-3">Events on the plate</a>
+                <a href="{{route('myEvents')}}" class="btn btn-success col-lg-2 col-lg-offset-3">Attending</a>
 
         </div>
         <div class="col-lg-12">&nbsp;</div>
@@ -297,7 +297,45 @@
         </div>
 
     </div>
+    <div class="pivot-item">
+        <h3>recco</h3>
+        <br>
+        <div>You can recommend links to fellow Barters from web pages around the world or visit recommendations made by other Barters. Every Barter earns 20<i>i</i> for every recommendation that he/she makes.</div>
+        <br>
+        <button class="btn btn-warning" data-toggle="modal" data-target="#newRecommendationModal">Make new Recommendation</button>
 
+        <br><br>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+        <input type="hidden" id="recco-tab" value="all">
+          <li role="presentation" class="active recco-duo-tabs"><a href="#all-recco" role="tab" data-toggle="tab" onclick="toggleTab('all')">All Recommendations</a></li>
+          <li role="presentation" class="recco-duo-tabs"><a href="#my-recco" role="tab" data-toggle="tab" onclick="toggleTab('my')">My Recommendations</a></li>
+          <li role="presentation" class="col-lg-4"><input id="searchRecco" type="text" class="form-control" placeholder="Search provider or recommendation." onkeyup="upRecco(event)" onkeydown="downRecco()" onfocus="cacheMarkup()"></li>
+          <li role="presentation" class="col-lg-3">
+          <div class="col-lg-5" style="padding-left: 0px; padding-right: 5px; padding-top: 5px">
+            <small><b>SORT BY: </b></small>
+          </div>
+          <div class="col-lg-7" style="padding: 0px">
+              <select id="RECCO-FILTER" class="form-control" name="RECCO-FILTER" onchange="sortRecco()" style="padding-left: 0px; padding-right: 5px">
+                 <option value="created_at">Latest</option>
+                 <option value="hits">Popular</option>
+              </select>
+          </div>
+          </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="all-recco">
+
+          </div>
+          <div role="tabpanel" class="tab-pane" id="my-recco">
+
+          </div>
+        </div>
+
+
+     </div>
 </div>
 
 <div class="col-lg-3" id="ActionCentre" style="padding-right: 0px" onmouseover="okToAjax(false,1)" onmouseout="okToAjax(true,1)">
@@ -376,6 +414,32 @@
                         Saw anything going wrong with our code? Want us to improve something? Write us the issue/suggestion within minimal words/screenshots. If found appropriate, you'll be credited upto 500 IFCs.
                         <a href="{{route('reportBug')}}" class="btn btn-alert col-lg-12">Report Bug/ Suggestion</a>
                     </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="newRecommendationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">New Recommendation</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset style="min-height: 200px">
+                    <form id="recco-form">
+                        <div class="col-lg-10">
+                            <input type="text" id="reccoLink" class="form-control" name="reccoLink" placeholder="Paste the link here.">
+                        </div>
+                        <button type="submit" id="recco-submit" class="col-lg-2 btn btn-primary" onclick="postRecommendation()">Go</button>
+                    </form>
+
+                    <div id="recco-data" class="col-lg-12">
+
+                    </div>
+
                 </fieldset>
             </div>
         </div>
