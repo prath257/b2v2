@@ -132,10 +132,10 @@
                    @if(Auth::user()->pset)
                    <div role="tabpanel" class="tab-pane active fade in" id="articleNew">
 
-                   <a href="{{route('articleDashboard')}}" class="btn btn-success">+ Content</a>
-                   <br>
-                   <br>
-                   <p style="color:black">A single page article about anything that's making rounds of your mind.</p>
+                   <span class="col-lg-2" ><a href="{{route('articleDashboard')}}" class="btn btn-success">Write new</a></span>
+                   <span class="col-lg-10" style="padding-top: 10px">
+                   <p style="color:black">A single page article about anything that's making rounds of your mind.</p><br>
+                   </span>
                    @if (Auth::user()->pset)
                    <div id="articleDisplay"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div> </div>
                    @endif
