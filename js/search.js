@@ -1,5 +1,6 @@
 var whenready=true;
 var flag=0;
+var loggedout = false;
 
 $(document).ready(function()
 {
@@ -16,8 +17,11 @@ $(document).ready(function()
                      }
                  }).done(function(data)
                  {
-                     if(data=='wH@tS!nTheB0x')
-                        window.location = "http://b2.com/offline";
+                     if(data=='wH@tS!nTheB0x' && !loggedout)
+                     {
+                         loggedout = true;
+                         window.location = "http://b2.com/offline";
+                     }
                      else
                      {
                          $('#no_of_notification').html(data);
