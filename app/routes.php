@@ -189,7 +189,7 @@
 
     //MediaController (MediaSeries)
     Route::post('uploadMedia',array('as'=>'post.media','uses'=>'MediaController@uploadMedia'));
-    Route::get('mediaDashboard',array('as'=>'get.media','before'=>'auth','uses'=>'MediaController@getMedia'));
+    Route::get('mediaDashboard',array('as'=>'mediaDashboard','before'=>'auth','uses'=>'MediaController@getMedia'));
     Route::get('newPublicMedia',array('as'=>'newPublicMedia','before'=>'auth','uses'=>'MediaController@newPublicMedia'));
     Route::post('deleteMedia',array('as'=>'delete.media','uses'=>'MediaController@deleteMedia'));
     Route::post('uploadPublicMedia',array('uses'=>'MediaController@uploadPublicMedia'));

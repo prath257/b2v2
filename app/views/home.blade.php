@@ -118,23 +118,21 @@
      </div>
     <div class="pivot-item">
         <h3>Write</h3>
-       <p>Create content by using our ever expanding set of templates</p>
-       <br>
-               <!-- Nav tabs -->
-                   <ul class="nav nav-tabs" role="tablist" id="myTab">
-                       <li id="articlesTab"  class="active" role="presentation"><a href="#articleNew" role="tab" data-toggle="tab">Articles</a></li>
-                       <li id="blogbookTab" role="presentation" onclick="writebb()"><a href="#blogbookNew" role="tab" data-toggle="tab">Blogbooks</a></li>
-                       <li id="collaborationsTab" role="presentation" onclick="writecollab()"><a href="#collabNew" role="tab" data-toggle="tab">Collaborations</a></li>
-                    </ul>
-               <br>
-                <!-- Tab panes -->
-                   <div class="tab-content">
+        <!-- Nav tabs -->
+           <ul class="nav nav-tabs" role="tablist" id="myTab">
+                <li id="articlesTab"  class="active" role="presentation"><a href="#articleNew" role="tab" data-toggle="tab">Articles</a></li>
+                <li id="blogbookTab" role="presentation" onclick="writebb()"><a href="#blogbookNew" role="tab" data-toggle="tab">Blogbooks</a></li>
+                <li id="collaborationsTab" role="presentation" onclick="writecollab()"><a href="#collabNew" role="tab" data-toggle="tab">Collaborations</a></li>
+           </ul>
+        <br>
+        <!-- Tab panes -->
+        <div class="tab-content">
                    @if(Auth::user()->pset)
                    <div role="tabpanel" class="tab-pane active fade in" id="articleNew">
 
-                   <span class="col-lg-2" ><a href="{{route('articleDashboard')}}" class="btn btn-success">Write new</a></span>
+                   <span class="col-lg-2" ><a href="{{route('articleDashboard')}}" class="btn btn-success">Write New</a></span>
                    <span class="col-lg-10" style="padding-top: 10px">
-                   <p style="color:black">A single page article about anything that's making rounds of your mind.</p><br>
+                   <p style="color:black">A single page article about anything that's making rounds of your mind,  our templates makes it real easy!</p><br>
                    </span>
                    @if (Auth::user()->pset)
                    <div id="articleDisplay"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div> </div>
@@ -142,32 +140,31 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane fade" id="blogbookNew">
-                    <a href="{{route('blogBookDashboard')}}" class="btn btn-success">+ BlogBooks</a>
-                   <br>
-                   <br>
-                   <p style="color:black">You can start with a book, have chapters in it and keep updating it time-to-time.</p>
-                   @if (Auth::user()->pset)
-                   <div id="blogBookDisplay"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
-                   @endif
-                       </div>
+                    <span class="col-lg-2" ><a href="{{route('blogBookDashboard')}}" class="btn btn-success">Write New</a></span>
+                    <span class="col-lg-10" style="padding-top: 10px">
+                    <p style="color:black"> Book, have chapter(s) in it and then keep updating it from time-to-time.</p><br>
+                    </span>
+                    @if (Auth::user()->pset)
+                    <div id="blogBookDisplay"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
+                    @endif
+                    </div>
 
                    <div role="tabpanel" class="tab-pane fade" id="collabNew">
-                    <a href="{{route('collaborationsDashboard')}}" class="btn btn-success">+ Collaborations</a>
-                   <br><br>
-                   <p style="color:black">Similar to a BlogBook, but written my multiple barters acting as contributors.</p>
+                   <span class="col-lg-2" ><a href="{{route('collaborationsDashboard')}}" class="btn btn-success">Start New</a></span>
+                   <span class="col-lg-10" style="padding-top: 10px">
+                   <p style="color:black"> Its same as a BlogBook. Now multiple barters can write it simultaneously, together!</p><br>
+                   </span>
+
                    @if (Auth::user()->pset)
                    <div id="collaborationDisplay"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
                    @endif
                    </div>
                    @endif
-                   </div>
-
+        </div>
     </div>
 
     <div class="pivot-item">
         <h3>Upload</h3>
-        <p> Upload useful resources for community or media files for your private use</p>
-        <br>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist" id="myTab">
             <li id="resourceTab" class="active" role="presentation"><a href="#resourceNew" role="tab" data-toggle="tab">Resource</a></li>
@@ -178,16 +175,23 @@
         <div class="tab-content">
         @if(Auth::user()->pset)
           <div role="tabpanel" class="tab-pane active fade in" id="resourceNew">
-                <a href="resourceDashboard" class="col-lg-3 btn btn-success">Resources</a><br><br>
+             <span class="col-lg-2" ><a href="{{route('resourceDashboard')}}" class="btn btn-success">Upload New</a></span>
+                 <span class="col-lg-10" style="padding-top: 10px">
+                 <p style="color:black">  Resource, like source code, assignments etc. in compressed format.</p><br>
+             </span>
+
                 @if (Auth::user()->pset)
                <div id="resDisplay" class="col-lg-12"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
                @endif
           </div>
           <div role="tabpanel" class="tab-pane fade" id="mediaNew">
-                <a href="mediaDashboard" class="col-lg-3 btn btn-warning">Media</a><br><br>
-                @if (Auth::user()->pset)
-                   <div id="mediaDisplay" class="col-lg-12"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
-                   @endif
+             <span class="col-lg-2" ><a href="{{route('mediaDashboard')}}" class="btn btn-success">Upload New</a></span>
+                 <span class="col-lg-10" style="padding-top: 10px">
+                   <p style="color:black">  Media, like your guitar song, vocals, video etc. you can make it public also.</p><br>
+                 </span>
+             @if (Auth::user()->pset)
+                 <div id="mediaDisplay" class="col-lg-12"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
+             @endif
           </div>
         @endif
         </div>
@@ -195,31 +199,35 @@
 
     <div class="pivot-item">
         <h3>Polls&Quizes</h3>
-        <p> Conduct polls or undertake quizzes of your interest to earn some quick IFCs</p>
-        <br>
-         <!-- Nav tabs -->
-           <ul class="nav nav-tabs" role="tablist" id="myTab">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist" id="myTab">
                 <li id="quizTab"  class="active" role="presentation"><a href="#quizNew" role="tab" data-toggle="tab">Quiz</a></li>
                 <li id="pollTab" role="presentation" onclick="pollData()"><a href="#pollNew" role="tab" data-toggle="tab">Poll</a></li>
-           </ul>
-           <br>
-           <!-- Tab panes -->
-           <div class="tab-content">
-           @if(Auth::user()->pset)
-                  <div role="tabpanel" class="tab-pane active fade in" id="quizNew">
-                        <a href="quizDashboard" class="col-lg-3 btn btn-warning">Quizes</a><br><br>
-                        @if (Auth::user()->pset)
-                           <div id="quizDisplay" class="col-lg-12"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
-                           @endif
-                  </div>
-                  <div role="tabpanel" class="tab-pane fade" id="pollNew">
-                         <a href="pollDashboard" class="col-lg-3 btn btn-success">Polls</a><br><br>
-                         @if (Auth::user()->pset)
-                            <div id="pollDisplay" class="col-lg-12"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
-                            @endif
-                  </div>
+        </ul>
+        <br>
+        <!-- Tab panes -->
+        <div class="tab-content">
+        @if(Auth::user()->pset)
+          <div role="tabpanel" class="tab-pane active fade in" id="quizNew">
+               <span class="col-lg-2" ><a href="{{route('quizDashboard')}}" class="btn btn-success">Create New</a></span>
+               <span class="col-lg-10" style="padding-top: 10px">
+                    <p style="color:black"> quiz and challenge fellow barters for the same, if they score any less than 100% you earn.</p><br>
+               </span>
+              @if (Auth::user()->pset)
+              <div id="quizDisplay" class="col-lg-12"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
+              @endif
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="pollNew">
+              <span class="col-lg-2" ><a href="{{route('pollDashboard')}}" class="btn btn-success">Create New</a></span>
+              <span class="col-lg-10" style="padding-top: 10px">
+                 <p style="color:black"> poll and see what the fellow barters have voted for.</p><br>
+              </span>
+              @if (Auth::user()->pset)
+                <div id="pollDisplay" class="col-lg-12"><div style="text-align: center"><br><img src="{{asset('Images/icons/waiting.gif')}}"> </div></div>
+              @endif
+          </div>
            @endif
-           </div>
+        </div>
     </div>
 
     <div class="pivot-item">
