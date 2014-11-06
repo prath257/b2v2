@@ -227,19 +227,22 @@ class DiaryController extends \BaseController {
     {
         if(Auth::check())
         {
-        $year=Input::get('year');
-        $month=Input::get('month');
-        $userid = Input::get('userid');
+            $year=Input::get('year');
+            $month=Input::get('month');
+            $userid = Input::get('userid');
 
-        //Now is the code to get all the entries for the month year for auth user
-        $posts=DB::select('select DATE(created_at) as postday from diary where userid ='.$userid.' and YEAR(DATE(created_at))='.$year.' and MONTH(DATE(created_at))='.$month);
+            //Now is the code to get all the entries for the month year for auth user
+            $posts=DB::select('select DATE(created_at) as postday from diary where userid ='.$userid.' and YEAR(DATE(created_at))='.$year.' and MONTH(DATE(created_at))='.$month);
 
-        $arr= new \Illuminate\Database\Eloquent\Collection();
-        foreach ($posts as $key => $value) {
-            $result[] = $value->postday;
+            $result=array();
+            $i=0;
+            foreach ($posts as $key => $value)
+            {
+                $result[$i] = $value->postday;
+                $i++;
+            }
+            return $result;
         }
-        return $result;
-    }
         else
             return 'wH@tS!nTheB0x';
     }
