@@ -339,32 +339,6 @@
     Route::post('getTypes',array('as'=>'getTypes','uses'=>'BlogController@getTypes'));
     Route::post('getArticleTemplate',array('as'=>'getArticleTemplate','uses'=>'BlogController@getArticleTemplate'));
 
- /* Route::group(array('domain' => '{username}.b2.com'), function()
-        {
-            Route::get('/', function($username)
-            {
-                /*$user=User::where('username','=',$username)->first();
-                $userProfile=$user->profile()->first();
-                $wallpics=$user->wall()->get();
-                $interests=$user->interestedIn()->get();
-                $oldpics=$user->getTrivia()->get();
-                $aboutHim=$user->about()->get();
-                $questions=$user->questionsAskedToUser()->where('answer','!=','null')->orderBy('updated_at','DESC')->paginate(2);
-                $currentTime = new DateTime();
-                $lastSeen = $user->updated_at;
-                $form = $currentTime->diff($lastSeen);
-                if($form->i>4)
-                {
-                    $user->isOnline=false;
-                    $user->save();
-                }
-                $data=array('wallpics'=>$wallpics,'profile'=>$userProfile,'interests'=>$interests,'trivia'=>$oldpics,'user'=>$user,'about'=>$aboutHim,'questions'=>$questions);
-                return View::make('dummyProfile',$data);
-                return $username;
-            });
-        });*/
-
-
     Route::get('createDatabase',function()
     {
         Artisan::call('migrate');

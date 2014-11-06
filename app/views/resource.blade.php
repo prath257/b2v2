@@ -112,7 +112,7 @@
 
 
                             @else
-                                    <div style="font-size: 20px"><a href="{{$tlink}}" style="cursor: pointer">Sign in</a> to {{$ttext}}<br/></div>
+                                   <div style="font-size: 15px"><a href="{{$tlink}}" style="cursor: pointer">Sign In <img height="15px" width="15px" src="{{asset('Images/icons/twitter.png')}}"> | <img height="15px" width="15px" src="{{asset('Images/icons/facebook.jpg')}}"> | <img height="15px" width="15px" src="{{asset('Images/icons/gmail.jpg')}}"></a>&nbsp;&nbsp;&nbsp;to {{$ttext}}<br/></div>
                             @endif
 
 

@@ -74,8 +74,8 @@
                         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                     </div>
                 @else
-                <div style="font-size: 20px"><a href="http://b2.com/media/{{$media->id}}" style="cursor: pointer">Sign in</a> to view this media file.<br/></div>
-                    @endif
+                <div style="font-size: 15px"><a href="http://b2.com/media/{{$media->id}}" style="cursor: pointer">Sign In <img height="15px" width="15px" src="{{asset('Images/icons/twitter.png')}}"> | <img height="15px" width="15px" src="{{asset('Images/icons/facebook.jpg')}}"> | <img height="15px" width="15px" src="{{asset('Images/icons/gmail.jpg')}}"></a> to view this media file.<br/></div>
+               @endif
             </div>
             </div>
         </div>
