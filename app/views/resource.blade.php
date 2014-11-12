@@ -52,7 +52,7 @@
 
 
     $ttext = 'download this resource.';
-    $tlink = 'http://b2.com/sym140Nb971wzb4284/'.$book->id;
+    $tlink = 'http://b2.com/resourcePreview/'.$book->id;
 
 ?>
 

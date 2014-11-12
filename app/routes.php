@@ -180,6 +180,7 @@
     //ResourceControllers (Resources)
     Route::get('resourceDashboard', array('as'=>'resourceDashboard','before'=>'auth','uses'=>'ResourceController@getDashboard'));
     Route::get('resource/{resourceId}', array('as'=>'resource','uses'=>'previewController@getResourcePreview'));
+    Route::get('resourcePreview/{resourceId}', array('as'=>'resourcePreview','before' => 'auth','uses'=>'previewController@getResourceDummyPreview'));
     Route::post('sym140Nb971wzb4284/{resourceId}', array('before'=>'auth','uses'=>'ResourceController@downloadResource'));
     Route::get('downloadResource/{resourceId}', array('as'=>'downloadResource','before'=>'auth','uses'=>'ResourceController@startDownload'));
     Route::post('deleteResource',array('as'=>'deleteResource','uses'=>'ResourceController@deleteResource'));

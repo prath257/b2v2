@@ -30,6 +30,14 @@ class previewController extends \BaseController
         return $response;
     }
 
+    public function getResourceDummyPreview($id)
+    {
+        $row=Resource::find($id);
+        $ia=$row->userid;
+        $author=User::find($ia)->first_name.' '.User::find($ia)->last_name;
+        return View::make('resource')->with('book',$row)->with('author',$author);
+    }
+
     public function getBlogBookPreview($id)
     {
         $type='blogBook';
