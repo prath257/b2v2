@@ -258,11 +258,15 @@
             </div>
             <div style="height: 5%">
                 <ul class="carousel-indicators pull-right" style="left: auto; list-style-type: none">
-                    <li data-target="#carousel2" data-slide-to="0" class="active bottom-boxes"></li>
-                    <li data-target="#carousel2" data-slide-to="1" class="bottom-boxes"></li>
-                    <li data-target="#carousel2" data-slide-to="2" class="bottom-boxes"></li>
-                    <li data-target="#carousel2" data-slide-to="3" class="bottom-boxes"></li>
-                    <li data-target="#carousel2" data-slide-to="4" class="bottom-boxes"></li>
+                    @for ($contentC = 0; $contentC < $i; $contentC++)
+                        <?php
+                            if ($contentC == 0)
+                                $extraClass = 'active';
+                           else
+                                $extraClass = '';
+                         ?>
+                        <li data-target="#carousel2" data-slide-to="{{$contentC}}" class="bottom-boxes {{$extraClass}}"></li>
+                    @endfor
                 </ul>
             </div>
         </div>
@@ -318,11 +322,15 @@
             </div>
             <div style="height: 5%">
                 <ul class="carousel-indicators pull-right" style="left: auto; list-style-type: none">
-                    <li data-target="#carousel3" data-slide-to="0" class="active bottom-boxes"></li>
-                    <li data-target="#carousel3" data-slide-to="1" class="bottom-boxes"></li>
-                    <li data-target="#carousel3" data-slide-to="2" class="bottom-boxes"></li>
-                    <li data-target="#carousel3" data-slide-to="3" class="bottom-boxes"></li>
-                    <li data-target="#carousel3" data-slide-to="4" class="bottom-boxes"></li>
+                    @for ($contentC = 0; $contentC < $i; $contentC++)
+                        <?php
+                            if ($contentC == 0)
+                                $extraClass = 'active';
+                           else
+                                $extraClass = '';
+                         ?>
+                        <li data-target="#carousel3" data-slide-to="{{$contentC}}" class="bottom-boxes {{$extraClass}}"></li>
+                    @endfor
                 </ul>
             </div>
         </div>
@@ -854,6 +862,9 @@
                             <div class="col-lg-5">
                                 <input type="text" id="fpusername" class="form-control" name="username"/>
                             </div>
+                            <div class="col-lg-4">
+                                <a data-toggle="modal" data-target="#forgotUsernameModal" style="cursor: pointer">Forgot username?</a>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -1008,13 +1019,40 @@
             </div>
         </div>
     </div>
+
+        <div class="modal fade col-lg-12" id="forgotUsernameModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="margin-left: 35%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Forgot username</h4>
+                    </div>
+                    <div class="modal-body">
+                        <fieldset>
+                            <form id="forgotUsernameForm">
+                                <div class="form-group">
+                                    <input id="forgotUsernameEmail" name="forgotUsernameEmail" class="form-control" placeholder="Enter your E-mail ID">
+                                </div>
+                                <br>
+                                Your username will be mailed to your mailbox.
+                                <br><br>
+                                <button type="submit" id="forgotUsernameSubmit" class="btn btn-primary" onclick="submitForgotUsername()">Submit</button>
+                            </form>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <input type="hidden" id="refreshed" value="no">
     <script src="{{asset('js/reload.js')}}"></script>
 
 	<script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
 	<script src="{{asset('js/bootstrap.js')}}"></script>
 	<script src="{{asset('js/bootstrapValidator.min.js')}}"></script>
+	<script src="{{asset('js/bootbox.js')}}"></script>
 	<script src="{{asset('js/pages/indexPage.js')}}"></script>
+
 </div>
 <div id="tour-body" class="sub-bodies">
     <img id="back-image" src="{{asset('Images/3.jpg')}}">

@@ -7,7 +7,9 @@
         <div class="col-lg-12">&nbsp;</div>
 
         <div class="col-lg-4">
-            <img class="col-lg-12" src="{{$image}}" style="padding: 0px">
+            <img id="recco-preview-image" class="col-lg-12" src="{{$image}}" style="padding: 0px">
+            <br><br>
+            <a id="change-to-default-link" style="cursor: pointer" onclick="changeToDefault()">Change to default</a>
         </div>
 
         <div id="recco-preview-description" class="col-lg-8">

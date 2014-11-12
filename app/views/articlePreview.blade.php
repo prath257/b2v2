@@ -106,6 +106,16 @@
                                                     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                                                 </div>
 
+                                            <?php
+                                                             $recTitle = $book->title;
+                                                             $recDesc = $book->description;
+                                                             $recTitle = str_replace('\'','', $recTitle);
+                                                             $recTitle = str_replace('\"','', $recTitle);
+                                                             $recDesc = str_replace('\'','', $recDesc);
+                                                             $recDesc = str_replace('\"','', $recDesc);
+                                             ?>
+                                                <div class="col-lg-12" style="padding: 0px"><a style="cursor: pointer" onclick="reccoThis('http://b2.com/articlePreview/{{$book->id}}','{{$recTitle}}','{{$recDesc}}','{{$book->cover}}')">Recommend this to Barters</a></div>
+
 
                             @else
                                     <div style="font-size: 15px"><a href="{{$tlink}}" style="cursor: pointer">Sign In <img height="15px" width="15px" src="{{asset('Images/icons/twitter.png')}}"> | <img height="15px" width="15px" src="{{asset('Images/icons/facebook.jpg')}}"> | <img height="15px" width="15px" src="{{asset('Images/icons/gmail.jpg')}}"></a>&nbsp;&nbsp;&nbsp;to {{$ttext}}<br/></div>
@@ -217,9 +227,15 @@
                                      </div>
                                      <div style="height: 5%">
                                          <ul class="carousel-indicators pull-right" style="left: auto; list-style-type: none">
-                                             <li data-target="#carousel{{$PIcount}}" data-slide-to="0" class="active bottom-boxes"></li>
-                                             <li data-target="#carousel{{$PIcount}}" data-slide-to="1" class="bottom-boxes"></li>
-                                             <li data-target="#carousel{{$PIcount}}" data-slide-to="2" class="bottom-boxes"></li>
+                                             @for ($contentC = 0; $contentC < $i; $contentC++)
+                                                 <?php
+                                                     if ($contentC == 0)
+                                                         $extraClass = 'active';
+                                                    else
+                                                         $extraClass = '';
+                                                  ?>
+                                                 <li data-target="#carousel{{$PIcount}}" data-slide-to="{{$contentC}}" class="bottom-boxes {{$extraClass}}"></li>
+                                             @endfor
                                          </ul>
                                      </div>
                                  </div>

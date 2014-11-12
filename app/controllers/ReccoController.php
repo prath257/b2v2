@@ -12,7 +12,7 @@ class ReccoController extends \BaseController {
 
             if($page_content != null)
             {
-                $imagePath = null;
+                $imagePath = 'http://b2.com/Images/recco.jpg';
                 $descript=null;
                 preg_match("/<title>(.*)<\/title>/i", $page_content, $titles);
                 $title=$titles[1];

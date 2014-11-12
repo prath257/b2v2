@@ -1,4 +1,5 @@
 var oTable=null;
+var oTable1=null;
 var nop=2;
 $(document).ready(function()
 {
@@ -7,11 +8,6 @@ $(document).ready(function()
     {
         $(".table").addClass("table-bordered");
     }
-
-	oTable=$('#myPolls').dataTable( {
-		"ajax": 'getMyPollsData',
-		"lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
-	} );
 
     oTable=$('#publicPolls').dataTable( {
         "ajax": 'getPublicPollsData',
@@ -25,6 +21,11 @@ $(document).ready(function()
 
     oTable=$('#subscriptionPolls').dataTable( {
         "ajax": 'getSubscriptionPollsData',
+        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+    } );
+
+    oTable1=$('#myPolls').dataTable( {
+        "ajax": 'getMyPollsData',
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
     } );
 
@@ -142,7 +143,7 @@ function deletePoll(bid,pid)
 				else
                 {
                     var row = $(bid).closest("tr").get(0);
-                    oTable.fnDeleteRow(oTable.fnGetPosition(row));
+                    oTable1.fnDeleteRow(oTable1.fnGetPosition(row));
                 }
 			})
 

@@ -455,3 +455,5 @@ Route::post('poll_write', array('uses' => 'AjaxController@poll_write'));
 Route::post('quiz_write', array('uses' => 'AjaxController@quiz_write'));
 Route::post('media_write', array('uses' => 'AjaxController@media_write'));
 
+Route::post('forgotUsername', array('uses' => 'BaseController@forgotUsername'));
+

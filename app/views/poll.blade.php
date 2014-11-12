@@ -41,7 +41,7 @@
     <h2>{{$poll->question}}</h2>
     <br>
     @foreach($poll->getOptions()->get() as $option)
-    <input type="radio" value="{{$option->id}}" name="{{$poll->id}}">{{$option->option}}>
+    <input type="radio" value="{{$option->id}}" name="{{$poll->id}}">{{$option->option}}
     <br><br>
     @endforeach
     @if(Auth::check())

@@ -223,4 +223,18 @@ class BaseController extends Controller
     {
         return Redirect::route('index')->with('error','You have been logged out.');
     }
+
+    public function forgotUsername()
+    {
+        $user = User::where('email','=',Input::get('email'))->first();
+        if (count($user) != 0)
+        {
+            Mail::send('mailers', array('user' => $user, 'page' => 'forgotUsernameMailer'), function ($message) {
+                $message->to(Input::get('email'))->subject('Forgot Username');
+            });
+            return 'Success';
+        }
+        else
+            return 'no-user';
+    }
 }

@@ -393,4 +393,11 @@
     <br><br><hr>
     Regards,<br>
     Team BBarters.
+@elseif($page=='forgotUsernameMailer')
+    <h3>Hi {{$user->first_name}},</h3><hr>
+        You recently requested to retrieve your forgotten username, and here it is: <b>{{$user->username}}</b>
+    <div><br></div><hr><div><br></div>
+
+    Regards,<br>
+    Team BBarters.
 @endif

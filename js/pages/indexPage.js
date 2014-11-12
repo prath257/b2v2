@@ -229,8 +229,34 @@ $(document).ready(function()
         }
     });
 
+    $("#forgotUsernameForm").bootstrapValidator({
+        live:'enabled',
+        submitButtons: 'button[id="forgotUsernameSubmit"]',
+        message: 'This value is not valid',
+
+        fields:{
+            forgotUsernameEmail: {
+                validators: {
+                    notEmpty: {
+                        message: 'This field is required and can\'t be empty'
+                    },
+                    emailAddress:{
+                        message: 'This is not a valid Email address'
+                    }
+                }
+            }
+        }
+    });
+
     //Prevent normal submission of forms that send data via ajax calls.
     $('#forgotPasswordForm').submit(function(event)
+    {
+
+        /* stop form from submitting normally */
+        event.preventDefault();
+    });
+
+    $('#forgotUsernameForm').submit(function(event)
     {
 
         /* stop form from submitting normally */
@@ -303,7 +329,7 @@ function checkUname()
             {
                 if(data=='wH@tS!nTheB0x')
                     window.location='http://b2.com/offline';
-                if(data=='username already taken')
+                else if(data=='username already taken')
                 {
                     $('#uerror').text(data);
                     $('#username').val('');
@@ -578,4 +604,27 @@ function showTour(tt)
     $('#tourVideo').html(srcString);
     var name  = parseInt(tt.name) + 1;
     $('[name='+name+']').removeClass('disabled');
+}
+
+function submitForgotUsername()
+{
+    $('#forgotUsernameForm').data('bootstrapValidator').validate();
+
+    if($('#forgotUsernameForm').data('bootstrapValidator').isValid())
+    {
+        $('#forgotUsernameSubmit').html('Please wait..');
+        $('#forgotUsernameSubmit').prop('disabled',true);
+        var email = $('#forgotUsernameEmail').val();
+
+        $.post("http://b2.com/forgotUsername",{email: email},function(data)
+        {
+            $('#forgotUsernameModal').modal('hide');
+            $('#forgotUsernameSubmit').html('Submit');
+            $('#forgotUsernameSubmit').prop('disabled',false);
+            if (data == 'no-user')
+                bootbox.alert('Sorry, no such user found.');
+            else
+                bootbox.alert('Your username has been successfully mailed to you.');
+        });
+    }
 }

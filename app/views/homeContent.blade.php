@@ -115,11 +115,17 @@
             @endforeach
         </div>
         <div style="height: 5%">
-            <ul class="carousel-indicators pull-right" style="left: auto; list-style-type: none">
-                <li data-target="#carousel{{$data}}{{$PIcount}}" data-slide-to="0" class="active bottom-boxes"></li>
-                <li data-target="#carousel{{$data}}{{$PIcount}}" data-slide-to="1" class="bottom-boxes"></li>
-                <li data-target="#carousel{{$data}}{{$PIcount}}" data-slide-to="2" class="bottom-boxes"></li>
-            </ul>
+        <ul class="carousel-indicators pull-right" style="left: auto; list-style-type: none">
+                                                @for ($contentC = 0; $contentC < $i; $contentC++)
+                                                    <?php
+                                                        if ($contentC == 0)
+                                                            $extraClass = 'active';
+                                                       else
+                                                            $extraClass = '';
+                                                     ?>
+                                                    <li data-target="#carousel{{$data}}{{$PIcount}}" data-slide-to="{{$contentC}}" class="bottom-boxes {{$extraClass}}"></li>
+                                                @endfor
+                                            </ul>
         </div>
     </div>
     @endif

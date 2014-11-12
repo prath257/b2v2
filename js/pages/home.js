@@ -1252,6 +1252,12 @@ function cacheMarkup()
     cachedMarkup = $('#'+category+'-recco').html();
 }
 
+function changeToDefault()
+{
+    document.getElementById("recco-preview-image").src="http://b2.com/Images/recco.jpg";
+    $('#change-to-default-link').hide();
+}
+
 function writeData()
 {
     if (!artflag)

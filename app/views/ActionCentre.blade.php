@@ -9,7 +9,7 @@
         <a href="{{route('user',$user1->username)}}"><img class="actionImages" style="float:left; width:50px; height: 50px; margin-right: 10px" src="{{$user1->profile->profilePic}}"/></a>
     @if($action->type=='A new')
 
-    <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> posted a new Article
+    <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> posted a new {{Article::find($action->contentid)->type}}
             <a href="{{route('articlePreview',Article::find($action->contentid)->id)}}">{{Article::find($action->contentid)->title}}</a> </p>
 
 

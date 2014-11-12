@@ -1,3 +1,4 @@
+var reccod = false;
 $(document).ready(function()
 {
     var PICOUNT = $("#PICOUNT").val();
@@ -467,4 +468,25 @@ function stopPlayingMedia()
 {
     $('#preview').html('');
     $('#previewMediaModal').modal('hide');
+}
+
+function reccoThis(url,title,description,imageURL)
+{
+    if (reccod == false)
+    {
+        $.post('http://b2.com/publish_recco', {url: url, title: title, desc: description, image: imageURL}, function(response)
+        {
+            if (response == 'wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
+            else
+            {
+                bootbox.alert('Recco posted succesfully!');
+                reccod = true;
+            }
+        });
+    }
+    else
+    {
+        bootbox.alert('Sorry, you can recommend only once.');
+    }
 }

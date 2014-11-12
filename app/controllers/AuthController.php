@@ -457,6 +457,7 @@ class AuthController extends \BaseController {
                 }
                 else
                 {
+                    $user->delete();
                     return Redirect::route('index')->with('error','couldn\'t log in');
                 }
             }
@@ -611,6 +612,7 @@ class AuthController extends \BaseController {
                 }
                 else
                 {
+                    $user->delete();
                     return Redirect::route('index')->with('error','couldn\'t log in');
                 }
             }
@@ -863,6 +865,7 @@ class AuthController extends \BaseController {
                 }
                 else
                 {
+                    $user->delete();
                     return Redirect::route('index')->with('error','couldn\'t log in');
                 }
             }
