@@ -56,7 +56,7 @@
                                         <fieldset id="searchText"></fieldset>
                                     </div>
                                 </div>
-                            </div>
+                                </div>
                         </div>
                     </form>
                     <div class="btn-group btn-group-xs" data-toggle="buttons" style="margin-top: 15px; padding: 0px">
@@ -68,23 +68,15 @@
                         </label>
                     </div>
                 </li>
-                <li id="extra-spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                 <li id="notificationli" onclick="getNoti()"><a href="#"><span id="no_of_notification" class="text-primary" style="color: white; background-color: tomato; padding-left: 5px; padding-right: 5px;  border-radius: 50%; visibility: hidden">0</span>&nbsp;&nbsp;Notifications <i class="fa fa-sort-desc"></i></a></li>
-                                                                    <div id="notificationModal2" style="max-height: 350px; overflow-y: auto; overflow-x: hidden">
-                                                                        <div id="notificationResultsModal">
-                                                                            <div  class="modal-body" style="padding-left: 10px; padding-top: 15px; padding-bottom: 15px; padding-right: 10px">
-                                                                                <div id="notificationText"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                    <div id="notificationModal2" style="max-height: 350px; overflow-y: auto; overflow-x: hidden">
+                        <div id="notificationResultsModal">
+                            <div  class="modal-body" style="padding-left: 10px; padding-top: 15px; padding-bottom: 15px; padding-right: 10px">
+                                <div id="notificationText"></div>
+                            </div>
+                        </div>
+                    </div>
 
-                <!--<li id="ifcManager" class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">IFC Manager<b class="caret"></b></a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
-                        <li><a href="#" data-toggle="modal" data-target="#transferModal">Transfer IFCs</a></li>
-                        <li><a href="#" data-toggle="modal" data-target="#earnIFCModal">Earn IFCs</a></li>
-                    </ul>
-                </li>-->
                 <li id="IFCManager"> <a href="{{route('ifcManager')}}" style="cursor: pointer">IFC Manager</a></li>
                 <li id="chats"> <a href="{{route('chats')}}" target="_blank" style="cursor: pointer">Chats</a></li>
                 <li id="profile"> <a href="{{route('profile')}}" style="cursor: pointer">{{Auth::user()->first_name}}</a></li>
@@ -377,20 +369,6 @@
     @endif
 </div>
 
-
-<div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div id="notificationModal" class="modal-dialog">
-
-        <div class="modal-content">
-
-            <div  class="modal-body">
-                <fieldset id="notifyText"></fieldset>
-            </div>
-        </div>
-
-    </div>
-</div>
-
 <!-- IFC Manager -->
 <div class="modal fade" id="earnIFCModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
@@ -591,6 +569,6 @@
 <script src="{{asset('js/bootstrapValidator.min.js')}}"></script>
 <script src="{{asset('js/pages/home.js')}}"></script>
 <script src="{{asset('js/bootbox.js')}}"></script>
-<script src="{{asset('js/jquery.bpopup.min.js')}}"></script>
+{{--<script src="{{asset('js/jquery.bpopup.min.js')}}"></script>--}}
 </body>
 </html>

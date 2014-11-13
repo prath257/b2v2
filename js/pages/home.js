@@ -32,6 +32,8 @@ var searching=true;
 var ajaxOk2=true;   //to enable ajax call when the focus is moved away from input search boc
 var tmr=null;
 
+var loggedout = false;
+
 var intCount=[];
 intCount[0] = 4;
 for (i=1; i<noOfInterests; i++)
@@ -59,51 +61,11 @@ $(document).ready(function()
         }
         if(item==3)
         {
-
             quizData();
         }
     };
 
     $('#ActionCentre').height($(window).height()*0.85);
-
-    $(document).click(function(e){
-        if ($(e.target).is('#searchModal,#searchModal *')) {
-            //Do Nothing
-        }
-        else
-        {
-            $('#searchModal').fadeOut();
-            $('#search').val("");
-        }
-    });
-    $(document).click(function(e){
-        if ($(e.target).is('#transferSearchModal,#transferSearchModal *')) {
-            //Do Nothing
-        }
-        else
-        {
-            $('#transferSearchModal').fadeOut();
-        }
-        if ($(e.target).is('#searchnfilters,#searchnfilters *')) {
-            //Do Nothing
-        }
-        else
-        {
-            $('#filterdiv').slideUp(300);
-        }
-    });
-    $(document).keyup(function(e) {
-        if (e.keyCode == 27)
-        {
-            $('#search').val("");
-            $('#searchModal').fadeOut();
-            $('#search').blur();
-        }
-        else if (e.keyCode == 8)
-        {
-            $('#searchModal').fadeOut();
-        }
-    });
 
     $(document).click(function(e){
         if (!$(e.target).is('#searchRecco,#searhRecco *,#RECCO-FILTER,#RECCO-FILTER *,.recco-duo-tabs,.recco-duo-tabs *'))
@@ -294,34 +256,23 @@ $(document).ready(function()
         executeSearch();
     });
 
-    $('#transferSearchForm').submit(function(event)
-    {
-
-        /* stop form from submitting normally */
-        event.preventDefault();
-        getTransferSuggestions()
-    });
-
-    $("#peopleLabel").addClass("btn-info");
-    document.getElementById('search').placeholder="Search Barters";
-
-
-
-
     getFriendsContent();
     actionAjax();
     loadActionCenter();
     loadRecco(0,allReccoCount+5,'gibber','increment','created_at');
     loadMyRecco(0,myReccoCount+5,'gibber','increment','created_at');
-    //getCategoryNotifications(cat);
-    //$('#aboutCollaborations').tooltip();
-    //getChats();
-    /*$(document).mouseover(function(e){
-        if (!$(e.target).is('#ActionCentre,#ActionCentre *'))
-            focusAction = false;
-        else
-            focusAction = true;
-    });*/
+
+    window.onbeforeunload = function()
+    {
+        $.post('http://b2.com/removeIsOnline',function(error)
+        {
+            if(error=='wH@tS!nTheB0x' && loggedout == false)
+            {
+                loggedout = true;
+                window.location='http://b2.com/offline';
+            }
+        });
+    }
 
 });
 
@@ -385,189 +336,6 @@ function getFriendsContent()
 
         //do ntohing
     }
-}
-
-function getCategoryNotifications(cat,type)
-{
-    try
-    {
-
-        $.post('http://b2.com/getCategoryContentNotification/'+cat+'/Latest',{days:7},function(data)
-        {
-            if(data=='wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
-            else
-                $('#catLatest').html(data);
-
-        });
-
-        $.post('http://b2.com/getCategoryContentNotification/'+cat+'/Popular',{days:7},function(data)
-        {
-            if(data=='wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
-            else
-                $('#catPopular').html(data);
-
-        });
-    }
-    catch(error)
-    {
-        //do nothing
-    }
-}
-function getChats()
-{
-    /*loadActionCenter();*/
-    updateNotifications();
-    setTimeout(getChats,5000);
-
-}
-
-/*function loadActionCenter()
-{
-    if (focusAction == false)
-    {
-        $.ajax({
-            type: "GET",
-            url: "http://b2.com/getActionData"
-        })
-        .done(function(data)
-        {
-            $('#loadActions').html(data);
-            $('#showMoreAndWaitingActions').fadeIn();
-            $('#loadMoreActions').show();
-            noOfActions = 6;
-        });
-    }
-}*/
-
-//notifications
-//notifications
-/*function updateNotifications(){
-
-    try
-    {
-        var notifyModalContent = $("#notifyText").html();
-        if(notifyModalContent=="")
-        {
-            $.get('http://b2.com/getNotification',function(data)
-            {
-                if(data)
-                {
-                    if (data != 'TheMonumentsMenGeorgeClooneyMattDamon')
-                    {
-                        $("#notifyText").html(data);
-                        $('#notifyModal').modal({
-                            keyboard:false,
-                            show:true,
-                            backdrop:'static'
-                        });
-                    }
-                }
-            });
-        }
-    }
-    catch(error)
-    {
-
-    }
-}*/
-
-
-function closeAlert(string)
-{
-    $("#notifyModal").modal('hide');
-    $("#notifyText").html("");
-}
-
-
-//Chat
-function acceptChat(acid)
-{
-    $.ajax({
-        type: "POST",
-        url: "http://b2.com/acceptChat",
-        data: {id:acid}
-    }).done(function(error)
-    {
-        if(error=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
-        else
-        {
-
-            if (error)
-            {
-                $("#notifyText").append(error);
-            }
-            else
-            {
-                $.post('http://b2.com/getChatLink',{id: acid}, function(link)
-                {
-                    if(link=='wH@tS!nTheB0x')
-                        window.location='http://b2.com/offline';
-                    else
-                    {
-                        /*window.open('http://b2.com/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*/
-                        $("#notifyModal").modal('hide');
-                        $("#notifyText").html("");
-
-                        window.location='http://b2.com/chats/'+link;
-
-                        /*$.post('http://b2.com/getSecondPartyName',{id: acid}, function(name)
-                         {
-                         $("#ongoingChats").append("<div id='Chat"+acid+"' class='chats' onclick='openChat("+acid+")'>"+name+"</div><br>");
-                         });*/
-                    }
-                });
-            }
-        }
-    });
-}
-
-function declineChat(dcid)
-{
-    bootbox.confirm("Are you sure?", function(result) {
-        if (result==true)
-        {
-            $.ajax({
-                type: "POST",
-                url: "http://b2.com/declineChat",
-                data: {id:dcid}
-            }).done(function(data)
-            {
-                if(data=='wH@tS!nTheB0x')
-                    window.location='http://b2.com/offline';
-                else
-                {
-                    $("#notifyModal").modal('hide');
-                    $("#notifyText").html("");
-                }
-            });
-        }
-    });
-
-}
-
-function startChat(scid)
-{
-    $.post('http://b2.com/getChatLink',{id: scid}, function(link)
-    {
-        if(link=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
-        else
-        {
-            /*window.open('http://b2.com/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*/
-            $("#notifyModal").modal('hide');
-            $("#notifyText").html("");
-
-            window.location='http://b2.com/chats/'+link;
-
-            /*$.post('http://b2.com/getSecondPartyName',{id: scid}, function(name)
-             {
-             $("#ongoingChats").append("<div id='Chat"+scid+"' class='chats' onclick='openChat("+scid+")'>"+name+"</div><br>");
-             });*/
-        }
-    });
 }
 
 //Functions for IFC Manager
@@ -678,74 +446,6 @@ function postTransfer()
             });
 
     }
-}
-
-
-//this is the function to accept the friend request
-function acceptFriends(id1)
-{
-    $.ajax({
-        type: "POST",
-        url: "http://b2.com/acceptFriend/"+id1,
-        data:{type:'kind'},
-        beforeSend: function()
-        {
-            $("#buttons").hide();
-            $("#freqWaiting").show();
-
-        }
-    }).done(function(response)
-    {
-        if(response=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
-        else
-        {
-            $("#buttons").show();
-            $("#freqWaiting").hide();
-
-            $("#notifyModal").modal('hide');
-            $('#acceptButton'+id1).prop('disabled', false);
-            $('#acceptButton'+id1).html("Submit");
-        }
-    });
-}
-
-
-//this is the function to decline the friend request
-function declineFriends(id2)
-{
-    bootbox.confirm("Are you sure?", function(result) {
-        if (result==true)
-        {
-            $.post("http://b2.com/declineFriend/"+id2,{type:'kind'},function(error)
-            {
-                if(error=='wH@tS!nTheB0x')
-                    window.location='http://b2.com/offline';
-                else
-                    $("#notifyModal").modal('hide');
-            });
-        }
-    });
-
-}
-
-function changeClass(button)
-{
-    $(".labelButtons").removeClass("btn-info");
-    $("#"+button+"Label").addClass("btn-info");
-    if (button == 'people')
-        document.getElementById('search').placeholder="Search Barters";
-    else
-        document.getElementById('search').placeholder="Search Content";
-}
-
-function hoverEffect(element)
-{
-    element.style.backgroundColor="skyblue";
-}
-function normalEffect(element)
-{
-    element.style.backgroundColor="white";
 }
 
 function showContentModal()
@@ -899,12 +599,10 @@ function okToAjax(type,vari)
 
         }
     }
-
 }
 
 function actionAjax()
 {
-
     $.ajax({
         type: "POST",
         url: "http://b2.com/getActionData",
@@ -926,22 +624,18 @@ function actionAjax()
                 $('#showMoreAndWaitingActions').fadeIn();
                 $('#loadMoreActions').show();
             }
-        })
+        });
 }
 
 function loadActionCenter()
 {
     var  timer = window.setInterval( function() {
-
         if(ajaxOk&&ajaxOk2)
         {
             actionAjax();
         }
-
     }, 5000);
-
 }
-
 
 function searchAction()
 {
@@ -960,10 +654,8 @@ function searchAction()
 
             if(searching)
             {
-
                 var constraint = 'all';
                 var request = 'home';
-
 
                     $.ajax({
                         type: "POST",
@@ -1007,19 +699,14 @@ function searchAction()
                             {
                                 searching=true;
 
-
                                 $('#loadActions').html(data);
 
                                 clearInterval(tmr);
                                 tmr=null;
                             }
                         })
-
-
-
             }
         }, 1000);
-
     }
     else
     {

@@ -153,17 +153,6 @@ $(document).ready(function()
         }
     });
 
-    window.onbeforeunload = function()
-    {
-        $.post('http://b2.com/removeIsOnline',function(error){
-            if(error=='wH@tS!nTheB0x' && loggedout == false)
-            {
-                loggedout = true;
-                window.location='http://b2.com/offline';
-            }
-        });
-    }
-
     window.onblur = function()
     {
         document.getElementById('inputText').blur();

@@ -370,7 +370,7 @@ class ChatController extends \BaseController
                 $currentTime = new DateTime();
                 $lastSeen = $user->updated_at;
                 $form = $currentTime->diff($lastSeen);
-                if($form->i>4)
+                if($form->i>4 || $form->h>0 || $form->d>0 || $form->m>0 || $form->y>0)
                 {
                     $user->isOnline=false;
                     $user->save();
