@@ -103,10 +103,10 @@
             </a>
             <a id="pivot-explore" href="#" class="list-group-item" onclick="openPivots('explore')">
                 <h4 class="list-group-item-heading">explore</h4>
-                <p class="list-group-item-text">Explore all the content on BBarters.</p>
+                <p class="list-group-item-text">Explore content of your friends.</p>
             </a>
             <a id="pivot-writing" href="#" class="list-group-item" onclick="openPivots('writing')">
-                <h4 class="list-group-item-heading">writing</h4>
+                <h4 class="list-group-item-heading">write</h4>
                 <p class="list-group-item-text">Write an Article, BlogBook or start a Collaboration.</p>
             </a>
             <a id="pivot-upload" href="#" class="list-group-item" onclick="openPivots('upload')">
@@ -143,7 +143,7 @@
                 <div id="donut-example" class="col-lg-12" style="height: 300px; padding-left: 0px; padding-right: 0px;"></div>
             </div>
             <div class="col-lg-8" style="text-align: center">
-                    <div class="col-lg-12" style="font-size: 30px; font-family: 'Segoe UI'; margin-top: 100px; text-align: center">Balance</div>
+                    <div class="col-lg-12" style="font-size: 30px; font-family: 'Segoe UI'; margin-top: 100px; text-align: center">&nbsp;</div>
                     <div class="col-lg-12">&nbsp;</div>
                     <div id="mycounter" class="col-lg-12">0</div>
 
@@ -369,11 +369,11 @@
             <ul class="nav nav-tabs" role="tablist">
             <input type="hidden" id="recco-tab" value="all">
               <li role="presentation" class="active recco-duo-tabs"><a href="#all-recco" role="tab" data-toggle="tab" onclick="toggleTab('all')">All Recommendations</a></li>
-              <li role="presentation" class="recco-duo-tabs"><a href="#my-recco" role="tab" data-toggle="tab" onclick="toggleTab('my')">My Recommendations</a></li>
-              <li role="presentation" class="col-lg-3"><input id="searchRecco" type="text" class="form-control" placeholder="Search recco or provider." onkeyup="upRecco(event)" onkeydown="downRecco()" onfocus="cacheMarkup()"></li>
+              <li role="presentation" class="recco-duo-tabs"><a href="#my-recco" role="tab" data-toggle="tab" onclick="toggleTab('my')">My Reccos</a></li>
+              <li role="presentation" class="col-lg-4"><input id="searchRecco" type="text" class="form-control" placeholder="Search recco or provider." onkeyup="upRecco(event)" onkeydown="downRecco()" onfocus="cacheMarkup()"></li>
               <li role="presentation" class="col-lg-3" style="padding-left: 0px">
-              <div class="col-lg-4" style="padding-left: 0px; padding-right: 5px; padding-top: 5px">
-                <small><b>SORT BY: </b></small>
+              <div class="col-lg-4" style="padding-left: 0px; padding-right: 0px; padding-top: 5px">
+                <small><b>Arrange</b></small>
               </div>
               <div class="col-lg-8" style="padding: 0px">
                   <select id="RECCO-FILTER" class="form-control" name="RECCO-FILTER" onchange="sortRecco()" style="padding-left: 0px; padding-right: 5px">
@@ -384,7 +384,7 @@
               </li>
             </ul>
 
-        <div style="padding: 5px" class="pull-right"><button class="btn btn-warning" data-toggle="modal" data-target="#newRecommendationModal">+ New</button></div>
+        <div style="padding: 5px" class="pull-right"><button class="btn btn-success" data-toggle="modal" data-target="#newRecommendationModal">+ Make New</button></div>
             <!-- Tab panes -->
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="all-recco">
