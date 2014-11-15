@@ -143,7 +143,7 @@
                 <div id="donut-example" class="col-lg-12" style="height: 300px; padding-left: 0px; padding-right: 0px;"></div>
             </div>
             <div class="col-lg-8" style="text-align: center">
-                    <div class="col-lg-12" style="font-size: 30px; font-family: 'Segoe UI'; margin-top: 100px">Current Balance:</div>
+                    <div class="col-lg-12" style="font-size: 30px; font-family: 'Segoe UI'; margin-top: 100px; text-align: center">Balance</div>
                     <div class="col-lg-12">&nbsp;</div>
                     <div id="mycounter" class="col-lg-12">0</div>
 

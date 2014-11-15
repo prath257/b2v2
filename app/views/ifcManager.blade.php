@@ -37,8 +37,8 @@
     </div>
 
     <div class="col-lg-3" style="text-align: left">
-        <div class="col-lg-12" style="font-size: 30px; font-family: 'Segoe UI'">Current Balance:</div>
-        <div id="mycounter" class="col-lg-8" style="margin-top: 30px; padding:0px">0</div>
+        <div class="col-lg-12" style="font-size: 30px; font-family: 'Segoe UI'; text-align: center">Balance</div>
+        <div id="mycounter" class="col-lg-8" style="margin-top: 30px">0</div>
 
     </div>
 
