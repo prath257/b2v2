@@ -36,27 +36,6 @@
         </div>
 
 
-
-         <!--<div class="nav navbar-nav navbar-left">-->
-
-                <!--<form id="notificationForm" class="navbar-form navbar-left" role="notification">-->
-
-                                <!--<div class="form-group">-->
-
-                                <!--<buttton  class="btn btn-success" type="button">
-                                <span class="glyphicon glyphicon-leaf">
-                                </span> <h4 id="no_of_notification" class="text-primary"></h4>
-                                </buttton>
-
-                                <a class="btn btn-success" href="http://b2.com/ifcManager">
-                                IFC Manager
-                                </a>-->
-                                    <!-- Modal to display search results -->
-
-                                <!--</div>-->
-                            <!--</form>-->
-          <!--</div>-->
-
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <label class=" col-lg-3"></label>
             <div id="message-box" class="alert alert-info alert-dismissable col-lg-5" style="display: none">
