@@ -203,7 +203,7 @@ class ProfileController extends \BaseController {
 
 	 //this is the code to edit the user profile
 
-	public function getSettings()
+	public function getSettings($mode)
 	{
         if(Auth::check())
         {
@@ -232,7 +232,7 @@ class ProfileController extends \BaseController {
 
 		}
 		$settings = $user->settings;
-		$data=array('user'=>$user,'oldInterests'=>$oldInterests,'newInterests'=>$newInterests, 'settings'=>$settings);
+		$data=array('user'=>$user,'oldInterests'=>$oldInterests,'newInterests'=>$newInterests, 'settings'=>$settings, 'mode'=>$mode);
 		return View::make('settings',$data);
 	}
         else
@@ -483,7 +483,7 @@ class ProfileController extends \BaseController {
         $wallpic->save();
     }
 
-    public function getFriendList()
+    public function getFriendList($mode)
     {
         if(Auth::check())
         {
@@ -497,12 +497,12 @@ class ProfileController extends \BaseController {
 
         $newFriendRequests=count($requests);
         $pendingSentRequests=count($prequests);
-        return View::make('friendList')->with('allFriends',$friends)->with('allRequests',$requests)->with('allPendingRequests',$prequests)->with('friends',$friendCount)->with('newFriendRequests',$newFriendRequests)->with('pendingSentRequests',$pendingSentRequests);
+        return View::make('friendList')->with('allFriends',$friends)->with('allRequests',$requests)->with('allPendingRequests',$prequests)->with('friends',$friendCount)->with('newFriendRequests',$newFriendRequests)->with('pendingSentRequests',$pendingSentRequests)->with('mode',$mode);
     }
         else
             return 'wH@tS!nTheB0x';
     }
-    public function getSubscribersList()
+    public function getSubscribersList($mode)
     {
         if(Auth::check())
         {
@@ -512,7 +512,7 @@ class ProfileController extends \BaseController {
         $allSubscriptions=DB::table('subscriptions')->where('subscriber_id','=',Auth::user()->id)->lists('subscribed_to_id');
         $subscriptions=count($allSubscriptions);
 
-        return View::make('subscribersList')->with('subscribers',$subscribers)->with('subscriptions',$subscriptions)->with('allSubscribers',$allSubscribers)->with('allSubscriptions',$allSubscriptions);
+        return View::make('subscribersList')->with('subscribers',$subscribers)->with('subscriptions',$subscriptions)->with('allSubscribers',$allSubscribers)->with('allSubscriptions',$allSubscriptions)->with('mode',$mode);
     }
         else
             return 'wH@tS!nTheB0x';

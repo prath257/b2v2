@@ -59,8 +59,26 @@
     <div class="col-lg-12">
         <div class="col-lg-4" style="margin-top: 50px">
             <p style="word-wrap: break-word; font-family: 'Haettenschweiler'; text-transform: uppercase; font-size: 50px">{{Str::limit($book->title,50)}}</p>
-
+            <br>
             <div>
+
+            <?php
+
+                                $owner = User::find($book->userid);
+
+                        ?>
+                        <div class="col-lg-12" style="padding: 0px">
+                        <div class="col-lg-3" style="padding: 0px">
+                        <img src="{{asset($owner->profile->profilePic)}}" style="border-radius: 50%; height: 75px; width: 75px">
+                        </div>
+                        <div class="col-lg-9" style="padding-top: 10px">
+                            <p style="font-size: 22px">{{$owner->first_name}} {{$owner->last_name}}</p>
+
+                            <a href="http://b2.com/user/{{$owner->username}}" target="_blank">Visit Profile</a>
+                        </div>
+                        </div>
+
+
                 <div class="col-lg-12" style="margin-top: 25px; font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; padding: 0px">
                     <p style="font-size: 22px; margin-bottom: 0px">
 
@@ -157,121 +175,90 @@
 
         </div>
         <div class="col-lg-5" style="font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; margin-top: 65px; border-left: solid 1px lightgray;">
-            <?php
 
-                    $owner = User::find($book->userid);
-
-            ?>
-            <div class="col-lg-11 col-lg-offset-1">
-            <div class="col-lg-3">
-            <img src="{{asset($owner->profile->profilePic)}}" style="border-radius: 50%; height: 75px; width: 75px">
-            </div>
-            <div class="col-lg-9" style="padding-top: 10px">
-                <p style="font-size: 22px">{{$owner->first_name}} {{$owner->last_name}}</p>
-
-                <a href="http://b2.com/user/{{$owner->username}}" target="_blank">Visit Profile</a>
-                <div class="col-lg-12" style="padding-top: 20px; padding-left: 0px; height: 125px">
-                    {{$owner->profile->aboutMe}}
-                </div>
-            </div>
-            </div>
 
             <div class="col-lg-12">
-            <?php
-                $interests = $owner->interestedIn()->get();
-                $PIcount=0;
-             ?>
-             @foreach ($interests as $interest)
-                 <?php $Itype = DB::table('user_interests')->where('user_id',$owner->id)->where('interest_id',$interest->id)->first(); ?>
-                 @if ($Itype->type == 'primary')
-                     <?php
+                        <?php
 
-                         $articles = $owner->getArticles()->where('category','=',$interest->id)->orderBy('users','DESC')->get();
-                         $blogBooks = $owner->getBlogBooks()->where('category','=',$interest->id)->orderBy('users','DESC')->get();
-                         $resources = $owner->getResources()->where('category','=',$interest->id)->orderBy('users','DESC')->get();
-                         $collaborations = $owner->getOwnedCollaborations()->where('category','=',$interest->id)->orderBy('users','DESC')->get();
-                         $contributions = $owner->getContributions()->where('category','=',$interest->id)->orderBy('users','DESC')->get();
 
-                         $content = $articles->merge($blogBooks);
-                         $content = $content->merge($resources);
-                         $content = $content->merge($collaborations);
-                         $content = $content->merge($contributions);
 
-                         $content = $content->sortByDesc('users')->take(3);
-                     ?>
-                     @if (count($content) > 0)
-                         <?php $PIcount++; ?>
+                                     $articles = Article::where('category','=',$book->category)->orderBy('users','DESC')->get();
+                                     $blogBooks = BlogBook::where('category','=',$book->category)->orderBy('users','DESC')->get();
+                                     $collaborations = Collaboration::where('category','=',$book->category)->orderBy('users','DESC')->get();
 
-                         <div id="carousel{{$PIcount}}" class="carousel slide carousel-fade col-lg-4" style="padding: 5px">
-                                     <div class="carousel-inner">
-                                         <?php $i=0; ?>
-                                         @foreach ($content as $tr)
-                                             <?php $i++; ?>
-                                             @if ($i == 1)
-                                                 <div class="item active">
-                                             @else
-                                                 <div class="item">
-                                             @endif
 
-                                             <div>
-                                                 @if ($tr->path)
-                                                     <img class="Profileimages col-lg-12" src="{{asset('Images/Resource.jpg')}}" style="padding: 0px">
-                                                 @else
-                                                     <img class="Profileimages col-lg-12" src="{{asset($tr->cover)}}" style="padding: 0px">
-                                                 @endif
-                                             </div>
-                                             <div class="col-lg-12" style="padding: 0px">
-                                                 <div>
-                                                     <div>
-                                                         <div class="caption">
-                                                             @if ($tr->text)
-                                                                 <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('articlePreview',$tr->id)}}" target="_blank">{{$tr->title}}</a></p>
+                                     $content = $articles->merge($blogBooks);
+                                     $content = $content->merge($collaborations);
 
-                                                             @elseif ($tr->review)
-                                                                 <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('blogBookPreview',$tr->id)}}" target="_blank">{{$tr->title}}</a></p>
+                                     $content = $content->sortByDesc('users')->take(6);
 
-                                                             @elseif ($tr->path)
-                                                                 <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('resource',$tr->id)}}" target="_blank">{{$tr->title}}</a></p>
+                                     if (count($content) < 6)
+                                     {
+                                        $articles = $owner->getArticles()->orderBy('users','DESC')->get();
+                                        $blogBooks = $owner->getBlogBooks()->orderBy('users','DESC')->get();
+                                        $collaborations = $owner->getOwnedCollaborations()->orderBy('users','DESC')->get();
+                                         $contributions = $owner->getContributions()->orderBy('users','DESC')->get();
 
-                                                             @else
-                                                                 <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('collaborationPreview',$tr->id)}}" target="_blank">{{$tr->title}}</a></p>
+                                         $content = $content->merge($articles);
+                                         $content = $content->merge($blogBooks);
+                                         $content = $content->merge($collaborations);
+                                         $content = $content->merge($contributions);
 
-                                                             @endif
+                                         $content = $content->sortByDesc('users')->take(6);
+
+                                         if (count($content) < 6)
+                                         {
+                                                $ksj = User::where('username','=','ksjoshi88')->first();
+                                                 $articles = $ksj->getArticles()->orderBy('users','DESC')->get();
+                                                 $blogBooks = $ksj->getBlogBooks()->orderBy('users','DESC')->get();
+                                                 $collaborations = $ksj->getOwnedCollaborations()->orderBy('users','DESC')->get();
+                                                  $contributions = $ksj->getContributions()->orderBy('users','DESC')->get();
+
+                                                  $content = $content->merge($articles);
+                                                   $content = $content->merge($blogBooks);
+                                                   $content = $content->merge($collaborations);
+                                                   $content = $content->merge($contributions);
+                                         }
+                                     }
+                                 ?>
+                                 @if (count($content) > 0)
+                                                     <?php $i=0; ?>
+                                                     @foreach ($content as $tr)
+
+                                                     <div class="col-lg-4">
+                                                         <div class="col-lg-12" style="padding: 0px">
+                                                                 <img class="Profileimages col-lg-12" src="{{asset($tr->cover)}}" style="padding: 0px">
                                                          </div>
+                                                         <div class="col-lg-12" style="padding: 0px">
+                                                             <div>
+                                                                 <div>
+                                                                     <div class="caption">
+                                                                         @if ($tr->text)
+                                                                             <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('articlePreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,15)}}</a></p>
+
+                                                                         @elseif ($tr->review)
+                                                                             <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('blogBookPreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,15)}}</a></p>
+
+                                                                         @else
+                                                                             <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('collaborationPreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,15)}}</a></p>
+
+                                                                         @endif
+                                                                     </div>
 
 
 
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                             </div>
-                                         @endforeach
-                                     </div>
-                                     <div style="height: 5%">
-                                         <ul class="carousel-indicators pull-right" style="left: auto; list-style-type: none">
-                                                                                 @for ($contentC = 0; $contentC < $i; $contentC++)
-                                                                                     <?php
-                                                                                         if ($contentC == 0)
-                                                                                             $extraClass = 'active';
-                                                                                        else
-                                                                                             $extraClass = '';
-                                                                                      ?>
-                                                                                     <li data-target="#carousel{{$PIcount}}" data-slide-to="{{$contentC}}" class="bottom-boxes {{$extraClass}}"></li>
-                                                                                 @endfor
-                                                                             </ul>
-                                     </div>
-                                 </div>
+                                                                 </div>
+                                                             </div>
+                                                         </div>
+                                                         </div>
+                                                     @endforeach
 
 
 
-                     @endif
-                 @endif
-             @endforeach
-             @if ($PIcount > 0)
-             <input type="hidden" id="PICOUNT" value="{{$PIcount}}">
-             @endif
-            </div>
-        </div>
+
+                                 @endif
+
+                        </div>
     </div>
 </div>
 

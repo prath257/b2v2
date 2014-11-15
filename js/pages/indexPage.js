@@ -15,10 +15,8 @@ $(document).ready(function()
 
     //Code to show the bbarters description by default.
     $(document).mouseover(function(e){
-        if (!$(e.target).is('#headers,#headers *') && !$(e.target).is('#information,#information *')) {
-            $('.three').css('fontWeight','normal').css('color','black');
-            $('.contentDisplay').hide();
-            $('#aboutBBarters').show();
+        if (!$(e.target).is('#tab-info-container,#tab-info-container *')) {
+            $('#myTab a[href="#aboutB2"]').tab('show');
         }
     });
 
@@ -491,28 +489,19 @@ function showLoginBlock()
 //Show desc for create once the user hovers over it.
 function showCreate()
 {
-    $('.three').css('fontWeight','normal').css('color','black');
-    $('#create').css('fontWeight','bold').css('color','#38b638');
-    $('.contentDisplay').hide();
-    $('#createData').fadeIn(700);
+    $('#myTab a[href="#create"]').tab('show');
 }
 
 //Show desc for collaborate once the user hovers over it.
 function showCollaborate()
 {
-    $('.three').css('fontWeight','normal').css('color','black');
-    $('#collaborate').css('fontWeight','bold').css('color','#38b638');
-    $('.contentDisplay').hide();
-    $('#collaborateData').fadeIn(700);
+    $('#myTab a[href="#collaborate"]').tab('show');
 }
 
 //Show desc for converge once the user hovers over it.
 function showConverge()
 {
-    $('.three').css('fontWeight','normal').css('color','black');
-    $('#converge').css('fontWeight','bold').css('color','#38b638');
-    $('.contentDisplay').hide();
-    $('#convergeData').fadeIn(700);
+    $('#myTab a[href="#converge"]').tab('show');
 }
 
 //Open Resource/Article/Book/Collaboration when a user clicks on an image/heading in carousel

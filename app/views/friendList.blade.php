@@ -1,3 +1,38 @@
+@if ($mode == 'get')
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Friends | BBarters</title>
+            <link rel="shortcut icon" href="{{asset('Images/icons/logo.JPG')}}">
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+            <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
+            <link href="{{asset('css/pages/profile.css')}}" rel="stylesheet">
+            <link href="{{asset('css/logo.css')}}" rel="stylesheet">
+            <link href="{{asset('css/bootstrapValidator.css')}}" rel="stylesheet">
+            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+            {{--<link rel="stylesheet" type="text/css" href="{{asset('css/metro.blue.css')}}" />--}}
+            <link href="{{asset('dataTables.bootstrap.css')}}" rel="stylesheet">
+            <link href="{{asset('css/summernote.css')}}" rel="stylesheet">
+            <link href="{{asset('css/jquery.flipcounter.css')}}" rel="stylesheet">
+            <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
+            <link href="{{asset('css/bootstrap-switch.css')}}" rel="stylesheet">
+
+            <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+            <script src="{{asset('js/jquery.min.js')}}"></script>
+            <script src="{{asset('js/jquery.Jcrop.min.js')}}"></script>
+            <script src="{{asset('js/bootstrap.js')}}"></script>
+            <script src="{{asset('js/docready.js')}}"></script>
+            <script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+            <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
+    </head>
+    <body>
+    <input type="hidden" id="docreadyrequest" value="friendlist">
+    @include('navbar')
+
+
+@endif
 <br>
 <br>
 <br>
@@ -149,3 +184,15 @@
         </div>
     </div>
 </div>
+
+@if ($mode == 'get')
+<script src="{{asset('js/bootstrapValidator.min.js')}}"></script>
+<script src="{{asset('js/jquery.metro.js')}}"></script>
+<script src="{{asset('js/summernote.js')}}"></script>
+<script src="{{asset('js/bootbox.js')}}"></script>
+<script src="{{asset('js/jstween-1.1.min.js')}}"></script>
+<script src="{{asset('js/jquery.flipcounter.js')}}"></script>
+<script src="{{asset('js/bootstrap-switch.js')}}"></script>
+    </body>
+    </html>
+    @endif

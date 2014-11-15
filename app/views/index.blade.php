@@ -134,49 +134,54 @@
                     @endif
                 </div>
 
-                <div id="headers" class="col-lg-12 col-lg-offset-1">
-                    <h4 id="threec">
-                        <span id="create" class="three" onmouseover="showCreate()">Create</span>
-                        &nbsp;&nbsp;
-                        <span id="collaborate" class="three" onmouseover="showCollaborate()">Collaborate</span>
-                        &nbsp;&nbsp;
-                        <span id="converge" class="three"  onmouseover="showConverge()">Converge</span>
-                    </h4>
-                </div>
+                <div id="tab-info-container" class="col-lg-12" style="padding: 30px">
+                    <div role="tabpanel">
 
-                <div id="information" class="col-lg-10 col-lg-offset-1">
-                    <div id="aboutBBarters" class="col-lg-10 contentDisplay">
-                        Be-Barters is a social sharing platform where information trading is done by means of  <u id="ifc" title="'InfoCurrency' - Our very own term for virtual currency">IFCs</u>
-                        <br><br>
-                        Everything is free here yet you won't get anything for free!
-                    </div>
-
-                    <div id="createData" class="col-lg-10 contentDisplay">
-                        <span class="glyphicon glyphicon-book"></span> &nbsp;  Create your content with our easy to use templates, maintain a blogbook, or then
-                        quiz/poll people.
-                        <br><br>
-                        <span class="glyphicon glyphicon-transfer"></span> &nbsp;  Many ways to give back to the internet.
-                    </div>
-
-                    <div id="collaborateData" class="col-lg-10 contentDisplay" style="font-family: 'Segoe UI'; font-size: 14px; display: none">
-                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;  Create collaborations or contribute into.
-                        <br><br>
-                        <span class="glyphicon glyphicon-question-sign"></span>&nbsp;  Ask questions, get Answers, opinions.
-                        <br><br>
-                        <span class="glyphicon glyphicon-usd"></span>&nbsp;  Lend IFCs, subscribe or find your friends. Get social for sharing!
-                    </div>
-
-                    <div id="convergeData" class="col-lg-10 contentDisplay">
-                        <ul id="converge-list">
-                            <li class="lists">Content from all genres and domains all at one place.</li>
-                            <br>
-                            <li class="lists">Your own webspace,search and share alike.</li>
-                            <br>
-                            <li class="lists">All your information needs served under one roof.</li>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist" id="myTab">
+                            <li role="presentation"><a href="#create" aria-controls="create" role="tab" data-toggle="tab" onmouseover="showCreate()">Create</a></li>
+                            <li role="presentation"><a href="#collaborate" aria-controls="collaborate" role="tab" data-toggle="tab" onmouseover="showCollaborate()">Collaborate</a></li>
+                            <li role="presentation"><a href="#converge" aria-controls="converge" role="tab" data-toggle="tab" onmouseover="showConverge()">Converge</a></li>
+                            <li role="presentation"><a id="hiddenTabDefault" href="#aboutB2" aria-controls="aboutB2" data-toggle="tab" style="border: none; cursor: context-menu"></a></li>
                         </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="aboutB2">
+                                <br>
+                                Be-Barters is a social sharing platform where information trading is done by means of  <u id="ifc" title="'InfoCurrency' - Our very own term for virtual currency">IFCs</u>
+                                <br><br>
+                                Everything is free here yet you won't get anything for free!
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="create">
+                                <br>
+                                <span class="glyphicon glyphicon-book"></span> &nbsp;  Create your content with our easy to use templates, maintain a blogbook, or then
+                                quiz/poll people.
+                                <br><br>
+                                <span class="glyphicon glyphicon-transfer"></span> &nbsp;  Many ways to give back to the internet.
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="collaborate">
+                                <br>
+                                <span class="glyphicon glyphicon-pencil"></span>&nbsp;  Create collaborations or contribute into.
+                                <br><br>
+                                <span class="glyphicon glyphicon-question-sign"></span>&nbsp;  Ask questions, get Answers, opinions.
+                                <br><br>
+                                <span class="glyphicon glyphicon-usd"></span>&nbsp;  Lend IFCs, subscribe or find your friends. Get social for sharing!
+                                </div>
+                            <div role="tabpanel" class="tab-pane" id="converge">
+                                <br>
+                                <ul id="converge-list">
+                                    <li class="lists">Content from all genres and domains all at one place.</li>
+                                    <br>
+                                    <li class="lists">Your own webspace,search and share alike.</li>
+                                    <br>
+                                    <li class="lists">All your information needs served under one roof.</li>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
             </div>
 
             <!--<span id="take-a-tour" class=" col-lg-11 col-lg-offset-1" onclick="initiateTour()">

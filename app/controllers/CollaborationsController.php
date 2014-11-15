@@ -46,7 +46,7 @@ class CollaborationsController extends \BaseController
             });
         }
 
-        $cover = Input::file('uploadCover');
+        $cover = Input::file('uploadCollabCover');
         $directory = File::makeDirectory('Users/'.Auth::user()->username."/Collaborations/".$collaboration->id);
         if ($directory)
         {
@@ -56,7 +56,7 @@ class CollaborationsController extends \BaseController
         $destinationPath = "Users/".Auth::user()->username."/Collaborations/".$collaboration->id."/Cover/";
         $extension = $cover->getClientOriginalExtension();
         $filename=$random_name.'.'.$extension;
-        Input::file('uploadCover')->move($destinationPath, $filename);
+        Input::file('uploadCollabCover')->move($destinationPath, $filename);
         $collaboration->cover = $destinationPath.$filename;
         $collaboration->save();
 

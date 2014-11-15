@@ -34,7 +34,14 @@ class HomeController extends BaseController
             Auth::user()->updateActivity();
 
             $events = BEvent::orderBy('datetime','DESC')->get();
-            $moreEvents = BEvent::orderBy('datetime','DESC')->skip(4)->take(4)->get();
+            $moreEvents = BEvent::orderBy('datetime','DESC')->skip(3)->take(3)->get();
+            $moreEvents = $moreEvents->filter(function($eve)
+            {
+                $currentTime = new DateTime();
+                $eventTime = new DateTime($eve->datetime);
+                if ($eventTime > $currentTime)
+                    return true;
+            });
             $count = count($moreEvents);
 
             $send = $events->filter(function($eve)
@@ -45,13 +52,15 @@ class HomeController extends BaseController
                     return true;
             });
 
-            $send = $send->sortByDesc('datetime')->slice(0,4);
+            $send = $send->sortByDesc('datetime')->slice(0,3);
 
             $interests = Auth::user()->interestedIn()->get();
 
             $moreAction=Action::orderBy('created_at','DESC')->skip(6)->take(1)->get();
 
-            return View::make('home')->with('friends',$users1)->with('events',$send)->with('count',$count)->with('interests',$interests)->with('moreAction',count($moreAction));
+            $categories=Auth::user()->interestedIn()->get();
+
+            return View::make('home')->with('friends',$users1)->with('events',$send)->with('count',$count)->with('interests',$interests)->with('moreAction',count($moreAction))->with('categories',$categories);;
         }
         catch(Exception $e)
         {

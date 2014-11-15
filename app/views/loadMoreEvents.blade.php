@@ -1,7 +1,7 @@
 <div class="col-lg-12">
 @foreach ($events as $e)
     <input type="hidden" id="RemainingEvents_{{$interest}}_{{$eventsCount}}" value="{{$count}}">
-    <div class="col-lg-3" style="color: #000000">
+    <div class="col-lg-4" style="color: #000000">
         <div class="thumbnail">
             <img src="{{$e->cover}}" class="col-lg-12" style="height: 150px">
             <div class="caption" style="padding-bottom: 0px">

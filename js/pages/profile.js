@@ -679,7 +679,7 @@ function showSettings()
     $('.bottomButtons').css({"backgroundColor":"#222","borderColor":"#222"});
 
 
-    $.post('http://b2.com/settings', function(markup)
+    $.get('http://b2.com/settings/ajax', function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
             window.location='http://b2.com/offline';
@@ -1062,7 +1062,7 @@ function showQuestions()
     $('.bottomButtons').css({"backgroundColor":"#222","borderColor":"#222"});
     var id = $('#profileId').val();
     id = parseInt(id);
-    $.post('http://b2.com/QnA/'+id, function(markup)
+    $.get('http://b2.com/QnA/'+id+'/ajax', function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
             window.location='http://b2.com/offline';
@@ -1127,7 +1127,7 @@ function showQuestions()
 function getSubscriberList()
 {
     scrollDown();
-    $.post('http://b2.com/subscribersList', function(markup)
+    $.get('http://b2.com/subscribersList/ajax', function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
             window.location='http://b2.com/offline';
@@ -1146,7 +1146,7 @@ function getSubscriberList()
 function getFriendList()
 {
     scrollDown();
-    $.post('http://b2.com/friendList', function(markup)
+    $.get('http://b2.com/friendList/ajax', function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
             window.location='http://b2.com/offline';

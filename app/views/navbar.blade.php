@@ -24,6 +24,14 @@
                 <span class='letter'>e</span>
                 <span class='letter'>r</span>
                 <span class='letter'>s</span>
+                <li id="notificationli" class="navbar-brand" onclick="getNoti()" style="list-style-type: none"><a href="#" style="text-decoration: none"><span id="no_of_notification" class="text-primary" style="background-color: tomato; color: white; padding-left: 5px; padding-right: 5px;  border-radius: 50%; visibility: hidden">0</span>&nbsp;&nbsp;<i class="fa fa-bell-o noti-bell" style="color: white"></i></a></li>
+                <div id="notificationModal2" style="max-height: 350px; overflow-y: auto; overflow-x: auto">
+                    <div id="notificationResultsModal">
+                        <div  class="modal-body" style="padding-left: 10px; padding-top: 15px; padding-bottom: 15px; padding-right: 10px">
+                            <fieldset id="notificationText"></fieldset>
+                        </div>
+                    </div>
+                </div>
             </a>
         </div>
 
@@ -81,16 +89,6 @@
                 <li>
                 <li id="extra-spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                 @if (Auth::check())
-                <li id="notificationli" onclick="getNoti()"><a href="#"><span id="no_of_notification" class="text-primary" style="background-color: tomato; color: white; padding-left: 5px; padding-right: 5px;  border-radius: 50%; visibility: hidden">0</span>&nbsp;&nbsp;Notifications <i class="fa fa-sort-desc"></i></a></li>
-                                                    <div id="notificationModal2" style="max-height: 350px; overflow-y: auto; overflow-x: hidden">
-                                                        <div id="notificationResultsModal">
-                                                            <div  class="modal-body" style="padding-left: 10px; padding-top: 15px; padding-bottom: 15px; padding-right: 10px">
-                                                                <fieldset id="notificationText"></fieldset>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
                     <li id="home"> <a href="{{route('home')}}" style="cursor: pointer">Home</a></li>
                     <li id="profile"> <a href="{{route('profile')}}" style="cursor: pointer">{{Auth::user()->first_name}}</a></li>
                     <li id="logOut"> <a href="{{route('signout')}}" style="cursor: pointer">Log Out</a></li>

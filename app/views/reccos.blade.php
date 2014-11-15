@@ -12,6 +12,8 @@
                 </p>
                     <?php $remaining = substr($recco->description,140); ?>
                     <p id="remaining{{$recco->id}}" style="display: none">{{{$remaining}}}</p>
+                @else
+                    </p>
                 @endif
                 <button class="btn btn-primary" onclick="visitRecco({{$recco->id}},'{{$recco->url}}')">Visit Link</button>
                 @if ($recco->userid == Auth::user()->id)
@@ -20,7 +22,7 @@
             </div>
         </div>
         <div class="col-lg-2">
-            <img class="col-lg-12" src="{{$recco->image}}" style="height: 100px">
+            <img class="col-lg-12" src="{{$recco->image}}" style="height: 100px; padding: 0px">
             <p class="col-lg-12" style="text-align: center"><b>{{$recco->hits}}</b> HITS</p>
         </div>
     </div>

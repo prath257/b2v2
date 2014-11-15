@@ -289,3 +289,8 @@
         margin-bottom: 20px;
     }
 }
+
+.hidden-content
+{
+    display: none;
+}

@@ -57,7 +57,7 @@
     Route::post('createProfile',array('as'=>'create.Profile','uses'=>'ProfileController@createProfile'));
     Route::post('saveAbout',array('as'=>'about.Profile','uses'=>'ProfileController@saveAbout'));
     Route::post('saveInterests',array('as'=>'interests.Profile','uses'=>'ProfileController@saveInterests'));
-    Route::post('settings',array('as'=>'settings','uses'=>'ProfileController@getSettings'));
+    Route::get('settings/{mode}',array('as'=>'settings','uses'=>'ProfileController@getSettings'));
     Route::post('editProfilePic',array('as'=>'editProfilePic','before'=>'auth','uses'=>'ProfileController@postEditProfilePic'));
     Route::post('editProfileTune',array('as'=>'editProfileTune','before'=>'auth','uses'=>'ProfileController@postEditProfileTune'));
     Route::post('/aboutYou',array('as'=>'editAbout','before'=>'auth','uses'=>'ProfileController@postEditAboutYou'));
@@ -84,7 +84,7 @@
 
     //QAController - Questions, About
     //Question
-    Route::post('QnA/{userId}', array('as' => 'QnA', 'uses' => 'QAController@getQnA'));
+    Route::get('QnA/{userId}/{mode}', array('as' => 'QnA', 'uses' => 'QAController@getQnA'));
     Route::post('postQuestion',array('as'=>'post.Question','uses'=>'QAController@postQuestion'));
     Route::post('postAnswer',array('as'=>'post.Answer','uses'=>'QAController@postAnswer'));
     Route::post('declineAnswer',array('as'=>'decline.Answer','uses'=>'QAController@declineAnswer'));
@@ -331,8 +331,8 @@
     Route::get('getExistingQuizQuestionsData/{id}', array('as'=>'getExistingQuizQuestionsData', 'uses'=>'DataTableController@getExistingQuizQuestionsDatatable'));
 
    //New IFRame views for friendList and Subsscribers List
-    Route::post('friendList', array('as'=>'friendList', 'uses'=>'ProfileController@getFriendList'));
-    Route::post('subscribersList', array('as'=>'subscribersList', 'uses'=>'ProfileController@getSubscribersList'));
+    Route::get('friendList/{mode}', array('as'=>'friendList', 'uses'=>'ProfileController@getFriendList'));
+    Route::get('subscribersList/{mode}', array('as'=>'subscribersList', 'uses'=>'ProfileController@getSubscribersList'));
 
    //this is the route for batch jobs
     Route::get('clearAuth',array('as'=>'clearAuth', 'uses'=>'AuthController@clearSessionData'));
@@ -456,4 +456,9 @@ Route::post('quiz_write', array('uses' => 'AjaxController@quiz_write'));
 Route::post('media_write', array('uses' => 'AjaxController@media_write'));
 
 Route::post('forgotUsername', array('uses' => 'BaseController@forgotUsername'));
+
+//suggetsions
+Route::post('getWritingSuggestions', array('uses' => 'SuggetsionController@getWritingSuggestions'));
+Route::post('postSuggestion', array('uses' => 'SuggetsionController@postSuggestion'));
+
 

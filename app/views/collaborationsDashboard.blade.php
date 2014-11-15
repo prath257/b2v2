@@ -40,9 +40,7 @@
 <br>
 <br>
 <div class="container">
-    @if(Auth::user()->pset)
-    <a data-toggle="modal" data-target="#newCollaborationModal" class="btn btn-success col-lg-2">+ Start New Collaboration</a>
-    <br><br><br>
+    @if(Auth::user()->pset)<br>
     <div class="panel-group col-lg-10" id="accordion">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -140,95 +138,6 @@
     </div>
     @endif
 </div>
-
-<!-- NewCollaboration Modal -->
-<div class="modal fade" id="newCollaborationModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">New Collaboration</h4>
-            </div>
-            <div id="inviteBody" class="modal-body">
-                {{Form::open(array('route'=>'newCollaboration','id'=>'newCollaborationForm','class'=>'form-horizontal','files'=>true))}}
-                <!--<form id="newCollaborationForm" method="post" action="{{route('newCollaboration')}}" enctype="multipart/form-data" class="form-horizontal">-->
-                    <fieldset>
-
-                        <div class="col-lg-6 col-lg-offset-3">
-                            <h3 style="text-align: center">Collaboration Cover</h3>
-                        </div>
-
-                        <img id="defaultCover" class="col-lg-6 col-lg-offset-3" height="150px" src="{{asset('Images/Collaboration.jpg')}}">
-
-                        <div class="col-lg-12">&nbsp;</div>
-
-                        <div class="col-lg-6 col-lg-offset-3 fileUpload btn btn-default">
-                            <span>Upload Cover</span>
-                            <input type="file" id="uploadCover" class="upload" name="uploadCover" style="width: 100%" onchange="changeCollaborationCover()" />
-                        </div>
-
-                        <div class="col-lg-12">&nbsp;</div>
-
-                        <div class="form-group">
-                            <label class=" col-lg-3 control-label">Title</label>
-                            <div class="col-lg-7">
-                                <input type="text" id="title" class="form-control" name="title" placeholder="Project Title" autocomplete="off" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class=" col-lg-3 control-label">Short Description</label>
-                            <div class="col-lg-7">
-                                <textarea id="shortDescription" class="form-control" name="shortDescription" rows="3" placeholder="A short and precise description for your new Collaboration."></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Category</label>
-                            <div class="col-lg-7">
-                                <select id="category" class="form-control" name="category">
-                                    <option value="">Select a Category</option>
-                                    @foreach($categories as $cat)
-                                    <option value="{{$cat->id}}">{{$cat->interest_name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Cost</label>
-                            <div class="col-lg-7">
-                                <div class="input-group">
-                                    <input id="ifc" name="ifc" type="text" class="form-control" value="0" autocomplete="off">
-                                    <span class="input-group-addon">IFCs</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">&nbsp;</div>
-                        <div class="form-group col-lg-offset-1">
-                            <div class="col-lg-3" style="text-align: right">
-                                <strong>NOTE: </strong>
-                            </div>
-                            <div class="col-lg-7">
-                                You can add more people to your collaboration only when your collaboration contains at least one chapter posted by you.
-                            </div>
-                        </div>
-                        <div class="col-lg-12">&nbsp;</div>
-
-                    </fieldset>
-                    <div class="form-group">
-                        <div class="col-lg-9 col-lg-offset-3">
-                            <button type="submit" id="newCollaborationSubmit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End of NewCollaboration Modal -->
 
 <!-- Invite Contributors Modal -->
 <div class="modal fade" id="inviteContributorsModal" tabindex="-1" role="dialog" aria-hidden="true">

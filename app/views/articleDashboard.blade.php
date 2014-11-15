@@ -39,15 +39,8 @@
 <br>
 <div class="container">
     @if(Auth::user()->pset)
-    <h3>Pick up one of your interests and use our templates to write about it.</h3>
-    <br>
-    @foreach ($categories as $cat)
-        <a href="#" onclick="openNewArticleModal('{{$cat->interest_name}}',{{$cat->id}})" class="btn btn-success">+ {{$cat->interest_name}}</a>
-    @endforeach
 
-    <br>
-    <br>
-    <br>
+
     <br>
     <br>
    <div class="table-responsive col-lg-8">
@@ -94,80 +87,7 @@
 </div>
 @endif
 </div>
-<!-- Modal to input initial details of the article -->
-<div class="modal fade" id="newArticleModal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">New Article</h4>
-			</div>
-			<div id="inviteBody" class="modal-body">
 
-                {{Form::open(array('route'=>'postArticleDashboard','id'=>'newArticleForm','class'=>'form-horizontal','files'=>true))}}
-				<!--<form id="newArticleForm" class="form-horizontal" method="post" action="{{route('postArticleDashboard')}}" enctype="multipart/form-data">-->
-					<fieldset>
-
-                        <div id="optionsDiv" class="col-lg-12">
-
-                        </div>
-
-                        <input type="hidden" id="articleType" name="articleType" value="Article">
-                        <input type="hidden" id="category" name="category" value="null">
-
-                        <div class="col-lg-6 col-lg-offset-3">
-                            <h3 style="text-align: center">Article Cover</h3>
-                        </div>
-
-                        <img id="defaultCover" class="col-lg-6 col-lg-offset-3" height="200px" src="{{asset('Images/Article.png')}}">
-
-                        <div class="col-lg-12">&nbsp;</div>
-
-                        <div class="col-lg-6 col-lg-offset-3 fileUpload btn btn-default">
-                            <span>Upload Cover</span>
-                            <input type="file" id="uploadCover" class="upload" name="uploadCover" style="width: 100%" onchange="changeArticleCover()" />
-                        </div>
-
-                        <div class="col-lg-12">&nbsp;</div>
-
-						<div class="form-group">
-							<label class=" col-lg-3 control-label">Title</label>
-							<div class="col-lg-6">
-								<input type="text" id="title" class="form-control" name="title" placeholder="Article Title" autocomplete="off" />
-							</div>
-						</div>
-
-                        <div class="form-group">
-                            <label class=" col-lg-3 control-label">Short Description</label>
-                            <div class="col-lg-7">
-                                <textarea id="shortDescription" class="form-control" name="shortDescription" rows="3" placeholder="A short and precise description."></textarea>
-                            </div>
-                        </div>
-
-						<div class="form-group">
-							<label class="col-lg-3 control-label">Cost</label>
-							<div class="col-lg-6">
-								<div class="input-group">
-									<input id="ifc" name="ifc" type="text" class="form-control" value="0" autocomplete="off">
-									<span class="input-group-addon">IFCs</span>
-								</div>
-							</div>
-						</div>
-
-					</fieldset>
-					<div class="form-group">
-						<div class="col-lg-9 col-lg-offset-3">
-							<button type="submit" id="newArticleSubmit" class="btn btn-primary">Submit</button>
-						</div>
-					</div>
-                {{Form::close()}}
-
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Modal to show the sharing of Article -->
 <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

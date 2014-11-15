@@ -94,70 +94,7 @@ $(document).ready(function()
 
     })
 
-    $('#newBlogBookForm').bootstrapValidator({
-        live:'enabled',
-        submitButtons: 'button[id="newBlogBookSubmit"]',
-        message: 'This value is not valid',
-        fields: {
-            uploadCover: {
-                message: 'The cover pic is not valid',
-                validators: {
-                    file: {
-                        //extension: 'jpeg,png,jpg,gif',
-                        type: 'image/jpeg,image/jpg,image/png,image/gif',
-                        maxSize: 2048 * 1024,   // 2 MB
-                        message: '  Max 2MB, allowed types: JPG,PNG or GIF'
-                    },
-                    notEmpty: {
-                        message: 'Please Select a Book Cover!'
-                    }
-                }
-            },
-            title: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please give a Title'
-                    },
-                    stringLength: {
-                        min: 1,
-                        max: 255,
-                        message: 'The title must be at least a character and less than 255 characters'
-                    }
-                }
-            },
-            shortDescription: {
-                validators: {
-                    notEmpty: {
-                        message: 'A short and sweet description is required'
-                    },
-                    stringLength: {
-                        min: 10,
-                        max: 300,
-                        message: 'Min 10 and Max 300 characters'
-                    }
-                }
-            },
-            category: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please select a category'
-                    }
-                }
-            },
-            ifc: {
-                validators: {
-                    integer: {
-                        message: 'Number!'
-                    },
-                    between: {
-                        min: 0,
-                        max: 10000,
-                        message: 'Less than 10000i'
-                    }
-                }
-            }
-        }
-    });
+
 
     $('#searchForm').submit(function(event)
     {
@@ -170,22 +107,6 @@ $(document).ready(function()
     $("#peopleLabel").addClass("btn-info");
     document.getElementById('search').placeholder="Search Barters";
 });
-
-function changeBlogBookCover()
-{
-    var previewId = document.getElementById('defaultCover');
-    previewId.src = '';
-
-    var selectedImg = $('#uploadCover')[0].files[0];
-
-    var oReader = new FileReader();
-    oReader.onload = function(e)
-    {
-        previewId.src=e.target.result;
-    }
-    oReader.readAsDataURL(selectedImg);
-}
-
 
 function deleteBlogBook(bid,dbbid)
 {

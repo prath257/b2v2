@@ -16,10 +16,16 @@
         <div id="oldInterests">
             <?php $i=0; ?>
             @foreach($oldInterests as $oldi)
-            <?php $i++ ?>
-            <p class="col-lg-4">{{$oldi->interest_name}}</p><input type="checkbox" class="oldinterests" name="oldinterests[]" value="{{$oldi->interest}}"><br><br>
-            @endforeach
-            <input type="hidden" id="noOfOldInterests" value="{{$i}}">
+                                                <?php $i++ ?>
+                                                <p class="col-lg-4">{{$oldi->interest_name}}</p>
+                                                <?php $type = DB::table('user_interests')->where('interest_id',$oldi->id)->where('user_id',Auth::user()->id)->first(); ?>
+                                                @if ($type->type == 'secondary')
+                                                <input type="checkbox" class="oldinterests" name="oldinterests[]" value="{{$oldi->interest}}">
+                                                @endif
+                                                <br><br>
+                                                @endforeach
+                                                <input type="hidden" id="noOfOldInterests" value="{{$i}}">
+                                                <h4 style="font-family: 'Segoe UI'; text-transform: none; color: darkred">You can delete secondary interests only.</h4>
         </div>
         <div class="ierror" style="display: none;"></div>
     </div>

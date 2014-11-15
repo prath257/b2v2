@@ -171,16 +171,16 @@ class BlogController extends \BaseController
 	{
 		$title = Input::get('title');
         $description = Input::get('shortDescription');
-		$category = Input::get('category');
+		$category = Input::get('Artcategory');
         $type = Input::get('articleType');
 		$ifc = Input::get('ifc');
 
-        $cover = Input::file('uploadCover');
+        $cover = Input::file('uploadArtCover');
         $destinationPath = "Users/".Auth::user()->username."/Articles/";
         $extension = $cover->getClientOriginalExtension();
         $filename='Cover.'.$extension;
         //Input::file('uploadCover')->move($destinationPath, $filename);
-        Image::make(Input::file('uploadCover'))->resize(500, 500)->save($destinationPath.$filename);
+        Image::make(Input::file('uploadArtCover'))->resize(500, 500)->save($destinationPath.$filename);
 		$medias=Auth::user()->getMedia()->orderBy('updated_at','DESC')->paginate(5);
         $resources=Auth::user()->getResources()->orderBy('updated_at','DESC')->paginate(5);
 

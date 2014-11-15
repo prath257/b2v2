@@ -28,9 +28,9 @@ $(document).ready(function()
                 message: 'The Media File is not valid',
                 validators: {
                     file: {
-                        extension: 'mp3,mp4,avi,mkv,flv,asf,m4a,wav,wmv',
+                        extension: 'mp3,mp4',
                         maxSize: 204800 * 1024,   // 200 MB
-                        message: 'Upto 200 MB only, chose the correct file '
+                        message: 'Upto 200 MB only, file can be either mp3 or mp4.'
                     },
                     notEmpty:{
                         message:'Please Select a Media File'
@@ -109,9 +109,9 @@ $(document).ready(function()
                 message: 'The Media File is not valid',
                 validators: {
                     file: {
-                        extension: 'mp3,mp4,avi,mkv,flv,asf,m4a,wav,wmv',
+                        extension: 'mp3,mp4',
                         maxSize: 204800 * 1024,   // 200 MB
-                        message: 'Upto 200 MB only, chose the correct file '
+                        message: 'Upto 200 MB only, file can be either mp3 or mp4.'
                     },
                     notEmpty:{
                         message:'Please Select a Media File'

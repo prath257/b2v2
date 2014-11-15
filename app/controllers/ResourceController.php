@@ -41,7 +41,7 @@ class ResourceController extends \BaseController
                 AjaxController::insertToNotification($resource->getAuthor->id,Auth::user()->id,"purchased","purchased your resource ".$resource->title,'http://b2.com/resource/'.$resource->id);
 
                 TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Purchased resource",'http://b2.com/resource/'.$resource->id,$resource->title,"content");
-                TransactionController::insertToManager($resource->getAuthor->id,"+".$ifc,"Resource purchased by",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
+                TransactionController::insertToManager($resource->getAuthor->id,"+".$ifc,"Resource '".$resource->title."' purchased by",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
             }
             else
                 return View::make('ifcDeficit')->with('contentIFC',$ifc)->with('userIFC',Auth::user()->profile->ifc);

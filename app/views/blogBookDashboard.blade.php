@@ -40,9 +40,6 @@
 <br>
 <div class="container">
     @if(Auth::user()->pset)
-    <a data-toggle="modal" data-target="#newBlogBookModal" class="btn btn-success col-lg-2">+ New BlogBook</a>
-    <br>
-    <br>
     <br>
     <div class="table-responsive col-lg-9">
         <table id="example"  class="table table-condensed table-hover" cellspacing="0" width="100%">
@@ -90,83 +87,7 @@
     @endif
 </div>
 
-<!-- NewBlogBook Modal -->
-<div class="modal fade" id="newBlogBookModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">New BlogBook</h4>
-            </div>
-            <div id="inviteBody" class="modal-body">
-                {{Form::open(array('route'=>'postBlogBookDashboard','id'=>'newBlogBookForm','class'=>'form-horizontal','files'=>true))}}
-                <!--<form id="newBlogBookForm" method="post" action="{{route('postBlogBookDashboard')}}" enctype="multipart/form-data" class="form-horizontal">-->
-                    <fieldset>
 
-                        <div class="col-lg-6 col-lg-offset-3">
-                            <h3 style="text-align: center">BlogBook Cover</h3>
-                        </div>
-
-                        <img id="defaultCover" class="col-lg-6 col-lg-offset-3" height="150px" src="{{asset('Images/BlogBook.jpg')}}">
-
-                        <div class="col-lg-12">&nbsp;</div>
-
-                        <div class="col-lg-6 col-lg-offset-3 fileUpload btn btn-default">
-                            <span>Upload Cover</span>
-                            <input type="file" id="uploadCover" class="upload" name="uploadCover" style="width: 100%" onchange="changeBlogBookCover()" />
-                        </div>
-
-                        <div class="col-lg-12">&nbsp;</div>
-
-                        <div class="form-group">
-                            <label class=" col-lg-3 control-label">Title</label>
-                            <div class="col-lg-7">
-                                <input type="text" id="title" class="form-control" name="title" placeholder="BlogBook Title" autocomplete="off" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class=" col-lg-3 control-label">Short Description</label>
-                            <div class="col-lg-7">
-                                <textarea id="shortDescription" class="form-control" name="shortDescription" rows="3" placeholder="A short and precise description for your new BlogBook."></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Category</label>
-                            <div class="col-lg-7">
-                                <select id="category" class="form-control" name="category">
-                                    <option value="">Select a Category</option>
-                                    @foreach($categories as $cat)
-                                    <option value="{{$cat->id}}">{{$cat->interest_name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Cost</label>
-                            <div class="col-lg-7">
-                                <div class="input-group">
-                                    <input id="ifc" name="ifc" type="text" class="form-control" value="0" autocomplete="off">
-                                    <span class="input-group-addon">IFCs</span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </fieldset>
-                    <div class="form-group">
-                        <div class="col-lg-9 col-lg-offset-3">
-                            <button type="submit" id="newBlogBookSubmit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                {{Form::close()}}
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End of NewBlogBook Modal -->
 <!-- Modal to show the sharing of Article -->
 <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">

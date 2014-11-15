@@ -22,7 +22,7 @@ class BookController extends \BaseController
         $blogBook->review = 'passed';
         $blogBook->save();
 
-        $cover = Input::file('uploadCover');
+        $cover = Input::file('uploadBBCover');
         $directory = File::makeDirectory('Users/'.Auth::user()->username."/Books/".$blogBook->id);
         if ($directory)
         {
@@ -33,7 +33,7 @@ class BookController extends \BaseController
         $extension = $cover->getClientOriginalExtension();
         $filename=$random_name.'.'.$extension;
         //Input::file('uploadCover')->move($destinationPath, $filename);
-        Image::make(Input::file('uploadCover'))->resize(500, 500)->save($destinationPath.$filename);
+        Image::make(Input::file('uploadBBCover'))->resize(500, 500)->save($destinationPath.$filename);
         $blogBook->cover = $destinationPath.$filename;
         $blogBook->save();
 

@@ -1,7 +1,7 @@
 @if ($moreActions == null && $count == null)
     <div class="col-lg-12">
 
-    <div id="ActionContent" style="max-height: 450px; overflow: auto;">
+    <div id="ActionContent" style="max-height: 500px; overflow: auto;">
 @endif
     @foreach ($actions as $action)
     <?php $user1=User::find($action->user1id);?>
@@ -89,6 +89,15 @@
     @elseif($action->type=='Q new')
     <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> posted a new Quiz
             <a href="{{route('quizPreview',Quiz::find($action->contentid)->id)}}">{{Quiz::find($action->contentid)->title}}</a> </p>
+
+@elseif($action->type=='Recco new')
+    <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> recommends
+            <a onclick="visitRecco({{$action->contentid}},'{{Recco::find($action->contentid)->url}}')" style="cursor: pointer">{{Recco::find($action->contentid)->title}}</a> </p>
+
+
+@elseif($action->type=='Diary new')
+    <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> made a new post to
+            <a href="{{route('diary',$user1->username)}}">diary</a> </p>
 
 
     @endif

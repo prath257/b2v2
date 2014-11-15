@@ -31,9 +31,9 @@ $(document).ready(function()
                 message: 'The Media File is not valid',
                 validators: {
                     file: {
-                        extension: 'mp4,webm,mp3,wav,avi,asf,wmv,m4a,mkv,flv',
+                        extension: 'mp4,mp3',
                         maxSize: 204800 * 1024,   // 200 MB
-                        message: 'Upto 200 MB only, chose the correct file '
+                        message: 'Upto 200 MB only, file can be either mp3 or mp4.'
                     },
                     notEmpty:{
                         message:'Please Select a Media File'

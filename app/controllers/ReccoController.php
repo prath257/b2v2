@@ -72,6 +72,8 @@ class ReccoController extends \BaseController {
 
             TransactionController::insertToManager(Auth::user()->id,"+20","Made new recommendation","nope","nope","nope");
 
+            Action::postAction('Recco new',Auth::user()->id,null,$recco->id);
+
             return 'success';
         }
         else

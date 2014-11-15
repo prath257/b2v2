@@ -12,63 +12,7 @@ $(document).ready(function()
 		"lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
 	} );
 
-	$('#newArticleForm').bootstrapValidator({
-		live:'enabled',
-		submitButtons: 'button[id="newArticleSubmit"]',
-		message: 'This value is not valid',
-		fields: {
-            uploadCover: {
-                message: 'The cover pic is not valid',
-                validators: {
-                    file: {
-                       // extension: 'jpeg,png,jpg,gif',
-                        type: 'image/jpeg,image/jpg,image/png,image/gif',
-                        maxSize: 2048 * 1024,   // 2 MB
-                        message: '  Max 2MB, allowed types: JPG,PNG or GIF'
-                    },
-                    notEmpty: {
-                        message: 'Please Select an Article Cover!'
-                    }
-                }
-            },
-			title: {
-				validators: {
-					notEmpty: {
-						message: 'Please give a Title'
-					},
-                    stringLength: {
-                        min: 1,
-                        max: 255,
-                        message: 'Min 1 character and Max 255 characters'
-                    }
-				}
-			},
-            shortDescription: {
-                validators: {
-                    notEmpty: {
-                        message: 'A short and sweet description is required'
-                    },
-                    stringLength: {
-                        min: 10,
-                        max: 300,
-                        message: 'Min 10 and Max 300 characters'
-                    }
-                }
-            },
-			ifc: {
-				validators: {
-					integer: {
-						message: 'Number!'
-					},
-					between: {
-						min: 0,
-						max: 10000,
-						message: 'Less than 10000i'
-					}
-				}
-			}
-		}
-	});
+
 
     $(document).click(function(e){
         if ($(e.target).is('#searchModal,#searchModal *')) {
@@ -165,20 +109,7 @@ $(document).ready(function()
 
 });
 
-function changeArticleCover()
-{
-    var previewId = document.getElementById('defaultCover');
-    previewId.src = '';
 
-    var selectedImg = $('#uploadCover')[0].files[0];
-
-    var oReader = new FileReader();
-    oReader.onload = function(e)
-    {
-        previewId.src=e.target.result;
-    }
-    oReader.readAsDataURL(selectedImg);
-}
 
 function deleteArticle(bid,aid)
 {
@@ -200,42 +131,6 @@ function deleteArticle(bid,aid)
 		}
 	});
 
-}
-
-function openNewArticleModal(interestName,interestId)
-{   var device='Mobile';
-    var width=$(document).width();
-    if (width > 500)
-    {
-        device='Desktop';
-    }
-
-    $.post('http://b2.com/getTypes', {interestName: interestName, device: device}, function(markup)
-    {
-        if(markup=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
-        else
-        {
-            $('#optionsDiv').html(markup);
-            $('.buttons').tooltip();
-            $('#newArticleModal').modal('show');
-            $('#category').val(interestId);
-            $('#articleType').val('Article');
-
-            if (device=='Mobile')
-            {
-                $('.mobileButton').addClass('mobileButtons');
-                $('.buttons').addClass('mobileButtons');
-            }
-        }
-    });
-}
-
-function changeArticleType(button,type)
-{
-    $('#articleType').val(type);
-    $('.buttons').removeClass('active');
-    $(button).addClass('active');s
 }
 
 function changeClass(button)

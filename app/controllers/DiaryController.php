@@ -164,6 +164,9 @@ class DiaryController extends \BaseController {
             $diary->text=$message;
             $diary->save();
 
+            if ($type!='edit' && Auth::user()->settings->diaryAccess == 'public')
+                Action::postAction('Diary new',Auth::user()->id,null,null);
+
         }
         else
             return 'wH@tS!nTheB0x';

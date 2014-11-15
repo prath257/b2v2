@@ -235,12 +235,12 @@ class AjaxController extends \BaseController {
         if (Input::get('interest') == 'all')
         {
             $events = BEvent::orderBy('datetime','DESC')->skip(Input::get('eventsCount'))->take(100)->get();
-            $moreEvents = BEvent::orderBy('datetime','DESC')->skip(Input::get('eventsCount')+4)->take(4)->get();
+            $moreEvents = BEvent::orderBy('datetime','DESC')->skip(Input::get('eventsCount')+3)->take(3)->get();
         }
         else
         {
             $events = BEvent::orderBy('datetime','DESC')->where('category','=',Input::get('interest'))->skip(Input::get('eventsCount'))->take(100)->get();
-            $moreEvents = BEvent::orderBy('datetime','DESC')->where('category','=',Input::get('interest'))->skip(Input::get('eventsCount')+4)->take(4)->get();
+            $moreEvents = BEvent::orderBy('datetime','DESC')->where('category','=',Input::get('interest'))->skip(Input::get('eventsCount')+3)->take(3)->get();
         }
         $count = count($moreEvents);
 
@@ -252,7 +252,7 @@ class AjaxController extends \BaseController {
                 return true;
         });
 
-        $send = $send->sortByDesc('datetime')->slice(0,4);
+        $send = $send->sortByDesc('datetime')->slice(0,3);
 
         return View::make('loadMoreEvents')->with('events',$send)->with('count',$count)->with('eventsCount',Input::get('eventsCount'))->with('interest',Input::get('interest'));
     }
@@ -513,8 +513,6 @@ class AjaxController extends \BaseController {
         if (Auth::check())
         {
         $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
-        $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
-        $primary = array_merge($primary, $secondary);
         return View::make('homeContent')->with('primary',$primary)->with('data','articles');
         }
         else
@@ -526,8 +524,6 @@ class AjaxController extends \BaseController {
         if (Auth::check())
         {
         $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
-        $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
-        $primary = array_merge($primary, $secondary);
         return View::make('homeContent')->with('primary',$primary)->with('data','bb');
         }
         else
@@ -539,8 +535,6 @@ class AjaxController extends \BaseController {
         if (Auth::check())
         {
         $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
-        $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
-        $primary = array_merge($primary, $secondary);
         return View::make('homeContent')->with('primary',$primary)->with('data','collab');
         }
         else
@@ -552,8 +546,6 @@ class AjaxController extends \BaseController {
         if (Auth::check())
         {
             $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
-            $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
-            $primary = array_merge($primary, $secondary);
             return View::make('homeContent')->with('primary',$primary)->with('data','res');
         }
         else
@@ -565,8 +557,6 @@ class AjaxController extends \BaseController {
         if (Auth::check())
         {
             $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
-            $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
-            $primary = array_merge($primary, $secondary);
             return View::make('homeContent')->with('primary',$primary)->with('data','media');
         }
         else
@@ -578,8 +568,6 @@ class AjaxController extends \BaseController {
         if (Auth::check())
         {
             $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
-            $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
-            $primary = array_merge($primary, $secondary);
             return View::make('homeContent')->with('primary',$primary)->with('data','quiz');
         }
         else
@@ -591,8 +579,6 @@ class AjaxController extends \BaseController {
         if (Auth::check())
         {
             $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
-            $secondary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','secondary')->take(1)->lists('interest_id');
-            $primary = array_merge($primary, $secondary);
             return View::make('homeContent')->with('primary',$primary)->with('data','poll');
         }
         else

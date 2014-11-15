@@ -248,12 +248,12 @@ class EventsController extends \BaseController
         if (Input::get('interest') == 'all')
         {
             $events = BEvent::orderBy('datetime','DESC')->get();
-            $moreEvents = BEvent::orderBy('datetime','DESC')->skip(Input::get('count')+4)->take(4)->get();
+            $moreEvents = BEvent::orderBy('datetime','DESC')->skip(Input::get('count')+3)->take(3)->get();
         }
         else
         {
             $events = BEvent::orderBy('datetime','DESC')->where('category','=',Input::get('interest'))->get();
-            $moreEvents = BEvent::orderBy('datetime','DESC')->where('category','=',Input::get('interest'))->skip(Input::get('count')+4)->take(4)->get();
+            $moreEvents = BEvent::orderBy('datetime','DESC')->where('category','=',Input::get('interest'))->skip(Input::get('count')+3)->take(3)->get();
         }
         $count = count($moreEvents);
 
@@ -265,7 +265,7 @@ class EventsController extends \BaseController
                 return true;
         });
 
-        $send = $send->sortByDesc('datetime')->slice(0,4);
+        $send = $send->sortByDesc('datetime')->slice(0,3);
 
         return View::make('categoryEvents')->with('events',$send)->with('count',$count)->with('intCount',Input::get('count'))->with('interest',Input::get('interest'))->with('index',Input::get('index'));
     }

@@ -4,11 +4,11 @@ class QAController extends \BaseController
 {
 	public static $user=null;
 
-    public function getQnA($userId)
+    public function getQnA($userId,$mode)
     {
         if(Auth::check())
         {
-               return View::make('QnA')->with('user',User::find($userId));
+               return View::make('QnA')->with('user',User::find($userId))->with('mode',$mode);
         }
         else
             return 'wH@tS!nTheB0x';
