@@ -104,8 +104,17 @@ $colors = array("#555450", "#1c5a5e", "#5fa09d", "#6e2f40", "#989d27", "#403e6f"
                                 <?php
                                  if ($data == 'poll' || $data == 'quiz')
                                  {
-                                 $name = User::find($tr->ownerid)->first_name.' '.User::find($tr->ownerid)->last_name;
-                                 $username = User::find($tr->ownerid)->username;
+                                    if ($data == 'poll')
+                                        $iddd = Poll::find($tr)->ownerid;
+                                    else
+                                        $iddd = $tr->ownerid;
+                                 $name = User::find($iddd)->first_name.' '.User::find($iddd)->last_name;
+                                 $username = User::find($iddd)->username;
+
+                                 if ($data == 'poll')
+                                    $ifccc = Poll::find($tr)->ifc;
+                                 else
+                                    $ifccc = $tr->ifc;
                                  }
 
                                  else
@@ -120,7 +129,7 @@ $colors = array("#555450", "#1c5a5e", "#5fa09d", "#6e2f40", "#989d27", "#403e6f"
                                 <div class="col-lg-6" style="padding: 0px; border-right: solid 2px {{$colors[$colorIndex]}}">
                                     {{$icon}}
                                 </div>
-                                <div class="col-lg-6" style="padding: 0px">{{$tr->ifc}} <i>i</i></div>
+                                <div class="col-lg-6" style="padding: 0px">{{$ifccc}} <i>i</i></div>
                             </div>
                         </div>
 

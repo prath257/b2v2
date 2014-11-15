@@ -86,10 +86,13 @@ $(document).ready(function()
     var width = $(window).width();
     if (width>1200)
     {
+        $('#menu-group').addClass('col-lg-2');
         var chartUserData=Morris.Donut({
             element: 'donut-example',
             data: [0,0]
         });
+
+
     }
     else
     {

@@ -1,4 +1,4 @@
-<button class="btn btn-warning" onclick="newSuggestion('{{$request}}')">+ New</button>
+<button class="btn btn-warning" onclick="newSuggestion('{{$request}}')">Give Suggestion</button>
 <hr>
 @foreach ($suggestions as $s)
     <a style="font-size: 20px; cursor: pointer" onclick="writeSuggestion('{{$s->type}}','{{$s->text}}','{{$s->category}}')">{{$s->text}}</a>

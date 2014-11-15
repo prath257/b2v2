@@ -43,7 +43,7 @@
                 <span class='letter'>e</span>
                 <span class='letter'>r</span>
                 <span class='letter'>s</span>
-                <li id="notificationli" class="navbar-brand" onclick="getNoti()" style="list-style-type: none"><a href="#" style="text-decoration: none"><span id="no_of_notification" class="text-primary" style="background-color: tomato; color: white; padding-left: 5px; padding-right: 5px;  border-radius: 50%; visibility: hidden">0</span>&nbsp;&nbsp;<i class="fa fa-bell-o noti-bell" style="color: white"></i></a></li>
+                <li id="notificationli" class="navbar-brand" onclick="getNoti()" style="list-style-type: none"><a href="#" style="text-decoration: none">&nbsp;&nbsp;<i class="fa fa-bell-o noti-bell" style="color: white"></i>&nbsp;<span id="no_of_notification" class="text-primary" style="background-color: tomato; color: white; padding-left: 5px; padding-right: 5px;  border-radius: 50%; visibility: hidden; font-size: 12px">0</span></a></li>
                 <div id="notificationModal2" style="max-height: 350px; overflow-y: auto; overflow-x: auto">
                     <div id="notificationResultsModal">
                         <div  class="modal-body" style="padding-left: 10px; padding-top: 15px; padding-bottom: 15px; padding-right: 10px">
@@ -96,7 +96,7 @@
 
 <div class="col-lg-9">
     <div class="col-lg-3" style="padding: 0px">
-        <div class="list-group">
+        <div id="menu-group" class="list-group">
             <a id="pivot-home" href="#" class="list-group-item active" onclick="openPivots('home')">
                 <h4 class="list-group-item-heading">home</h4>
                 <p class="list-group-item-text">BBarters Home.</p>
