@@ -15,7 +15,61 @@ $(document).ready(function()
     if (width<=700)
     {
         $(".table").addClass("table-bordered");
+        $('#donut-ee').hide();
+        $('#incomeGraph').hide();
     }
+    else
+    {
+        var expenseDonut=Morris.Donut({
+            element: 'donut-ee',
+            data: [0,0]
+        });
+        //this is the code for showing the stats of resources
+        var monthlyGraph = Morris.Bar({
+            // ID of the element in which to draw the chart.
+            element: 'incomeGraph',
+            data: [0,0,0], // Set initial data (ideally you would provide an array of default data)
+            xkey: 'month', // Set the key for X-axis
+            ykeys: ['income','expense'], // Set the key for Y-axis
+            labels: ['Income','Expenditure'] // Set the label when bar is rolled over
+        });
+    }
+
+    //this is the function to request data for
+    // Create a function that will handle AJAX requests
+    function requestData(days, chart, type)
+    {
+        try
+        {
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "http://b2.com/get"+type+"ChartData", // This is the URL to the API
+                data: { days: days }
+            })
+                .done(function( data ) {
+                    if(data=='wH@tS!nTheB0x')
+                        window.location='http://b2.com/offline';
+                    else
+                    {
+                        // When the response to the AJAX request comes back render the chart with new data
+                        chart.setData(data);
+                    }
+                })
+                .fail(function() {
+                    // If there is no communication between the server, show an error
+                    // alert( "error occured" );
+                });
+        }
+        catch(error)
+        {
+            //do nothing about the error
+        }
+    }
+    // Request initial data for the past 7 days:
+    requestData(5000, expenseDonut,'Expense');
+    requestData(5000, monthlyGraph,'IE');
+
 
     oTable=$('#example').dataTable( {
         "ajax": 'http://b2.com/getIFCManagerData',

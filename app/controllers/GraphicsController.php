@@ -152,41 +152,101 @@ class GraphicsController extends \BaseController
             return 'wH@tS!nTheB0x';
     }
 
-    //these two are for chat stats
-    public function getChatAuditData()
+    //this is the function for expensedonut on IFC manager page
+    public function getExpenseChartData()
     {
         if(Auth::check())
         {
-        $chatExpense=DB::table('chataudit')->where('userid','=',Auth::user()->id)->first();
-        $stats=array();
-        $stats[0]=array('label'=>'Chat Expenditure','value'=>$chatExpense->expenditure);
-        $stats[1]=array('label'=>'Chat Earnings','value'=>$chatExpense->earning);
-        return $stats;
+            $transactions=Manager::Where('userid','=',Auth::user()->id)->get();
+            $expenses=0;
+            $income=0;
+            foreach($transactions as $trans)
+            {
+                $sign=$trans->ifc[0];
+                if($sign=='+')
+                {
+                    $income+= intval(substr($trans->ifc, 1));
+                }
+                else
+                {
+                    $expenses+= intval(substr($trans->ifc, 1));
+                }
+            }
 
-    }
-        else
-            return 'wH@tS!nTheB0x';
-    }
-    public function getChatData()
-    {
-        if(Auth::check())
-        {
-        $stats=array();
-        $stats5=array();
-        $days = Input::get('days', 7);
-        $range=\Carbon\Carbon::now()->subDays($days);
-        $chats=DB::table('chats')->where('user1','=',Auth::user()->id)->orWhere('user2','=',Auth::user()->id)->where('created_at', '>=', $range)->groupBy('date')->get([DB::raw('sum(TIMESTAMPDIFF(MINUTE,created_at, updated_at)) as duration'),DB::raw('DATE(created_at) as date')]);
-        $i=0;
-        foreach($chats as $chat)
-        {
-            $stats[$i]=array('date'=>$chat->date,'days'=>$i+1,'duration'=>intval($chat->duration));
-            $i++;
+            $stats=array();
+            $stats[0]=array('label'=>'Expenditure','value'=>$expenses);
+            $stats[1]=array('label'=>'Earnings','value'=>$income);
+            return $stats;
 
         }
-        return $stats;
-
-    }
         else
             return 'wH@tS!nTheB0x';
     }
+
+    public function getIEChartData()
+    {
+        if(Auth::check())
+        {
+            $months=array();
+            $income=array(0,0,0,0,0);
+            $expense=array(0,0,0,0,0);
+            $finalData=array();
+            $monthIndex=0;
+            $i=0;
+            $match=0;
+            $query='select * from manager where userid='.Auth::user()->id.' and created_at >= date_add(created_at,INTERVAL -5 MONTH) order by created_at desc';
+            $transactions=DB::select($query);
+            foreach($transactions as $trans)
+            {
+                $cdate=new DateTime($trans->created_at);
+                $month=$cdate->format('M');
+                for($i=0;$i<count($months);$i++)
+                {
+                    if($month==$months[$i])
+                    {
+                        $match=1;
+                        break;
+                    }
+                }
+                if($match==false)
+                {
+                    $months[$monthIndex] = $month;
+
+                    $sign=$trans->ifc[0];
+                    if($sign=='+')
+                    {
+                             $income[$monthIndex]= intval(substr($trans->ifc, 1));
+                    }
+                    else
+                    {
+                            $expense[$monthIndex]= intval(substr($trans->ifc, 1));
+                    }
+                    $monthIndex++;
+                }
+                else
+                {
+                    $sign=$trans->ifc[0];
+                    if($sign=='+')
+                    {
+                       $income[$i]+= intval(substr($trans->ifc, 1));
+                    }
+                    else
+                    {
+                       $expense[$i]+= intval(substr($trans->ifc, 1));
+                    }
+                }
+                $match=0;
+            }
+            $cm=count($months);
+            for($i=0;$i<$cm;$i++)
+            {
+               $finalData[$i] = array('month' => $months[$i], 'income' => $income[$i],'expense'=>$expense[$i]);
+            }
+            return $finalData;
+
+        }
+        else
+            return 'wH@tS!nTheB0x';
+    }
+
 }

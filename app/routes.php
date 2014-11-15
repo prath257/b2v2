@@ -249,7 +249,8 @@
     Route::post('getQuizChartData', array('as'=>'getQuizChartData', 'uses'=>'GraphicsController@getQuizChartData'));
     Route::post('getUserChartData', array('as'=>'getUserChartData', 'uses'=>'GraphicsController@getUserData'));
     Route::post('getChatChartData', array('as'=>'getChatChartData', 'uses'=>'GraphicsController@getChatData'));
-    Route::post('getChatAuditChartData', array('as'=>'getChatAuditChartData', 'uses'=>'GraphicsController@getChatAuditData'));
+    Route::post('getExpenseChartData', array('as'=>'getExpenseChartData', 'uses'=>'GraphicsController@getExpenseChartData'));
+    Route::post('getIEChartData', array('as'=>'getIEChartData', 'uses'=>'GraphicsController@getIEChartData'));
 
 
 

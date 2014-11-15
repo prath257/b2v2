@@ -9,8 +9,11 @@
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
     <link href="{{asset('css/jquery.flipcounter.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/ifcManager.css')}}" rel="stylesheet">
+    <link href="{{asset('css/morris.css')}}" rel="stylesheet">
     <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.js')}}"></script>
+    <script src="{{asset('js/raphael.js')}}"></script>
+    <script src="{{asset('js/morris.js')}}"></script>
     <script type="text/javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
     <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
@@ -21,27 +24,31 @@
 
 <div class="container">
 
-<div class="col-lg-12" style="margin-top: 100px;">
+<div class="col-lg-12" style="margin-top: 70px; padding:0px">
+
+ <div id="right" class="col-lg-4">
     <div id="left" class="col-lg-4">
-    <div class="col-lg-12">&nbsp;</div>
-    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#earnIFCModal">Earn IFCs</a>
-    <div class="col-lg-12">&nbsp;</div>
+                    <div class="col-lg-12">&nbsp;</div>
+                    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#transferModal">Transfer IFCs</a>
+                    <br><br>
+                    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#earnIFCModal">Earn IFCs</a>
+            </div>
+       <div id="donut-ee" class="col-lg-8" style="height: 220px; padding-left: 0px; padding-right: 0px;"></div>
     </div>
 
-    <div class="col-lg-4" style="text-align: center">
+    <div class="col-lg-3" style="text-align: left">
         <div class="col-lg-12" style="font-size: 30px; font-family: 'Segoe UI'">Current Balance:</div>
-        <div id="mycounter" class="col-lg-12" style="margin-top: 30px">0</div>
-        <div class="col-lg-12">&nbsp;</div>
+        <div id="mycounter" class="col-lg-8" style="margin-top: 30px; padding:0px">0</div>
+
     </div>
 
-    <div id="right" class="col-lg-4">
-    <div class="col-lg-12">&nbsp;</div>
-    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#transferModal">Transfer IFCs</a>
-    <div class="col-lg-12">&nbsp;</div>
+
+    <div id="right" class="col-lg-5">
+        <div id="incomeGraph" style="height:240px;"></div>
     </div>
 
 </div>
-<div class="col-lg-12">&nbsp;</div>
+
 <div class="col-lg-12" style="margin-top: 30px">
     <div class="table-responsive">
     	<table id="example"  class="table table-condensed table-bordered table-hover" style="font-size: 13px" cellspacing="0" width="100%">
