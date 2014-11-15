@@ -111,10 +111,6 @@ $colors = array("#555450", "#1c5a5e", "#5fa09d", "#6e2f40", "#989d27", "#403e6f"
                                  $name = User::find($iddd)->first_name.' '.User::find($iddd)->last_name;
                                  $username = User::find($iddd)->username;
 
-                                 if ($data == 'poll')
-                                    $ifccc = Poll::find($tr)->ifc;
-                                 else
-                                    $ifccc = $tr->ifc;
                                  }
 
                                  else
@@ -122,6 +118,11 @@ $colors = array("#555450", "#1c5a5e", "#5fa09d", "#6e2f40", "#989d27", "#403e6f"
                                  $name = User::find($tr->userid)->first_name.' '.User::find($tr->userid)->last_name;
                                  $username = User::find($tr->userid)->username;
                                  }
+
+                                 if ($data == 'poll')
+                                    $ifccc = Poll::find($tr)->ifc;
+                                 else
+                                    $ifccc = $tr->ifc;
                                      ?>
                                 <div class="col-lg-12" style="padding: 0px; padding-right: 5px"><a href="{{route('user',$username)}}" target="_blank" style="color: white"><small>{{Str::limit($name,20)}}</small></a></div>
                             </div>
