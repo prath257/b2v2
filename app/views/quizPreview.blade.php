@@ -203,13 +203,13 @@
                                                      <div>
                                                          <div class="caption">
                                                              @if ($tr->text)
-                                                                 <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('articlePreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,15)}}</a></p>
+                                                                 <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('articlePreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,30)}}</a></p>
 
                                                              @elseif ($tr->review)
-                                                                 <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('blogBookPreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,15)}}</a></p>
+                                                                 <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('blogBookPreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,30)}}</a></p>
 
                                                              @else
-                                                                 <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('collaborationPreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,15)}}</a></p>
+                                                                 <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('collaborationPreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,30)}}</a></p>
 
                                                              @endif
                                                          </div>
