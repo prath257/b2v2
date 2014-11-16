@@ -399,7 +399,7 @@
 
 </div>
 
-<div class="col-lg-3" id="ActionCentre" style="padding-right: 0px" onmouseover="okToAjax(false,1)" onmouseout="okToAjax(true,1)">
+<div class="col-lg-3 col-lg-offset-9" id="ActionCentre" style="padding-right: 0px" onmouseover="okToAjax(false,1)" onmouseout="okToAjax(true,1)">
 <div id="searchnfilters" class="col-lg-12">
 
 <input id="searchPandC" class="col-lg-9 form-control" style="margin-top: 15px" onkeyup="searchAction()" onkeydown="clearSearchInterval()" onblur="okToAjax(true,2)" onfocus="okToAjax(false,2)" placeholder="Search people and content.">

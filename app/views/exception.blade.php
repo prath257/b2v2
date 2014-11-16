@@ -38,6 +38,7 @@
     <strong>Attention! Some problem has occured. We are sorry for the your inconvinience. </strong>
     <br>
     <br>
+    <div style="display: none">ThisIsNothingButWasteNoOneNeedsToReadThisNoThisAintAGlitch</div>
     <a href="http://b2.com">BBarters Home</a> @if(Auth::check()) | <a href="http://b2.com/reportException" target="_blank" style="cursor: pointer;">Report this</a> @endif
 </div>
 

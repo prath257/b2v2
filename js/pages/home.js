@@ -95,6 +95,7 @@ $(document).ready(function()
     if (width>1200)
     {
         $('#menu-group').addClass('col-lg-2');
+        $('#ActionCentre').addClass('col-lg-offset-9');
         var chartUserData=Morris.Donut({
             element: 'donut-example',
             data: [0,0]
@@ -995,10 +996,6 @@ function postRecommendation()
             beforeSend :function()
             {
                 $('#recco-data').html('<div style="text-align: center"><br><img src="http://b2.com/Images/icons/waiting.gif"> Loading site data..</div>');
-            },
-            error:function ()
-            {
-                $('#recco-data').html('<div style="text-align: center"><br>Failed to load site data. Try another URL.</div>');
             }
         })
         .done(function(response)
@@ -1014,7 +1011,10 @@ function postRecommendation()
             }
             else
             {
-                $('#recco-data').html(response);
+                if (response.indexOf("ThisIsNothingButWasteNoOneNeedsToReadThisNoThisAintAGlitch") == -1)
+                    $('#recco-data').html(response);
+                else
+                    $('#recco-data').html('<div style="text-align: center"><br>Failed to load site data. Try another URL.</div>');
             }
         });
     }
