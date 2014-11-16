@@ -1,7 +1,7 @@
 @if ($moreActions == null && $count == null)
     <div class="col-lg-12">
 
-    <div id="ActionContent" style="max-height: 500px; overflow: auto;">
+    <div id="ActionContent" style="max-height: 450px; overflow: auto;">
 @endif
     @foreach ($actions as $action)
     <?php $user1=User::find($action->user1id);?>

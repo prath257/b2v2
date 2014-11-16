@@ -81,6 +81,14 @@ $(document).ready(function()
             $('#'+category+'-recco').html(cachedMarkup);
             var keywords = $('#searchRecco').val('');
         }
+
+        if ($(e.target).is('#searchnfilters,#searchnfilters *')) {
+            //Do Nothing
+        }
+        else
+        {
+            $('#filterdiv').slideUp(300);
+        }
     });
 
     var width = $(window).width();
@@ -978,10 +986,22 @@ function postRecommendation()
 
     if($('#recco-form').data('bootstrapValidator').isValid())
     {
-        $('#recco-data').html('<div style="text-align: center"><br><img src="http://b2.com/Images/icons/waiting.gif"> Loading site data..</div>');
         var url = $('#reccoLink').val();
 
-        $.post('http://b2.com/post_recco', {url: url}, function(response)
+        $.ajax({
+            type: "POST",
+            url: "http://b2.com/post_recco",
+            data:{url: url},
+            beforeSend :function()
+            {
+                $('#recco-data').html('<div style="text-align: center"><br><img src="http://b2.com/Images/icons/waiting.gif"> Loading site data..</div>');
+            },
+            error:function ()
+            {
+                $('#recco-data').html('<div style="text-align: center"><br>Failed to load site data. Try another URL.</div>');
+            }
+        })
+        .done(function(response)
         {
             if (response == 'wH@tS!nTheB0x')
                 window.location='http://b2.com/offline';
@@ -1458,18 +1478,25 @@ function submitSuggestion()
     var text = $('#suggestionText').val();
     var type = $('#current-suggestion-type').val();
 
-    $.post('http://b2.com/postSuggestion', {category: category, text: text, type: type}, function(markup)
+    $('#newSuggestionForm').data('bootstrapValidator').validate();
+
+    if($('#newSuggestionForm').data('bootstrapValidator').isValid())
     {
-        if (markup == 'wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
-        else if (markup == 'success') {
-            $('#newSuggestionModal').modal('hide');
-            $('#suggestionText').val('');
-            $('#current-suggestion-type').val('');
-            bootbox.alert('Suggestion posted Successfully.');
-            showSuggestions(type);
-        }
-    });
+        $.post('http://b2.com/postSuggestion', {category: category, text: text, type: type}, function (markup) {
+            if (markup == 'wH@tS!nTheB0x')
+                window.location = 'http://b2.com/offline';
+            else if (markup == 'success')
+            {
+                $('#newSuggestionModal').modal('hide');
+                $('#suggestionSubmit').prop('disabled',false);
+                $('#suggestionSubmit').html('Submit');
+                $('#suggestionText').val('');
+                $('#current-suggestion-type').val('');
+                bootbox.alert('Suggestion posted Successfully.');
+                showSuggestions(type);
+            }
+        });
+    }
 }
 
 function writeSuggestion(type, title, category)
