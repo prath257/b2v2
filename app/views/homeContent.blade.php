@@ -77,13 +77,13 @@ $colors = array("#555450", "#1c5a5e", "#5fa09d", "#6e2f40", "#989d27", "#403e6f"
                     <div class="col-lg-12" style="padding: 0px; height: 100%">
 
                         @if ($data == 'quiz')
-                                            <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="col-lg-12" style="padding: 0px" src="{{asset('Images/Quiz.jpg')}}" height="100px"></a>
+                                            <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="col-lg-12" style="padding: 0px; height: 225px" src="{{asset('Images/Quiz.jpg')}}"></a>
                                         @elseif($data == 'poll')
-                                            <a href="{{route($ClassicRoutes,$tr)}}" target="_blank"><img class="col-lg-12" style="padding: 0px" src="{{asset('Images/Poll.png')}}" height="100px"></a>
+                                            <a href="{{route($ClassicRoutes,$tr)}}" target="_blank"><img class="col-lg-12" style="padding: 0px; height: 225px" src="{{asset('Images/Poll.png')}}"></a>
                                         @elseif($data == 'res')
-                                            <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="col-lg-12" style="padding: 0px" src="{{asset('Images/Resource.jpg')}}" height="100px"></a>
+                                            <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="col-lg-12" style="padding: 0px; height: 225px" src="{{asset('Images/Resource.jpg')}}"></a>
                                         @else
-                                            <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="col-lg-12" style="padding: 0px" src="{{asset($tr->cover)}}" height="100px"></a>
+                                            <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="col-lg-12" style="padding: 0px; height: 225px" src="{{asset($tr->cover)}}"></a>
                                         @endif
                         <div class="col-lg-12" style="padding: 15px">
                         <?php
