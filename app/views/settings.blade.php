@@ -201,7 +201,7 @@
               <div id="accountSettingsMessage" class="col-lg-8" style="text-align: right; color: darkred"></div>
 
               </div>
-@elseif($mode = 'getinterests')
+@elseif($mode == 'getinterests')
 <div class="col-lg-12 container-fluid">
                 <div class="col-lg-3">
                     <div class="list-group col-lg-12">

@@ -47,7 +47,9 @@ class TransactionController extends \BaseController
 
             $users=Manager::where('userid','=',Auth::user()->id)->get();
 
-            return View::make('ifcManager')->with('friends', $users1)->with('users',$users);
+            $categories=Auth::user()->interestedIn()->get();
+
+            return View::make('ifcManager')->with('friends', $users1)->with('users',$users)->with('categories',$categories);
     }
 
 }

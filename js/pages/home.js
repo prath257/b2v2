@@ -47,64 +47,55 @@ var allReccoCount = 0;
 var reccoTimer;
 var cachedMarkup;
 
-$(document).ready(function()
-{
+$(document).ready(function() {
 
     var contentSwap = $('#home-content').html();
     $('#home-content').html('');
     $('#active-content').html(contentSwap);
 
-    defaults.selectedItemChanged=function(item){
-        if(item==1)
-        {
+    defaults.selectedItemChanged = function (item) {
+        if (item == 1) {
 
         }
-        if(item==2)
-        {
+        if (item == 2) {
             resData();
 
         }
-        if(item==3)
-        {
+        if (item == 3) {
             quizData();
         }
     };
 
 
+    $('#ActionCentre').height($(window).height() * 0.9);
 
-    $('#ActionCentre').height($(window).height()*0.9);
-
-    $(document).click(function(e){
-        if (!$(e.target).is('#searchRecco,#searhRecco *,#RECCO-FILTER,#RECCO-FILTER *,.recco-duo-tabs,.recco-duo-tabs *'))
-        {
+    $(document).click(function (e) {
+        if (!$(e.target).is('#searchRecco,#searhRecco *,#RECCO-FILTER,#RECCO-FILTER *,.recco-duo-tabs,.recco-duo-tabs *')) {
             var category = $('#recco-tab').val();
-            $('#'+category+'-recco').html(cachedMarkup);
+            $('#' + category + '-recco').html(cachedMarkup);
             var keywords = $('#searchRecco').val('');
         }
 
         if ($(e.target).is('#searchnfilters,#searchnfilters *')) {
             //Do Nothing
         }
-        else
-        {
+        else {
             $('#filterdiv').slideUp(300);
         }
     });
 
     var width = $(window).width();
-    if (width>1200)
-    {
+    if (width > 1200) {
         $('#menu-group').addClass('col-lg-2');
         $('#ActionCentre').addClass('col-lg-offset-9');
-        var chartUserData=Morris.Donut({
+        var chartUserData = Morris.Donut({
             element: 'donut-example',
-            data: [0,0]
+            data: [0, 0]
         });
 
 
     }
-    else
-    {
+    else {
         $('#donut-example').hide();
     }
 
@@ -113,56 +104,52 @@ $(document).ready(function()
     $('body').fadeIn();
 
     // Create a function that will handle AJAX requests
-    function requestData(days, chart, type)
-    {
-        try
-        {
+    function requestData(days, chart, type) {
+        try {
             $.ajax({
                 type: "POST",
                 dataType: 'json',
-                url: "http://b2.com/get"+type+"ChartData", // This is the URL to the API
-                data: { days: days }
+                url: "http://b2.com/get" + type + "ChartData", // This is the URL to the API
+                data: {days: days}
             })
-                .done(function( data ) {
-                    if(data=='wH@tS!nTheB0x')
-                        window.location='http://b2.com/offline';
-                    else
-                    {
+                .done(function (data) {
+                    if (data == 'wH@tS!nTheB0x')
+                        window.location = 'http://b2.com/offline';
+                    else {
                         // When the response to the AJAX request comes back render the chart with new data
                         chart.setData(data);
                     }
                 })
-                .fail(function() {
+                .fail(function () {
                     // If there is no communication between the server, show an error
                     // alert( "error occured" );
                 });
         }
-        catch(error)
-        {
+        catch (error) {
             //do nothing about the error
         }
     }
+
     // Request initial data for the past 7 days:
-       requestData(7, chartUserData,'User');
+    requestData(7, chartUserData, 'User');
 
 
-    $('#categoryData a').click(function(e)
-    {
+    $('#categoryData a').click(function (e) {
         e.preventDefault();
 
         // Get the number of days from the data attribute
         var el = $(this);
-        var pp=el.closest('li');
-        var p=pp[0];
+        var pp = el.closest('li');
+        var p = pp[0];
         $("#categoryData>li.active").removeClass("active");
         pp.addClass('active');
-        cat= p.id;
+        cat = p.id;
         getCategoryNotifications(cat);
     })
 
 
     $('#inviteForm').bootstrapValidator({
-        live:'enabled',
+        live: 'enabled',
         submitButtons: 'button[id="inviteSubmit"]',
         message: 'This value is not valid',
         fields: {
@@ -198,7 +185,7 @@ $(document).ready(function()
     });
 
     $('#transferForm').bootstrapValidator({
-        live:'enabled',
+        live: 'enabled',
         submitButtons: 'button[id="transferSubmit"]',
         message: 'This value is not valid',
         fields: {
@@ -214,8 +201,8 @@ $(document).ready(function()
                     notEmpty: {
                         message: 'Please select an amount to be transferred'
                     },
-                    integer:{
-                        message:'The value must be an integer'
+                    integer: {
+                        message: 'The value must be an integer'
                     },
                     between: {
                         min: 1,
@@ -229,7 +216,7 @@ $(document).ready(function()
     });
 
     $('#recco-form').bootstrapValidator({
-        live:'enabled',
+        live: 'enabled',
         submitButtons: 'button[id="recco-submit"]',
         message: 'This value is not valid',
         fields: {
@@ -247,7 +234,7 @@ $(document).ready(function()
     });
 
     $('#newSuggestionForm').bootstrapValidator({
-        live:'enabled',
+        live: 'enabled',
         submitButtons: 'button[id="suggestionSubmit"]',
         message: 'This value is not valid',
         fields: {
@@ -273,36 +260,31 @@ $(document).ready(function()
         }
     });
 
-    $('#inviteForm').submit(function(event)
-    {
+    $('#inviteForm').submit(function (event) {
 
         /* stop form from submitting normally */
         event.preventDefault();
     });
 
-    $('#newSuggestionForm').submit(function(event)
-    {
+    $('#newSuggestionForm').submit(function (event) {
 
         /* stop form from submitting normally */
         event.preventDefault();
     });
 
-    $('#transferForm').submit(function(event)
-    {
+    $('#transferForm').submit(function (event) {
 
         /* stop form from submitting normally */
         event.preventDefault();
     });
 
-    $('#recco-form').submit(function(event)
-    {
+    $('#recco-form').submit(function (event) {
 
         /* stop form from submitting normally */
         event.preventDefault();
     });
 
-    $('#searchForm').submit(function(event)
-    {
+    $('#searchForm').submit(function (event) {
 
         /* stop form from submitting normally */
         event.preventDefault();
@@ -310,10 +292,9 @@ $(document).ready(function()
     });
 
     $("#mycounter").flipCounterInit({'speed': 0.05});
-    $.post('http://b2.com/getIFCs', function(ifcs)
-    {
-        if(ifcs=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
+    $.post('http://b2.com/getIFCs', function (ifcs) {
+        if (ifcs == 'wH@tS!nTheB0x')
+            window.location = 'http://b2.com/offline';
         else
             $("#mycounter").flipCounterUpdate(ifcs);
     });
@@ -321,216 +302,17 @@ $(document).ready(function()
     getFriendsContent();
     actionAjax();
     loadActionCenter();
-    loadRecco(0,allReccoCount+5,'gibber','increment','created_at');
-    loadMyRecco(0,myReccoCount+5,'gibber','increment','created_at');
+    loadRecco(0, allReccoCount + 5, 'gibber', 'increment', 'created_at');
+    loadMyRecco(0, myReccoCount + 5, 'gibber', 'increment', 'created_at');
 
-    window.onbeforeunload = function()
-    {
-        $.post('http://b2.com/removeIsOnline',function(error)
-        {
-            if(error=='wH@tS!nTheB0x' && loggedout == false)
-            {
+    window.onbeforeunload = function () {
+        $.post('http://b2.com/removeIsOnline', function (error) {
+            if (error == 'wH@tS!nTheB0x' && loggedout == false) {
                 loggedout = true;
-                window.location='http://b2.com/offline';
+                window.location = 'http://b2.com/offline';
             }
         });
     }
-
-    $('#newArticleForm').bootstrapValidator({
-        live:'enabled',
-        submitButtons: 'button[id="newArticleSubmit"]',
-        message: 'This value is not valid',
-        fields: {
-            uploadArtCover: {
-                message: 'The cover pic is not valid',
-                validators: {
-                    file: {
-                        // extension: 'jpeg,png,jpg,gif',
-                        type: 'image/jpeg,image/jpg,image/png,image/gif',
-                        maxSize: 2048 * 1024,   // 2 MB
-                        message: '  Max 2MB, allowed types: JPG,PNG or GIF'
-                    },
-                    notEmpty: {
-                        message: 'Please Select an Article Cover!'
-                    }
-                }
-            },
-            Artcategory: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please select a category'
-                    }
-                }
-            },
-            title: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please give a Title'
-                    },
-                    stringLength: {
-                        min: 1,
-                        max: 255,
-                        message: 'Min 1 character and Max 255 characters'
-                    }
-                }
-            },
-            shortDescription: {
-                validators: {
-                    notEmpty: {
-                        message: 'A short and sweet description is required'
-                    },
-                    stringLength: {
-                        min: 10,
-                        max: 300,
-                        message: 'Min 10 and Max 300 characters'
-                    }
-                }
-            },
-            ifc: {
-                validators: {
-                    integer: {
-                        message: 'Number!'
-                    },
-                    between: {
-                        min: 0,
-                        max: 10000,
-                        message: 'Less than 10000i'
-                    }
-                }
-            }
-        }
-    });
-
-    $('#newBlogBookForm').bootstrapValidator({
-        live:'enabled',
-        submitButtons: 'button[id="newBlogBookSubmit"]',
-        message: 'This value is not valid',
-        fields: {
-            uploadBBCover: {
-                message: 'The cover pic is not valid',
-                validators: {
-                    file: {
-                        //extension: 'jpeg,png,jpg,gif',
-                        type: 'image/jpeg,image/jpg,image/png,image/gif',
-                        maxSize: 2048 * 1024,   // 2 MB
-                        message: '  Max 2MB, allowed types: JPG,PNG or GIF'
-                    },
-                    notEmpty: {
-                        message: 'Please Select a Book Cover!'
-                    }
-                }
-            },
-            title: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please give a Title'
-                    },
-                    stringLength: {
-                        min: 1,
-                        max: 255,
-                        message: 'The title must be at least a character and less than 255 characters'
-                    }
-                }
-            },
-            shortDescription: {
-                validators: {
-                    notEmpty: {
-                        message: 'A short and sweet description is required'
-                    },
-                    stringLength: {
-                        min: 10,
-                        max: 300,
-                        message: 'Min 10 and Max 300 characters'
-                    }
-                }
-            },
-            category: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please select a category'
-                    }
-                }
-            },
-            ifc: {
-                validators: {
-                    integer: {
-                        message: 'Number!'
-                    },
-                    between: {
-                        min: 0,
-                        max: 10000,
-                        message: 'Less than 10000i'
-                    }
-                }
-            }
-        }
-    });
-
-    $('#newCollaborationForm').bootstrapValidator({
-        live:'enabled',
-        submitButtons: 'button[id="newCollaborationSubmit"]',
-        message: 'This value is not valid',
-        fields: {
-            uploadCollabCover: {
-                message: 'The cover pic is not valid',
-                validators: {
-                    file: {
-                        //extension: 'jpeg,png,jpg,gif',
-                        type: 'image/jpeg,image/jpg,image/png,image/gif',
-                        maxSize: 2048 * 1024,   // 2 MB
-                        message: '  Max 2MB, allowed types: JPG,PNG or GIF'
-                    },
-                    notEmpty: {
-                        message: 'Please Select a Book Cover!'
-                    }
-                }
-            },
-            title: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please give a Title'
-                    },
-                    stringLength: {
-                        min: 1,
-                        max: 255,
-                        message: 'The title must be at least a character and less than 255 characters'
-                    }
-                }
-            },
-            shortDescription: {
-                validators: {
-                    notEmpty: {
-                        message: 'A short and sweet description is required'
-                    },
-                    stringLength: {
-                        min: 10,
-                        max: 300,
-                        message: 'Min 10 and Max 300 characters'
-                    }
-                }
-            },
-            category: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please select a category'
-                    }
-                }
-            },
-            ifc: {
-                validators: {
-                    integer: {
-                        message: 'Number!'
-                    },
-                    between: {
-                        min: 0,
-                        max: 10000,
-                        message: 'Less than 10000i'
-                    }
-                }
-            }
-        }
-    });
-
 });
 
 function getFriendsContent()
@@ -1360,91 +1142,6 @@ function openPivots(pivotName)
     $('#'+pivotName+'-content').html('');
     $('#active-content').html(contentSwap);
     $('#current-content').val(pivotName);
-}
-
-function changeArticleCover()
-{
-    var previewId = document.getElementById('defaultArtCover');
-    previewId.src = '';
-
-    var selectedImg = $('#uploadArtCover')[0].files[0];
-
-    var oReader = new FileReader();
-    oReader.onload = function(e)
-    {
-        previewId.src=e.target.result;
-    }
-    oReader.readAsDataURL(selectedImg);
-}
-
-function openNewArticleModal()
-{
-    $("#Artcategory option[value='']").remove();
-    var interestId = $('#Artcategory').val();
-    var interestName = $("#Artcategory option[value='"+interestId+"']").text();
-    var device='Mobile';
-    var width=$(document).width();
-    if (width > 500)
-    {
-        device='Desktop';
-    }
-
-    $.post('http://b2.com/getTypes', {interestName: interestName, device: device}, function(markup)
-    {
-        if(markup=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
-        else
-        {
-            $('#optionsDiv').html(markup);
-            $('.buttons').tooltip();
-            $('#newArticleModal').modal('show');
-            $('#category').val(interestId);
-            $('#articleType').val('Article');
-
-            if (device=='Mobile')
-            {
-                $('.mobileButton').addClass('mobileButtons');
-                $('.buttons').addClass('mobileButtons');
-            }
-        }
-    });
-}
-
-function changeArticleType(button,type)
-{
-    $('#articleType').val(type);
-    $('.buttons').removeClass('active');
-    $(button).addClass('active');s
-}
-
-function changeBlogBookCover()
-{
-    var previewId = document.getElementById('defaultBBCover');
-    previewId.src = '';
-
-    var selectedImg = $('#uploadBBCover')[0].files[0];
-
-    var oReader = new FileReader();
-    oReader.onload = function(e)
-    {
-        previewId.src=e.target.result;
-    }
-    oReader.readAsDataURL(selectedImg);
-}
-
-function changeCollaborationCover()
-{
-    var previewId = document.getElementById('defaultCollabCover');
-    previewId.src = '';
-
-    var selectedImg = $('#uploadCollabCover')[0].files[0];
-
-    var oReader = new FileReader();
-    oReader.onload = function(e)
-    {
-        previewId.src=e.target.result;
-    }
-    oReader.readAsDataURL(selectedImg);
 }
 
 function showSuggestions(request)

@@ -83,7 +83,7 @@
 			<button type="button" id="mediaButton" class="btn btn-success" onclick="uploadMedia()">Upload Media</button>
             <button type="button" id="resourceButton" class="btn btn-danger" onclick="addResource()">Add Resource</button>
             @endif
-			<a id="cancel" class="btn btn-default" href="{{route('articleDashboard')}}">Cancel</a>
+			<a id="cancel" class="btn btn-default" href="{{route('home')}}">Cancel</a>
 			<strong><span id="error-box" style="color: darkred"></span></strong>
             <br>
             <br>

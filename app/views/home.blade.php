@@ -509,19 +509,19 @@
                         <br>
 
                         <div class="col-lg-6">
-                            <a href="{{route('articleDashboard')}}" style="text-decoration: none" target="_blank"><b>ARTICLE:</b></a><br>
+                            <a data-toggle="modal" data-target="#newArticleModal" style="text-decoration: none; cursor: pointer" target="_blank"><b>ARTICLE:</b></a><br>
                             A page long write-up regarding anything that excites you or drives you to write.<br>
                             <hr>
                         </div>
 
                         <div class="col-lg-6">
-                            <a href="{{route('blogBookDashboard')}}" style="text-decoration: none" target="_blank"><b>BLOGBOOK:</b></a><br>
+                            <a data-toggle="modal" data-target="#newBlogBookModal" style="text-decoration: none; cursor: pointer" target="_blank"><b>BLOGBOOK:</b></a><br>
                             Start witing a book and keep on updating it from time to time by adding more and more chapters to it.<br>
                             <hr>
                         </div>
 
                         <div class="col-lg-6">
-                            <a href="{{route('collaborationsDashboard')}}" style="text-decoration: none" target="_blank"><b>COLLABORATION:</b></a><br>
+                            <a data-toggle="modal" data-target="#newCollaborationModal" style="text-decoration: none; cursor: pointer" target="_blank"><b>COLLABORATION:</b></a><br>
                             Collaborate with people who could collectively write well about a particular topic.<br>
                             <hr>
                         </div>
@@ -631,249 +631,7 @@
     </div>
 </div><!-- End of IFC Manager -->
 
-<!-- NewCollaboration Modal -->
-<div class="modal fade" id="newCollaborationModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">New Collaboration</h4>
-            </div>
-            <div id="inviteBody" class="modal-body">
-                {{Form::open(array('route'=>'newCollaboration','id'=>'newCollaborationForm','class'=>'form-horizontal','files'=>true))}}
-                <!--<form id="newCollaborationForm" method="post" action="{{route('newCollaboration')}}" enctype="multipart/form-data" class="form-horizontal">-->
-                    <fieldset>
-
-                        <img id="defaultCollabCover" class="col-lg-6 col-lg-offset-3" style="height: 200px" src="{{asset('Images/Collaboration.jpg')}}">
-
-                        <div class="col-lg-12">&nbsp;</div>
-
-                        <div class="col-lg-6 col-lg-offset-3 fileUpload btn btn-default">
-                            <span>Upload Collaboration Cover</span>
-                            <input type="file" id="uploadCollabCover" class="upload" name="uploadCollabCover" style="width: 100%" onchange="changeCollaborationCover()" />
-                        </div>
-
-                        <div class="col-lg-12">&nbsp;</div>
-
-                        <div class="form-group">
-                            <label class=" col-lg-3 control-label">Title</label>
-                            <div class="col-lg-7">
-                                <input type="text" id="title" class="form-control" name="title" placeholder="Project Title" autocomplete="off" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class=" col-lg-3 control-label">Short Description</label>
-                            <div class="col-lg-7">
-                                <textarea id="shortDescription" class="form-control" name="shortDescription" rows="3" placeholder="A short and precise description for your new Collaboration."></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Category</label>
-                            <div class="col-lg-7">
-                                <select id="category" class="form-control" name="category">
-                                    <option value="">Select a Category</option>
-                                    @foreach($categories as $cat)
-                                    <option value="{{$cat->id}}">{{$cat->interest_name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Cost</label>
-                            <div class="col-lg-7">
-                                <div class="input-group">
-                                    <input id="ifc" name="ifc" type="text" class="form-control" value="0" autocomplete="off">
-                                    <span class="input-group-addon">IFCs</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">&nbsp;</div>
-                        <div class="form-group col-lg-offset-1">
-                            <div class="col-lg-3" style="text-align: right">
-                                <strong>NOTE: </strong>
-                            </div>
-                            <div class="col-lg-7">
-                                You can add more people to your collaboration only when your collaboration contains at least one chapter posted by you.
-                            </div>
-                        </div>
-                        <div class="col-lg-12">&nbsp;</div>
-
-                    </fieldset>
-                    <div class="form-group">
-                        <div class="col-lg-9 col-lg-offset-3">
-                            <button type="submit" id="newCollaborationSubmit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End of NewCollaboration Modal -->
-
-<!-- NewBlogBook Modal -->
-<div class="modal fade" id="newBlogBookModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">New BlogBook</h4>
-            </div>
-            <div id="inviteBody" class="modal-body">
-                {{Form::open(array('route'=>'postBlogBookDashboard','id'=>'newBlogBookForm','class'=>'form-horizontal','files'=>true))}}
-                <!--<form id="newBlogBookForm" method="post" action="{{route('postBlogBookDashboard')}}" enctype="multipart/form-data" class="form-horizontal">-->
-                    <fieldset>
-
-                        <img id="defaultBBCover" class="col-lg-6 col-lg-offset-3" style="height: 200px" src="{{asset('Images/BlogBook.jpg')}}">
-
-                        <div class="col-lg-12">&nbsp;</div>
-
-                        <div class="col-lg-6 col-lg-offset-3 fileUpload btn btn-default">
-                            <span>Upload BlogBook Cover</span>
-                            <input type="file" id="uploadBBCover" class="upload" name="uploadBBCover" style="width: 100%; padding: 0px" onchange="changeBlogBookCover()" />
-                        </div>
-
-                        <div class="col-lg-12">&nbsp;</div>
-
-                        <div class="form-group">
-                            <label class=" col-lg-3 control-label">Title</label>
-                            <div class="col-lg-7">
-                                <input type="text" id="title" class="form-control" name="title" placeholder="BlogBook Title" autocomplete="off" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class=" col-lg-3 control-label">Short Description</label>
-                            <div class="col-lg-7">
-                                <textarea id="shortDescription" class="form-control" name="shortDescription" rows="3" placeholder="A short and precise description for your new BlogBook."></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Category</label>
-                            <div class="col-lg-7">
-                                <select id="category" class="form-control" name="category">
-                                    <option value="">Select a Category</option>
-                                    @foreach($categories as $cat)
-                                    <option value="{{$cat->id}}">{{$cat->interest_name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Cost</label>
-                            <div class="col-lg-7">
-                                <div class="input-group">
-                                    <input id="ifc" name="ifc" type="text" class="form-control" value="0" autocomplete="off">
-                                    <span class="input-group-addon">IFCs</span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </fieldset>
-                    <div class="form-group">
-                        <div class="col-lg-9 col-lg-offset-3">
-                            <button type="submit" id="newBlogBookSubmit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                {{Form::close()}}
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End of NewBlogBook Modal -->
-
-<!-- Modal to input initial details of the article -->
-<div class="modal fade" id="newArticleModal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">New Article</h4>
-			</div>
-			<div id="inviteBody" class="modal-body">
-
-                {{Form::open(array('route'=>'postArticleDashboard','id'=>'newArticleForm','class'=>'form-horizontal','files'=>true))}}
-				<!--<form id="newArticleForm" class="form-horizontal" method="post" action="{{route('postArticleDashboard')}}" enctype="multipart/form-data">-->
-					<fieldset>
-
-                        <div class="form-group">
-							<label class=" col-lg-3 control-label">Select a category:</label>
-							<div class="col-lg-6">
-								<select id="Artcategory" class="form-control" name="Artcategory" onchange="openNewArticleModal()">
-                                    <option value="">Select from list</option>
-                                    @foreach($categories as $cat)
-                                    <option value="{{$cat->id}}">{{$cat->interest_name}}</option>
-                                    @endforeach
-                                </select>
-							</div>
-						</div>
-                        {{--@foreach ($categories as $cat)
-                            <a href="#" onclick="openNewArticleModal('{{$cat->interest_name}}',{{$cat->id}})" class="btn btn-success">+ {{$cat->interest_name}}</a>
-                        @endforeach--}}
-                        <div id="optionsDiv" class="col-lg-12">
-
-                        </div>
-
-                        <input type="hidden" id="articleType" name="articleType" value="Article">
-
-
-                        <div class="col-lg-12">&nbsp;</div>
-
-                        <img id="defaultArtCover" class="col-lg-6 col-lg-offset-3" style="height: 200px" src="{{asset('Images/Article.png')}}">
-
-                        <div class="col-lg-12">&nbsp;</div>
-
-                        <div class="col-lg-6 col-lg-offset-3 fileUpload btn btn-default">
-                            <span>Upload Article Cover</span>
-                            <input type="file" id="uploadArtCover" class="upload" name="uploadArtCover" style="width: 100%" onchange="changeArticleCover()" />
-                        </div>
-
-                        <div class="col-lg-12">&nbsp;</div>
-
-						<div class="form-group">
-							<label class=" col-lg-3 control-label">Title</label>
-							<div class="col-lg-6">
-								<input type="text" id="title" class="form-control" name="title" placeholder="Article Title" autocomplete="off" />
-							</div>
-						</div>
-
-                        <div class="form-group">
-                            <label class=" col-lg-3 control-label">Short Description</label>
-                            <div class="col-lg-7">
-                                <textarea id="shortDescription" class="form-control" name="shortDescription" rows="3" placeholder="A short and precise description."></textarea>
-                            </div>
-                        </div>
-
-						<div class="form-group">
-							<label class="col-lg-3 control-label">Cost</label>
-							<div class="col-lg-6">
-								<div class="input-group">
-									<input id="ifc" name="ifc" type="text" class="form-control" value="0" autocomplete="off">
-									<span class="input-group-addon">IFCs</span>
-								</div>
-							</div>
-						</div>
-
-					</fieldset>
-					<div class="form-group">
-						<div class="col-lg-9 col-lg-offset-3">
-							<button type="submit" id="newArticleSubmit" class="btn btn-primary">Submit</button>
-						</div>
-					</div>
-                {{Form::close()}}
-
-			</div>
-		</div>
-	</div>
-</div>
+@include('createArticleBlogBookCollaboration')
 
 <!-- Modal to show the sharing of Article -->
 
@@ -935,6 +693,7 @@
 <script src="{{asset('js/bootstrap.js')}}"></script>
 <script src="{{asset('js/bootstrapValidator.min.js')}}"></script>
 <script src="{{asset('js/pages/home.js')}}"></script>
+<script src="{{asset('js/createArticleBlogBookCollaboration.js')}}"></script>
 <script src="{{asset('js/bootbox.js')}}"></script>
 <script src="{{asset('js/jstween-1.1.min.js')}}"></script>
 <script src="{{asset('js/jquery.flipcounter.js')}}"></script>

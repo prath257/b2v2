@@ -455,7 +455,9 @@ class HomeController extends BaseController
             })->get();*/
         $chat = null;
 
-        return View::make('ongoingChats')->with('chat',$chat);
+        $categories=Auth::user()->interestedIn()->get();
+
+        return View::make('ongoingChats')->with('chat',$chat)->with('categories',$categories);
         /*->with('ongoingChats',$ongoingChats)*/
     }
 

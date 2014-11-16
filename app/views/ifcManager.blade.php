@@ -208,19 +208,19 @@
                         <br>
 
                         <div class="col-lg-6">
-                            <a href="{{route('articleDashboard')}}" style="text-decoration: none" target="_blank"><b>ARTICLE:</b></a><br>
+                            <a data-toggle="modal" data-target="#newArticleModal" style="text-decoration: none; cursor: pointer" target="_blank"><b>ARTICLE:</b></a><br>
                             A page long write-up regarding anything that excites you or drives you to write.<br>
                             <hr>
                         </div>
 
                         <div class="col-lg-6">
-                            <a href="{{route('blogBookDashboard')}}" style="text-decoration: none" target="_blank"><b>BLOGBOOK:</b></a><br>
+                            <a data-toggle="modal" data-target="#newBlogBookModal" style="text-decoration: none; cursor: pointer" target="_blank"><b>BLOGBOOK:</b></a><br>
                             Start witing a book and keep on updating it from time to time by adding more and more chapters to it.<br>
                             <hr>
                         </div>
 
                         <div class="col-lg-6">
-                            <a href="{{route('collaborationsDashboard')}}" style="text-decoration: none" target="_blank"><b>COLLABORATION:</b></a><br>
+                            <a data-toggle="modal" data-target="#newCollaborationModal" style="text-decoration: none; cursor: pointer" target="_blank"><b>COLLABORATION:</b></a><br>
                             Collaborate with people who could collectively write well about a particular topic.<br>
                             <hr>
                         </div>
@@ -247,9 +247,7 @@
     </div>
 </div>
 
-
-
-
+@include('createArticleBlogBookCollaboration')
 
 </div>
 <!-- End of IFC Manager -->
@@ -262,6 +260,6 @@
 <script src="{{asset('js/bootbox.js')}}"></script>
 <script src="{{asset('js/jstween-1.1.min.js')}}"></script>
 <script src="{{asset('js/jquery.flipcounter.js')}}"></script>
-
+<script src="{{asset('js/createArticleBlogBookCollaboration.js')}}"></script>
 </body>
 </html>

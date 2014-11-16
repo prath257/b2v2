@@ -173,7 +173,8 @@ class BaseController extends Controller
     {
         $contentIFC = null;
         $userIFC = null;
-        return View::make('ifcDeficit')->with('contentIFC', $contentIFC)->with('userIFC', $userIFC);
+        $categories=Auth::user()->interestedIn()->get();
+        return View::make('ifcDeficit')->with('contentIFC', $contentIFC)->with('userIFC', $userIFC)->with('categories', $categories);
     }
 
     public function hathwayStopIt()

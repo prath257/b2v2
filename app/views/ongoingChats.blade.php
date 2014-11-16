@@ -101,15 +101,9 @@
         <div class="col-lg-12">
             <form id="chatSearchForm" class="col-lg-12" role="search">
                 <div class="form-group col-lg-12">
-                    <input id="chatSearch" type="text" class="form-control" placeholder="Search" style="width: 100%" autocomplete="off">
-                    <!-- Modal to display search results -->
-                    <div id="chatSearchModal">
-                        <div id="chatSearchResultsModal">
-                            <div  class="modal-body" style="padding-left: 10px; padding-top: 15px; padding-bottom: 15px; padding-right: 10px">
-                                <fieldset id="chatSearchText"></fieldset>
-                            </div>
-                        </div>
-                    </div>
+                    <input id="chatSearch" type="text" class="form-control" placeholder="Search" style="width: 100%" autocomplete="off" onfocus="showChatSearchResultBox()" onblur="hideChatSearchResultBox()" onkeyup="keyUpChatSearch(event)" onkeydown="keyDownChatSearch()">
+
+                    <div id="chatSearchText"></div>
                 </div>
             </form>
         </div>
@@ -227,19 +221,19 @@
                         <br>
 
                         <div class="col-lg-6">
-                            <a href="{{route('articleDashboard')}}" style="text-decoration: none" target="_blank"><b>ARTICLE:</b></a><br>
+                            <a data-toggle="modal" data-target="#newArticleModal" style="text-decoration: none; cursor: pointer" target="_blank"><b>ARTICLE:</b></a><br>
                             A page long write-up regarding anything that excites you or drives you to write.<br>
                             <hr>
                         </div>
 
                         <div class="col-lg-6">
-                            <a href="{{route('blogBookDashboard')}}" style="text-decoration: none" target="_blank"><b>BLOGBOOK:</b></a><br>
+                            <a data-toggle="modal" data-target="#newBlogBookModal" style="text-decoration: none; cursor: pointer" target="_blank"><b>BLOGBOOK:</b></a><br>
                             Start witing a book and keep on updating it from time to time by adding more and more chapters to it.<br>
                             <hr>
                         </div>
 
                         <div class="col-lg-6">
-                            <a href="{{route('collaborationsDashboard')}}" style="text-decoration: none" target="_blank"><b>COLLABORATION:</b></a><br>
+                            <a data-toggle="modal" data-target="#newCollaborationModal" style="text-decoration: none; cursor: pointer" target="_blank"><b>COLLABORATION:</b></a><br>
                             Collaborate with people who could collectively write well about a particular topic.<br>
                             <hr>
                         </div>
@@ -303,6 +297,8 @@
     </div>
 </div>
 
+@include('createArticleBlogBookCollaboration')
+
 <input type="hidden" id="refreshed" value="no">
 <script src="{{asset('js/reload.js')}}"></script>
 
@@ -311,5 +307,6 @@
     <script src="{{asset('js/pages/ongoingChats.js')}}"></script>
     <script src="{{asset('js/search.js')}}"></script>
     <script src="{{asset('js/bootbox.js')}}"></script>
+    <script src="{{asset('js/createArticleBlogBookCollaboration.js')}}"></script>
 </body>
 </html>

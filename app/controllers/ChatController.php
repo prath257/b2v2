@@ -420,4 +420,27 @@ class ChatController extends \BaseController
         else
             return 'wH@tS!nTheB0x';
     }
+
+    public function chatsearch()
+    {
+        if(Auth::check())
+        {
+            $keywords = Input::get('keywords');
+            $users = User::all();
+            $searchUsers=new \Illuminate\Database\Eloquent\Collection();
+            foreach ($users as $user)
+            {
+                $fullname = $user->first_name.' '.$user->last_name;
+                if(Str::contains(Str::lower($fullname),Str::lower($keywords)))
+                {
+                    if ($user->isOnline==true && $user->activated==true)
+                    $searchUsers->add($user);
+                }
+            }
+
+                return View::make('searchChatPeople')->with('searchUsers',$searchUsers);
+        }
+        else
+            return 'wH@tS!nTheB0x';
+    }
 }

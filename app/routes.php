@@ -99,6 +99,7 @@
     Route::post('getUsersApprovedAbout', array('as' => 'get.users.approved.about', 'uses' => 'QAController@getUsersApprovedAbout'));
 
     //ChatController
+    Route::post('chatsearch',array('uses'=>'ChatController@chatsearch'));
     Route::post('submitChatRequest',array('as'=>'submit.chat.request','uses'=>'ChatController@submitChatRequest'));
     Route::post('acceptChat',array('as'=>'accept.chat','uses'=>'ChatController@acceptChat'));
     Route::post('declineChat',array('as'=>'decline.chat','uses'=>'ChatController@declineChat'));

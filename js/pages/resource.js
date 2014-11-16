@@ -423,7 +423,11 @@ function viewMedia(id,path)
                                         content="<div onmousedown='return false;' style='text-align: center'><br><br><embed class='mediaFiles' autoplay='false' width='300' height='200' src='"+path+"'></embed></div>";
                                     }
                                     $('#preview').html(content);
-                                    $('#previewMediaModal').modal('show');
+                                    $('#previewMediaModal').modal({
+                                        keyboard:false,
+                                        show:true,
+                                        backdrop:'static'
+                                    });
                                     $('#viewMedia').hide();
                                     $('#viewMedia2').show();
                                 }
@@ -452,7 +456,11 @@ function viewMedia2(path)
         content="<div onmousedown='return false;' style='text-align: center'><br><br><embed class='mediaFiles' autoplay='false' width='300' height='200' src='"+path+"'></embed></div>";
     }
     $('#preview').html(content);
-    $('#previewMediaModal').modal('show');
+    $('#previewMediaModal').modal({
+        keyboard:false,
+        show:true,
+        backdrop:'static'
+    });
 }
 
 function purchaseRes(link)

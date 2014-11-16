@@ -2,6 +2,7 @@ var chatON=false;
 var focused = null;
 var width;
 var loggedout = false;
+var searchInterval;
 
 $(document).ready(function()
 {
@@ -180,30 +181,10 @@ $(document).ready(function()
         }
     });
 
-    $(document).keyup(function(e) {
-        if (e.keyCode == 27)
-        {
-            $('#chatSearch').val("");
-            $('#chatSearchModal').fadeOut();
-            $('#chatSearch').blur();
-        }
-        else if (e.keyCode == 8)
-        {
-            $('#chatSearchModal').fadeOut();
-        }
-    });
-
     $('#newChatForm').submit(function(event)
     {
         /* stop form from submitting normally */
         event.preventDefault();
-    });
-
-    $('#chatSearchForm').submit(function(event)
-    {
-        /* stop form from submitting normally */
-        event.preventDefault();
-        getSuggestions();
     });
 });
 
@@ -917,4 +898,48 @@ function startChat(scid)
      $("#ongoingChats").append("<div id='Chat"+scid+"' class='chats' onclick='openChat("+scid+")'>"+name+"</div><br>");
      });*/
 
+}
+
+//chat search
+function showChatSearchResultBox()
+{
+    $('#chatSearchText').slideDown(300);
+}
+
+function hideChatSearchResultBox()
+{
+    $('#chatSearchText').slideUp(300);
+}
+
+function keyDownChatSearch()
+{
+    clearTimeout(searchInterval);
+}
+
+function keyUpChatSearch(e)
+{
+    if (e.keyCode == 27)
+    {
+        $('#chatSearch').val("");
+        $('#chatSearchText').html('');
+    }
+
+    searchInterval = setTimeout(function()
+    {
+        var keywords = $('#chatSearch').val();
+        if (keywords.length > 0)
+        {
+            $('#chatSearchText').html('<div style="text-align: center"><br><img src="http://b2.com/Images/icons/waiting.gif"></div>');
+
+            $.post('http://b2.com/chatsearch', {keywords: keywords}, function(markup)
+            {
+                if(markup=='wH@tS!nTheB0x')
+                    window.location='http://b2.com/offline';
+                else
+                {
+                    $('#chatSearchText').html(markup);
+                }
+            });
+        }
+    }, 700);
 }
