@@ -49,10 +49,6 @@ var cachedMarkup;
 
 $(document).ready(function() {
 
-    var contentSwap = $('#home-content').html();
-    $('#home-content').html('');
-    $('#active-content').html(contentSwap);
-
     defaults.selectedItemChanged = function (item) {
         if (item == 1) {
 
@@ -1128,20 +1124,15 @@ function openPivots(pivotName)
     $('.list-group-item').removeClass('active');
     $('#pivot-'+pivotName).addClass('active');
 
+    $('.hidden-content').hide();
+    $('#'+pivotName+'-content').fadeIn();
+
     if (pivotName == 'writing')
         writeData();
     if (pivotName == 'upload')
         resData();
     if (pivotName == 'pollsnquizes')
         quizData();
-
-    var currentContent = $('#current-content').val();
-    var currentDisplayed = $('#active-content').html();
-    $('#'+currentContent+'-content').html(currentDisplayed);
-    var contentSwap = $('#'+pivotName+'-content').html();
-    $('#'+pivotName+'-content').html('');
-    $('#active-content').html(contentSwap);
-    $('#current-content').val(pivotName);
 }
 
 function showSuggestions(request)

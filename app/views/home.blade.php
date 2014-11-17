@@ -130,11 +130,6 @@
 
     <div class="col-lg-9">
 
-        <input type="hidden" id="current-content" value="home">
-        <div id="active-content" class="col-lg-12" style="padding: 0px">
-
-        </div>
-
         <div id="home-content" class="hidden-content">
         <div class="col-lg-12">
             <div id="read-and-donut" class="col-lg-4" style="padding-right: 15px; padding-left: 0px">
@@ -168,13 +163,13 @@
         </div>
         </div>
 
-        <div id="explore-content" class="hidden-content">
+        <div id="explore-content" class="hidden-content" style="display: none">
             <div id="listo" class="col-lg-12" style="padding-top: 5px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px">
 
             </div>
         </div>
 
-        <div id="writing-content" class="hidden-content">
+        <div id="writing-content" class="hidden-content" style="display: none">
             <!-- Nav tabs -->
            <ul class="nav nav-tabs" role="tablist" id="myTab">
                 <li id="articlesTab"  class="active" role="presentation"><a href="#articleNew" role="tab" data-toggle="tab">Articles</a></li>
@@ -229,7 +224,7 @@
             </div>
         </div>
 
-        <div id="upload-content" class="hidden-content">
+        <div id="upload-content" class="hidden-content" style="display: none">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist" id="myTab">
                 <li id="resourceTab" class="active" role="presentation"><a href="#resourceNew" role="tab" data-toggle="tab">Resource</a></li>
@@ -262,7 +257,7 @@
             </div>
         </div>
 
-        <div id="pollsnquizes-content" class="hidden-content">
+        <div id="pollsnquizes-content" class="hidden-content" style="display: none">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist" id="myTab">
                     <li id="quizTab"  class="active" role="presentation"><a href="#quizNew" role="tab" data-toggle="tab">Quiz</a></li>
@@ -294,7 +289,7 @@
             </div>
         </div>
 
-        <div id="events-content" class="hidden-content">
+        <div id="events-content" class="hidden-content" style="display: none">
             <div class="col-lg-12">
                     <a href="{{route('createEvent')}}" class="btn btn-success col-lg-2">Create Event</a>
 
@@ -364,7 +359,7 @@
             </div>
         </div>
 
-        <div id="recco-content" class="hidden-content">
+        <div id="recco-content" class="hidden-content" style="display: none">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
             <input type="hidden" id="recco-tab" value="all">
