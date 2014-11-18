@@ -34,10 +34,16 @@
 
          @elseif($note->type=='chat')
          <?php $chat = Chat::find($note->chid);
+
+            if(count($chat) > 0)
+            {
             $currentTime = new DateTime();
-            $lastSeen = $chat->created_at;
-            $form = $currentTime->diff($lastSeen);
+                        $lastSeen = $chat->created_at;
+                        $form = $currentTime->diff($lastSeen);
+            }
+
          ?>
+         @if(count($chat) > 0)
             @if($form->i>15 || $form->h>0 || $form->d>0 || $form->m>0 || $form->y>0)
                 <small style="color: darkred">EXPIRED</small>
             @else
@@ -45,9 +51,11 @@
                      <button class="btn btn-success" onclick="acceptChatR('{{$note->id}}','{{$note->chid}}')">Accept</button> <button class="btn btn-danger" onclick="declineChatR('{{$note->id}}','{{$note->chid}}')">Decline</button>
                 </div>
             @endif
+         @endif
 
          @elseif($note->type=='chatAcc')
               <?php $chat = Chat::find($note->chid); ?>
+           @if(count($chat) > 0)
               @if ($chat->status != 'completed')
               <?php
                   $currentTime = new DateTime();
@@ -63,6 +71,7 @@
                   @endif
 
               @endif
+           @endif
 
          @elseif($note->type=='iContri')
                 <?php $link = DB::table('invite_contributors')->where('collaborationid',$note->chid)->where('useremail',Auth::user()->email)->pluck('link'); ?>
