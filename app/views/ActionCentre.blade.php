@@ -62,17 +62,6 @@
             <a href="{{route('resource',Resource::find($action->contentid)->id)}}">{{Resource::find($action->contentid)->title}}</a> </p>
 
 
-    @elseif($action->type=='F new')
-    <?php $user2=User::find($action->user2id) ?>
-    <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> is now friends with
-            <a href="{{route('user',$user2->username)}}">{{$user2->first_name}} {{$user2->last_name}}</a> </p>
-
-
-    @elseif($action->type=='S new')
-    <?php $user2=User::find($action->user2id) ?>
-    <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> Subscribed to
-            <a href="{{route('user',$user2->username)}}">{{$user2->first_name}} {{$user2->last_name}}</a> </p>
-
 
     @elseif($action->type=='E new')
     <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> is hosting a new Event
