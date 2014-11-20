@@ -247,6 +247,8 @@ class QuizController extends \BaseController {
         $user->profile->ifc += $ifcQuizMaker;
         $user->profile->save();
 
+        Action::postAction('Q score',Auth::user()->id,$ifcQuizzer,$quiz->id);
+
         TransactionController::insertToManager(Auth::user()->id,"+".$ifcQuizzer,"Earned from quiz",'http://b2.com/quizPreview/'.$quiz->id,$quiz->title,"content");
 
         TransactionController::insertToManager($user->id,"+".$ifcQuizMaker,"Earned from quiz",'http://b2.com/quizPreview/'.$quiz->id,$quiz->title,"content");

@@ -79,6 +79,10 @@
     <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> posted a new Quiz
             <a href="{{route('quizPreview',Quiz::find($action->contentid)->id)}}">{{Quiz::find($action->contentid)->title}}</a> </p>
 
+        @elseif($action->type=='Q score')
+        <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> earned {{$action->user2id}} IFCs by taking the Quiz
+            <a href="{{route('quizPreview',Quiz::find($action->contentid)->id)}}">{{Quiz::find($action->contentid)->title}}</a> </p>
+
 @elseif($action->type=='Recco new')
     <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> recommends
             <a onclick="visitRecco({{$action->contentid}},'{{Recco::find($action->contentid)->url}}')" style="cursor: pointer">{{Recco::find($action->contentid)->title}}</a> </p>

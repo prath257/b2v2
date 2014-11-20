@@ -38,7 +38,7 @@ class DiaryController extends \BaseController {
             if (count($susers) > 0 && $user->settings->diaryAccess == 'semi')
                 return View::make('diary')->with('user',User::where('username','=',$username)->first())->with('posts',$send);
             else
-                return "Sorry, you don't have access to this page";
+                return View::make('errorPage')->with('error','this user has not shared their diary with you.')->with('link','http://b2.com/home');
         }
     }
 
