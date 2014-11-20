@@ -263,11 +263,14 @@ public function tlogin()
             elseif($action->type == 'R new')
                 $content->add( DB::table('resources')->where('id','=',$action->contentid)->first());
 
-            elseif($action->type == 'C new')
+            elseif($action->type == 'C new'|| $action->type == 'C req')
                 $content->add( DB::table('collaborations')->where('id','=',$action->contentid)->first());
 
             elseif($action->type == 'C new chapter')
                 $content->add( DB::table('collaborations')->where('id','=',$action->contentid)->first());
+
+            elseif($action->type == 'Diary new')
+                $content->add('abcdefjhijklmnopqrstuvwxyziloveu');
 
             $author->add( DB::table('users')->where('id','=',$action->user1id)->first());
             }
