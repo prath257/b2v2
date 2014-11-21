@@ -62,40 +62,52 @@ class MobileController extends \BaseController
                 $readers = $content->getReaders();
                 $author = User::find($content->userid);
             }
-            else if($type == 'article')
+            elseif($type == 'article')
             {
                 $content = Article::find($contentid);
-                $readers = $content->getReaders();
+                $readers = DB::table('articlereaders')->where('article_id','=',$contentid)->get();
                 $author = User::find($content->userid);
             }
-            else if($type == 'collaboration')
+            elseif($type == 'collaboration')
             {
                 $content = Collaboration::find($contentid);
-                $readers = $content->getReaders();
+                $readers = DB::table('collaborationreaders')->where('collaboration_id','=',$contentid)->get();
                 $author = User::find($content->userid);
             }
-            else if($type == 'media')
+            elseif($type == 'media')
             {
                 $content = Media::find($contentid);
-                $readers = $content->getViewers();
+                $readers = DB::table('mediaviewers')->where('media_id','=',$contentid)->get();
                 $author = User::find($content->userid);
             }
-            else if($type == 'quiz')
+            elseif($type == 'quiz')
             {
                 $content = Quiz::find($contentid);
+                $readers = DB::table('quiztakers')->where('quiz_id','=',$contentid)->get();
                 $author = User::find($content->ownerid);
             }
 
+            elseif($type == 'resource')
+            {
+                $content = Resource::find($contentid);
+
+                $author = User::find($content->userid);
+            }
 
 
-            if($type != 'media')
+
+
+
+            if($type=='resource')
+            {
+                $data = array('ok'=>'true','title' => $content->title, 'desc' => $content->description,'ifc'=>$content->ifc,'no_readers'=>$content->users,'author_name'=>$author->first_name." ".$author->last_name,'author_id'=>$author->id,'author_pic_url'=>$author->profile->profilePic);
+            }
+
+            elseif($type != 'media')
                 $data = array('ok'=>'true','title' => $content->title, 'desc' => $content->description,'ifc'=>$content->ifc,'no_readers'=>count($readers),'author_name'=>$author->first_name." ".$author->last_name,'content_pic_url'=>$content->cover,'author_id'=>$author->id,'author_pic_url'=>$author->profile->profilePic);
 
-
-            //  $data = array('ok'=>'true','title' => $content->title, 'desc' => $content->description,'ifc'=>$content->ifc,'no_readers'=>count($readers),'author_name'=>$author->first_name." ".$author->last_name,'author_id'=>$author->id,'author_pic_url'=>$author->profile->profilePic,'content_pic_url'=>$content->cover);
-
             else
-                $data = array('ok'=>'true','title' => $content->title,'ifc'=>$content->ifc,'no_readers'=>count($readers),'author_name'=>$author->first_name." ".$author->last_name,'content_pic_url'=>$content->cover);
+                $data = array('ok'=>'true','title' => $content->title,'ifc'=>$content->ifc,'no_readers'=>count($readers),'author_name'=>$author->first_name." ".$author->last_name,'content_pic_url'=>$content->cover,'author_id'=>$author->id,'author_pic_url'=>$author->profile->profilePic);
 
 
 
@@ -187,91 +199,115 @@ class MobileController extends \BaseController
 
     public function previewChecking()
     {
-        $contentid = Input::get('contentid');
-        $id = Input::get('authid');  //same as Auth::user()->id
-        $type  = Input::get('type'); //blogbook,article etc
-        $content = Mobile::getContent($contentid,$type);
-        $user = User::find($id);
-        $cost = $content->ifc;
-
-        $newuser = 'true';
-        if($type=='quiz')
-            $authorid = $content->ownerid;
-
-        else
-            $authorid = $content->userid;
-        $author = User::find($authorid);
-
-        if($type!='quiz')
+        try
         {
-            if($id==$authorid)
-            {
-                $newuser = 'false';
-            }
+            $contentid = Input::get('contentid');
+            $id = Input::get('authid');  //same as Auth::user()->id
+            $type  = Input::get('type'); //blogbook,article etc
+            $content = Mobile::getContent($id,$type);
+            $user = User::find($id);
+            $cost = $content->ifc;
+
+            $newuser = 'true';
+            if($type=='quiz')
+                $authorid = $content->ownerid;
+
             else
+                $authorid = $content->userid;
+            $author = User::find($authorid);
+
+            if($type!='quiz')
             {
-                if($type == 'blogbook')
+                if($id==$authorid)
                 {
-                    $readers=DB::table('bookreaders')->where('blog_book_id','=',$content->id)->where('user_id','=',$id)->get();
-
-                }
-                else if($type == 'article')
-                {
-                    $readers=DB::table('articlereaders')->where('article_id','=',$content->id)->where('user_id','=',$id)->get();
-                }
-                else if($type == 'collaboration')
-                {
-                    $readers=DB::table('collaborationreaders')->where('collaboration_id','=',$content->id)->where('user_id','=',$id)->get();
-
-                }
-
-                else if($type == 'media')
-                {
-                    $readers=DB::table('mediaviewers')->where('media_id','=',$content->id)->where('user_id','=',$id)->get();
-
-                }
-
-                if(count($readers)>0)
                     $newuser = 'false';
-            }
-            if($newuser=='false')
-                $data = array('ok'=>'free','cost'=>$cost,'userifc'=>$user->profile->ifc);
-            else
-            {
-                $subscribers = DB::table('subscriptions')->where('subscribed_to_id','=',$authorid)->where('subscriber_id','=',$id)->get();
-                if(count($subscribers)>0)
+                }
+                else
                 {
-                    if($author->settings->discountforfollowers > 0)
+                    if($type == 'blogbook')
                     {
-                        $discount = ($cost*$author->settings->discountforfollowers)/100;
-                        $cost = $cost - $discount;
+                        $readers=DB::table('bookreaders')->where('blog_book_id','=',$content->id)->where('user_id','=',$id)->get();
+
+                    }
+                    elseif($type == 'article')
+                    {
+                        $readers=DB::table('articlereaders')->where('article_id','=',$content->id)->where('user_id','=',$id)->get();
+                    }
+                    elseif($type == 'collaboration')
+                    {
+                        $readers=DB::table('collaborationreaders')->where('collaboration_id','=',$content->id)->where('user_id','=',$id)->get();
+
+                    }
+
+                    elseif($type == 'media')
+                    {
+                        $readers=DB::table('mediaviewers')->where('media_id','=',$content->id)->where('user_id','=',$id)->get();
+
+                    }
+
+                    if(count($readers)>0)
+                        $newuser = 'false';
+                }
+                if($newuser=='false')
+                    $data = array('ok'=>'free','cost'=>$cost,'userifc'=>$user->profile->ifc);
+                else
+                {
+                    $friends1=DB::table('friends')->where('friend1','=',$id)->where('friend2','=',$authorid)->where('status','=','accepted')->lists('friend2');
+                    $friends2=DB::table('friends')->where('friend2','=',$id)->where('friend1','=',$authorid)->where('status','=','accepted')->lists('friend1');
+                    $friends = array_merge($friends1, $friends2);
+                    if(count($friends)>0)
+                    {
+                        if($author->settings->freeforfriends)
+                        {
+                            $cost = 0;
+                        }
+                    }
+                    else
+                    {
+                        $subscribers = DB::table('subscriptions')->where('subscribed_to_id','=',$authorid)->where('subscriber_id','=',$id)->get();
+                        if(count($subscribers)>0)
+                        {
+                            if($author->settings->discountforfollowers > 0)
+                            {
+                                $discount = ($cost*$author->settings->discountforfollowers)/100;
+                                $cost = $cost - $discount;
+                            }
+                        }
+                    }
+
+                    if($user->profile->ifc>=$cost)
+                        $data = array('ok'=>'true','cost'=>$cost,'userifc'=>$user->profile->ifc);
+                    else
+                        $data = array('ok'=>'Sorry! You don"t have enough IFCs','cost'=>$cost,'userifc'=>$user->profile->ifc);
+                }
+
+            }
+            else                    //if type is quiz
+            {
+                if($authorid == $id)
+                    $data = array('ok'=>'You can"t take the quiz because you are the owner!.','cost'=>$cost,'userifc'=>$user->profile->ifc);
+                else
+                {
+                    $takers = DB::table('quiztakers')->where('quiz_id','=',$contentid)->where('user_id','=',$id)->get();
+                    if(count($takers) > 0)
+                        $data = array('ok'=>'Sorry!.Looks like you already took this Quiz','cost'=>$cost,'userifc'=>$user->profile->ifc);
+                    else
+                    {
+                        $data = array('ok'=>'true','cost'=>$cost,'userifc'=>$user->profile->ifc);
                     }
                 }
-
-                if($user->profile->ifc>$cost)
-                    $data = array('ok'=>'true','cost'=>$cost,'userifc'=>$user->profile->ifc);
-                else
-                    $data = array('ok'=>'Sorry! You don"t have enough IFCs','cost'=>$cost,'userifc'=>$user->profile->ifc);
             }
-
+            return json_encode($data);
         }
-        else                    //if type is quiz
+
+        catch(Exception $e)
         {
-            if($authorid == $id)
-                $data = array('ok'=>'You can"t take the quiz because you are the owner!.','cost'=>$cost,'userifc'=>$user->profile->ifc);
-            else
-            {
-                $takers = DB::table('quiztakers')->where('quiz_id','=',$contentid)->where('user_id','=',$id)->get();
-                if(count($takers) > 0)
-                    $data = array('ok'=>'Sorry!.Looks like you already took this Quiz','cost'=>$cost,'userifc'=>$user->profile->ifc);
-                else
-                {
-                    $data = array('ok'=>'true','cost'=>$cost,'userifc'=>$user->profile->ifc);
-                }
-            }
+            $data = array('ok'=>$e);
+            return json_encode($data);
         }
-        return json_encode($data);
     }
+
+
 
 
 

@@ -8,7 +8,8 @@ class MobileHomeController extends \BaseController {
 
         try
         {
-            $actions=DB::table('actions')->orderBy('created_at','DESC')->take(30)->get();
+            $no = Input::get('no');
+            $actions=DB::table('actions')->orderBy('created_at','DESC')->skip($no)->take(30)->get();
 
             $content = new \Illuminate\Database\Eloquent\Collection();
             $author = new \Illuminate\Database\Eloquent\Collection();
@@ -77,12 +78,13 @@ class MobileHomeController extends \BaseController {
         try
         {
 
+            $no = Input::get('no');
             $unreadNotifications = DB::table('notification')->where('userid','=',Input::get('id'))->where('checked','=',false)->orderBy('created_at','DESC')->get();
 
             if (count($unreadNotifications) > 10)
                 $sendNotifications = $unreadNotifications;
             else
-                $sendNotifications = DB::table('notification')->where('userid','=',Input::get('id'))->orderBy('created_at','DESC')->take(10)->get();
+                $sendNotifications = DB::table('notification')->where('userid','=',Input::get('id'))->orderBy('created_at','DESC')->skip($no)->take(20)->get();
 
             DB::table('notification')->where('userid','=',Input::get('id'))->where('checked','=',false)->update(array('checked' =>true));
 

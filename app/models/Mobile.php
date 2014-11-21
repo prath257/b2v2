@@ -9,7 +9,7 @@
 class Mobile extends Eloquent{
 
 
-    public function getContent($id,$type)
+    public static function getContent($id,$type)
     {
         if($type == 'blogbook')
         {
@@ -44,7 +44,7 @@ class Mobile extends Eloquent{
 
         else if($type == 'resource')
         {
-            $content = BEvent::find($id);
+            $content = Resource::find($id);
         }
 
         else if($type == 'poll')
