@@ -463,4 +463,25 @@ Route::post('forgotUsername', array('uses' => 'BaseController@forgotUsername'));
 Route::post('getWritingSuggestions', array('uses' => 'SuggetsionController@getWritingSuggestions'));
 Route::post('postSuggestion', array('uses' => 'SuggetsionController@postSuggestion'));
 
+//mobile controller
+Route::post('mobile_fblogin', array('uses' => 'MobileAuthController@fblogin'));
+Route::post('mobile_login', array('uses' => 'MobileAuthController@login'));
+Route::post('mobile_tlogin', array('uses' => 'MobileAuthController@tlogin'));
+Route::post('mobile_glogin', array('uses' => 'MobileAuthController@glogin'));
+
+Route::get('mobile_getaction', array('uses' => 'MobileController@getActionData'));
+
+Route::post('mobile_login', array('uses' => 'MobileController@login'));
+
+Route::post('mobile_logout', array('uses' => 'MobileController@logout'));
+
+Route::post('mobile_showProfile', array('uses' => 'MobileController@showProfile'));
+
+Route::post('mobile_getNotification', array('uses' => 'MobileController@getNotification'));
+
+Route::post('mobile_getIdFromUserName', array('uses' => 'MobileController@getIdFromUserName'));
+
+Route::post('mobile_getPreview', array('uses' => 'MobileController@previewModel'));
+
+Route::post('mobile_getfriends', array('uses' => 'MobileController@getFriendList'));
 
