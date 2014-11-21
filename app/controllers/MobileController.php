@@ -2,128 +2,140 @@
 
 class MobileController extends \BaseController
 {
-    public static $user = null;
-   public function getid()
-	{
-             try
-		
-	{
-             if(Auth::check())
-              $name=Auth::user()->id;
-		else
-               return "nothing";
+    public function getid()
+    {
+        try
 
-	}
-	catch(Exception $e)
-	{
-  	 return $e;
- 
-	}
-            return $name;
+        {
+            if(Auth::check())
+                $name=Auth::user()->id;
+            else
+                return "nothing";
 
+        }
+        catch(Exception $e)
+        {
+            return $e;
 
-	}
+        }
+        return $name;
 
 
-   public function login()
-   {
-       $credentials = array('username' => Input::get('uname'),'password' => Input::get('pwd'));
+    }
 
-       // Try to authenticate the user, remember me is set to false
-       //$user = Sentry::authenticate($credentials, false);
 
-       Auth::attempt($credentials);
+    public function login()
+    {
+        try
+        {
+            $credentials = array('username' => Input::get('uname'),'password' => Input::get('pwd'));
 
-       if(Auth::check())
-       {
-           if(Auth::user()->activated)
-           {
-               $user = Auth::user();
-               $user->isOnline = true;
-               $user->save();
+            // Try to authenticate the user, remember me is set to false
 
-              $arr=Array("ok"=>"true","id"=>Auth::user()->id,"first_name"=>Auth::user()->first_name,"last_name"=>Auth::user()->last_name);
+            // $user = Sentry::authenticate($credentials, false);
 
-       return json_encode($arr);
-            
+            Auth::attempt($credentials);
 
-           }
-           else
-           {
-                 $arr=Array("ok"=>"not activated");
+            if(Auth::check())
+            {
+                if(Auth::user()->activated)
+                {
+                    $user = Auth::user();
+                    // $user->isOnline = true;
+                    $user->save();
 
-                   return json_encode($arr);
+                    $arr=Array("ok"=>"true","id"=>Auth::user()->id,"first_name"=>Auth::user()->first_name,"last_name"=>Auth::user()->last_name);
 
-           }
-       }
-       //if everything went okay, we redirect to index route with success message
-       else
-       {
-           $arr=Array("ok"=>"Invalid Username or Password");
-           return $arr;
-       }
-   }
+                    return json_encode($arr);
+
+
+                }
+                else
+                {
+                    $arr=Array("ok"=>"not activated");
+
+                    return json_encode($arr);
+
+                }
+            }
+            //if everything went okay, we redirect to index route with success message
+            else
+            {
+                $arr=Array("ok"=>"Invalid Username or Password");
+                return $arr;
+            }
+        } catch(Excecption $e)
+        {
+            $arr=Array("ok"=>$e);
+            return json_encode($arr);
+        }
+
+    }
+
+
 
     public function create()
     {
-      try
-	{
+        try
+        {
 
-        $user=Input::get('userid');
-        $title=Input::get('title');
-        $content=Input::get('content');
+            $user=Input::get('userid');
+            $title=Input::get('title');
+            $content=Input::get('content');
 
-        $mobile =new Mobile();
-        $mobile->userid=$user;
-        $mobile->title=$title;
-        $mobile->text=$content;
-        $mobile->save();
+            $mobile =new Mobile();
+            $mobile->userid=$user;
+            $mobile->title=$title;
+            $mobile->text=$content;
+            $mobile->save();
 
-        return "true";
+            return "true";
+        }
+        catch(Exception $e)
+        {
+            return $e;
+        }
+
     }
-      catch(Exception $e)
-	{
-             return $e;
-    }
 
-    }
 
-     public function delete()
-	{
 
-       try
-{
+    public function delete()
+    {
+
+        try
+        {
             $id=Input::get('id');
-     
-      $content=Mobile::find($id);
-        
+
+            $content=Mobile::find($id);
+
 //    $content =DB::table('mobilea')->where('id','=',Input::get('id'))->first();
-        
-      $content->delete();
-      
-     return "true";
- 
- }
-catch(Exception $e)
-{
-    return $e;     
-}
+
+            $content->delete();
+
+            return "true";
 
         }
+        catch(Exception $e)
+        {
+            return $e;
+        }
+
+    }
 
     public function getAll()
     {
         $titles=DB::table('mobilea')->get();
-      
+
         return $titles;
     }
 
 
     public function getContent()
     {
-       $content =DB::table('mobilea')->where('id','=',Input::get('id'))->first();
+        $content =DB::table('mobilea')->where('id','=',Input::get('id'))->first();
 
-       return json_encode($content);
+        return json_encode($content);
 
     }
 
@@ -131,28 +143,28 @@ catch(Exception $e)
     public function fblogin()
     {
 
-try
-{  
-                $users = User::all();
-        foreach($users as $user)
+        try
         {
-            if($user->fbid == Input::get('fbid'))
+            $users = User::all();
+            foreach($users as $user)
             {
+                if($user->fbid == Input::get('fbid'))
+                {
 
-                $credentials = array('ok'=>'true','id'=>$user->id,'first_name' => $user->first_name,'last_name' => $user->last_name);
+                    $credentials = array('ok'=>'true','id'=>$user->id,'first_name' => $user->first_name,'last_name' => $user->last_name);
                     return json_encode($credentials);
+                }
             }
+
+            $credentials = array('ok'=>'invalid username and password');
+            return json_encode($credentials);
         }
 
-        $credentials = array('ok'=>'invalid username and password');
-        return json_encode($credentials);
-}	
-
-    catch(Exception $e)
-  	{
-         $arr=Array("ok"=>$e);
-        return json_encode($arr);
-	}
+        catch(Exception $e)
+        {
+            $arr=Array("ok"=>$e);
+            return json_encode($arr);
+        }
 
 
 
@@ -160,7 +172,7 @@ try
 
 
 
-public function tlogin()
+    public function tlogin()
     {
         $users = User::all();
         foreach($users as $user)
@@ -196,41 +208,41 @@ public function tlogin()
     }
 
 
-/*    public function getActionData()
-    {
+    /*    public function getActionData()
+        {
 
-        $action=DB::table('actions')->orderBy('created_at','DESC')->take(6)->get();
+            $action=DB::table('actions')->orderBy('created_at','DESC')->take(6)->get();
 
-        return json_encode($action);
+            return json_encode($action);
 
-    }
-*/
+        }
+    */
 
     public function logout()
     {
         $user = User::find(Input::get('id'));
 
-            if($user->fbid!=null)
-            {
-                $fauth = new Hybrid_Auth(app_path(). '/config/fb_auth.php');
-                $fauth->logoutAllProviders();
-            }
-            if($user->twitterid!=null)
-            {
-                $tauth = new Hybrid_Auth(app_path(). '/config/tw_auth.php');
-                $tauth->logoutAllProviders();
-            }
-            if($user->gid!=null)
-            {
-                $gauth = new Hybrid_Auth(app_path(). '/config/Google_auth.php');
-                $gauth->logoutAllProviders();
-            }
+        if($user->fbid!=null)
+        {
+            $fauth = new Hybrid_Auth(app_path(). '/config/fb_auth.php');
+            $fauth->logoutAllProviders();
+        }
+        if($user->twitterid!=null)
+        {
+            $tauth = new Hybrid_Auth(app_path(). '/config/tw_auth.php');
+            $tauth->logoutAllProviders();
+        }
+        if($user->gid!=null)
+        {
+            $gauth = new Hybrid_Auth(app_path(). '/config/Google_auth.php');
+            $gauth->logoutAllProviders();
+        }
 
-            if ($user)
-            {
-                $user->isOnline = false;
-                $user->save();
-            }
+        if ($user)
+        {
+            $user->isOnline = false;
+            $user->save();
+        }
         return 'success';
 
     }
@@ -238,74 +250,233 @@ public function tlogin()
     public function getActionData()
     {
 
-        $actions=DB::table('actions')->orderBy('created_at','DESC')->get();
-
-        $content = new \Illuminate\Database\Eloquent\Collection();
-        $author = new \Illuminate\Database\Eloquent\Collection();
-
-        foreach($actions as $action)
+        try
         {
-            if($action->type == 'A new')
-                $content->add(DB::table('articles')->where('id','=',$action->contentid)->first());
+            $actions=DB::table('actions')->orderBy('created_at','DESC')->take(30)->get();
 
-            elseif($action->type == 'BB new')
-                $content->add(DB::table('blogbooks')->where('id','=',$action->contentid)->first());
+            $content = new \Illuminate\Database\Eloquent\Collection();
+            $author = new \Illuminate\Database\Eloquent\Collection();
+            $pic = new \Illuminate\Database\Eloquent\Collection();
 
-            elseif($action->type == 'BB new chapter')
-                $content->add( DB::table('blogbooks')->where('id','=',$action->contentid)->first());
+            foreach($actions as $action)
+            {
+                if($action->type == 'A new')
+                    $content->add(DB::table('articles')->where('id','=',$action->contentid)->first());
 
-            elseif($action->type == 'E new')
-                $content->add( DB::table('events')->where('id','=',$action->contentid)->first());
+                elseif($action->type == 'BB new')
+                    $content->add(DB::table('blogbooks')->where('id','=',$action->contentid)->first());
 
-            elseif($action->type == 'M new')
-                $content->add( DB::table('media')->where('id','=',$action->contentid)->first());
+                elseif($action->type == 'BB new chapter')
+                    $content->add( DB::table('blogbooks')->where('id','=',$action->contentid)->first());
 
-            elseif($action->type == 'R new')
-                $content->add( DB::table('resources')->where('id','=',$action->contentid)->first());
+                elseif($action->type == 'E new')
+                    $content->add( DB::table('events')->where('id','=',$action->contentid)->first());
 
-            elseif($action->type == 'C new'|| $action->type == 'C req')
-                $content->add( DB::table('collaborations')->where('id','=',$action->contentid)->first());
+                elseif($action->type == 'M new')
+                    $content->add( DB::table('media')->where('id','=',$action->contentid)->first());
 
-            elseif($action->type == 'C new chapter')
-                $content->add( DB::table('collaborations')->where('id','=',$action->contentid)->first());
+                elseif($action->type == 'R new')
+                    $content->add( DB::table('resources')->where('id','=',$action->contentid)->first());
 
-            elseif($action->type == 'Diary new')
-                $content->add('abcdefjhijklmnopqrstuvwxyziloveu');
+                elseif($action->type == 'C new'||$action->type=='C req'||$action->type=='C new chapter')
+                    $content->add( DB::table('collaborations')->where('id','=',$action->contentid)->first());
 
-            $author->add( DB::table('users')->where('id','=',$action->user1id)->first());
+                elseif($action->type == 'Diary new')
+                    $content->add(DB::table('diary')->where('userid','=',$action->user1id)->first());
+
+                elseif($action->type == 'Recco new')
+                    $content->add(DB::table('recco')->where('id','=',$action->contentid)->first());
+
+                elseif($action->type == 'P new')
+                    $content->add(DB::table('polls')->where('id','=',$action->contentid)->first());
+
+                elseif($action->type == 'Q new')
+                    $content->add(DB::table('quiz')->where('id','=',$action->contentid)->first());
+
+                elseif($action->type == 'Q score')
+                    $content->add(DB::table('quiz')->where('id','=',$action->contentid)->first());
+
+                $author->add( DB::table('users')->where('id','=',$action->user1id)->first());
+                $pic->add (User::find($action->user1id)->profile->profilePic);
+
             }
-        $result = array('content'=>$content->toJson(),'action'=>$actions,'author'=>$author->toJson());
 
-        return json_encode($result);
+            $result = array('ok'=>'true','pic'=>$pic->toJson(),'content'=>$content->toJson(),'action'=>$actions,'author'=>$author->toJson());
+
+            return json_encode($result);
+
+        }
+        catch(Exception $e)
+        {
+            $result=array('ok'=>$e);
+            return json_encode($result);
+        }
 
     }
-
-
-
-
-
-public function showProfile()
+    public function showProfile()
     {
 
         try
         {
+
+            // $user=DB::table('users')->where('id','=',Input::get('id'))->first();
+
             $user = User::find(Input::get('id'));
 
-            $data = array('ok'=>'true','profile_pic'=>$user->profile->profilePic,'first_name'=>$user->first_name,'last_name'=>$user->last_name,'cover_pic'=>$user->profile->coverPic);
+            $data = array('ok'=>'true','profile_pic'=>$user->profile->profilePic,
+                'first_name'=>$user->first_name,'last_name'=>$user->last_name,
+                'cover_pic'=>$user->profile->coverPic);
 
             return json_encode($data);
 
         }
         catch(Exception $e)
         {
-            $data = array('ok'=>"nope");
+            $data = array('ok'=>$e);
             return json_encode($data);
         }
 
 
     }
 
-    public function getIfcManager()
+
+
+    public function getIdFromUserName()
+    {
+
+
+        $row=DB::table('users')->where('username','=',Input::get('name'))->first();
+
+
+        return $row->id."";
+
+    }
+
+
+
+
+    public function getNotification()
+    {
+
+
+        try
+        {
+
+            $unreadNotifications = DB::table('notification')->where('userid','=',Input::get('id'))->where('checked','=',false)->orderBy('created_at','DESC')->get();
+
+            if (count($unreadNotifications) > 10)
+                $sendNotifications = $unreadNotifications;
+            else
+                $sendNotifications = DB::table('notification')->where('userid','=',Input::get('id'))->orderBy('created_at','DESC')->take(10)->get();
+
+            DB::table('notification')->where('userid','=',Input::get('id'))->where('checked','=',false)->update(array('checked' =>true));
+
+            $picUrl = new \Illuminate\Database\Eloquent\Collection();
+            $name = new \Illuminate\Database\Eloquent\Collection();
+
+
+            foreach($sendNotifications as $notification)
+            {
+                $user=User::find($notification->cuserid);
+                // $user=DB::table('users')->where('id','=',$notification->cuserid);
+                $picUrl->add ($user->profile->profilePic);
+                $name->add($user->first_name." ".$user->last_name);
+
+            }
+
+
+            if(count($sendNotifications)!=0)
+            {
+                $data = array('ok'=>'true',
+                    'number'=>count($sendNotifications),
+                    'data'=>json_encode($sendNotifications),
+                    'pic_url'=>$picUrl->toJson(),
+                    'names'=>$name->toJson()
+                );
+
+                return json_encode($data);
+            }
+            else
+            {
+                $data = array('number'=>0,'ok'=>'true');
+                return json_encode($data);
+            }
+        }
+        catch(Exception $e)
+        {
+            $data = array('ok'=>$e);
+            return json_encode($data);
+        }
+
+    }
+
+
+    public function previewModel()
+    {
+
+        try {
+            $type = Input::get('type');
+            $contentid = Input::get('contentid');
+            if($type == 'blogbook')
+            {
+                $content = BlogBook::find($contentid);
+                $readers = $content->getReaders();
+                $author = User::find($content->userid);
+            }
+            else if($type == 'article')
+            {
+                $content = Article::find($contentid);
+                $readers = $content->getReaders();
+                $author = User::find($content->userid);
+            }
+            else if($type == 'collaboration')
+            {
+                $content = Collaboration::find($contentid);
+                $readers = $content->getReaders();
+                $author = User::find($content->userid);
+            }
+            else if($type == 'media')
+            {
+                $content = Media::find($contentid);
+                $readers = $content->getViewers();
+                $author = User::find($content->userid);
+            }
+            else if($type == 'quiz')
+            {
+                $content = Quiz::find($contentid);
+                $author = User::find($content->ownerid);
+            }
+
+
+
+            if($type != 'media')
+                $data = array('ok'=>'true','title' => $content->title, 'desc' => $content->description,'ifc'=>$content->ifc,'no_readers'=>count($readers),'author_name'=>$author->first_name." ".$author->last_name,'content_pic_url'=>$content->cover,'author_id'=>$author->id,'author_pic_url'=>$author->profile->profilePic);
+
+
+            //  $data = array('ok'=>'true','title' => $content->title, 'desc' => $content->description,'ifc'=>$content->ifc,'no_readers'=>count($readers),'author_name'=>$author->first_name." ".$author->last_name,'author_id'=>$author->id,'author_pic_url'=>$author->profile->profilePic,'content_pic_url'=>$content->cover);
+
+            else
+                $data = array('ok'=>'true','title' => $content->title,'ifc'=>$content->ifc,'no_readers'=>count($readers),'author_name'=>$author->first_name." ".$author->last_name,'content_pic_url'=>$content->cover);
+
+
+
+            //      $data = array('ok'=>'true','title' => $content->title,'ifc'=>$content->ifc,'no_readers'=>count($readers),'author_name'=>$author->first_name." ".$author->last_name,'author_id'=>$author->id,'author_pic_url'=>$author->profile->profilePic,'content_pic_url'=>$content->cover);
+
+            return json_encode($data);
+
+        }
+        catch(Exception $e)
+        {
+            return json_encode(array('ok'=>$e));
+        }
+
+
+
+
+
+    }
+
+    public function getFriendList()
     {
         $userid =Input::get('id');
         $friends1 = DB::table('friends')->where('friend1', '=', $userid)->where('status', '=', 'accepted')->lists('friend2');
@@ -323,6 +494,8 @@ public function showProfile()
 
         return json_encode($data);
     }
+
+
 
     public function transferIfc()
     {
@@ -354,87 +527,24 @@ public function showProfile()
 
     }
 
-    public function previewModel()
+    public function getIfcManager()
     {
-        $type = Input::get('type');
-        $contentid = Input::get('contentid');
-        if($type == 'blogbook')
-        {
-            $content = BlogBook::find($contentid);
-            $readers = $content->getReaders();
-            $author = User::find($content->userid);
-        }
-        else if($type == 'article')
-        {
-            $content = Article::find($contentid);
-            $readers = $content->getReaders();
-            $author = User::find($content->userid);
-        }
-        else if($type == 'collaboration')
-        {
-            $content = Collaboration::find($contentid);
-            $readers = $content->getReaders();
-            $author = User::find($content->userid);
+        $userid =Input::get('id');
+        $friends1 = DB::table('friends')->where('friend1', '=', $userid)->where('status', '=', 'accepted')->lists('friend2');
+        $friends2 = DB::table('friends')->where('friend2', '=', $userid)->where('status', '=', 'accepted')->lists('friend1');
+        $friends = array_merge($friends1, $friends2);
+        $users1 = new \Illuminate\Database\Eloquent\Collection();
+
+        foreach ($friends as $f) {
+            $users1->add(User::find($f));
         }
 
-        else if($type == 'media')
-        {
-            $content = Media::find($contentid);
-            $readers = $content->getViewers();
-            $author = User::find($content->userid);
-        }
-        else if($type == 'quiz')
-        {
-            $content = Quiz::find($contentid);
-            $author = User::find($content->ownerid);
+        $users=Manager::where('userid','=',Auth::user()->id)->get();
 
-        }
-
-        if($type != 'media')
-        $data = array('title' => $content->title, 'desc' => $content->description,'ifc'=>$content->ifc,'no_readers'=>count($readers),'author_name'=>$author->first_name." ".$author->last_name,'author_id'=>$author->id,'author_pic_url'=>$author->profile->profilePic,'content_pic_url'=>$content->cover);
-        else
-            $data = array('title' => $content->title,'ifc'=>$content->ifc,'no_readers'=>count($readers),'author_name'=>$author->first_name." ".$author->last_name,'author_id'=>$author->id,'author_pic_url'=>$author->profile->profilePic,'content_pic_url'=>$content->cover);
+        $data = array('ifc'=>User::find($userid)->profile->ifc,'friends'=> $users1->toJson(),'entries',$users);
 
         return json_encode($data);
-
-   }
-
-   /* public function mobile_DisplayPage()
-    {
-        $type = Input::get('type');
-        $contentid = Input::get('contentid');
-
-        if($type == 'blogbook')
-        {
-            $content = BlogBook::find($contentid);
-            $readers = $content->getReaders();
-            $author = User::find($content->userid);
-        }
-        else if($type == 'article')
-        {
-            return View::make('readArticle')->with()
-        }
-        else if($type == 'collaboration')
-        {
-            $content = Collaboration::find($contentid);
-            $readers = $content->getReaders();
-            $author = User::find($content->userid);
-        }
-
-        else if($type == 'media')
-        {
-            $content = Media::find($contentid);
-            $readers = $content->getViewers();
-            $author = User::find($content->userid);
-        }
-        else if($type == 'quiz')
-        {
-            $content = Quiz::find($contentid);
-            $author = User::find($content->ownerid);
-
-        }
-
-    }*/
+    }
 
     public function previewChecking()
     {
@@ -484,7 +594,7 @@ public function showProfile()
 
                 if(count($readers)>0)
                     $newuser = 'false';
-             }
+            }
             if($newuser=='false')
                 $data = array('ok'=>'free','cost'=>$cost,'userifc'=>$user->profile->ifc);
             else
@@ -523,5 +633,19 @@ public function showProfile()
         }
         return json_encode($data);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
