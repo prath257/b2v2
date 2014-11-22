@@ -136,7 +136,9 @@
                 Or would you share this on facebook/twitter?
                 <br>
                 <div class="col-lg-2">
-                <div class="fb-share-button" data-href="http://b2.com/quizPreview/{{$quiz->id}}"></div>
+                <div class="fb-share-button" data-href="http://b2.com/quizPreview/{{$quiz->id}}">
+
+                </div>
                 </div>
                 <div class="col-lg-2" style="padding: 3px">
                 <a href="https://twitter.com/share" style="padding-top: 5px; margin-top: 5px" class="twitter-share-button" data-url="http://b2.com/quiz/{{$quiz->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters">Tweet</a>

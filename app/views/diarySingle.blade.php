@@ -1,5 +1,3 @@
-
-
 @if($type=='single')
 
     <div class="col-lg-12" id="singlePost">
@@ -57,7 +55,6 @@
             @if (Auth::user()->id == $diary->userid)
             <div id="summernoteTextarea{{$diary->id}}">
             <textarea style="display:none" class="input-block-level" id="summernote{{$diary->id}}" name="summernote" rows="18" onfocus="checkCharacters()">
-
             </textarea>
             <div class="right-align">
             <br>
@@ -71,14 +68,8 @@
             </div>
             </div>
             @endif
-
-
             <input type="hidden" id="editOrSave{{$diary->id}}" value="">
-
             <hr>
-
          </div>
-
     @endforeach
-
 @endif

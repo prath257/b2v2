@@ -191,14 +191,12 @@ class DiaryController extends \BaseController {
                     if ($postDate == DiaryController::$date)
                         return true;
                 });
-                //$diary=DB::table('diary')->where('created_at','=',$date)->get()->where('userid','=',Auth::user()->id);
-                //or some other query which will retrive all the entry from the table , for a specific date, for a specific user
             }
 
             if($type=='single')
-                return View::make('diarySingle')->with('type',$type);
+                return View::make('diarySingle')->with('type',$type)->with('pdate',DiaryController::$date);
             else
-                return View::make('diarySingle')->with('type',$type)->with('diaries',$send);
+                return View::make('diarySingle')->with('type',$type)->with('diaries',$send)->with('pdate',DiaryController::$date);
 
         }
         else
