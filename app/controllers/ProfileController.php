@@ -17,7 +17,8 @@ class ProfileController extends \BaseController {
             {
                 DB::table('user_interests')->where('user_id',Auth::user()->id)->delete();
             }
-            return View::make('profileBuilder');
+            $interests = DB::table('user_interests')->select(DB::raw('count(interest_id) as votes, interest_id'))->groupBy('interest_id')->orderBy('votes','DESC')->take(10)->lists('interest_id');
+            return View::make('profileBuilder')->with('TOPinterests',$interests);
         }
         else
         {
@@ -234,9 +235,14 @@ class ProfileController extends \BaseController {
 		$settings = $user->settings;
 		$data=array('user'=>$user,'oldInterests'=>$oldInterests,'newInterests'=>$newInterests, 'settings'=>$settings, 'mode'=>$mode);
 		return View::make('settings',$data);
-	}
+	    }
         else
-            return 'wH@tS!nTheB0x';
+        {
+            if ($mode == 'ajax')
+                return 'wH@tS!nTheB0x';
+            else
+                return Redirect::guest('/')->with('redirected','true');
+        }
     }
 	//this is the function to edit the profile Pic of the user
 
@@ -498,9 +504,14 @@ class ProfileController extends \BaseController {
         $newFriendRequests=count($requests);
         $pendingSentRequests=count($prequests);
         return View::make('friendList')->with('allFriends',$friends)->with('allRequests',$requests)->with('allPendingRequests',$prequests)->with('friends',$friendCount)->with('newFriendRequests',$newFriendRequests)->with('pendingSentRequests',$pendingSentRequests)->with('mode',$mode);
-    }
+        }
         else
-            return 'wH@tS!nTheB0x';
+        {
+            if ($mode == 'ajax')
+                return 'wH@tS!nTheB0x';
+            else
+                return Redirect::guest('/')->with('redirected','true');
+        }
     }
     public function getSubscribersList($mode)
     {
@@ -513,9 +524,14 @@ class ProfileController extends \BaseController {
         $subscriptions=count($allSubscriptions);
 
         return View::make('subscribersList')->with('subscribers',$subscribers)->with('subscriptions',$subscriptions)->with('allSubscribers',$allSubscribers)->with('allSubscriptions',$allSubscriptions)->with('mode',$mode);
-    }
+        }
         else
-            return 'wH@tS!nTheB0x';
+        {
+            if ($mode == 'ajax')
+                return 'wH@tS!nTheB0x';
+            else
+                return Redirect::guest('/')->with('redirected','true');
+        }
     }
 
     public function manageInterests()

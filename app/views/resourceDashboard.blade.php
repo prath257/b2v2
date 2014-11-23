@@ -33,7 +33,7 @@
 <br>
 <div class="container">
     @if(Auth::user()->pset)
-    <a data-toggle="modal" data-target="#newResourceModal" class="btn btn-success col-lg-2">+ New Resource</a>
+    <a class="btn btn-success col-lg-2" onclick="openNewResourceModal()">+ New Resource</a>
 	<br>
 	<br>
     <br>

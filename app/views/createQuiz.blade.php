@@ -55,20 +55,20 @@
                         <div class="col-lg-2">Options</div>
                         <div class="col-lg-10">
                             <div class="col-lg-6">
-                                <p class="col-lg-1"><strong>A.</strong></p>
+                                <p class="col-lg-1"><strong>A</strong></p>
                                 <input id="maqOption1" name="maqOption1" type="text" class="col-lg-11 form-control">
                             </div>
                             <div class="col-lg-6">
-                                <p class="col-lg-1"><strong>B.</strong></p>
+                                <p class="col-lg-1"><strong>B</strong></p>
                                 <input id="maqOption2" name="maqOption2" type="text" class="col-lg-11 form-control">
                             </div>
                             <div class="col-lg-12">&nbsp;</div>
                             <div class="col-lg-6">
-                                <p class="col-lg-1"><strong>C.</strong></p>
+                                <p class="col-lg-1"><strong>C</strong></p>
                                 <input id="maqOption3" name="maqOption3" type="text" class="col-lg-11 form-control">
                             </div>
                             <div class="col-lg-6">
-                                <p class="col-lg-1"><strong>D.</strong></p>
+                                <p class="col-lg-1"><strong>D</strong></p>
                                 <input id="maqOption4" name="maqOption4" type="text" class="col-lg-11 form-control">
                             </div>
                         </div>
@@ -108,20 +108,20 @@
                         <div class="col-lg-2">Options</div>
                         <div class="col-lg-10">
                             <div class="col-lg-6">
-                                <p class="col-lg-1"><strong>A.</strong></p>
+                                <p class="col-lg-1"><strong>A</strong></p>
                                 <input id="saqOption1" name="saqOption1" type="text" class="col-lg-11 form-control">
                             </div>
                             <div class="col-lg-6">
-                                <p class="col-lg-1"><strong>B.</strong></p>
+                                <p class="col-lg-1"><strong>B</strong></p>
                                 <input id="saqOption2" name="saqOption2" type="text" class="col-lg-11 form-control">
                             </div>
                             <div class="col-lg-12">&nbsp;</div>
                             <div class="col-lg-6">
-                                <p class="col-lg-1"><strong>C.</strong></p>
+                                <p class="col-lg-1"><strong>C</strong></p>
                                 <input id="saqOption3" name="saqOption3" type="text" class="col-lg-11 form-control">
                             </div>
                             <div class="col-lg-6">
-                                <p class="col-lg-1"><strong>D.</strong></p>
+                                <p class="col-lg-1"><strong>D</strong></p>
                                 <input id="saqOption4" name="saqOption4" type="text" class="col-lg-11 form-control">
                             </div>
                         </div>
@@ -194,7 +194,7 @@
         <hr>
 
     </div>
-    <button id="quizSubmit" type="button" class="pull-right btn btn-primary col-lg-3 col-lg-offset-1 disabled" onclick="quizSubmit()">Submit</button>
+    <button id="quizSubmit" type="button" class="pull-right btn btn-primary col-lg-3 col-lg-offset-1 disabled" onclick="quizSubmit(0)">Submit</button>
     &nbsp;<a href="{{route('quizDashboard')}}" class="pull-right btn btn-default col-lg-3">Cancel</a>
 </div>
 

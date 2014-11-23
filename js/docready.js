@@ -7,6 +7,7 @@ var fcount=0;
 var aboutCount = 0;
 var oTableUnanswered=null;
 var oTableAnswered=null;
+var oTableAsked=null;
 var qdes=0;
 var timer=null;
 
@@ -204,6 +205,11 @@ $(document).ready(function()
         var userId = document.getElementById('profileId').value;
         oTableAnswered=$('#answeredQuestions').dataTable( {
             "ajax": 'http://b2.com/answeredQuestions/'+userId,
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+        } );
+
+        oTableAsked=$('#askedQuestions').dataTable( {
+            "ajax": 'http://b2.com/askedQuestions/'+userId,
             "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
         } );
 
@@ -1090,9 +1096,10 @@ function saveAccountChanges()
                 window.location='http://b2.com/offline';
             else
             {
-                $("#accountSettingsSubmit").html(message);
+                bootbox.alert(message);
+                /* $("#accountSettingsSubmit").html(message);
                 setTimeout(function(){$("#accountSettingsSubmit").html('Save Changes')}, 3000);
-                /*            $("#accountSettingsMessage").show();
+                           $("#accountSettingsMessage").show();
                  $("#accountSettingsMessage").html("<strong>"+message+"</strong>");
                  $("#accountSettingsMessage").fadeOut(3000);*/
             }
@@ -1112,7 +1119,8 @@ function resetPassword()
             if(message=='wH@tS!nTheB0x')
                 window.location='http://b2.com/offline';
             else
-                $("#resetPasswordMessage").html("<strong>"+message+"</strong>")
+                bootbox.alert(message);
+            /*            $("#resetPasswordMessage").html("<strong>"+message+"</strong>")*/
         });
     }
 }

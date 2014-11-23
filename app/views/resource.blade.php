@@ -59,7 +59,16 @@
 <div class="col-lg-12">
     <div class="col-lg-12">
         <div class="col-lg-4" style="margin-top: 50px">
-            <p style="word-wrap: break-word; font-family: 'Haettenschweiler'; text-transform: uppercase; font-size: 50px">{{Str::limit($book->title,50)}}</p>
+        <?php
+                                                                     $recTitle = $book->title;
+                                                                     $recDesc = $book->description;
+                                                                     $recTitle = str_replace('\'','', $recTitle);
+                                                                     $recTitle = str_replace('"','', $recTitle);
+                                                                     $recDesc = str_replace('\'','', $recDesc);
+                                                                     $recDesc = str_replace('"','', $recDesc);
+                                                     ?>
+
+            <p style="word-wrap: break-word; font-family: 'Haettenschweiler'; text-transform: uppercase; font-size: 50px">{{Str::limit($book->title,50)}} <img src="http://b2.com/Images/recco this.PNG" style="cursor: pointer" onclick="reccoThis('http://b2.com/resource/{{$book->id}}','{{$recTitle}}','{{$recDesc}}','http://b2.com/Images/Resource.jpg')"></p>
 <br>
             <div>
             <?php
@@ -104,7 +113,18 @@
                                                 @if (Auth::user()->id == $book->userid)
                                                  <a href="{{route('downloadResource',Crypt::encrypt($book->id))}}" class="btn btn-success col-lg-4" style="padding: 10px">Download</a>
                                                  @else
-                                                         <a href='#' class='btn btn-success col-lg-4' role='button' id='{{$book->title}}' name='resource' style='padding: 10px' onclick='showPurchase({{$book->ifc}})'>Download</a>
+                                                 <?php
+                                                                                                 $showPurIFC = $book->ifc;
+                                                                                                 $owner = User::find($book->userid);
+                                                                                                 if (Friend::isFriend($owner->id) && $owner->settings->freeforfriends)
+                                                                                                     $showPurIFC = 0;
+                                                                                                 else if(Friend::isSubscriber($owner->id) && $owner->settings->discountforfollowers > 0)
+                                                                                                 {
+                                                                                                     $discount = ($book->ifc*$owner->settings->discountforfollowers)/100;
+                                                                                                     $showPurIFC = $book->ifc-$discount;
+                                                                                                 }
+                                                                                             ?>
+                                                         <a href='#' class='btn btn-success col-lg-4' role='button' id='{{$book->title}}' name='resource' style='padding: 10px' onclick='showPurchase({{$showPurIFC}})'>Download</a>
 
                                                          @if ($book->getAuthor->settings->freeforfriends)
                                                          <div class="col-lg-12">&nbsp;</div>
@@ -126,15 +146,7 @@
                                                     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                                                 </div>
 
-<?php
-                                                             $recTitle = $book->title;
-                                                             $recDesc = $book->description;
-                                                             $recTitle = str_replace('\'','', $recTitle);
-                                                             $recTitle = str_replace('\"','', $recTitle);
-                                                             $recDesc = str_replace('\'','', $recDesc);
-                                                             $recDesc = str_replace('\"','', $recDesc);
-                                             ?>
-                                                <div class="col-lg-12" style="padding: 0px"><a style="cursor: pointer" onclick="reccoThis('http://b2.com/resource/{{$book->id}}','{{$recTitle}}','{{$recDesc}}','http://b2.com/Images/Resource.jpg')">Recommend this to Barters</a></div>
+
 
                             @else
                                    <div style="font-size: 15px"><a href="{{$tlink}}" style="cursor: pointer">Sign In <img height="15px" width="15px" src="{{asset('Images/icons/twitter.png')}}"> | <img height="15px" width="15px" src="{{asset('Images/icons/facebook.jpg')}}"> | <img height="15px" width="15px" src="{{asset('Images/icons/gmail.jpg')}}"></a>&nbsp;&nbsp;&nbsp;to {{$ttext}}<br/></div>
@@ -160,83 +172,41 @@
 
 
             <div class="col-lg-12">
-                        <?php
 
-
-                                     $articles = Article::where('category','=',$book->category)->orderBy('users','DESC')->get();
-                                     $blogBooks = BlogBook::where('category','=',$book->category)->orderBy('users','DESC')->get();
-                                     $collaborations = Collaboration::where('category','=',$book->category)->orderBy('users','DESC')->get();
-
-
-                                     $content = $articles->merge($blogBooks);
-                                     $content = $content->merge($collaborations);
-
-                                     $content = $content->sortByDesc('users')->take(6);
-
-                                     if (count($content) < 6)
-                                     {
-                                        $articles = $owner->getArticles()->orderBy('users','DESC')->get();
-                                        $blogBooks = $owner->getBlogBooks()->orderBy('users','DESC')->get();
-                                        $collaborations = $owner->getOwnedCollaborations()->orderBy('users','DESC')->get();
-                                         $contributions = $owner->getContributions()->orderBy('users','DESC')->get();
-
-                                         $content = $content->merge($articles);
-                                         $content = $content->merge($blogBooks);
-                                         $content = $content->merge($collaborations);
-                                         $content = $content->merge($contributions);
-
-                                         $content = $content->sortByDesc('users')->take(6);
-
-                                         if (count($content) < 6)
-                                         {
-                                                $ksj = User::where('username','=','ksjoshi88')->first();
-                                                 $articles = $ksj->getArticles()->orderBy('users','DESC')->get();
-                                                 $blogBooks = $ksj->getBlogBooks()->orderBy('users','DESC')->get();
-                                                 $collaborations = $ksj->getOwnedCollaborations()->orderBy('users','DESC')->get();
-                                                  $contributions = $ksj->getContributions()->orderBy('users','DESC')->get();
-
-                                                  $content = $content->merge($articles);
-                                                   $content = $content->merge($blogBooks);
-                                                   $content = $content->merge($collaborations);
-                                                   $content = $content->merge($contributions);
-                                         }
-                                     }
-                                 ?>
                                  @if (count($content) > 0)
-                                                     <?php $i=0; ?>
-                                                     @foreach ($content as $tr)
-
-                                                     <div class="col-lg-4">
-                                                         <div class="col-lg-12" style="padding: 0px">
-                                                                 <img class="Profileimages col-lg-12" src="{{asset($tr->cover)}}" style="padding: 0px">
-                                                         </div>
-                                                         <div class="col-lg-12" style="padding: 0px">
-                                                             <div>
-                                                                 <div>
-                                                                     <div class="caption">
-                                                                         @if ($tr->text)
-                                                                             <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('articlePreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,30)}}</a></p>
-
-                                                                         @elseif ($tr->review)
-                                                                             <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('blogBookPreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,30)}}</a></p>
-
-                                                                         @else
-                                                                             <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('collaborationPreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,30)}}</a></p>
-
-                                                                         @endif
-                                                                     </div>
-
-
-
-                                                                 </div>
-                                                             </div>
-                                                         </div>
-                                                         </div>
-                                                     @endforeach
-
-
-
-
+                                      <?php $i=0; ?>
+                                      @foreach ($content as $tr)
+                                      <?php $i++; ?>
+                                      @if ($i%3 == 1)
+                                         <div class="col-lg-12">
+                                      @endif
+                                      <div class="col-lg-4">
+                                          <div class="col-lg-12" style="padding: 0px">
+                                              <img class="Profileimages col-lg-12" src="{{asset($tr->cover)}}" style="padding: 0px">
+                                          </div>
+                                          <div class="col-lg-12" style="padding: 0px">
+                                              <div>
+                                                  <div>
+                                                      <div class="caption">
+                                                          @if ($tr->text)
+                                                              <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('articlePreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,30)}}</a></p>
+                                                          @elseif ($tr->review)
+                                                              <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('blogBookPreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,30)}}</a></p>
+                                                          @else
+                                                              <p class="contentTitle" style="font-size: 14px; padding-top: 5px"><a href="{{route('collaborationPreview',$tr->id)}}" target="_blank">{{Str::limit($tr->title,30)}}</a></p>
+                                                          @endif
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      @if ($i%3 == 0)
+                                         </div>
+                                      @endif
+                                      @endforeach
+                                      @if (count($content)%3 != 0)
+                                         </div>
+                                      @endif
                                  @endif
 
                         </div>

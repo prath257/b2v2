@@ -16,7 +16,7 @@ class CreateArticleTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('title',255);
-            $table->string('cover',255);
+            $table->string('cover',255)->default('http://b2.com/Images/Article.png');
             $table->text('description');
 			$table->binary('text',32777216);
 			$table->integer('ifc')->unsigned()->default(0);

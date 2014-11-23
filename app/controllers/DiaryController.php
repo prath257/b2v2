@@ -151,7 +151,7 @@ class DiaryController extends \BaseController {
         if(Auth::check())
         {
             $message=Input::get('message');
-
+            $access=Input::get('access');
             $type=Input::get('type');
 
             if($type=='edit')
@@ -162,9 +162,13 @@ class DiaryController extends \BaseController {
 
             $diary->userid=Auth::user()->id;
             $diary->text=$message;
+            if ($access == 'public')
+                $diary->ispublic = true;
+            else
+                $diary->ispublic = false;
             $diary->save();
 
-            if ($type!='edit' && Auth::user()->settings->diaryAccess == 'public')
+            if ($type!='edit' && (Auth::user()->settings->diaryAccess == 'public' || Auth::user()->settings->diaryAccess == 'semi'))
                 Action::postAction('Diary new',Auth::user()->id,null,null);
 
         }

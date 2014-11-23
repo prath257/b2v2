@@ -100,7 +100,7 @@
                 <div id="Unapp{{$unapp->id}}">
                     <blockquote class="col-lg-12">{{$unapp->content}}</blockquote>
                     <div class="pull-right"><b>Written By: </b><a href="{{route('user',User::find($unapp->writtenby)->username)}}" style="text-decoration: none">{{User::find($unapp->writtenby)->first_name}} {{User::find($unapp->writtenby)->last_name}}</a></div>
-                    <div class="col-lg-12">
+                    <div id="accDecAbout{{$unapp->id}}" class="col-lg-12">
                         <button id="acceptUnapp{{$unapp->id}}" class="btn btn-success" onclick="acceptAbout({{$unapp->id}})">Accept</button>
                         <button id="declineUnapp{{$unapp->id}}" class="btn btn-danger" onclick="declineAbout({{$unapp->id}})">Decline</button>
                         <br>

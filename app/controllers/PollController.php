@@ -14,14 +14,12 @@ class PollController extends \BaseController {
         $pquestion=Input::get('question');
         $message=Input::get('message');
         $category=Input::get('category');
-        $ifc=Input::get('ifc');
         $isPublic=Input::get('access');
 
         $poll=new Poll();
         $poll->question=$pquestion;
         $poll->message=$message;
         $poll->active=true;
-        $poll->ifc=$ifc;
         $poll->category=$category;
         if($isPublic==null)
             $poll->ispublic=false;
@@ -51,57 +49,98 @@ class PollController extends \BaseController {
             });
         }
 
+        Auth::user()->profile->ifc += 20;
+        Auth::user()->profile->save();
+        TransactionController::insertToManager(Auth::user()->id,"+20","Created new poll (".$poll->question.")","nope","nope","nope");
+
         //Now redirect the user to the Poll page
         return Redirect::to('/poll/'.$poll->id);
     }
 
     public function showPoll($pid)
     {
-        $poll=Poll::find($pid);
-        return View::make('poll')->with('poll',$poll);
+        $book=Poll::find($pid);
+        $owner = User::find($book->ownerid);
+        $articles = Article::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $blogBooks = BlogBook::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $collaborations = Collaboration::where('category','=',$book->category)->orderBy('users','DESC')->get();
+
+
+        $content = $articles->merge($blogBooks);
+        $content = $content->merge($collaborations);
+
+        $content = $content->sortByDesc('users')->take(6);
+
+        if (count($content) < 6)
+        {
+            $articles = $owner->getArticles()->orderBy('users','DESC')->get();
+            $blogBooks = $owner->getBlogBooks()->orderBy('users','DESC')->get();
+            $collaborations = $owner->getOwnedCollaborations()->orderBy('users','DESC')->get();
+            $contributions = $owner->getContributions()->orderBy('users','DESC')->get();
+
+            $content = $content->merge($articles);
+            $content = $content->merge($blogBooks);
+            $content = $content->merge($collaborations);
+            $content = $content->merge($contributions);
+
+            $content = $content->sortByDesc('users')->take(6);
+
+            if (count($content) < 6)
+            {
+                $ksj = User::where('username','=','ksjoshi88')->first();
+                $articles = $ksj->getArticles()->orderBy('users','DESC')->get();
+                $blogBooks = $ksj->getBlogBooks()->orderBy('users','DESC')->get();
+                $collaborations = $ksj->getOwnedCollaborations()->orderBy('users','DESC')->get();
+                $contributions = $ksj->getContributions()->orderBy('users','DESC')->get();
+
+                $content = $content->merge($articles);
+                $content = $content->merge($blogBooks);
+                $content = $content->merge($collaborations);
+                $content = $content->merge($contributions);
+
+                $content = $content->sortByDesc('users')->take(6);
+            }
+        }
+
+        return View::make('poll')->with('poll',$book)->with('content',$content);
     }
 
     public function submitPoll()
     {
-        if(Auth::check())
-        {
         $pid=Input::get('pollId');
         $poll=Poll::find($pid);
 
-        if (Auth::user()->profile->ifc >= $poll->ifc)
-        {
-            $rid=Input::get('response');
-            $response=Polloption::find($rid);
-            $response->responses+=1;
-            $response->save();
+        $rid=Input::get('response');
+        $response=Polloption::find($rid);
+        $response->responses+=1;
+        $response->save();
 
-            //Deduct IFCs of the answerer and increase the IFC count of the poll's owner.
-            Auth::user()->profile->ifc -= $poll->ifc;
-            Auth::user()->profile->save();
+        //Deduct IFCs of the answerer and increase the IFC count of the poll's owner.
+        /*Auth::user()->profile->ifc -= $poll->ifc;
+        Auth::user()->profile->save();
+        $user = User::find($poll->ownerid);
+        $user->profile->ifc += $poll->ifc;
+        $user->profile->save();*/
+
+        $responses=$poll->getOptions()->get();
+        $tr=0;
+        foreach($responses as $r)
+        {
+            $tr+=$r->responses;
+        }
+
+        if ($tr == 100 || $tr == 300 || $tr == 500 || $tr == 1000)
+        {
             $user = User::find($poll->ownerid);
-            $user->profile->ifc += $poll->ifc;
+            TransactionController::insertToManager($user->id,"+".$tr,"Milestone of ".$tr." votes achieved for poll (".$poll->question.")","nope","nope","nope");
+            $user->profile->ifc += $tr;
             $user->profile->save();
-
-            $responses=$poll->getOptions()->get();
-            $tr=0;
-            foreach($responses as $r)
-            {
-                $tr+=$r->responses;
-            }
-
-            TransactionController::insertToManager(Auth::user()->id,"-".$poll->ifc,"Took poll:",'http://b2.com/poll/'.$poll->id,$poll->question,"content");
-
-            TransactionController::insertToManager($user->id,"+".$poll->ifc,"New vote to poll (".$poll->question.") by",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
-
-            return View::make('pollResult')->with('responses',$responses)->with('total',$tr);
         }
-        else
-        {
-            return '<br>Sorry, you need '.$poll->ifc.' IFCs to submit this Poll and as of now, you\'ve got '.Auth::user()->profile->ifc.' IFCs left. Learn more about earning IFCs <a href="http://b2.com/earnIFCs" style="text-decoration: none"><b>HERE.</b></a>';
-        }
-    }
-        else
-            return 'wH@tS!nTheB0x';
+
+        /*TransactionController::insertToManager(Auth::user()->id,"-".$poll->ifc,"Took poll:",'http://b2.com/poll/'.$poll->id,$poll->question,"content");*/
+
+
+        return View::make('pollResult')->with('responses',$responses)->with('total',$tr);
     }
 
 

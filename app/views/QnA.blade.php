@@ -56,8 +56,10 @@
         <button type="button" class="btn btn-primary" onclick="askQuestion()">
             @if ($user->gender == 'male')
             Ask Him
-            @else
+            @elseif ($user->gender == 'female')
             Ask Her
+            @else
+            Ask {{$user->first_name}}
             @endif
         </button>
         <br>
@@ -94,6 +96,29 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-lg-10 col-lg-offset-1">
+            <h3 style="color: dodgerblue">I Asked..</h3>
+            <br>
+            <div class="table-responsive">
+                <table id="askedQuestions"  class="table table-condensed table-hover" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Description</th>
+                        <th>Answer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -302,7 +327,7 @@
                                 <b>Access:</b><br>
                                 <div class="bootstrap-switch">
 
-                                    <input id="access" type="checkbox" name="access" checked>
+                                    <input id="access" type="checkbox" name="access">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-lg-offset-9">

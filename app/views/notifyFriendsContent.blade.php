@@ -8,16 +8,14 @@
 <?php if (count($articles) > 0)
 {
     $colorIndex = rand(0, 5); ?>
-<div id="carousel2" class="carousel slide carousel-fade col-lg-12 well" style="color: white; background-color: {{$colors[$colorIndex]}}">
-<div class="carousel-inner">
     <?php $j=0; ?>
     @foreach($articles as $article)
-    <?php $j++; ?>
-    @if ($j == 1)
+        <?php $j++; ?>
+<div id="carousel2" class="carousel slide carousel-fade col-lg-12 well" style="color: white; background-color: {{$colors[$colorIndex]}}">
+<div class="carousel-inner">
+
+
     <div class="item active" style="height: 100%">
-        @else
-        <div class="item" style="height: 100%">
-            @endif
             <div class="col-lg-12" style="padding: 0px; height: 100%">
 
                 <img class="col-lg-12 img1" src="{{asset($article->cover)}}" onclick="viewArticle({{$article->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
@@ -39,26 +37,23 @@
 
             </div>
         </div>
-        @endforeach
+
     </div>
 </div>
-
+@endforeach
 <?php
 }
 ?>
 <?php if (count($blogbooks) > 0)
 {
         $colorIndex = rand(0, 5); ?>
+        <?php $j=0; ?>
+                @foreach($blogbooks as $book)
+                <?php $j++; ?>
     <div id="carousel1" class="carousel slide carousel-fade col-lg-12 well" style="color: white; margin-bottom: 0px; background-color: {{$colors[$colorIndex]}}">
     <div class="carousel-inner">
-        <?php $j=0; ?>
-        @foreach($blogbooks as $book)
-        <?php $j++; ?>
-        @if ($j == 1)
+
         <div class="item active">
-            @else
-            <div class="item">
-                @endif
                 <div class="col-lg-12" style="padding: 0px">
 
                     <img class="col-lg-12 img2" src="{{asset($book->cover)}}" onclick="viewBlogBook({{$book->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
@@ -81,10 +76,10 @@
 
                 </div>
             </div>
-            @endforeach
+
         </div>
     </div>
-
+@endforeach
 <?php
 }
 ?>
@@ -94,16 +89,13 @@
 <?php if (count($resources) > 0)
 {
     $colorIndex = rand(0, 5); ?>
+    <?php $j=0; ?>
+        @foreach($resources as $resource)
+        <?php $j++; ?>
 <div id="carousel3" class="carousel slide carousel-fade col-lg-12 well" style="color: white; background-color: {{$colors[$colorIndex]}}">
 <div class="carousel-inner">
-    <?php $j=0; ?>
-    @foreach($resources as $resource)
-    <?php $j++; ?>
-    @if ($j == 1)
+
     <div class="item active">
-        @else
-        <div class="item">
-            @endif
             <div class="col-lg-12" style="padding: 0px">
 
                 <img class="col-lg-12 img3" src="{{asset('Images/Resource.jpg')}}" onclick="viewResource({{$resource->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
@@ -125,10 +117,10 @@
 
             </div>
         </div>
-        @endforeach
+
     </div>
 </div>
-
+ @endforeach
 <?php
 }
 ?>
@@ -136,16 +128,13 @@
 <?php if (count($collaborations) > 0 || count($contributions) > 0)
 {
     $colorIndex = rand(0, 5); ?>
+    <?php $j=0; ?>
+        @foreach($collaborations as $collab)
+            <?php $j++; ?>
 <div id="carousel4" class="carousel slide carousel-fade col-lg-12 well" style="color: white; margin-bottom: 0px; background-color: {{$colors[$colorIndex]}}">
 <div class="carousel-inner">
-    <?php $j=0; ?>
-    @foreach($collaborations as $collab)
-        <?php $j++; ?>
-        @if ($j == 1)
+
             <div class="item active">
-        @else
-            <div class="item">
-        @endif
                 <div class="col-lg-12" style="padding: 0px">
 
                     <img class="col-lg-12 img4" src="{{asset($collab->cover)}}" onclick="viewCollaboration({{$collab->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
@@ -168,15 +157,15 @@
 
                 </div>
             </div>
+            </div>
+            </div>
     @endforeach
 
     @foreach($contributions as $collab)
     <?php $j++; ?>
-    @if ($j == 1)
+    <div id="carousel4" class="carousel slide carousel-fade col-lg-12 well" style="color: white; margin-bottom: 0px; background-color: {{$colors[$colorIndex]}}">
+    <div class="carousel-inner">
     <div class="item active">
-        @else
-        <div class="item">
-            @endif
             <div class="col-lg-12" style="padding: 0px">
 
                 <img class="col-lg-12 img5" src="{{asset($collab->cover)}}" onclick="viewCollaboration({{$collab->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
@@ -198,11 +187,11 @@
             </div>
         </div>
         <?php $i++; ?>
-        @endforeach
+
 
     </div>
 </div>
-
+@endforeach
 <?php
 }
 ?>
@@ -212,16 +201,13 @@
 <?php if (count($media) > 0)
 {
     $colorIndex = rand(0, 5); ?>
+    <?php $j=0; ?>
+        @foreach($media as $med)
+        <?php $j++; ?>
 <div id="carousel5" class="carousel slide carousel-fade col-lg-12 well" style="color: white; background-color: {{$colors[$colorIndex]}}">
 <div class="carousel-inner">
-    <?php $j=0; ?>
-    @foreach($media as $med)
-    <?php $j++; ?>
-    @if ($j == 1)
+
     <div class="item active">
-        @else
-        <div class="item">
-            @endif
             <div class="col-lg-12" style="padding: 0px">
 
                 <img class="col-lg-12 img5" src="{{asset($med->cover)}}" onclick="viewMedia({{$med->id}})" style="max-height: 300px; padding: 0px; cursor: pointer">
@@ -244,10 +230,10 @@
             </div>
         </div>
         <?php $i++; ?>
-        @endforeach
+
     </div>
 </div>
-
+@endforeach
 <?php
 }
 ?>
@@ -255,16 +241,13 @@
 <?php if (count($pollsnquizes) > 0)
 {
     $colorIndex = rand(0, 5); ?>
+    <?php $j=0; ?>
+        @foreach($pollsnquizes as $pnq)
+        <?php $j++; ?>
 <div id="carousel6" class="carousel slide carousel-fade col-lg-12 well" style="color: white; margin-bottom: 0px; background-color: {{$colors[$colorIndex]}}">
 <div class="carousel-inner">
-    <?php $j=0; ?>
-    @foreach($pollsnquizes as $pnq)
-    <?php $j++; ?>
-    @if ($j == 1)
+
     <div class="item active">
-        @else
-        <div class="item">
-            @endif
             <div class="col-lg-12" style="padding: 0px">
                 @if ($pnq->title)
 
@@ -307,10 +290,10 @@
             </div>
         </div>
         <?php $i++; ?>
-        @endforeach
+
     </div>
 </div>
-
+@endforeach
 <?php
 }
 ?>

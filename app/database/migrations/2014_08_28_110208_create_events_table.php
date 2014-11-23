@@ -16,7 +16,7 @@ class CreateEventsTable extends Migration {
 		{
 			$table->increments('id');
             $table->string('name',255);
-            $table->string('cover',255);
+            $table->string('cover',255)->default('http://b2.com/Images/Events.jpg');
             $table->binary('description',32777216)->nullable();
             $table->text('prerequesite');
             $table->text('takeaway');

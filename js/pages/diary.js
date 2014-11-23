@@ -248,6 +248,8 @@ function showEdit(id)
 
     $('#btnEdit'+id).hide();
     $('#btnDelt'+id).hide();
+    $('#btnAccess'+id).show();
+    $(".access").bootstrapSwitch({'onText':'Public', 'offText':'Private'});
     $('#btnSave'+id).show();
 
     $('#beingEdited').val(id);
@@ -257,7 +259,10 @@ function save(id,type)
 {
     var message=$('#summernote'+id).code();
     $('.saveNedit'+id).html("<img src='http://b2.com/Images/icons/waiting.gif'> Saving..");
-
+    if ($('#access'+id+':checked').val() !== undefined)
+        var access='public';
+    else
+        var access='private';
 
 
    /* $('#summernote'+id).hide();
@@ -281,7 +286,7 @@ function save(id,type)
     $.ajax({
         type: "POST",
         url: "http://b2.com/saveDiary",
-        data: {message:message,type:type,id:id}
+        data: {message:message,type:type,id:id,access:access}
     }).done(function(data)
     {
         if(data=='wH@tS!nTheB0x')
@@ -330,14 +335,10 @@ function save(id,type)
             retrieveAll(currentDate,currentMonth,currentYear,userid);
         }
     });
-
 }
-
-
 
 function createSingle()
 {
-
     var type="single";
     var date=""; //not required for single
 
@@ -352,6 +353,7 @@ function createSingle()
         else
         {
             $('#summernoteDiv').html(data);  // append div after the div
+            $(".access").bootstrapSwitch({'onText':'Public', 'offText':'Private'});
             $('.summernote').summernote({
                 height:300
             });
@@ -529,7 +531,7 @@ function getDates(year,month,id) {
 
 function retrieveAll(d,m,y,userid)
 {
-    $('#posts').html('<div class="center-align"><img src="http://b2.com/Images/icons/waiting.gif"></div>');
+    $('#posts').html('<div class="center-align"><img src="http://b2.com/Images/icons/waiting.gif"> Loading..</div>');
     var type="all";
     var date=""+y+"-"+m+"-"+d+" 18:07:00";
     //the date to retrive from the database

@@ -39,6 +39,9 @@ class ChatController extends \BaseController
 
             if($user1->isOnline && $user2->isOnline)
             {
+                DB::table('chats')->where('user1',Auth::user()->id)->where('user2',$user2->id)->update(array('status' => 'completed'));
+                DB::table('chats')->where('user2',Auth::user()->id)->where('user1',$user2->id)->update(array('status' => 'completed'));
+
                 if (!Friend::isFriend($user1->id))
                 {
                     $user1->profile->ifc -= $user2->settings->chatcost;

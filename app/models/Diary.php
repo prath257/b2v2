@@ -9,4 +9,5 @@
 class Diary extends Eloquent{
 
     protected $table='diary';
+
 } 

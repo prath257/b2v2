@@ -9,7 +9,7 @@
     <link href="{{asset('css/logo.css')}}" rel="stylesheet">
     <link href="{{asset('dataTables.bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('css/bootstrapValidator.css')}}" rel="stylesheet">
-    <link href="{{asset('css/pollDashboard.css')}}" rel="stylesheet">
+    <link href="{{asset('css/pages/pollDashboard.css')}}" rel="stylesheet">
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
     <link href="{{asset('css/search.css')}}" rel="stylesheet">
     <link href="{{asset('css/bootstrap-switch.css')}}" rel="stylesheet">
@@ -215,7 +215,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label class="col-lg-3 control-label">Cost</label>
                             <div class="col-lg-6">
                                 <div class="input-group">
@@ -223,7 +223,7 @@
                                     <span class="input-group-addon">IFCs</span>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
                         <label class="col-lg-3 control-label">Access</label>
@@ -260,6 +260,9 @@
                 {{Form::close()}}
 
             </div>
+            <div class="modal-footer" title="You earn 20 ifcs for a new Poll. Also, you earn bonus ifcs after crossing milestones, say 100 votes on a poll." style="color: darkgreen">
+                <b style="cursor: pointer">WHERE are the ifcs?</b>
+              </div>
         </div>
     </div>
 </div>

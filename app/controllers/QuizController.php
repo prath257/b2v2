@@ -40,29 +40,39 @@ class QuizController extends \BaseController {
         if(Auth::check())
         {
         $access = Input::get('access');
-        $quiz = new Quiz();
-        $quiz->title = Input::get('title');
-        $quiz->description = Input::get('description');
-        $quiz->category = Input::get('category');
-        $quiz->ifc = Input::get('ifc');
-        $quiz->time = Input::get('time');
-        if ($access == 'true')
-            $quiz->ispublic = true;
-        else
-            $quiz->ispublic = false;
-        $quiz->ownerid = Auth::user()->id;
-        $quiz->save();
 
-        Action::postAction('Q new',Auth::user()->id,null,$quiz->id);
-        $subscribers = DB::table('subscriptions')->where('subscribed_to_id','=',Auth::user()->id)->lists('subscriber_id');
-        foreach($subscribers as $s)
+        if (Input::get('id') == 0)
         {
-            QuizController::$email=User::find($s)->email;
-            Mail::send('mailers',array('user' => User::find($s),'content' => $quiz,'type' => 'Q','writer' => Auth::user(),'page'=>'readerMailer'),function($message)
+            $quiz = new Quiz();
+            $quiz->title = Input::get('title');
+            $quiz->description = Input::get('description');
+            $quiz->category = Input::get('category');
+            $quiz->ifc = Input::get('ifc');
+            $quiz->time = Input::get('time');
+            if ($access == 'true')
+                $quiz->ispublic = true;
+            else
+                $quiz->ispublic = false;
+            $quiz->ownerid = Auth::user()->id;
+            $quiz->save();
+
+            Action::postAction('Q new',Auth::user()->id,null,$quiz->id);
+            $subscribers = DB::table('subscriptions')->where('subscribed_to_id','=',Auth::user()->id)->lists('subscriber_id');
+            foreach($subscribers as $s)
             {
-                $message->to(QuizController::$email)->subject('New Quiz');
-            });
+                QuizController::$email=User::find($s)->email;
+                Mail::send('mailers',array('user' => User::find($s),'content' => $quiz,'type' => 'Q','writer' => Auth::user(),'page'=>'readerMailer'),function($message)
+                {
+                    $message->to(QuizController::$email)->subject('New Quiz');
+                });
+            }
         }
+        else
+        {
+            $quiz = Quiz::find(Input::get('id'));
+        }
+
+
 
         $qCount=Input::get('count');
         $qId=$quiz->id;

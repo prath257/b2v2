@@ -203,21 +203,13 @@ function useMedia(path,title)
     var content = $('#summernote').code();
     var strpath=path;
 
-	if ((strpath.search('.mp4') > 0) || (strpath.search('.webm') > 0))
+	if ((strpath.search('.mp4') > 0))
 	{
-		content += "<video class='embed' width='320' height='240' controls><source src='"+path+"'></video>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
+		content += "<video class='embed' width='50%' height='50%' controls><source src='"+path+"'></video>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
 	}
-	else if ((strpath.search('.mp3') > 0) || (strpath.search('.wav') > 0))
+	else if ((strpath.search('.mp3') > 0))
 	{
 		content += "<audio class='embed' controls><source src='"+path+"'></audio>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
-	}
-	else if ((strpath.search('.avi') > 0) || (strpath.search('.asf') > 0) || (strpath.search('.wmv') > 0))
-	{
-		content += "<embed class='embed' width='320' height='240' src='"+path+"'></embed>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
-	}
-	else if ((strpath.search('.m4a') > 0) || (strpath.search('.mkv') > 0) || (strpath.search('.flv') > 0))
-	{
-		content += "<a href='"+path+"' target='_blank'>"+title+"</a>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
 	}
 
     $('#summernote').code(content);
@@ -273,21 +265,13 @@ function completeHandler(event)
         window.location='http://b2.com/offline';
     else
     {
-        if ((strpath.search('.mp4') > 0) || (strpath.search('.webm') > 0) || (strpath.search('.ogg') > 0))
+        if ((strpath.search('.mp4') > 0))
         {
             content += "<video class='embed' width='320' height='240' controls><source src='"+strpath+"'></video>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
         }
-        else if ((strpath.search('.mp3') > 0) || (strpath.search('.wav') > 0) || (strpath.search('.ogg') > 0))
+        else if ((strpath.search('.mp3') > 0))
         {
             content += "<audio class='embed' controls><source src='"+strpath+"'></audio>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
-        }
-        else if ((strpath.search('.avi') > 0) || (strpath.search('.asf') > 0) || (strpath.search('.wmv') > 0))
-        {
-            content += "<embed class='embed' width='320' height='240' src='"+strpath+"'></embed>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
-        }
-        else if ((strpath.search('.m4a') > 0) || (strpath.search('.mkv') > 0) || (strpath.search('.flv') > 0))
-        {
-            content += "<a href='"+strpath+"' target='_blank'>"+$('#mediaTitle').val()+"</a>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
         }
 
         $('#summernote').code(content);

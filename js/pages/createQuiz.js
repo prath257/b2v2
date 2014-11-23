@@ -270,8 +270,11 @@ function submitTfq()
     }
 }
 
-function quizSubmit()
+function quizSubmit(id)
 {
+    $('#quizSubmit').html('Please wait..');
+    $('#quizSubmit').prop('disabled',true);
+
     var i;
     var allQuestions = [];
     var option1 = [];
@@ -317,12 +320,16 @@ function quizSubmit()
                 correct4[count-1]=false;
         }
     }
-    var title = $('#quizTitle').val();
-    var description = $('#quizDescription').val();
-    var category = $('#quizCategory').val();
-    var ifc = $('#quizIFC').val();
-    var access = $('#quizAccess').val();
-    var time=$('#quizTime').val();
+    if (id == 0)
+    {
+        var title = $('#quizTitle').val();
+        var description = $('#quizDescription').val();
+        var category = $('#quizCategory').val();
+        var ifc = $('#quizIFC').val();
+        var access = $('#quizAccess').val();
+        var time=$('#quizTime').val();
+    }
+
 
     $.post('http://b2.com/createQuiz',
         {
@@ -341,7 +348,8 @@ function quizSubmit()
             category: category,
             ifc: ifc,
             access: access,
-            time:time
+            time:time,
+            id: id
         },function(data)
         {
             if(data=='wH@tS!nTheB0x')

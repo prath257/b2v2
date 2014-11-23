@@ -16,7 +16,7 @@
                         <div class="col-lg-12">&nbsp;</div>
 
                         <div class="col-lg-6 col-lg-offset-3 fileUpload btn btn-default">
-                            <span>Upload Collaboration Cover</span>
+                            <span>Change Collaboration Cover</span>
                             <input type="file" id="uploadCollabCover" class="upload" name="uploadCollabCover" style="width: 100%" onchange="changeCollaborationCover()" />
                         </div>
 
@@ -101,7 +101,7 @@
                         <div class="col-lg-12">&nbsp;</div>
 
                         <div class="col-lg-6 col-lg-offset-3 fileUpload btn btn-default">
-                            <span>Upload BlogBook Cover</span>
+                            <span>Change BlogBook Cover</span>
                             <input type="file" id="uploadBBCover" class="upload" name="uploadBBCover" style="width: 100%; padding: 0px" onchange="changeBlogBookCover()" />
                         </div>
 
@@ -199,7 +199,7 @@
                         <div class="col-lg-12">&nbsp;</div>
 
                         <div class="col-lg-6 col-lg-offset-3 fileUpload btn btn-default">
-                            <span>Upload Article Cover</span>
+                            <span>Change Article Cover</span>
                             <input type="file" id="uploadArtCover" class="upload" name="uploadArtCover" style="width: 100%" onchange="changeArticleCover()" />
                         </div>
 

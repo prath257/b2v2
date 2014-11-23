@@ -169,33 +169,35 @@
 
                         $content = $content->sortByDesc('users')->take(3);
                     ?>
-                    @if (count($content) > 0)
-                        <?php $PIcount++; ?>
+                    <div class="col-lg-4">
+                        <a class="darkLinks col-lg-12" style="padding: 0px" onclick="showUserContent({{$interest->id}})"><h4>{{Str::limit($interest->interest_name,15)}}</h4></a>
+                        @if (count($content) > 0)
+                            <?php $PIcount++; ?>
 
-                        <div id="carousel{{$PIcount}}" class="carousel slide carousel-fade col-lg-4">
-                        <a class="darkLinks" onclick="showUserContent({{$interest->id}})"><h4>{{Str::limit($interest->interest_name,15)}}</h4></a>
-                                    <div class="carousel-inner">
-                                        <?php $i=0; ?>
-                                        @foreach ($content as $tr)
-                                            <?php $i++; ?>
-                                            @if ($i == 1)
-                                                <div class="item active">
-                                            @else
-                                                <div class="item">
-                                            @endif
+                        <div id="carousel{{$PIcount}}" class="carousel slide carousel-fade col-lg-12" style="padding: 0px">
+
+                            <div class="carousel-inner">
+                                <?php $i=0; ?>
+                                @foreach ($content as $tr)
+                                    <?php $i++; ?>
+                                    @if ($i == 1)
+                                        <div class="item active">
+                                    @else
+                                        <div class="item">
+                                    @endif
 
                                             <div>
 
-                                            <?php
-                                            if ($tr->text)
-                                                $ClassicRoutes = 'articlePreview';
-                                            elseif ($tr->review)
-                                                $ClassicRoutes = 'blogBookPreview';
-                                            elseif ($tr->path)
-                                                $ClassicRoutes = 'resource';
-                                            else
-                                                $ClassicRoutes = 'collaborationPreview';
-                                            ?>
+                                                <?php
+                                                    if ($tr->text)
+                                                        $ClassicRoutes = 'articlePreview';
+                                                    elseif ($tr->review)
+                                                        $ClassicRoutes = 'blogBookPreview';
+                                                    elseif ($tr->path)
+                                                        $ClassicRoutes = 'resource';
+                                                    else
+                                                        $ClassicRoutes = 'collaborationPreview';
+                                                ?>
 
                                                 @if ($tr->path)
                                                     <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="Profileimages" src="{{asset('Images/Resource.jpg')}}" height="100px" width="100px"></a>
@@ -210,61 +212,56 @@
                                                             <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank" class="darkLinks" style="font-size: 16px">{{$tr->title}}</a>
 
                                                         </div>
-
-
-
                                                     </div>
                                                 </div>
                                             </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div style="height: 5%">
-                                    <ul class="carousel-indicators pull-right" style="left: auto; list-style-type: none">
-                                        @for ($contentC = 0; $contentC < $i; $contentC++)
-                                            <?php
-                                                if ($contentC == 0)
-                                                    $extraClass = 'active';
-                                               else
-                                                    $extraClass = '';
-                                             ?>
-                                            <li data-target="#carousel{{$PIcount}}" data-slide-to="{{$contentC}}" class="bottom-boxes {{$extraClass}}"></li>
-                                        @endfor
-                                    </ul>
-                                    </div>
-                                </div>
-
-
-
-                    @endif
-                @endif
-            @endforeach
-            @if ($PIcount == 0)
-                <div class="col-lg-4">
-                    <div class="col-lg-12" style="padding: 5px; color: white">
-                        <div class="col-lg-12 noPadding contento-divs" style="background-color: #1c5a5e; border-radius: 4px">
-                            <img src="{{asset('Images/no-content.jpg')}}" class="col-lg-12 noPadding contento-images" style="height: 150px">
-                            <div class="col-lg-12">
-                                <h4 style="font-weight: bolder"><a style="color: white">No work yet.</a></h4>
-                                <p>It seems like {{$user->first_name}} hasn't got any work up there. Rest assured it will be up there soon.</p>
+                                        </div>
+                                @endforeach
                             </div>
-                            <div class="col-lg-12 ifc-readerr" style="text-align: center; background-color: #185256">
-                                <div id="ifc-readerr" class="col-lg-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px; border-right: 2px solid #1c5a5e">
-                                    <div class="col-lg-12 noPadding"><b>None</b></div>
-                                    <div class="col-lg-12 noPadding" style="font-size: 12px">IFCs</div>
-                                </div>
-                                <div class="col-lg-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px">
-                                    <div class="col-lg-12 noPadding"><b>Many</b></div>
-                                    <div class="col-lg-12 noPadding" style="font-size: 12px">Readers <i class="fa fa-clock-o"></i></div>
+                            <div style="height: 5%">
+                                <ul class="carousel-indicators pull-right" style="left: auto; list-style-type: none">
+                                    @for ($contentC = 0; $contentC < $i; $contentC++)
+                                        <?php
+                                            if ($contentC == 0)
+                                                $extraClass = 'active';
+                                            else
+                                                $extraClass = '';
+                                         ?>
+                                        <li data-target="#carousel{{$PIcount}}" data-slide-to="{{$contentC}}" class="bottom-boxes {{$extraClass}}"></li>
+                                    @endfor
+                                </ul>
+                            </div>
+                        </div>
+
+                        @else
+                        <div class="col-lg-12" style="padding: 0px">
+                            <div class="col-lg-12" style="padding: 0px; color: white">
+                                <div class="col-lg-12 noPadding contento-divs" style="background-color: #1c5a5e; border-radius: 4px">
+                                    <img src="{{asset('Images/no-content.jpg')}}" class="col-lg-12 noPadding contento-images" style="height: 150px">
+                                    <div class="col-lg-12">
+                                        <h4 style="font-weight: bolder"><a style="color: white">No work yet.</a></h4>
+                                        <p>It seems like {{$user->first_name}} hasn't got any work up there. Rest assured it will be up there soon.</p>
+                                    </div>
+                                    <!--<div class="col-lg-12 ifc-readerr" style="text-align: center; background-color: #185256">
+                                        <div id="ifc-readerr" class="col-lg-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px; border-right: 2px solid #1c5a5e">
+                                            <div class="col-lg-12 noPadding"><b>None</b></div>
+                                            <div class="col-lg-12 noPadding" style="font-size: 12px">IFCs</div>
+                                        </div>
+                                        <div class="col-lg-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px">
+                                            <div class="col-lg-12 noPadding"><b>Many</b></div>
+                                            <div class="col-lg-12 noPadding" style="font-size: 12px">Readers <i class="fa fa-clock-o"></i></div>
+                                        </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            @else
+                    @endif
+</div>
+                @endif
+
+            @endforeach
                 <input type="hidden" id="PICOUNT" value="{{$PIcount}}">
-            @endif
-        </div>
+</div>
         <div class="col-lg-12">&nbsp;</div>
         <div class="col-lg-12">&nbsp;</div>
         <h4 style="padding-left:15px ">Secondary Interests:</h4>
@@ -284,7 +281,7 @@
             @else
             <input type="hidden" id="secondaryInterestsStatus" value="true">
             @endif
-        </div>
+
         @endif
     </div>
     @else
@@ -397,6 +394,7 @@
                 <?php $PIcount=0; ?>
                 <br><br><br>
                 @foreach ($interests as $interest)
+
                     <?php $type = DB::table('user_interests')->where('user_id',$user->id)->where('interest_id',$interest->id)->first(); ?>
                     @if ($type->type == 'primary')
                         <?php
@@ -414,11 +412,13 @@
 
                             $content = $content->sortByDesc('users')->take(3);
                         ?>
+                        <div class="col-lg-4">
+                            <a class="darkLinks col-lg-12" style="padding: 0px" onclick="showUserContent({{$interest->id}})"><h4>{{Str::limit($interest->interest_name,15)}}</h4></a>
                         @if (count($content) > 0)
                             <?php $PIcount++; ?>
 
-                            <div id="carousel{{$PIcount}}" class="carousel slide carousel-fade col-lg-4">
-                            <a class="darkLinks" onclick="showUserContent({{$interest->id}})"><h4>{{Str::limit($interest->interest_name,15)}}</h4></a>
+                            <div id="carousel{{$PIcount}}" class="carousel slide carousel-fade col-lg-12" style="padding: 0px">
+
                                         <div class="carousel-inner">
                                             <?php $i=0; ?>
                                             @foreach ($content as $tr)
@@ -480,22 +480,16 @@
                                         </div>
                                     </div>
 
-
-
-                        @endif
-                    @endif
-                @endforeach
-                @if ($PIcount == 0)
-                <input type="hidden" id="PICOUNT" value="0">
-                    <div class="col-lg-4 col-lg-offset-2">
-                        <div class="col-lg-12" style="padding: 5px; color: white">
+                        @else
+                        <div class="col-lg-12" style="padding: 0px">
+                        <div class="col-lg-12" style="padding: 0px; color: white">
                             <div class="col-lg-12 noPadding contento-divs" style="background-color: #1c5a5e; border-radius: 4px">
-                                <img src="{{asset('Images/no-content.jpg')}}" class="col-lg-12 noPadding contento-images">
+                                <img src="{{asset('Images/no-content.jpg')}}" class="col-lg-12 noPadding contento-images" style="height: 225px">
                                 <div class="col-lg-12">
                                     <h4 style="font-weight: bolder"><a style="color: white">No work yet.</a></h4>
                                     <p>It seems like {{$user->first_name}} hasn't got any work up there. Rest assured it will be up there soon.</p>
                                 </div>
-                                <div class="col-lg-12 ifc-readerr" style="text-align: center; background-color: #185256">
+                                <!--<div class="col-lg-12 ifc-readerr" style="text-align: center; background-color: #185256">
                                     <div id="ifc-readerr" class="col-lg-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px; border-right: 2px solid #1c5a5e">
                                         <div class="col-lg-12 noPadding"><b>None</b></div>
                                         <div class="col-lg-12 noPadding" style="font-size: 12px">IFCs</div>
@@ -504,18 +498,21 @@
                                         <div class="col-lg-12 noPadding"><b>Many</b></div>
                                         <div class="col-lg-12 noPadding" style="font-size: 12px">Readers <i class="fa fa-clock-o"></i></div>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
-                @else
+                        @endif
+                        </div>
+                    @endif
+                @endforeach
                 <input type="hidden" id="PICOUNT" value="{{$PIcount}}">
-                @endif
+
             </div>
             @endif
         </div>
     @endif
-    </div>
+
 
     <div id="contentDiv" class="col-lg-12" style="display: none; padding: 0px">
 

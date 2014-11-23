@@ -1,3 +1,4 @@
+var reccod = false;
 $(document).ready(function()
 {
     $("#mycounter").flipCounterInit();
@@ -11,13 +12,13 @@ $(document).ready(function()
         }
     });
 
+    $('.Profileimages').css('height','175px');
 });
 
 
 function submitPoll(pid)
 {
-    var ifc = $("#IFC").val();
-    bootbox.confirm("Are you sure? Answering this poll will cost you "+ifc+" IFCs.", function(result) {
+    bootbox.confirm("Sure about that choice?", function(result) {
         if (result==true)
         {
             var res=$("input[name="+pid+"]:checked").val();
@@ -26,24 +27,8 @@ function submitPoll(pid)
                 $.post('http://b2.com/submitPoll',{pollId:pid,response:res},function(data)
                 {
 
-                    if(data=='wH@tS!nTheB0x')
-                        window.location='http://b2.com/offline';
-                    else
-                    {
-                        $('#pollResult').html(data);
-                        $('#pollResult').fadeIn();
-
-                        $.post('http://b2.com/getIFCs', function(ifc)
-                        {
-                            if(ifc=='wH@tS!nTheB0x')
-                                window.location='http://b2.com/offline';
-                            else
-                            {
-                                $('#mycounter').fadeIn();
-                                $("#mycounter").flipCounterUpdate(ifc);
-                            }
-                        });
-                    }
+                    $('#pollResult').html(data);
+                    $('#pollResult').fadeIn();
                 });
             }
         }
@@ -75,4 +60,25 @@ function pleaseLogin()
             window.location='http://b2.com/';
         }
     });
+}
+
+function reccoThis(url,title,description,imageURL)
+{
+    if (reccod == false)
+    {
+        $.post('http://b2.com/publish_recco', {url: url, title: title, desc: description, image: imageURL}, function(response)
+        {
+            if (response == 'wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
+            else
+            {
+                bootbox.alert('Recco posted succesfully!');
+                reccod = true;
+            }
+        });
+    }
+    else
+    {
+        bootbox.alert('Sorry, you can recommend only once.');
+    }
 }

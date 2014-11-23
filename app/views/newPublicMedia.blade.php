@@ -40,7 +40,7 @@
                         <div class="col-lg-12">&nbsp;</div>
 
                         <div class="col-lg-5 col-lg-offset-4 fileUpload btn btn-default">
-                            <span>Upload Cover</span>
+                            <span>Change media cover</span>
                             <input type="file" id="uploadCover" class="upload" name="uploadCover" style="width: 100%" onchange="changeMediaCover()" />
                         </div>
 

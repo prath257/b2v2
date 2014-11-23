@@ -303,12 +303,20 @@ $(document).ready(function() {
 
     window.onbeforeunload = function () {
         $.post('http://b2.com/removeIsOnline', function (error) {
-            if (error == 'wH@tS!nTheB0x' && loggedout == false) {
-                loggedout = true;
-                window.location = 'http://b2.com/offline';
+            if (error == 'wH@tS!nTheB0x') {
+                if (loggedout == false)
+                {
+                    loggedout = true;
+                    window.location = 'http://b2.com/offline';
+                }
+
             }
         });
     }
+
+    var ifcAdded = $('#ifcAdded').val();
+    if (ifcAdded == 'yes')
+        bootbox.alert('50 ifcs have been credited to your account as a bonus for visiting BBarters today!');
 });
 
 function getFriendsContent()
@@ -1159,9 +1167,6 @@ function newSuggestion(type)
 
 function submitSuggestion()
 {
-    $('#suggestionSubmit').prop('disabled',true);
-    $('#suggestionSubmit').html('Please Wait');
-
     var category = $('#suggestionCategory').val();
     var text = $('#suggestionText').val();
     var type = $('#current-suggestion-type').val();
@@ -1170,6 +1175,9 @@ function submitSuggestion()
 
     if($('#newSuggestionForm').data('bootstrapValidator').isValid())
     {
+        $('#suggestionSubmit').prop('disabled',true);
+        $('#suggestionSubmit').html('Please Wait');
+
         $.post('http://b2.com/postSuggestion', {category: category, text: text, type: type}, function (markup) {
             if (markup == 'wH@tS!nTheB0x')
                 window.location = 'http://b2.com/offline';

@@ -316,9 +316,14 @@
     <h3>Hello {{$user->first_name}} {{$user->last_name}}!</h3>
     <hr>
     @if($type == 'C')
-    <p>A new chapter has been added to Collaboration '{{$content->title}}' by
-        <a target='_blank' href="{{route('user',$writer->username)}}">{{$writer->first_name}} {{$writer->last_name}}</a> </p>
-    <p><a href="{{route('collaborationPreview',$content->id)}}">Click here</a> to check it out.</p>
+        @if ($user->id == $writer->id)
+            <p>Your chapter for the Collaboration '{{$content->title}}'  was approved by the admin. </p>
+            <p><a href="{{route('collaborationPreview',$content->id)}}">Click here</a> to check it out.</p>
+        @else
+            <p>A new chapter has been added to Collaboration '{{$content->title}}' by
+                <a target='_blank' href="{{route('user',$writer->username)}}">{{$writer->first_name}} {{$writer->last_name}}</a> </p>
+            <p><a href="{{route('collaborationPreview',$content->id)}}">Click here</a> to check it out.</p>
+        @endif
     @elseif($type == 'A')
     <p>A new article has been added by
     <a target='_blank' href="{{route('user',$writer->username)}}">{{$writer->first_name}} {{$writer->last_name}}</a> </p>

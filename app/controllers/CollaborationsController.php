@@ -47,18 +47,22 @@ class CollaborationsController extends \BaseController
         }
 
         $cover = Input::file('uploadCollabCover');
-        $directory = File::makeDirectory('Users/'.Auth::user()->username."/Collaborations/".$collaboration->id);
-        if ($directory)
+        if ($cover != null)
         {
-            $coverDirectory = File::makeDirectory('Users/'.Auth::user()->username."/Collaborations/".$collaboration->id."/Cover");
+            $directory = File::makeDirectory('Users/'.Auth::user()->username."/Collaborations/".$collaboration->id);
+            if ($directory)
+            {
+                $coverDirectory = File::makeDirectory('Users/'.Auth::user()->username."/Collaborations/".$collaboration->id."/Cover");
+            }
+            $random_name = str_random(8);
+            $destinationPath = "Users/".Auth::user()->username."/Collaborations/".$collaboration->id."/Cover/";
+            $extension = $cover->getClientOriginalExtension();
+            $filename=$random_name.'.'.$extension;
+            Input::file('uploadCollabCover')->move($destinationPath, $filename);
+            $collaboration->cover = $destinationPath.$filename;
+            $collaboration->save();
         }
-        $random_name = str_random(8);
-        $destinationPath = "Users/".Auth::user()->username."/Collaborations/".$collaboration->id."/Cover/";
-        $extension = $cover->getClientOriginalExtension();
-        $filename=$random_name.'.'.$extension;
-        Input::file('uploadCollabCover')->move($destinationPath, $filename);
-        $collaboration->cover = $destinationPath.$filename;
-        $collaboration->save();
+
 
         return Redirect::route('collaborationNewChapter',$collaboration->id);
     }
@@ -115,19 +119,20 @@ class CollaborationsController extends \BaseController
                 $message->to(CollaborationsController::$email)->subject('Approve Contribution');
             });
         }
-
-        $readers=DB::table('collaborationreaders')->where('collaboration_id','=',$collaboration->id)->get();
-        foreach($readers as $reader)
+        else
         {
-            $user=User::find($reader->user_id);
-            CollaborationsController::$email=$user->email;
-            /* $data=array('user'=>$user,'content' => $collaboration,'type' => 'C','writer' => Auth::user());*/
-            Mail::send('mailers',array('user'=>$user,'content' => $collaboration,'type' => 'C','writer' => Auth::user(),'page'=>'readerMailer') , function($message)
+            $readers=DB::table('collaborationreaders')->where('collaboration_id','=',$collaboration->id)->get();
+            foreach($readers as $reader)
             {
-                $message->to(CollaborationsController::$email)->subject('New Chapter');
-            });
+                $user=User::find($reader->user_id);
+                CollaborationsController::$email=$user->email;
+                $data=array('user'=>$user,'content' => $collaboration,'type' => 'C','writer' => Auth::user());
+                Mail::send('mailers',array('user'=>$user,'content' => $collaboration,'type' => 'C','writer' => Auth::user(),'page'=>'readerMailer') , function($message)
+                {
+                    $message->to(CollaborationsController::$email)->subject('New Chapter');
+                });
+            }
         }
-
         return "success";
     }
         else
@@ -136,8 +141,11 @@ class CollaborationsController extends \BaseController
     public function getCollaboration($collaborationId)
     {
         $newUser=false;
+
         CollaborationsController::$count = 0;
         $collaboration = Collaboration::find($collaborationId);
+        $book = $collaboration;
+        $owner = User::find($collaboration->userid);
         $contributors = $collaboration->getContributors()->get();
         $send = $contributors->filter(function($contri)
         {
@@ -146,17 +154,59 @@ class CollaborationsController extends \BaseController
                 return true;
             }
         });
+
+        $articles = Article::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $blogBooks = BlogBook::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $collaborations = Collaboration::where('category','=',$book->category)->orderBy('users','DESC')->get();
+
+
+        $content = $articles->merge($blogBooks);
+        $content = $content->merge($collaborations);
+
+        $content = $content->sortByDesc('users')->take(3);
+
+        if (count($content) < 3)
+        {
+            $articles = $owner->getArticles()->orderBy('users','DESC')->get();
+            $blogBooks = $owner->getBlogBooks()->orderBy('users','DESC')->get();
+            $collaborations = $owner->getOwnedCollaborations()->orderBy('users','DESC')->get();
+            $contributions = $owner->getContributions()->orderBy('users','DESC')->get();
+
+            $content = $content->merge($articles);
+            $content = $content->merge($blogBooks);
+            $content = $content->merge($collaborations);
+            $content = $content->merge($contributions);
+
+            $content = $content->sortByDesc('users')->take(3);
+
+            if (count($content) < 3)
+            {
+                $ksj = User::where('username','=','ksjoshi88')->first();
+                $articles = $ksj->getArticles()->orderBy('users','DESC')->get();
+                $blogBooks = $ksj->getBlogBooks()->orderBy('users','DESC')->get();
+                $collaborations = $ksj->getOwnedCollaborations()->orderBy('users','DESC')->get();
+                $contributions = $ksj->getContributions()->orderBy('users','DESC')->get();
+
+                $content = $content->merge($articles);
+                $content = $content->merge($blogBooks);
+                $content = $content->merge($collaborations);
+                $content = $content->merge($contributions);
+
+                $content = $content->sortByDesc('users')->take(3);
+            }
+        }
+
         if($collaboration->userid!=Auth::user()->id && CollaborationsController::$count==0)
         {
 
             if($collaboration->isReader()==false)
             {
                 $ifc = $collaboration->ifc;
-                $owner = User::find($collaboration->userid);
+
                 if (Friend::isFriend($owner->id) && $owner->settings->freeforfriends)
                 {
                     $chapters=$collaboration->getChapters()->where('approved','=',true)->get();
-                    return View::make('collaboration')->with('collaboration',$collaboration)->with('chapters',$chapters)->with('contributors',$contributors)->with('newUser',$newUser);
+                    return View::make('collaboration')->with('collaboration',$collaboration)->with('chapters',$chapters)->with('contributors',$contributors)->with('newUser',$newUser)->with('content',$content);
                 }
 
                 if(Friend::isSubscriber($owner->id) && $owner->settings->discountforfollowers > 0)
@@ -199,7 +249,7 @@ class CollaborationsController extends \BaseController
             }
         }
         $chapters=$collaboration->getChapters()->where('approved','=',true)->get();
-        return View::make('collaboration')->with('collaboration',$collaboration)->with('chapters',$chapters)->with('contributors',$contributors)->with('newUser',$newUser);
+        return View::make('collaboration')->with('collaboration',$collaboration)->with('chapters',$chapters)->with('contributors',$contributors)->with('newUser',$newUser)->with('content',$content);
     }
 
     public function deleteCollaboration()
@@ -236,14 +286,18 @@ class CollaborationsController extends \BaseController
                     $invite = DB::table('invite_contributors')->where('collaborationid',Input::get('colId'))->where('useremail',Input::get('email'))->where('link',$randomString)->first();
                     if ($user)
                     {
-                        Mail::send('mailers', array('collaboration'=>Collaboration::find(Input::get('colId')), 'invite'=>$invite,'page'=>'collaborationInviteMailer'), function($message)
+                        if ($user->settings->notifications)
                         {
-                            $message->to(Input::get('email'))->subject('New Collaboration Request');
-                        });
+                            Mail::send('mailers', array('collaboration'=>Collaboration::find(Input::get('colId')), 'invite'=>$invite,'page'=>'collaborationInviteMailer'), function($message)
+                            {
+                                $message->to(Input::get('email'))->subject('New Collaboration Request');
+                            });
+                        }
 
-                        DB::table('notification')->insert(
-                            array('userid' => $user->id, 'cuserid' => Auth::user()->id, 'type' => 'iContri', 'message' => 'invited you to contribute for \''.Collaboration::find(Input::get('colId'))->title.'\'', 'link' => 'http://b2.com/collaborationPreview/'.Input::get('colId'), 'chid' => Input::get('colId'))
-                        );
+
+                        AjaxController::insertToNotification($user->id,Auth::user()->id,"iContri",'invited you to contribute for \''.Collaboration::find(Input::get('colId'))->title.'\'','http://b2.com/collaborationPreview/'.Input::get('colId'));
+                        AjaxController::insertNidInvite(Input::get('colId'),$user->id);
+
 
                         return "Success!";
                     }
@@ -439,15 +493,18 @@ class CollaborationsController extends \BaseController
             array('collaboration_id' => Input::get('id'), 'reason' => Input::get('reason'), 'link' => $link, 'user_id' => Auth::user()->id)
         );
 
-        CollaborationsController::$collaborationAdmin = User::find(Collaboration::find(Input::get('id'))->userid)->email;
-        Mail::send('mailers', array('collaborationId' => Input::get('id'), 'userId'=>Auth::user()->id, 'reason' => Input::get('reason'), 'link' => $link,'page'=>'newContributionRequestMailer'), function($message)
+            $adminnn = User::find(Collaboration::find(Input::get('id'))->userid);
+        CollaborationsController::$collaborationAdmin = $adminnn->email;
+        if ($adminnn->settings->notifications)
         {
-            $message->to(CollaborationsController::$collaborationAdmin)->subject('New Contribution Request!');
-        });
+            Mail::send('mailers', array('collaborationId' => Input::get('id'), 'userId'=>Auth::user()->id, 'reason' => Input::get('reason'), 'link' => $link,'page'=>'newContributionRequestMailer'), function($message)
+            {
+                $message->to(CollaborationsController::$collaborationAdmin)->subject('New Contribution Request!');
+            });
+        }
 
-        DB::table('notification')->insert(
-            array('userid' => Collaboration::find(Input::get('id'))->userid, 'cuserid' => Auth::user()->id, 'type' => 'reqContri', 'message' => 'requested you to start contributing for \''.Collaboration::find(Input::get('id'))->title.'\'', 'link' => 'http://b2.com/user/'.Auth::user()->username, 'chid' => Input::get('id'))
-        );
+            AjaxController::insertToNotification(Collaboration::find(Input::get('id'))->userid,Auth::user()->id,"reqContri",'requested you to start contributing for \''.Collaboration::find(Input::get('id'))->title.'\'','http://b2.com/user/'.Auth::user()->username);
+            AjaxController::insertNidReqContri(Input::get('id'),Collaboration::find(Input::get('id'))->userid);
 
         return 'success';
     }
@@ -560,7 +617,7 @@ class CollaborationsController extends \BaseController
             foreach($readers as $reader)
             {
                 $user=User::find($reader->user_id);
-                $writer=User::find($collaboration->userid);
+                $writer=User::find($chapter->userid);
                 CollaborationsController::$email=$user->email;
                 /*$data=array('user'=>$user,'content' => $collaboration,'type' => 'C','writer' => $writer);*/
                 Mail::send('mailers',array('user'=>$user,'content' => $collaboration,'type' => 'C','writer' => $writer,'page'=>'readerMailer'),function($message)

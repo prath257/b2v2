@@ -101,9 +101,30 @@ class AuthController extends \BaseController {
 				if(Auth::user()->activated)
 				{
                     $user = Auth::user();
+
+                    $ifcAdded = 'no';
+                    $currentTime = new DateTime();
+                    $lastSeen = $user->updated_at;
+                    $form = $currentTime->diff($lastSeen);
+                    if($form->d>0 || $form->m>0 || $form->y>0)
+                    {
+                        if ($user->activated == true && $user->pset == true)
+                        {
+                            $profile = Profile::where('userid','=',$user->id)->first();
+                            if (count($profile) > 0)
+                            {
+                                $profile->ifc += 50;
+                                $profile->save();
+                                $ifcAdded = 'yes';
+
+                                TransactionController::insertToManager($user->id,"+50","Bonus for visiting BBarters on ".$currentTime->format('d-m-Y'),"nope","nope","nope");
+                            }
+                        }
+                    }
+
                     $user->isOnline = true;
                     $user->save();
-					return Redirect::intended('home');
+					return Redirect::intended('home')->with('ifcAdded',$ifcAdded);
 
 				}
 				else
@@ -296,7 +317,7 @@ class AuthController extends \BaseController {
                 $user->save();
             }
             //then, we return to the index route with a success message
-            return Redirect::to('/');
+            return Redirect::to('/')->with('error','You have been logged out. Visit tomorrow to earn <b>50 ifcs</b>.');
         }
         else
         {
@@ -343,7 +364,28 @@ class AuthController extends \BaseController {
                 if(Auth::check())
                 {
                     //send him to home page, else login page
-                    return Redirect::intended('http://b2.com/home');
+
+                    $ifcAdded = 'no';
+                    $currentTime = new DateTime();
+                    $lastSeen = $user->updated_at;
+                    $form = $currentTime->diff($lastSeen);
+                    if($form->d>0 || $form->m>0 || $form->y>0)
+                    {
+                        if ($user->activated == true && $user->pset == true)
+                        {
+                            $profile = Profile::where('userid','=',$user->id)->first();
+                            if (count($profile) > 0)
+                            {
+                                $profile->ifc += 50;
+                                $profile->save();
+                                $ifcAdded = 'yes';
+
+                                TransactionController::insertToManager($user->id,"+50","Bonus for visiting BBarters on ".$currentTime->format('d-m-Y'),"nope","nope","nope");
+                            }
+                        }
+                    }
+
+                    return Redirect::intended('http://b2.com/home')->with('ifcAdded',$ifcAdded);
                 }
                 else
                 {
@@ -502,7 +544,28 @@ class AuthController extends \BaseController {
             if(Auth::check())
             {
                 //send him to home page, else login page
-                return Redirect::intended('http://b2.com/home');
+
+                $ifcAdded = 'no';
+                $currentTime = new DateTime();
+                $lastSeen = $user->updated_at;
+                $form = $currentTime->diff($lastSeen);
+                if($form->d>0 || $form->m>0 || $form->y>0)
+                {
+                    if ($user->activated == true && $user->pset == true)
+                    {
+                        $profile = Profile::where('userid','=',$user->id)->first();
+                        if (count($profile) > 0)
+                        {
+                            $profile->ifc += 50;
+                            $profile->save();
+                            $ifcAdded = 'yes';
+
+                            TransactionController::insertToManager($user->id,"+50","Bonus for visiting BBarters on ".$currentTime->format('d-m-Y'),"nope","nope","nope");
+                        }
+                    }
+                }
+
+                return Redirect::intended('http://b2.com/home')->with('ifcAdded',$ifcAdded);
             }
             else
             {
@@ -753,7 +816,28 @@ class AuthController extends \BaseController {
             if(Auth::check())
             {
                 //send him to home page, else login page
-                return Redirect::intended('http://b2.com/home');
+
+                $ifcAdded = 'no';
+                $currentTime = new DateTime();
+                $lastSeen = $user->updated_at;
+                $form = $currentTime->diff($lastSeen);
+                if($form->d>0 || $form->m>0 || $form->y>0)
+                {
+                    if ($user->activated == true && $user->pset == true)
+                    {
+                        $profile = Profile::where('userid','=',$user->id)->first();
+                        if (count($profile) > 0)
+                        {
+                            $profile->ifc += 50;
+                            $profile->save();
+                            $ifcAdded = 'yes';
+
+                            TransactionController::insertToManager($user->id,"+50","Bonus for visiting BBarters on ".$currentTime->format('d-m-Y'),"nope","nope","nope");
+                        }
+                    }
+                }
+
+                return Redirect::intended('http://b2.com/home')->with('ifcAdded',$ifcAdded);
             }
             else
             {

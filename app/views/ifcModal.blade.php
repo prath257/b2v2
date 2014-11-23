@@ -40,6 +40,8 @@
            @if($ifcRem>=0)
                @if (Str::contains($link,'sym140Nb971wzb4284'))
                    <a class="btn btn-primary" onclick="purchaseRes('{{$link}}')">Purchase Content</a>
+               @elseif ($link == 'viewMedia')
+                   <a id="purchaseMediaIFCModal" class="btn btn-primary" onclick="viewMedia()">Purchase Content</a>
                @else
                    <a href="http://b2.com/{{$link}}" class="btn btn-primary">Purchase Content</a>
                @endif

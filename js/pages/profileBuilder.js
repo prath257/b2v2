@@ -7,6 +7,9 @@ var extension=null;
 //Make global variables for selected image for further usage
 var selectImgWidth,selectImgHeight,jcrop_api, boundx, boundy,isError=false;
 
+var timerInterestMobile;
+var timerInterestDesktop;
+
 $(document).ready(function()
 {
 
@@ -53,21 +56,25 @@ $(document).ready(function()
                         message: 'Please Select a awesome Profile Picture!'
                     }
                 }
-            },
-            profileTune:
-            {
-                message: 'The profile Tune is not valid',
-                validators: {
-                    file: {
-                        extension: 'mp3,ogg,m4a,ra',
-                        maxSize: 5120 * 1024,   // 5 MB
-                        message: 'Size upto 5MB, types: mp3 ogg m4a ra'
-                    }
-                }
             }
 
         }
     });
+
+
+    /*profileTune:
+    {
+        message: 'The profile Tune is not valid',
+            validators: {
+        file: {
+            extension: 'mp3,ogg,m4a,ra',
+                maxSize: 5120 * 1024,   // 5 MB
+                message: 'Size upto 5MB, types: mp3 ogg m4a ra'
+        }
+    }
+     }
+    */
+
     $('#aboutForm').bootstrapValidator({
         live:'enabled',
         submitButtons: 'button[id="asubmit"]',
@@ -229,95 +236,100 @@ $(document).ready(function()
     //This is code for cropping the photo profile pic
     $("#profilePic").change(function()
     {
-        try
+
+        if($('#pform').data('bootstrapValidator').isValid())
         {
-        //this is the old code
-        var previewId = document.getElementById('load_img');
-        previewId.src = '';
-        $('#image_div').hide();
-        var flag = 0;
-
-        // Get selected file parameters
-        var selectedImg = $('#profilePic')[0].files[0];
-
-        //Check the select file is JPG,PNG or GIF image
-        var regex = /^(image\/jpeg|image\/png)$/i;
-        if (! regex.test(selectedImg.type)) {
-            //$('.error').html('Please select a valid image file (jpg and png are allowed)').fadeIn(500);
-            flag++;
-            isError = true;
-        }
-
-        // Check the size of selected image if it is greater than 250 kb or not
-        else if (selectedImg.size > 2048 * 1024) {
-            //$('.error').html('The file you selected is too big. Max file size limit is 2 MB').fadeIn(500);
-            flag++;
-            isError = true;
-        }
-
-        if(flag==0){
-            isError=false;
-            $('.error').hide(); //if file is correct then hide the error message
-
-
-            // Preview the selected image with object of HTML5 FileReader class
-            // Make the HTML5 FileReader Object
-            var oReader = new FileReader();
-            oReader.onload = function(e)
+            try
             {
+                //this is the old code
+                var previewId = document.getElementById('load_img');
+                previewId.src = '';
+                $('#image_div').hide();
+                var flag = 0;
 
-                // e.target.result is the DataURL (temporary source of the image)
-                previewId.src=e.target.result;
+                // Get selected file parameters
+                var selectedImg = $('#profilePic')[0].files[0];
 
-                // FileReader onload event handler
-                previewId.onload = function () {
+                //Check the select file is JPG,PNG or GIF image
+                var regex = /^(image\/jpeg|image\/png)$/i;
+                if (! regex.test(selectedImg.type)) {
+                    //$('.error').html('Please select a valid image file (jpg and png are allowed)').fadeIn(500);
+                    flag++;
+                    isError = true;
+                }
 
-                    // display the image with fading effect
-                    $('#image_div').fadeIn(500);
-                    selectImgWidth = previewId.naturalWidth; //set the global image width
-                    selectImgHeight =previewId.naturalHeight;//set the global image height
+                // Check the size of selected image if it is greater than 250 kb or not
+                else if (selectedImg.size > 2048 * 1024) {
+                    //$('.error').html('The file you selected is too big. Max file size limit is 2 MB').fadeIn(500);
+                    flag++;
+                    isError = true;
+                }
 
-                    // Create variables (in this scope) to hold the Jcrop API and image size
+                if(flag==0){
+                    isError=false;
+                    $('.error').hide(); //if file is correct then hide the error message
 
-                    // destroy Jcrop if it is already existed
-                    if (typeof jcrop_api != 'undefined')
-                        jcrop_api.destroy();
 
-                    // initialize Jcrop Plugin on the selected image
-                    $('#load_img').Jcrop({
-                        minSize: [32, 32], // min crop size
-                        // aspectRatio : 1, // keep aspect ratio 1:1
-                        bgFade: true, // use fade effect
-                        bgOpacity: .3, // fade opacity
-                        onChange: showThumbnail,
-                        onSelect: showThumbnail,
-                        aspectRatio: 16/14,
-                        setSelect:   [ 200, 200, 400, 400 ]
-                    }, function(){
+                    // Preview the selected image with object of HTML5 FileReader class
+                    // Make the HTML5 FileReader Object
+                    var oReader = new FileReader();
+                    oReader.onload = function(e)
+                    {
 
-                        // use the Jcrop API to get the real image size
-                        var bounds = this.getBounds();
-                        boundx = bounds[0];
-                        boundy = bounds[1];
+                        // e.target.result is the DataURL (temporary source of the image)
+                        previewId.src=e.target.result;
 
-                        // Store the Jcrop API in the jcrop_api variable
-                        jcrop_api = this;
-                    });
-                };
-            };
+                        // FileReader onload event handler
+                        previewId.onload = function () {
 
-            // read selected file as DataURL
-            oReader.readAsDataURL(selectedImg);
+                            // display the image with fading effect
+                            $('#image_div').fadeIn(500);
+                            selectImgWidth = previewId.naturalWidth; //set the global image width
+                            selectImgHeight =previewId.naturalHeight;//set the global image height
+
+                            // Create variables (in this scope) to hold the Jcrop API and image size
+
+                            // destroy Jcrop if it is already existed
+                            if (typeof jcrop_api != 'undefined')
+                                jcrop_api.destroy();
+
+                            // initialize Jcrop Plugin on the selected image
+                            $('#load_img').Jcrop({
+                                minSize: [32, 32], // min crop size
+                                // aspectRatio : 1, // keep aspect ratio 1:1
+                                bgFade: true, // use fade effect
+                                bgOpacity: .3, // fade opacity
+                                onChange: showThumbnail,
+                                onSelect: showThumbnail,
+                                aspectRatio: 16/14,
+                                setSelect:   [ 200, 200, 400, 400 ]
+                            }, function(){
+
+                                // use the Jcrop API to get the real image size
+                                var bounds = this.getBounds();
+                                boundx = bounds[0];
+                                boundy = bounds[1];
+
+                                // Store the Jcrop API in the jcrop_api variable
+                                jcrop_api = this;
+                            });
+                        };
+                    };
+
+                    // read selected file as DataURL
+                    oReader.readAsDataURL(selectedImg);
+                }
+            }
+            catch(error)
+            {
+                alert(error);
+            }
+            $('#dpSelect').hide();
+            $('#mysubmit').show();
+            $('#myCancel').show();
+
         }
-        }
-        catch(error)
-        {
-            alert(error);
-        }
-         $('#dpSelect').hide();
-         $('#mysubmit').show();
-         $('#myCancel').show();
-    })
+    });
 
 
     //this is for smartphone
@@ -762,3 +774,85 @@ function mobileFinal()
         });
     }
 }
+
+function interestCounterDesktopDown()
+{
+    clearTimeout(timerInterestDesktop);
+    var other = $('#other').val();
+    if (other.length > 0)
+        $('.int-search-button').removeClass('disabled');
+    else
+        $('.int-search-button').addClass('disabled');
+}
+
+function interestCounterDesktopUp()
+{
+    timerInterestDesktop = setTimeout(function()
+    {
+        var other = $('#other').val();
+        searchInterest(other);
+    }, 500);
+}
+
+function interestCounterMobileDown()
+{
+    clearTimeout(timerInterestMobile);
+    var other = $('#otherPhone').val();
+    if (other.length > 0)
+        $('.int-search-button').removeClass('disabled');
+    else
+        $('.int-search-button').addClass('disabled');
+}
+
+function interestCounterMobileUp()
+{
+    timerInterestMobile = setTimeout(function()
+    {
+        var other = $('#otherPhone').val();
+        searchInterest(other);
+    }, 500);
+}
+
+function searchInterest(val)
+{
+    $('.interest-search-result').html('<div style="text-align: center"><img src="http://b2.com/Images/icons/waiting.gif"></div>');
+    $('.interest-search-result').show();
+
+    $.post('http://b2.com/searchInterests', {val: val}, function(markup)
+    {
+        if (markup == 'wH@tS!nTheB0x')
+            window.location='http://b2.com/offline';
+        else
+        {
+            $('.interest-search-result').html(markup);
+
+        }
+    });
+}
+
+function getIntInInput(int)
+{
+    $('#interest-search-buffer').val(int.id);
+    $('#interest-search-buffer-Name').val(int.innerHTML);
+    $('.other').val(int.innerHTML);
+    $('.interest-search-result').html('');
+    $('.interest-search-result').hide();
+}
+
+function allTOList()
+{
+    var intval = $('#interest-search-buffer').val();
+    var intname = $('#interest-search-buffer-Name').val();
+    if (intval != 'null' && intname != 'null')
+    {
+        $('.interests').append('<input type="checkbox" name="interests[]" value="'+intval+'" data-bv-field="interests[]" checked>'+intname+'<br>');
+        $('.other').val('');
+    }
+
+    $('#interest-search-buffer').val('null');
+    $('#interest-search-buffer-Name').val('null');
+}
+
+/*
+var timerInterestMobile;
+var timerInterestDesktop;*/
