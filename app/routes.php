@@ -487,4 +487,5 @@ Route::post('mobile_getfriends', array('uses' => 'MobileController@getFriendList
 
 Route::post('mobile_Checkifc', array('uses' => 'MobileController@previewChecking'));
 
+Route::post('mobile_myreadings', array('uses' => 'MobileController@getMyReadings'));
 

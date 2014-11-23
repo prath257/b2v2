@@ -204,7 +204,7 @@ class MobileController extends \BaseController
             $contentid = Input::get('contentid');
             $id = Input::get('authid');  //same as Auth::user()->id
             $type  = Input::get('type'); //blogbook,article etc
-            $content = Mobile::getContent($id,$type);
+            $content = Mobile::getContent($id,$type)->get();
             $user = User::find($id);
             $cost = $content->ifc;
 
@@ -307,15 +307,157 @@ class MobileController extends \BaseController
         }
     }
 
+    public function ifcReduce()
+    {
+        try{
+            $contentid = Input::get('contentid');
+            $id = Input::get('userid');
+            $authorid = Input::get('authorid');
+            $type = Input::get('type');
+            $cost = Input::get('cost');
+
+            $content = Mobile::getContent($contentid,$type)->get();
+            $user = User::find($id);
+            $author = User::find($authorid);
+
+            $user->profile->ifc -= $cost;
+            $user->profile->save();
+            $author->profile->ifc += $cost;
+            $author->profile->save();
+            switch($type)
+            {
+                case 'article' : $user->readArticles()->attach($contentid);
+                    $content->users ++;
+                    $content->save();
+                    TransactionController::insertToManager($id,"-".$cost,"Bought article:",'http://b2.com/articlePreview/'.$content->id,$content->title,"content");
+
+                    TransactionController::insertToManager($authorid,"+".$cost,"Sold article '".$content->title."' to",'http://b2.com/user/'.$user->username,$user->first_name." ".$user->last_name,"profile");
+
+                    AjaxController::insertToNotification($authorid,$id,"purchased","purchased your article ".$content->title,'http://b2.com/articlePreview/'.$contentid);
+
+                    break;
+                case 'blogbook' : $user->readBooks()->attach($contentid);
+                    $content->users ++;
+                    $content->save();
+                    TransactionController::insertToManager($id,"-".$cost,"Bought blogBook:",'http://b2.com/blogBookPreview/'.$content->id,$content->title,"content");
+
+                    TransactionController::insertToManager($authorid,"+".$cost,"Sold the Blogbook '".$content->title."' to",'http://b2.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
+
+                    AjaxController::insertToNotification($authorid,$id,"purchased","purchased your blogBook ".$content->title,'http://b2.com/blogBookPreview/'.$contentid);
+
+                    break;
+
+                case 'media' : $user->viewedMedia()->attach($contentid);
+                    AjaxController::insertToNotification($authorid,$id,"purchased","purchased your media ".$content->title,'http://b2.com/mediaPreview/'.$contentid);
+
+                    TransactionController::insertToManager($id,"-".$cost,"Bought media",'http://b2.com/mediaPreview/'.$content->id,$content->title,"content");
+                    TransactionController::insertToManager($authorid,"+".$cost,"Sold media '".$content->title."' to",'http://b2.com/user/'.$user->username, $user->first_name.' '.$user->last_name,"profile");
+                    $content->users ++;
+                    $content->save();
+
+                    break;
+
+                case 'resource' : $content->users ++;
+                    $content->save();
+
+                    AjaxController::insertToNotification($authorid,Auth::user()->id,"purchased","purchased your resource ".$content->title,'http://b2.com/resource/'.$contentid);
+
+                    TransactionController::insertToManager($id,"-".$cost,"Purchased resource",'http://b2.com/resource/'.$content->id,$content->title,"content");
+                    TransactionController::insertToManager($authorid,"+".$cost,"Resource '".$content->title."' purchased by",'http://b2.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
+
+                    break;
+
+                case 'collaboration' :
+                    $contributors =$content->getContributors()->get();
+                    $author->profile->ifc -= $cost;  //to cancel out the effect of common addition of ifc to author done above
+                    $author->profile->save();
+                    $noc = count($contributors) + 1;
+                    foreach($contributors as $contributor)
+                    {
+                        $contributor->profile->ifc += $cost/$noc;
+                        $contributor->profile->save();
+
+                        TransactionController::insertToManager($contributor->id,"+".$cost/$noc,"Sold the collaboration '".$content->title."' to",'http://b2.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
+                    }
+                    $author->profile->ifc += $cost/$noc;
+                    $author->profile->save();
+
+                    $user->readCollaborations()->attach($contentid);
+                    $content->users ++;
+                    $content->save();
+
+                    TransactionController::insertToManager($id,"-".$cost,"Bought collaboration:",'http://b2.com/collaborationPreview/'.$contentid,$content->title,"content");
+
+                    TransactionController::insertToManager($authorid,"+".$cost/$noc,"Sold the collaboration '".$content->title."' to",'http://b2.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
+
+                    AjaxController::insertToNotification($authorid,$user->id,"purchased","purchased your collaboration ".$content->title,'http://b2.com/collaborationPreview/'.$contentid);
+
+                    break;
+
+                default: return "wrong type of content!!!";
+
+            }
+            return "success";
+
+        }
+
+        catch(Exception $e)
+        {
+            return $e."";
+
+        }
+
+    }
+
+    public function getMyReadings()
+    {
+
+        try {
+            $user =User::find(Input::get('id'));
+            $articles = $user->readArticles()->get();
+            $bb = $user->readBooks()->get();
+            $collab = $user->readCollaborations()->get();
+            $readings = array_merge($articles,$bb,$collab);
+            $reads = new \Illuminate\Database\Eloquent\Collection();
+            $title = new \Illuminate\Database\Eloquent\Collection();
+            $by = new \Illuminate\Database\Eloquent\Collection();
+            $category = new \Illuminate\Database\Eloquent\Collection();
+            $pic = new \Illuminate\Database\Eloquent\Collection();
+            foreach($readings as $reading)
+            {
+                $reads->add($reading->users);
+                $title->add($reading->title);
+                $by->add(User::find($reading->userid));
+                $category->add($reading->category);
+                $pic->add($reading->cover);
+
+            }
+
+            $data = array('ok'=>'true','reads'=> $reads->toJson(),'title'=>$title->toJson(),'by'=>$by->toJson(),'category'=>$category->toJson(),'pic'=>$pic->toJson());
+
+            return json_encode($data);
+        }
+
+        catch(Exception $e)
+        {
+            $data = array('ok'=>$e);
+            return json_encode($data);
+        }
 
 
+    }
 
+public function displayContent()
+{
+    $type = Input::get('type');
+    $content = Mobile::getContent(Input::get('contentid'),$type);
 
+    switch($type)
+    {
+        case 'article':
 
-
-
-
-
+    }
+}
 
 
 

@@ -23,7 +23,7 @@
 
 
 </head>
-<body style="display: none">
+<body  style="display: none; ">
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="position: fixed;">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -146,19 +146,19 @@
         </div>
         <div id="promotional-links" class="col-lg-12">
             <div class="col-lg-4" style="text-align: center">
-                <a href="{{route('friendList','get')}}">Friends</a><hr style="margin: 5px">
-                <a href="{{route('subscribersList','get')}}">Subscriptions</a><hr style="margin: 5px">
-                <a href="{{route('settings','getaccount')}}">Account Settings</a>
+                <a href="{{route('friendList','get')}}" style="text-decoration: none"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#27ae60;">Friends</button></a><hr style="margin: 5px">
+                <a  href="{{route('subscribersList','get')}}"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#86891e;">Subscriptions</button></a><hr style="margin: 5px">
+                <a href="{{route('settings','getaccount')}}"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#347a17;">Account Settings</button></a>
             </div>
             <div class="col-lg-4" style="text-align: center">
-                <a href="{{route('ifcManager')}}">IFC Manager</a><hr style="margin: 5px">
-                <a style="cursor: pointer" data-toggle="modal" data-target="#earnIFCModal">Earn IFCs</a>{{--<hr style="margin: 5px">--}}
+                <a href="{{route('ifcManager')}}"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#752e37;">IFC Manager</button></a><hr style="margin: 5px">
+                <a style="cursor: pointer" data-toggle="modal" data-target="#earnIFCModal"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#27ae60;">Earn IFCs</button></button></a>{{--<hr style="margin: 5px">--}}
                 {{--<a>Take BBarters Tour</a>--}}
             </div>
             <div class="col-lg-4" style="text-align: center">
-                <a href="{{route('diary',Auth::user()->username)}}">Manage Diary</a><hr style="margin: 5px">
-                <a href="{{route('QnA',array(Auth::user()->id,'get'))}}">QnA</a><hr style="margin: 5px">
-                <a href="{{route('settings','getinterests')}}">Manage Interests</a>
+                <a href="{{route('diary',Auth::user()->username)}}"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#0d8480;">Manage Diary</button></a><hr style="margin: 5px">
+                <a onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#347a17; text-decoration: none" href="{{route('QnA',array(Auth::user()->id,'get'))}}">QnA</a><hr style="margin: 5px">
+                <a href="{{route('settings','getinterests')}}"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#86891e;">Manage Interests</button></a>
             </div>
         </div>
         </div>

@@ -78,15 +78,14 @@ class MobileHomeController extends \BaseController {
         try
         {
 
-            $no = Input::get('no');
-            $unreadNotifications = DB::table('notification')->where('userid','=',Input::get('id'))->where('checked','=',false)->orderBy('created_at','DESC')->get();
+            $number=Input::get('no');
 
-            if (count($unreadNotifications) > 10)
-                $sendNotifications = $unreadNotifications;
-            else
-                $sendNotifications = DB::table('notification')->where('userid','=',Input::get('id'))->orderBy('created_at','DESC')->skip($no)->take(20)->get();
+            $sendNotifications = DB::table('notification')->where('userid','=',Input::get('id'))->orderBy('created_at','DESC')->skip($number)->take(20)->get();
 
-            DB::table('notification')->where('userid','=',Input::get('id'))->where('checked','=',false)->update(array('checked' =>true));
+
+
+//         DB::table('notification')->where('userid','=',Input::get('id'))->where('checked','=',false)->update(array('checked' =>true));
+
 
             $picUrl = new \Illuminate\Database\Eloquent\Collection();
             $name = new \Illuminate\Database\Eloquent\Collection();

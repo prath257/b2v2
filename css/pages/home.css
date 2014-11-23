@@ -286,6 +286,7 @@
     #promotional-links
     {
         margin-top: 100px;
+
     }
 
 
@@ -308,4 +309,12 @@
     .action-jackson {
         margin-bottom: 20px;
     }
+}
+
+
+.links8
+{
+    border:none;
+    position:relative;
+    color:#ffffff;
 }
