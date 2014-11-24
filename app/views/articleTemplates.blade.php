@@ -54,78 +54,134 @@
     </div>
 </div>
 @elseif ($type == 'Film Review')
-<div class="col-lg-4">
-    <label class="col-lg-12">Release Year</label>
-    <div class="form-group col-lg-6">
-        <input id="year" type="text" name="year" class="form-control col-lg-4">
-    </div>
-    <label class="col-lg-12">Genre</label>
-    <div class="form-group col-lg-6">
-        <input id="genre" type="text" name="genre" class="form-control col-lg-6">
-    </div>
-    <label class="col-lg-12">Directed By:</label>
-    <div class="form-group col-lg-8">
-        <input id="director" type="text" name="director" class="form-control col-lg-8">
-    </div>
-    <div class="form-group col-lg-12">
-        <label class="col-lg-12" style="padding-left: 15px">Cast</label>
-        <div class="col-lg-12" style="padding: 0px">
-            <textarea id="cast" class="form-control" name="cast" rows="3" placeholder="List the main performers"></textarea>
+    <div class="col-lg-8 col-lg-offset-2" style="text-align: center">
+        <div id="film-review-initial-select-list" class="col-lg-12 film-review-blocks">
+            <h4>Select all the elements that you'd like to include in your film review.</h4>
+
+            <div class="form-group">
+            <div id="filmreviewindex" style="text-align: left">
+                <input type="checkbox" class="filmreviewindex col-lg-6" name="filmreviewindex[]" value="year"> Year<br>
+                <input type="checkbox" class="filmreviewindex col-lg-6" name="filmreviewindex[]" value="genre"> Genre<br>
+                <input type="checkbox" class="filmreviewindex col-lg-6" name="filmreviewindex[]" value="director"> Director<br>
+                <input type="checkbox" class="filmreviewindex col-lg-6" name="filmreviewindex[]" value="cast"> Cast<br>
+                <input type="checkbox" class="filmreviewindex col-lg-6" name="filmreviewindex[]" value="plot"> Plot Synopsis<br>
+                <input type="checkbox" class="filmreviewindex col-lg-6" name="filmreviewindex[]" value="expectations"> Prior Expectations<br>
+                <input type="checkbox" class="filmreviewindex col-lg-6" name="filmreviewindex[]" value="story"> Story / Screenplay<br>
+                <input type="checkbox" class="filmreviewindex col-lg-6" name="filmreviewindex[]" value="my-review"> My Review<br>
+                <input type="checkbox" class="filmreviewindex col-lg-6" name="filmreviewindex[]" value="acting"> Acting<br>
+                <input type="checkbox" class="filmreviewindex col-lg-6" name="filmreviewindex[]" value="technical"> Technical Aspects<br>
+                <input type="checkbox" class="filmreviewindex col-lg-6" name="filmreviewindex[]" value="rating"> My Rating<br>
+                <input type="checkbox" class="filmreviewindex col-lg-6" name="filmreviewindex[]" value="afterfeeling"> After Feeling<br>
+            </div>
+            </div>
+            <br>
+            <button id="filmreviewindexformsubmit" type="button" class="btn btn-success" onclick="getStartedFilmReview()">Get Started</button>
+
+
         </div>
-    </div>
-    <div class="form-group col-lg-12">
-        <label class=" col-lg-12" style="padding-left: 15px">Plot Synopsis</label>
-        <div class="col-lg-12" style="padding: 0px">
-            <textarea id="plot" class="form-control" name="plot" rows="3" placeholder="Write in short what this movie is all about"></textarea>
+
+        <div id="film-review-year" class="col-lg-12 film-review-blocks" style="display: none">
+        <label class="col-lg-12">Release Year</label>
+        <div class="form-group col-lg-12">
+            <input id="year" type="text" name="year" class="form-control col-lg-12" placeholder="When was this film released?">
         </div>
-    </div>
-    <div class="form-group col-lg-12">
-        <label class=" col-lg-12" style="padding-left: 15px">Prior Expectations</label>
-        <div class="col-lg-12" style="padding: 0px">
-            <textarea id="expectations" class="form-control" name="expectations" rows="3" placeholder="what were you expecting before watching"></textarea>
+        <button type="button" class="btn btn-success" onclick="nextElementFilmReview()">Next</button>
         </div>
-    </div>
-    <div class="form-group col-lg-12">
-        <label class=" col-lg-12" style="padding-left: 15px">Story/Screenplay</label>
-        <div class="col-lg-12" style="padding: 0px">
-            <textarea id="story" class="form-control" name="story" rows="3" placeholder="What about the story and screenplay, how was it?"></textarea>
+
+        <div id="film-review-genre" class="col-lg-12 film-review-blocks" style="display: none">
+<label class="col-lg-12">Genre</label>
+        <div class="form-group col-lg-12">
+            <input id="genre" type="text" name="genre" class="form-control col-lg-12" placeholder="Genre of the film">
         </div>
-    </div>
-</div>
-<div class="col-lg-8">
-    <label class="col-lg-12">My Review</label>
-    <div class="form-group col-lg-12">
-        <textarea class="input-block-level col-lg-12" id="summernote" name="summernote" rows="18" onfocus="checkCharacters()">
-        </textarea>
+        <button type="button" class="btn btn-success" onclick="nextElementFilmReview()">Next</button>
+        </div>
+
+        <div id="film-review-director" class="col-lg-12 film-review-blocks" style="display: none">
+<label class="col-lg-12">Directed By:</label>
+        <div class="form-group col-lg-12">
+            <input id="director" type="text" name="director" class="form-control col-lg-12" placeholder="Name of the Director(s)">
+        </div>
+        <button type="button" class="btn btn-success" onclick="nextElementFilmReview()">Next</button>
+        </div>
+
+        <div id="film-review-cast" class="col-lg-12 film-review-blocks" style="display: none">
+<label class="col-lg-12" style="padding-left: 15px">Cast</label>
+            <div class="form-group col-lg-12" style="padding: 0px">
+                <textarea id="cast" class="form-control" name="cast" rows="3" placeholder="List the main performers"></textarea>
+            </div>
+            <button type="button" class="btn btn-success" onclick="nextElementFilmReview()">Next</button>
+        </div>
+
+        <div id="film-review-plot" class="col-lg-12 film-review-blocks" style="display: none">
+<label class=" col-lg-12" style="padding-left: 15px">Plot Synopsis</label>
+            <div class="form-group col-lg-12" style="padding: 0px">
+                <textarea id="plot" class="form-control" name="plot" rows="3" placeholder="Write in short what this movie is all about"></textarea>
+            </div>
+            <button type="button" class="btn btn-success" onclick="nextElementFilmReview()">Next</button>
+        </div>
+
+        <div id="film-review-expectations" class="col-lg-12 film-review-blocks" style="display: none">
+<label class=" col-lg-12" style="padding-left: 15px">Prior Expectations</label>
+            <div class="form-group col-lg-12" style="padding: 0px">
+                <textarea id="expectations" class="form-control" name="expectations" rows="3" placeholder="what were you expecting before watching"></textarea>
+            </div>
+            <button type="button" class="btn btn-success" onclick="nextElementFilmReview()">Next</button>
+        </div>
+
+        <div id="film-review-story" class="col-lg-12 film-review-blocks" style="display: none">
+<label class=" col-lg-12" style="padding-left: 15px">Story/Screenplay</label>
+            <div class="form-group col-lg-12" style="padding: 0px">
+                <textarea id="story" class="form-control" name="story" rows="3" placeholder="What about the story and screenplay, how was it?"></textarea>
+            </div>
+            <button type="button" class="btn btn-success" onclick="nextElementFilmReview()">Next</button>
+        </div>
+
+        <div id="film-review-my-review" class="col-lg-12 film-review-blocks" style="display: none">
+<label class="col-lg-12">My Review</label>
+        <div class="form-group col-lg-12" style="text-align: left">
+            <textarea class="input-block-level col-lg-12" id="summernote" name="summernote" rows="18" onfocus="checkCharacters()">
+            </textarea>
+        </div>
+        <button type="button" class="btn btn-success" onclick="nextElementFilmReview()">Next</button>
+        </div>
+
+        <div id="film-review-acting" class="col-lg-12 film-review-blocks" style="display: none">
+<label class="col-lg-12">Acting </label>
+            <div class="form-group col-lg-12">
+                <textarea id="acting" class="form-control" name="acting" rows="3" placeholder="How did the lead cast do?"></textarea>
+            </div>
+            <button type="button" class="btn btn-success" onclick="nextElementFilmReview()">Next</button>
+        </div>
+
+        <div id="film-review-technical" class="col-lg-12 film-review-blocks" style="display: none">
+<label class=" col-lg-12">Technical Aspects </label>
+            <div class="form-group col-lg-12" style="padding-left: 15px; padding-right: 0px">
+                <textarea id="technical" class="form-control" name="technical" rows="3" placeholder="Camerawork, editing, colors?"></textarea>
+            </div>
+            <button type="button" class="btn btn-success" onclick="nextElementFilmReview()">Next</button>
+        </div>
+
+        <div id="film-review-rating" class="col-lg-12 film-review-blocks" style="display: none">
+<label class=" col-lg-12">My Rating </label>
+            <div class="form-group col-lg-12">
+                <input id="rating" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="sm">
+            </div>
+            <button type="button" class="btn btn-success" onclick="nextElementFilmReview()">Next</button>
+        </div>
+
+        <div id="film-review-afterfeeling" class="col-lg-12 film-review-blocks" style="display: none">
+<label class=" col-lg-12" style="padding-left: 50px">After Feeling </label>
+            <div class="col-lg-12" style="padding-left: 50px">
+                <textarea id="afterfeeling" class="form-control" name="after" rows="3" placeholder="At the end of it, how did you feel?"></textarea>
+            </div>
+            <button type="button" class="btn btn-success" onclick="nextElementFilmReview()">Next</button>
+        </div>
+
+                <div id="film-review-done" class="col-lg-12 film-review-blocks" style="display: none">
+                    <h4>That bring us to the end of the review. Click on 'Preview and Submit' below to do the final thing.</h4>
+                </div>
     </div>
 
-    <div class="form-group col-lg-6">
-        <label class="col-lg-6">Acting </label>
-        <div class="col-lg-12">
-            <textarea id="acting" class="form-control" name="acting" rows="3" placeholder="How did the lead cast do?"></textarea>
-        </div>
-    </div>
-    <div class="form-group col-lg-6" style="padding-left: 15px; padding-right: 0px">
-        <label class=" col-lg-6">Technical Aspects </label>
-        <div class="col-lg-12" style="padding-left: 15px; padding-right: 0px">
-            <textarea id="technical" class="form-control" name="technical" rows="3" placeholder="Camerawork, editing, colors?"></textarea>
-        </div>
-    </div>
-</div>
-<div class="col-lg-12">
-    <div class="form-group col-lg-4">
-        <label class=" col-lg-12">My Rating </label>
-        <div class="col-lg-12">
-            <input id="rating" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="sm">
-        </div>
-    </div>
-    <div class="form-group col-lg-8">
-        <label class=" col-lg-12" style="padding-left: 50px">After Feeling </label>
-        <div class="col-lg-12" style="padding-left: 50px">
-            <textarea id="after" class="form-control" name="after" rows="3" placeholder="At the end of it, how did you feel?"></textarea>
-        </div>
-     </div>
-</div>
 @elseif ($type == 'Music Review')
     @if ($count == 1)
 <div class="col-lg-4">
@@ -167,7 +223,7 @@
         </textarea>
     </div>
     <div class="form-group col-lg-12">
-        <label class=" col-lg-1 control-label">Track Rating </label>
+        <label class=" col-lg-3 control-label">Track Rating </label>
         <div class="col-lg-5">
             <input id="rating{{$count}}" value="2" type="number" class="rating" min=0 max=5 step=0.5 data-size="sm">
         </div>

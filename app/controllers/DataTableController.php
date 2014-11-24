@@ -14,7 +14,7 @@ class DataTableController extends \BaseController {
 			->orderColumns('title')
 			->addColumn('title',function($model)
 			{
-				return "<a href='http://b2.com/readArticle/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
+				return "<a href='http://b2.com/articlePreview/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
 			})
 			->addColumn('category',function($model)
 			{
@@ -40,9 +40,16 @@ class DataTableController extends \BaseController {
 	public function getMediaDatatable()
 	{
 		return Datatable::query(Auth::user()->getMedia())
-			->showColumns('title','created_at')
 			->searchColumns('title')
 			->orderColumns('title','created_at')
+            ->addColumn('title',function($model)
+            {
+                return "<a href='http://b2.com/mediaPreview/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
+            })
+            ->addColumn('created_at',function($model)
+            {
+                return $model->created_at;
+            })
             ->addColumn('access',function($model)
             {
                 if ($model->ispublic)
@@ -53,9 +60,9 @@ class DataTableController extends \BaseController {
 			->addColumn('edit',function($model)
 			{
                 if ($model->ispublic)
-                    return "<button type='button' id='".$model->path."' name='".$model->title."' onclick='previewMedia(this)' class='btn btn-success'>Preview</button> <button type='button' onclick='deleteMedia(this,".$model->id.")'class='btn btn-danger'>Delete</button> <button class='btn btn-primary' onclick='editDetails(".$model->id.")'>Edit Details</button> ";
+                    return "<a id='".$model->path."' name='".$model->title."' href='http://b2.com/playMedia/".Crypt::encrypt($model->id)."' class='btn btn-success'>Preview</a> <button type='button' onclick='deleteMedia(this,".$model->id.")'class='btn btn-danger'>Delete</button> <button class='btn btn-primary' onclick='editDetails(".$model->id.")'>Edit Details</button> ";
                 else
-                    return "<button type='button' id='".$model->path."' name='".$model->title."' onclick='previewMedia(this)' class='btn btn-success'>Preview</button> <button type='button' onclick='deleteMedia(this,".$model->id.")'class='btn btn-danger'>Delete</button>";
+                    return "<a id='".$model->path."' name='".$model->title."' href='http://b2.com/playMedia/".Crypt::encrypt($model->id)."' class='btn btn-success'>Preview</a> <button type='button' onclick='deleteMedia(this,".$model->id.")'class='btn btn-danger'>Delete</button>";
 			})
 			->make();
 	}
@@ -64,9 +71,12 @@ class DataTableController extends \BaseController {
 	public function getResourceDatatable()
 	{
 		return Datatable::query(Auth::user()->getResources())
-			->showColumns('title')
 			->searchColumns('title')
 			->orderColumns('title')
+            ->addColumn('title',function($model)
+            {
+                return "<a href='http://b2.com/resource/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
+            })
 			->addColumn('category',function($model)
 			{
 				$interest=Interest::find($model->category);
@@ -94,7 +104,7 @@ class DataTableController extends \BaseController {
 			->orderColumns('title')
 			->addColumn('title',function($model)
 			{
-				return "<a href='http://b2.com/blogBook/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
+				return "<a href='http://b2.com/blogBookPreview/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
 			})
 			->addColumn('category',function($model)
 			{
@@ -145,7 +155,7 @@ class DataTableController extends \BaseController {
 			->orderColumns('title','category')
 			->addColumn('title',function($model)
 			{
-				return "<a href='http://b2.com/readArticle/".$model->article_id."' target='_blank' style='text-decoration: none'>".$model->title."</a>";
+				return "<a href='http://b2.com/articlePreview/".$model->article_id."' target='_blank' style='text-decoration: none'>".$model->title."</a>";
 			})
 			->addColumn('category',function($model)
 			{
@@ -163,7 +173,7 @@ class DataTableController extends \BaseController {
 			->orderColumns('title','category')
 			->addColumn('title',function($model)
 			{
-				return "<a href='http://b2.com/blogBook/".$model->blog_book_id."' target='_blank' style='text-decoration: none'>".$model->title."</a>";
+				return "<a href='http://b2.com/blogBookPreview/".$model->blog_book_id."' target='_blank' style='text-decoration: none'>".$model->title."</a>";
 			})
 			->addColumn('category',function($model)
 			{
@@ -195,11 +205,11 @@ class DataTableController extends \BaseController {
                 $alreadyInvited = DB::table('invite_contributors')->where('collaborationid',$model->collaboration_id)->where('useremail',Auth::user()->email)->first();
                 if (Collaboration::find($model->collaboration_id)->isContributor() || $requestAlreadySent != null || $alreadyInvited != null)
                 {
-                        return "<a href='http://b2.com/collaboration/".$model->collaboration_id."' class='btn btn-primary' target='_blank'>Read</a>";
+                        return "<a href='http://b2.com/collaborationPreview/".$model->collaboration_id."' class='btn btn-primary' target='_blank'>Read</a>";
                 }
 
                 else
-                    return "<a href='http://b2.com/collaboration/".$model->collaboration_id."' class='btn btn-primary' target='_blank'>Read</a>&nbsp;&nbsp;<button type='button' id='PlusContribute".$model->collaboration_id."' class='btn btn-info' onclick='plusContribute(".$model->collaboration_id.")'>+ Contribute</button>";
+                    return "<a href='http://b2.com/collaborationPreview/".$model->collaboration_id."' class='btn btn-primary' target='_blank'>Read</a>&nbsp;&nbsp;<button type='button' id='PlusContribute".$model->collaboration_id."' class='btn btn-info' onclick='plusContribute(".$model->collaboration_id.")'>+ Contribute</button>";
             })
             ->make();
     }
@@ -502,7 +512,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('title')
             ->addColumn('title',function($model)
             {
-                return "<a href='http://b2.com/collaboration/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
+                return "<a href='http://b2.com/collaborationPreview/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
             })
             ->addColumn('category',function($model)
             {
@@ -541,7 +551,7 @@ class DataTableController extends \BaseController {
             ->orderColumns('title')
             ->addColumn('title',function($model)
             {
-                return "<a href='http://b2.com/collaboration/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
+                return "<a href='http://b2.com/collaborationPreview/".$model->id."' style='text-decoration: none'>".$model->title."</a>";
             })
             ->addColumn('category',function($model)
             {
@@ -1293,8 +1303,8 @@ class DataTableController extends \BaseController {
             ->addColumn('actions',function($model)
             {
                 $question = $model->question;
-                $question = str_replace('\'','', $question);
-                $question = str_replace('\"','', $question);
+                $question = str_replace('\'',' ', $question);
+                $question = str_replace('"',' ', $question);
                 return "<button type='button' id='Button".$model->id."' class='btn btn-success' onclick='writeAnswer(".$model->id.",\"".$question."\")'>Answer</button>&nbsp;&nbsp;<button type='button' class='btn btn-danger' onclick='declineAnswer(this,".$model->id.")'>Decline</button>";
             })
             ->make();
@@ -1327,6 +1337,30 @@ class DataTableController extends \BaseController {
             ->addColumn('askedBy',function($model)
             {
                 return User::find($model->askedBy_id)->first_name." ".User::find($model->askedBy_id)->last_name;
+            })
+            ->make();
+    }
+
+    public function getAskedQuestions($userId)
+    {
+        $questions = User::find($userId)->questionsAskedByUser()->where('answer','!=','')->get();
+        return Datatable::collection($questions)
+            ->searchColumns('question')
+            ->orderColumns('question')
+            ->addColumn('question',function($model)
+            {
+                return $model->question;
+            })
+            ->addColumn('description',function($model)
+            {
+                if ($model->description != null)
+                    return "<a href='#' onclick='showDescription(".$model->id."); return false;' style='text-decoration: none'>Show Description..</a>";
+                else
+                    return "<i>NULL</i>";
+            })
+            ->addColumn('answer',function($model)
+            {
+                return "<a href='#' onclick='showAnswer(".$model->id."); return false;' style='text-decoration: none'>Show Answer..</a>";
             })
             ->make();
     }

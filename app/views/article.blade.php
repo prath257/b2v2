@@ -10,6 +10,7 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="{{asset('css/bootstrapValidator.css')}}" rel="stylesheet">
 	<link href="{{asset('css/summernote.css')}}" rel="stylesheet">
+	 <link href="{{asset('css/bootstrap-switch.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/article.css')}}" rel="stylesheet">
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
     <link href="{{asset('css/fileUpload.css')}}" rel="stylesheet">
@@ -36,7 +37,7 @@
 	</div>
 	<div class="pull-right">
 		<button type="button" class="btn btn-primary" onclick="saveArticle()">OK! Looks cool</button>
-		<button type="button" class="btn btn-primary" onclick="editContent()">No, Let me edit!</button>
+		<button id="noletmeedit" type="button" class="btn btn-primary" onclick="editContent()">No, Let me edit!</button>
 	</div>
 </div>
 
@@ -113,7 +114,7 @@
 					</div>
 					<div class="col-lg-6">
 						Click on the button below to first get your {{$type}} reviewed by our team, and then post it.<br>
-						If our team reviews your {{$type}} positively, you earn bonus IFCs, and then of course, people who read your {{$type}}, pay for it.
+						If our team reviews your {{$type}} positively, you earn bonus IFCs, and then of course, people who read your {{$type}}, pay ifcs for it.
 						<button id="submitreview" type="button" class="btn btn-block" onclick="submit('toreview',this)">Submit for Review</button>
 
                         <div  id="waitingArtical"  style="display: none" >
@@ -287,14 +288,17 @@
 <input id="category" name="category" type="hidden" value="{{$category}}">
 <input id="ifc" name="ifc" type="hidden" value="{{$ifc}}">
 <input id="type" name="type" type="hidden" value="{{$type}}">
+<input id="cPic" name="cPic" type="hidden" value="{{$cPic}}">
 
 <input type="hidden" id="refreshed" value="no">
 <script src="{{asset('js/reload.js')}}"></script>
 
 <script src="{{asset('js/bootstrapValidator.min.js')}}"></script>
-<script src="{{asset('js/pages/article.js')}}"></script>
+
 <script src="{{asset('js/summernote.js')}}"></script>
 <script src="{{asset('js/bootbox.js')}}"></script>
+<script src="{{asset('js/bootstrap-switch.js')}}"></script>
+<script src="{{asset('js/pages/article.js')}}"></script>
 </body>
 </html>
  

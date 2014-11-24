@@ -141,6 +141,10 @@ function showPurchase(ifcr)
     {
         link='sym140Nb971wzb4284/'+cid;
     }
+    else if(type=='media')
+    {
+        link='viewMedia';
+    }
 
     var content=true;
 
@@ -382,85 +386,25 @@ function visitProfile(username)
     window.location='http://b2.com/user/'+username;
 }
 
-function viewMedia(id,path)
+function viewMedia()
 {
-    var ifc = $('#ifc').html();
-    ifc = parseInt(ifc);
-    $('#viewMedia').prop('disabled',true);
-    $('#viewMedia').html('Please Wait..');
-    $.post('http://b2.com/getIFCs', function(uifc)
-    {
-        if(uifc=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
-        else
+    var id = $('#cid').val();
+
+    $('#purchaseMediaIFCModal').html('Please Wait..');
+    $('#purchaseMediaIFCModal').addClass('disabled');
+
+        $.post('http://b2.com/viewMedia', {id: id}, function(success)
         {
-            $('#viewMedia').prop('disabled',false);
-            $('#viewMedia').html('View Media');
-            uifc = parseInt(uifc);
-            if (ifc > uifc)
-                bootbox.alert("Sorry, looks like you haven\'t got enough IFCs to view this! Visit this <a href='http://b2.com/ifcDeficit' target='_blank'>link</a> to know more about earning IFCs.");
+            if(success=='wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
             else
             {
-                var message = 'You have '+uifc+' IFCs left with you and viewing this media will cost you '+ifc+' IFCs. Do you want to proceed?';
-                bootbox.confirm(message, function(result) {
-                    if (result==true)
-                    {
-                        $.post('http://b2.com/viewMedia', {id: id}, function(success)
-                        {
-                            if(success=='wH@tS!nTheB0x')
-                                window.location='http://b2.com/offline';
-                            else
-                            {
-                                if (success == 'success')
-                                {
-                                    var content;
-                                    if((path.search('.mkv')== -1)||(path.search('.flv')== -1)||(path.search('.m4a')== -1))
-                                    {
-                                        content="<div onmousedown='return false;' style='text-align: center'><br><object class='mediaFiles' autoplay='false' width='300' height='200' data='"+path+"'><a href='"+path+"'>Click here.</a></object></div>";
-                                    }
-                                    else
-                                    {
-                                        content="<div onmousedown='return false;' style='text-align: center'><br><br><embed class='mediaFiles' autoplay='false' width='300' height='200' src='"+path+"'></embed></div>";
-                                    }
-                                    $('#preview').html(content);
-                                    $('#previewMediaModal').modal({
-                                        keyboard:false,
-                                        show:true,
-                                        backdrop:'static'
-                                    });
-                                    $('#viewMedia').hide();
-                                    $('#viewMedia2').show();
-                                }
-                                else
-                                {
-                                    bootbox.alert("Sorry, the request could not be completed. Please try again.");
-                                }
-                            }
-                        });
-                    }
-                });
+                $('#viewMedia').hide();
+                $('#viewMedia2').show();
+                window.location = success;
             }
-        }
-    });
-}
+        });
 
-function viewMedia2(path)
-{
-    var content;
-    if((path.search('.mkv')== -1)||(path.search('.flv')== -1)||(path.search('.m4a')== -1))
-    {
-        content="<div onmousedown='return false;' style='text-align: center'><br><object class='mediaFiles' autoplay='false'width='300' height='200' data='"+path+"'><a href='"+path+"'>Click here.</a></object></div>";
-    }
-    else
-    {
-        content="<div onmousedown='return false;' style='text-align: center'><br><br><embed class='mediaFiles' autoplay='false' width='300' height='200' src='"+path+"'></embed></div>";
-    }
-    $('#preview').html(content);
-    $('#previewMediaModal').modal({
-        keyboard:false,
-        show:true,
-        backdrop:'static'
-    });
 }
 
 function purchaseRes(link)

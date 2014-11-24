@@ -181,7 +181,7 @@ function inviteFriend()
 {
 
 
-    $("#responseBox").fadeOut();
+    /*$("#responseBox").fadeOut();*/
     var userEmail = $("#friend").val();
 
     if (userEmail!="")
@@ -206,9 +206,10 @@ function inviteFriend()
                 window.location='http://b2.com/offline';
             else
             {
-                $("#responseBox").html("<strong>"+response+"</strong>");
+                bootbox.alert(response);
+                /*$("#responseBox").html("<strong>"+response+"</strong>");*/
                 $("#friend").val("");
-                $("#responseBox").fadeIn();
+                /*$("#responseBox").fadeIn();*/
                 $("#friendInviteButton").html("Submit");
                 $('#friendInviteButton').prop('disabled', false);
 
@@ -234,7 +235,7 @@ function inviteFriend()
 
 function inviteOthers()
 {
-    $("#responseBox").fadeOut();
+    /*$("#responseBox").fadeOut();*/
     $('#inviteViaEmailSubmit').prop('disabled', true);
     $("#inviteViaEmailSubmit").html("Loading...");
     var email = $('#inviteEmail').val();
@@ -245,9 +246,10 @@ function inviteOthers()
             window.location='http://b2.com/offline';
         else
         {
-            $("#responseBox").html("<strong>"+response+"</strong>");
+            bootbox.alert(response);
+            /*$("#responseBox").html("<strong>"+response+"</strong>");*/
             $('#inviteEmail').val("");
-            $("#responseBox").fadeIn();
+            /*$("#responseBox").fadeIn();*/
             $("#inviteViaEmailSubmit").html("Submit");
             $('#inviteViaEmailSubmit').prop('disabled', false);
         }

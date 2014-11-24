@@ -17,10 +17,15 @@ $(document).ready(function()
                      }
                  }).done(function(data)
                  {
-                     if(data=='wH@tS!nTheB0x' && !loggedout)
+                     if(data=='wH@tS!nTheB0x')
                      {
-                         loggedout = true;
-                         window.location = "http://b2.com/offline";
+                         if (!loggedout)
+                         {
+                             loggedout = true;
+                             window.location = "http://b2.com/offline";
+                         }
+
+
                      }
                      else
                      {
@@ -118,10 +123,14 @@ $(document).ready(function()
     window.onbeforeunload = function()
     {
         $.post('http://b2.com/removeIsOnline',function(error){
-            if(error=='wH@tS!nTheB0x' && loggedout == false)
+            if(error=='wH@tS!nTheB0x')
             {
-                loggedout = true;
-                window.location='http://b2.com/offline';
+                if (loggedout == false)
+                {
+                    loggedout = true;
+                    window.location='http://b2.com/offline';
+                }
+
             }
         });
     }
@@ -195,7 +204,7 @@ function getNoti()
             data:{d:d},
             beforeSend: function()
             {
-                $("#notificationText").html(" <div class='col-lg-12' style='text-align: center'> <img src='Images/icons/waiting.gif'> </div>");
+                $("#notificationText").html(" <div class='col-lg-12' style='text-align: center'> <img src='http://b2.com/Images/icons/waiting.gif'> </div>");
                 $('#notificationModal2').slideDown(300);
             }
         }).done(function(data)

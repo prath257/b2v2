@@ -77,13 +77,18 @@ class MediaController extends \BaseController
 
         //Saving the media cover
         $cover = Input::file('cover');
-        $random_name = str_random(8);
-        $destinationPath = "Users/".Auth::user()->username."/Media/";
-        $extension = $cover->getClientOriginalExtension();
-        $filename=$media->id.'_'.$random_name.'.'.$extension;
-        Image::make(Input::file('cover'))->resize(500, 500)->save($destinationPath.$filename);
-        $media->cover = $destinationPath.$filename;
-        $media->save();
+            if ($cover != null)
+            {
+                $random_name = str_random(8);
+                $destinationPath = "Users/".Auth::user()->username."/Media/";
+                $extension = $cover->getClientOriginalExtension();
+                $filename=$media->id.'_'.$random_name.'.'.$extension;
+                Image::make(Input::file('cover'))->resize(500, 500)->save($destinationPath.$filename);
+                $media->cover = $destinationPath.$filename;
+                $media->save();
+            }
+
+
 
 
         return 'success';
@@ -158,21 +163,107 @@ class MediaController extends \BaseController
 
     public function getMediaPreview($id)
     {
-        $media = Media::find($id);
-        if ($media->ispublic)
+        $book = Media::find($id);
+        if ($book->ispublic)
         {
-            $author = $media->getAuthor->first_name.' '.$media->getAuthor->last_name;
-            return View::make('mediaPreview')->with('media',$media)->with('author',$author);
+            $owner = $book->getAuthor;
+            $fullname = $owner->first_name.' '.$owner->last_name;
+
+            $articles = Article::where('category','=',$book->category)->orderBy('users','DESC')->get();
+            $blogBooks = BlogBook::where('category','=',$book->category)->orderBy('users','DESC')->get();
+            $collaborations = Collaboration::where('category','=',$book->category)->orderBy('users','DESC')->get();
+
+
+            $content = $articles->merge($blogBooks);
+            $content = $content->merge($collaborations);
+
+            $content = $content->sortByDesc('users')->take(6);
+
+            if (count($content) < 6)
+            {
+                $articles = $owner->getArticles()->orderBy('users','DESC')->get();
+                $blogBooks = $owner->getBlogBooks()->orderBy('users','DESC')->get();
+                $collaborations = $owner->getOwnedCollaborations()->orderBy('users','DESC')->get();
+                $contributions = $owner->getContributions()->orderBy('users','DESC')->get();
+
+                $content = $content->merge($articles);
+                $content = $content->merge($blogBooks);
+                $content = $content->merge($collaborations);
+                $content = $content->merge($contributions);
+
+                $content = $content->sortByDesc('users')->take(6);
+
+                if (count($content) < 6)
+                {
+                    $ksj = User::where('username','=','ksjoshi88')->first();
+                    $articles = $ksj->getArticles()->orderBy('users','DESC')->get();
+                    $blogBooks = $ksj->getBlogBooks()->orderBy('users','DESC')->get();
+                    $collaborations = $ksj->getOwnedCollaborations()->orderBy('users','DESC')->get();
+                    $contributions = $ksj->getContributions()->orderBy('users','DESC')->get();
+
+                    $content = $content->merge($articles);
+                    $content = $content->merge($blogBooks);
+                    $content = $content->merge($collaborations);
+                    $content = $content->merge($contributions);
+
+                    $content = $content->sortByDesc('users')->take(6);
+                }
+            }
+
+            return View::make('mediaPreview')->with('media',$book)->with('author',$fullname)->with('content',$content);
         }
     }
 
     public function getMediaDummy($id)
     {
-        $media = Media::find($id);
-        if ($media->ispublic)
+        $book = Media::find($id);
+        if ($book->ispublic)
         {
-            $author = $media->getAuthor->first_name.' '.$media->getAuthor->last_name;
-            return View::make('mediaPreview')->with('media',$media)->with('author',$author);
+            $owner = $book->getAuthor;
+            $fullname = $owner->first_name.' '.$owner->last_name;
+
+            $articles = Article::where('category','=',$book->category)->orderBy('users','DESC')->get();
+            $blogBooks = BlogBook::where('category','=',$book->category)->orderBy('users','DESC')->get();
+            $collaborations = Collaboration::where('category','=',$book->category)->orderBy('users','DESC')->get();
+
+
+            $content = $articles->merge($blogBooks);
+            $content = $content->merge($collaborations);
+
+            $content = $content->sortByDesc('users')->take(6);
+
+            if (count($content) < 6)
+            {
+                $articles = $owner->getArticles()->orderBy('users','DESC')->get();
+                $blogBooks = $owner->getBlogBooks()->orderBy('users','DESC')->get();
+                $collaborations = $owner->getOwnedCollaborations()->orderBy('users','DESC')->get();
+                $contributions = $owner->getContributions()->orderBy('users','DESC')->get();
+
+                $content = $content->merge($articles);
+                $content = $content->merge($blogBooks);
+                $content = $content->merge($collaborations);
+                $content = $content->merge($contributions);
+
+                $content = $content->sortByDesc('users')->take(6);
+
+                if (count($content) < 6)
+                {
+                    $ksj = User::where('username','=','ksjoshi88')->first();
+                    $articles = $ksj->getArticles()->orderBy('users','DESC')->get();
+                    $blogBooks = $ksj->getBlogBooks()->orderBy('users','DESC')->get();
+                    $collaborations = $ksj->getOwnedCollaborations()->orderBy('users','DESC')->get();
+                    $contributions = $ksj->getContributions()->orderBy('users','DESC')->get();
+
+                    $content = $content->merge($articles);
+                    $content = $content->merge($blogBooks);
+                    $content = $content->merge($collaborations);
+                    $content = $content->merge($contributions);
+
+                    $content = $content->sortByDesc('users')->take(6);
+                }
+            }
+
+            return View::make('mediaPreview')->with('media',$book)->with('author',$fullname)->with('content',$content);
         }
     }
 
@@ -181,36 +272,84 @@ class MediaController extends \BaseController
     {
         if(Auth::check())
         {
-        $media = Media::find(Input::get('id'));
-        $ifc = $media->ifc;
-        $owner = User::find($media->userid);
-        if (Friend::isFriend($owner->id) && $owner->settings->freeforfriends)
-            return 'success';
+            $media = Media::find(Input::get('id'));
+            $ifc = $media->ifc;
+            $owner = User::find($media->userid);
+            if (Friend::isFriend($owner->id) && $owner->settings->freeforfriends)
+                return 'http://b2.com/playMedia/'.Crypt::encrypt($media->id);
 
-        if(Friend::isSubscriber($owner->id) && $owner->settings->discountforfollowers > 0)
-        {
-            $discount = ($ifc*$owner->settings->discountforfollowers)/100;
-            $ifc = $ifc-$discount;
+            if(Friend::isSubscriber($owner->id) && $owner->settings->discountforfollowers > 0)
+            {
+                $discount = ($ifc*$owner->settings->discountforfollowers)/100;
+                $ifc = $ifc-$discount;
+            }
+
+            Auth::user()->profile->ifc -= $ifc;
+            Auth::user()->profile->save();
+
+            User::find($media->userid)->profile->ifc += $ifc;
+            User::find($media->userid)->profile->save();
+
+            Auth::user()->viewedMedia()->attach($media->id);
+            $media->users ++;
+            $media->save();
+
+            AjaxController::insertToNotification($media->getAuthor->id,Auth::user()->id,"purchased","purchased your media ".$media->title,'http://b2.com/mediaPreview/'.$media->id);
+
+            TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Bought media",'http://b2.com/mediaPreview/'.$media->id,$media->title,"content");
+            TransactionController::insertToManager(User::find($media->userid)->id,"+".$ifc,"Sold media '".$media->title."' to",'http://b2.com/user/'.Auth::user()->username, Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
+
+            return 'http://b2.com/playMedia/'.Crypt::encrypt($media->id);
         }
-
-        Auth::user()->profile->ifc -= $ifc;
-        Auth::user()->profile->save();
-
-        User::find($media->userid)->profile->ifc += $ifc;
-        User::find($media->userid)->profile->save();
-
-        Auth::user()->viewedMedia()->attach($media->id);
-        $media->users ++;
-        $media->save();
-
-        AjaxController::insertToNotification($media->getAuthor->id,Auth::user()->id,"purchased","purchased your media ".$media->title,'http://b2.com/mediaPreview/'.$media->id);
-
-        TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Bought media",'http://b2.com/mediaPreview/'.$media->id,$media->title,"content");
-        TransactionController::insertToManager(User::find($media->userid)->id,"+".$ifc,"Sold media '".$media->title."' to",'http://b2.com/user/'.Auth::user()->username, Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
-
-        return 'success';
-    }
         else
             return 'wH@tS!nTheB0x';
+    }
+
+    public function playMedia($id)
+    {
+        $id = Crypt::decrypt($id);
+        $media = Media::find($id);
+
+        if ($media->isViewer() || $media->getAuthor->id == Auth::user()->id)
+            return View::make('playMedia')->with('media',$media);
+        else
+        {
+            $ifc = $media->ifc;
+            $owner = User::find($media->userid);
+            if (Friend::isFriend($owner->id) && $owner->settings->freeforfriends)
+                return View::make('playMedia')->with('media',$media);
+
+            if(Friend::isSubscriber($owner->id) && $owner->settings->discountforfollowers > 0)
+            {
+                $discount = ($ifc*$owner->settings->discountforfollowers)/100;
+                $ifc = $ifc-$discount;
+            }
+
+            $uifc = Auth::user()->profile->ifc;
+            if ($uifc < $ifc)
+            {
+                return View::make('ifcDeficit')->with('contentIFC',$ifc)->with('userIFC',Auth::user()->profile->ifc);
+            }
+            else
+            {
+                Auth::user()->profile->ifc -= $ifc;
+                Auth::user()->profile->save();
+
+                User::find($media->userid)->profile->ifc += $ifc;
+                User::find($media->userid)->profile->save();
+
+                Auth::user()->viewedMedia()->attach($media->id);
+                $media->users ++;
+                $media->save();
+
+                AjaxController::insertToNotification($media->getAuthor->id,Auth::user()->id,"purchased","purchased your media ".$media->title,'http://b2.com/mediaPreview/'.$media->id);
+
+                TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Bought media",'http://b2.com/mediaPreview/'.$media->id,$media->title,"content");
+                TransactionController::insertToManager(User::find($media->userid)->id,"+".$ifc,"Sold media '".$media->title."' to",'http://b2.com/user/'.Auth::user()->username, Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
+
+                return View::make('playMedia')->with('media',$media);
+            }
+
+        }
     }
 }

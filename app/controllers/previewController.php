@@ -32,10 +32,53 @@ class previewController extends \BaseController
 
     public function getResourceDummyPreview($id)
     {
-        $row=Resource::find($id);
-        $ia=$row->userid;
-        $author=User::find($ia)->first_name.' '.User::find($ia)->last_name;
-        return View::make('resource')->with('book',$row)->with('author',$author);
+        $book=Resource::find($id);
+        $ia=$book->userid;
+        $owner=User::find($ia);
+        $fullname=$owner->first_name.' '.$owner->last_name;
+
+        $articles = Article::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $blogBooks = BlogBook::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $collaborations = Collaboration::where('category','=',$book->category)->orderBy('users','DESC')->get();
+
+
+        $content = $articles->merge($blogBooks);
+        $content = $content->merge($collaborations);
+
+        $content = $content->sortByDesc('users')->take(6);
+
+        if (count($content) < 6)
+        {
+            $articles = $owner->getArticles()->orderBy('users','DESC')->get();
+            $blogBooks = $owner->getBlogBooks()->orderBy('users','DESC')->get();
+            $collaborations = $owner->getOwnedCollaborations()->orderBy('users','DESC')->get();
+            $contributions = $owner->getContributions()->orderBy('users','DESC')->get();
+
+            $content = $content->merge($articles);
+            $content = $content->merge($blogBooks);
+            $content = $content->merge($collaborations);
+            $content = $content->merge($contributions);
+
+            $content = $content->sortByDesc('users')->take(6);
+
+            if (count($content) < 6)
+            {
+                $ksj = User::where('username','=','ksjoshi88')->first();
+                $articles = $ksj->getArticles()->orderBy('users','DESC')->get();
+                $blogBooks = $ksj->getBlogBooks()->orderBy('users','DESC')->get();
+                $collaborations = $ksj->getOwnedCollaborations()->orderBy('users','DESC')->get();
+                $contributions = $ksj->getContributions()->orderBy('users','DESC')->get();
+
+                $content = $content->merge($articles);
+                $content = $content->merge($blogBooks);
+                $content = $content->merge($collaborations);
+                $content = $content->merge($contributions);
+
+                $content = $content->sortByDesc('users')->take(6);
+            }
+        }
+
+        return View::make('resource')->with('book',$book)->with('author',$fullname)->with('content',$content);
     }
 
     public function getBlogBookPreview($id)
@@ -56,38 +99,80 @@ class previewController extends \BaseController
     {
         if($type=='blogBook')
         {
-            $row=BlogBook::find($id);
+            $book=BlogBook::find($id);
         }
         else if($type=='article')
         {
-            $row=Article::find($id);
+            $book=Article::find($id);
         }
         else if($type=='quiz')
         {
-            $row=Quiz::find($id);
+            $book=Quiz::find($id);
         }
         else if($type=='collaboration')
         {
-            $row=Collaboration::find($id);
+            $book=Collaboration::find($id);
         }
         else if($type=='resource')
         {
-            $row=Resource::find($id);
+            $book=Resource::find($id);
         }
 
         if($type=='quiz')
-            $ia=$row->ownerid;
+            $ia=$book->ownerid;
         else
-            $ia=$row->userid;
+            $ia=$book->userid;
 
-        $author=User::find($ia)->first_name.' '.User::find($ia)->last_name;
+        $owner=User::find($ia);
+        $fullname=$owner->first_name.' '.$owner->last_name;
 
         if($type != 'resource')
             $ext = 'Preview';
         else
             $ext = '';
 
-        return View::make($type.$ext)->with('book',$row)->with('author',$author);
+        $articles = Article::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $blogBooks = BlogBook::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $collaborations = Collaboration::where('category','=',$book->category)->orderBy('users','DESC')->get();
+
+
+        $content = $articles->merge($blogBooks);
+        $content = $content->merge($collaborations);
+
+        $content = $content->sortByDesc('users')->take(6);
+
+        if (count($content) < 6)
+        {
+            $articles = $owner->getArticles()->orderBy('users','DESC')->get();
+            $blogBooks = $owner->getBlogBooks()->orderBy('users','DESC')->get();
+            $collaborations = $owner->getOwnedCollaborations()->orderBy('users','DESC')->get();
+            $contributions = $owner->getContributions()->orderBy('users','DESC')->get();
+
+            $content = $content->merge($articles);
+            $content = $content->merge($blogBooks);
+            $content = $content->merge($collaborations);
+            $content = $content->merge($contributions);
+
+            $content = $content->sortByDesc('users')->take(6);
+
+            if (count($content) < 6)
+            {
+                $ksj = User::where('username','=','ksjoshi88')->first();
+                $articles = $ksj->getArticles()->orderBy('users','DESC')->get();
+                $blogBooks = $ksj->getBlogBooks()->orderBy('users','DESC')->get();
+                $collaborations = $ksj->getOwnedCollaborations()->orderBy('users','DESC')->get();
+                $contributions = $ksj->getContributions()->orderBy('users','DESC')->get();
+
+                $content = $content->merge($articles);
+                $content = $content->merge($blogBooks);
+                $content = $content->merge($collaborations);
+                $content = $content->merge($contributions);
+
+                $content = $content->sortByDesc('users')->take(6);
+            }
+        }
+
+        return View::make($type.$ext)->with('book',$book)->with('author',$fullname)->with('content',$content);
 
     }
 } 

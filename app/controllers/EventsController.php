@@ -36,13 +36,17 @@ class EventsController extends \BaseController
             });
         }
         $cover = Input::file('uploadCover');
-        $random_name = str_random(8);
-        $destinationPath = "Users/".Auth::user()->username."/";
-        $extension = $cover->getClientOriginalExtension();
-        $filename='Event_'.$event->id.'_'.$random_name.'.'.$extension;
-        Image::make(Input::file('uploadCover'))->resize(500, 500)->save($destinationPath.$filename);
-        $event->cover = $destinationPath.$filename;
-        $event->save();
+        if ($cover != null)
+        {
+            $random_name = str_random(8);
+            $destinationPath = "Users/".Auth::user()->username."/";
+            $extension = $cover->getClientOriginalExtension();
+            $filename='Event_'.$event->id.'_'.$random_name.'.'.$extension;
+            Image::make(Input::file('uploadCover'))->resize(500, 500)->save($destinationPath.$filename);
+            $event->cover = $destinationPath.$filename;
+            $event->save();
+        }
+
 
         return Redirect::route('event',$event->id);
     }
@@ -91,10 +95,10 @@ class EventsController extends \BaseController
         $host = User::find($event->userid);
         EventsController::$email = $host->email;
 
-        TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Registered to the event ",'http://b2.com/event/'.$event->id,$event->title,"content");
-        TransactionController::insertToManager(User::find($event->userid)->id,"+".$ifc,"New attendee to the event '".$event->title."' :",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
+        TransactionController::insertToManager(Auth::user()->id,"-".$ifc,"Registered to the event ",'http://b2.com/event/'.$event->id,$event->name,"content");
+        TransactionController::insertToManager(User::find($event->userid)->id,"+".$ifc,"New attendee to the event '".$event->name."' :",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->last_name,"profile");
 
-        AjaxController::insertToNotification($event->userid,Auth::user()->id,"purchased","Registered to your Event ".$event->title,'http://b2.com/event/'.$event->id);
+        AjaxController::insertToNotification($event->userid,Auth::user()->id,"purchased","Registered to your Event ".$event->name,'http://b2.com/event/'.$event->id);
 
         Mail::send('mailers', array('host'=>$host, 'attendee'=>Auth::user(), 'event'=>$event, 'contact'=>Input::get('number'),'page'=>'newAttendeeMailer'), function($message)
         {

@@ -74,7 +74,8 @@ function showIndex()
     if(indexShown==false)
     {
         $("#bookIndex").css('display','block');
-        $("#bookIndex").animate({'width': 240},500);
+        $("#bookIndex").animate({'width': 150},500);
+        $("#relcontent").hide();
         indexShown=true;
     }
     else
@@ -82,6 +83,7 @@ function showIndex()
         $("#bookIndex").animate({'width': 0},500,function(){
         $("#bookIndex").css('display','none')
         });
+        $("#relcontent").show();
         indexShown=false;
     }
 }
@@ -208,4 +210,10 @@ function showPrev()
         });
     }
 
+}
+
+function backtotop()
+{
+
+        $('body,html').animate({ scrollTop: 0}, 300);
 }

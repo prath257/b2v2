@@ -7,6 +7,7 @@ var fcount=0;
 var aboutCount = 0;
 var oTableUnanswered=null;
 var oTableAnswered=null;
+var oTableAsked=null;
 var qdes=0;
 var timer=null;
 
@@ -202,10 +203,14 @@ $(document).ready(function()
     window.onbeforeunload = function()
     {
         $.post('http://b2.com/removeIsOnline',function(error){
-            if(error=='wH@tS!nTheB0x' && loggedout == false)
+            if(error=='wH@tS!nTheB0x')
             {
-                loggedout = true;
-                window.location='http://b2.com/offline';
+                if (loggedout = false)
+                {
+                    loggedout = true;
+                    window.location='http://b2.com/offline';
+                }
+
             }
         });
     }
@@ -1087,6 +1092,11 @@ function showQuestions()
                 "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
             } );
 
+            oTableAsked=$('#askedQuestions').dataTable( {
+                "ajax": 'http://b2.com/askedQuestions/'+userId,
+                "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+            } );
+
             oTableUnanswered=$('#unansweredQuestions').dataTable( {
                 "ajax": 'http://b2.com/unansweredQuestions/'+userId,
                 "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
@@ -1363,16 +1373,17 @@ function submitNewAbout(userid)
 
 function acceptAbout(id)
 {
+    $('#accDecAbout'+id).html('<img src="http://b2.com/Images/icons/waiting.gif">');
     $.post('http://b2.com/acceptAbout', {aid:id}, function(data)
     {
         if(data=='wH@tS!nTheB0x')
             window.location='http://b2.com/offline';
         else
         {
-            $('#acceptUnapp'+id).hide();
-            $('#declineUnapp'+id).hide();
+            $('#accDecAbout'+id).html('');
             var unapp = $('#Unapp'+id).html();
-            $('#Unapp'+id).fadeOut();
+
+            $('#Unapp'+id).html('');
             $('#approvedAbout').append("<div>"+unapp+"</div>");
         }
     });
@@ -2362,8 +2373,9 @@ function saveAccountChanges()
                 window.location='http://b2.com/offline';
             else
             {
-                $("#accountSettingsSubmit").html(message);
-                setTimeout(function(){$("#accountSettingsSubmit").html('Save Changes')}, 3000);
+                bootbox.alert(message);
+                /*$("#accountSettingsSubmit").html(message);
+                setTimeout(function(){$("#accountSettingsSubmit").html('Save Changes')}, 3000);*/
                 /*            $("#accountSettingsMessage").show();
                  $("#accountSettingsMessage").html("<strong>"+message+"</strong>");
                  $("#accountSettingsMessage").fadeOut(3000);*/
@@ -2384,7 +2396,8 @@ function resetPassword()
             if(message=='wH@tS!nTheB0x')
                 window.location='http://b2.com/offline';
             else
-            $("#resetPasswordMessage").html("<strong>"+message+"</strong>")
+                bootbox.alert(message);
+/*            $("#resetPasswordMessage").html("<strong>"+message+"</strong>")*/
         });
     }
 }

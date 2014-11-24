@@ -75,7 +75,9 @@ class HomeController extends BaseController
 
             $validation = Validator::make(Input::all(),Invite::$invite_rules,Invite::$invite_messages);
 
-            if($validation->passes())
+            $user = User::where('email','=',Input::get('email'))->first();
+
+            if($validation->passes() && count($user) == 0)
             {
                 $invite= new Invite();
                 $invite->userid=Auth::user()->id;
@@ -87,7 +89,10 @@ class HomeController extends BaseController
             }
             else
             {
-                return $validation->errors()->first();
+                if (count($user) != 0)
+                    return 'This user is already registered on BBarters.';
+                else
+                    return $validation->errors()->first();
             }
         }
         else
@@ -432,7 +437,7 @@ class HomeController extends BaseController
 
         Mail::send('mailers', array('user'=>Auth::user(), 'review'=>$review, 'content'=>$blogBook,'page'=>'newSubmissionRequest'), function($message)
         {
-            $message->to('prath257@gmail.com')->cc('ksjoshi88@gmail.com')->subject('New Review Request!');
+            $message->to('ksjoshi88@gmail.com')->subject('New Review Request!');
         });
     }
 

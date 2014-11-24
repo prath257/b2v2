@@ -52,10 +52,10 @@
                             <button id="plus-register" class="col-lg-6 col-lg-offset-3 btn btn-default" onclick="plusRegister()">Register to this event</button>
                             <button id="cancel-register" class="col-lg-6 col-lg-offset-3 btn btn-danger" onclick="cancelRegister()" style="display: none">Cancel Registration</button>
                             @if ($event->getHost->settings->freeforfriends)
-                                <b>Registering to this event is free for all Barters who are friends with {{$event->getHost->first_name}}.</b>
+                                <br><br><b>Registering to this event is free for all Barters who are friends with {{$event->getHost->first_name}}.</b>
                             @endif
                             @if ($event->getHost->settings->discountforfollowers > 0)
-                                <b>Registering to this event is costed {{$event->getHost->settings->discountforfollowers}}% off for all Barters who are subscribed to {{$event->getHost->first_name}}.</b>
+                                <br><br><b>Registering to this event is costed {{$event->getHost->settings->discountforfollowers}}% off for all Barters who are subscribed to {{$event->getHost->first_name}}.</b>
                             @endif
                         @else
                             <button id="plus-register" class="col-lg-6 col-lg-offset-3 btn btn-default" onclick="plusRegister()" style="display: none">Register to this event</button>

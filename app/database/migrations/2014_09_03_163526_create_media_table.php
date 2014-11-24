@@ -15,7 +15,7 @@ class CreateMediaTable extends Migration {
 		Schema::create('media', function(Blueprint $table)
 		{
             $table->increments('id');
-            $table->string('cover',255);
+            $table->string('cover',255)->default('http://b2.com/Images/Media.jpg');
             $table->string('title',255);
             $table->text('trivia');
             $table->integer('category')->unsigned()->default(0);

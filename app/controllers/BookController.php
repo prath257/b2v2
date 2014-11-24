@@ -23,19 +23,24 @@ class BookController extends \BaseController
         $blogBook->save();
 
         $cover = Input::file('uploadBBCover');
-        $directory = File::makeDirectory('Users/'.Auth::user()->username."/Books/".$blogBook->id);
-        if ($directory)
+        if ($cover != null)
         {
-            $coverDirectory = File::makeDirectory('Users/'.Auth::user()->username."/Books/".$blogBook->id."/Cover");
+            $directory = File::makeDirectory('Users/'.Auth::user()->username."/Books/".$blogBook->id);
+            if ($directory)
+            {
+                $coverDirectory = File::makeDirectory('Users/'.Auth::user()->username."/Books/".$blogBook->id."/Cover");
+            }
+            $random_name = str_random(8);
+            $destinationPath = "Users/".Auth::user()->username."/Books/".$blogBook->id."/Cover/";
+            $extension = $cover->getClientOriginalExtension();
+            $filename=$random_name.'.'.$extension;
+            //Input::file('uploadCover')->move($destinationPath, $filename);
+            Image::make(Input::file('uploadBBCover'))->resize(500, 500)->save($destinationPath.$filename);
+            $blogBook->cover = $destinationPath.$filename;
+            $blogBook->save();
         }
-        $random_name = str_random(8);
-        $destinationPath = "Users/".Auth::user()->username."/Books/".$blogBook->id."/Cover/";
-        $extension = $cover->getClientOriginalExtension();
-        $filename=$random_name.'.'.$extension;
-        //Input::file('uploadCover')->move($destinationPath, $filename);
-        Image::make(Input::file('uploadBBCover'))->resize(500, 500)->save($destinationPath.$filename);
-        $blogBook->cover = $destinationPath.$filename;
-        $blogBook->save();
+
+
 
         Action::postAction('BB new',Auth::user()->id,null,$blogBook->id);
         $subscribers = DB::table('subscriptions')->where('subscribed_to_id','=',Auth::user()->id)->lists('subscriber_id');
@@ -105,16 +110,59 @@ class BookController extends \BaseController
     {
         $book=BlogBook::find($bid);
         $newUser=false;
+        $owner = User::find($book->userid);
+
+        $articles = Article::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $blogBooks = BlogBook::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $collaborations = Collaboration::where('category','=',$book->category)->orderBy('users','DESC')->get();
+
+
+        $content = $articles->merge($blogBooks);
+        $content = $content->merge($collaborations);
+
+        $content = $content->sortByDesc('users')->take(3);
+
+        if (count($content) < 3)
+        {
+            $articles = $owner->getArticles()->orderBy('users','DESC')->get();
+            $blogBooks = $owner->getBlogBooks()->orderBy('users','DESC')->get();
+            $collaborations = $owner->getOwnedCollaborations()->orderBy('users','DESC')->get();
+            $contributions = $owner->getContributions()->orderBy('users','DESC')->get();
+
+            $content = $content->merge($articles);
+            $content = $content->merge($blogBooks);
+            $content = $content->merge($collaborations);
+            $content = $content->merge($contributions);
+
+            $content = $content->sortByDesc('users')->take(3);
+
+            if (count($content) < 3)
+            {
+                $ksj = User::where('username','=','ksjoshi88')->first();
+                $articles = $ksj->getArticles()->orderBy('users','DESC')->get();
+                $blogBooks = $ksj->getBlogBooks()->orderBy('users','DESC')->get();
+                $collaborations = $ksj->getOwnedCollaborations()->orderBy('users','DESC')->get();
+                $contributions = $ksj->getContributions()->orderBy('users','DESC')->get();
+
+                $content = $content->merge($articles);
+                $content = $content->merge($blogBooks);
+                $content = $content->merge($collaborations);
+                $content = $content->merge($contributions);
+
+                $content = $content->sortByDesc('users')->take(3);
+            }
+        }
+
         if($book->userid!=Auth::user()->id)
         {
             if($book->isReader()==false)
             {
                 $ifc = $book->ifc;
-                $owner = User::find($book->userid);
+
                 if (Friend::isFriend($owner->id) && $owner->settings->freeforfriends)
                 {
                     $chapters=$book->getChapters()->get();
-                    return View::make('readBlogbook')->with('book',$book)->with('chapters',$chapters)->with('newUser',$newUser);
+                    return View::make('readBlogbook')->with('book',$book)->with('chapters',$chapters)->with('newUser',$newUser)->with('content',$content);
                 }
 
                 if(Friend::isSubscriber($owner->id) && $owner->settings->discountforfollowers > 0)
@@ -147,7 +195,7 @@ class BookController extends \BaseController
             }
         }
         $chapters=$book->getChapters()->get();
-        return View::make('readBlogbook')->with('book',$book)->with('chapters',$chapters)->with('newUser',$newUser);
+        return View::make('readBlogbook')->with('book',$book)->with('chapters',$chapters)->with('newUser',$newUser)->with('content',$content);
 
     }
 
@@ -155,8 +203,50 @@ class BookController extends \BaseController
     {
         $book=BlogBook::find($bid);
         $chapters=$book->getChapters()->get();
-        $author = $book->getAuthor->first_name.' '.$book->getAuthor->last_name;
-        return View::make('blogBookPreview')->with('book',$book)->with('chapters',$chapters)->with('author',$author);
+        $owner = $book->getAuthor->first_name.' '.$book->getAuthor->last_name;
+
+        $articles = Article::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $blogBooks = BlogBook::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $collaborations = Collaboration::where('category','=',$book->category)->orderBy('users','DESC')->get();
+
+
+        $content = $articles->merge($blogBooks);
+        $content = $content->merge($collaborations);
+
+        $content = $content->sortByDesc('users')->take(6);
+
+        if (count($content) < 6)
+        {
+            $articles = $owner->getArticles()->orderBy('users','DESC')->get();
+            $blogBooks = $owner->getBlogBooks()->orderBy('users','DESC')->get();
+            $collaborations = $owner->getOwnedCollaborations()->orderBy('users','DESC')->get();
+            $contributions = $owner->getContributions()->orderBy('users','DESC')->get();
+
+            $content = $content->merge($articles);
+            $content = $content->merge($blogBooks);
+            $content = $content->merge($collaborations);
+            $content = $content->merge($contributions);
+
+            $content = $content->sortByDesc('users')->take(6);
+
+            if (count($content) < 6)
+            {
+                $ksj = User::where('username','=','ksjoshi88')->first();
+                $articles = $ksj->getArticles()->orderBy('users','DESC')->get();
+                $blogBooks = $ksj->getBlogBooks()->orderBy('users','DESC')->get();
+                $collaborations = $ksj->getOwnedCollaborations()->orderBy('users','DESC')->get();
+                $contributions = $ksj->getContributions()->orderBy('users','DESC')->get();
+
+                $content = $content->merge($articles);
+                $content = $content->merge($blogBooks);
+                $content = $content->merge($collaborations);
+                $content = $content->merge($contributions);
+
+                $content = $content->sortByDesc('users')->take(6);
+            }
+        }
+
+        return View::make('blogBookPreview')->with('book',$book)->with('chapters',$chapters)->with('author',$owner)->with('content',$content);
     }
 
     public function deleteBlogBook()

@@ -19,13 +19,17 @@ class BlogController extends \BaseController
             $article->review = Input::get('review');
             $article->save();
 
-            $directory = File::makeDirectory('Users/'.Auth::user()->username."/Articles/".$article->id);
-            if ($directory)
+            if (Input::get('cPic') == 'yes')
             {
-                File::move("Users/".Auth::user()->username."/Articles/Cover.".Input::get('extension'),'Users/'.Auth::user()->username."/Articles/".$article->id."/Cover.".Input::get('extension'));
-                $article->cover = 'Users/'.Auth::user()->username."/Articles/".$article->id.'/Cover.'.Input::get('extension');
-                $article->save();
+                $directory = File::makeDirectory('Users/'.Auth::user()->username."/Articles/".$article->id);
+                if ($directory)
+                {
+                    File::move("Users/".Auth::user()->username."/Articles/Cover.".Input::get('extension'),'Users/'.Auth::user()->username."/Articles/".$article->id."/Cover.".Input::get('extension'));
+                    $article->cover = 'Users/'.Auth::user()->username."/Articles/".$article->id.'/Cover.'.Input::get('extension');
+                    $article->save();
+                }
             }
+
 
             if ($article->review == "toreview")
             {
@@ -36,7 +40,7 @@ class BlogController extends \BaseController
 
                 Mail::send('mailers', array('user'=>Auth::user(), 'review'=>$review, 'content'=>$article,'page'=>'newSubmissionRequest'), function($message)
                 {
-                    $message->to('prath257@gmail.com')->cc('ksjoshi88@gmail.com')->subject('New Review Request!');
+                    $message->to('ksjoshi88@gmail.com')->subject('New Review Request!');
                 });
             }
             Action::postAction('A new',Auth::user()->id,null,$article->id);
@@ -109,9 +113,51 @@ class BlogController extends \BaseController
 
     public function getArticlePreview($articleId)
     {
-        $article = Article::find($articleId);
-        $author = $article->getAuthor->first_name.' '.$article->getAuthor->last_name;
-        return View::make('articlePreview')->with('article',$article)->with('author',$author);
+        $book = Article::find($articleId);
+        $owner = $book->getAuthor->first_name.' '.$book->getAuthor->last_name;
+
+        $articles = Article::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $blogBooks = BlogBook::where('category','=',$book->category)->orderBy('users','DESC')->get();
+        $collaborations = Collaboration::where('category','=',$book->category)->orderBy('users','DESC')->get();
+
+
+        $content = $articles->merge($blogBooks);
+        $content = $content->merge($collaborations);
+
+        $content = $content->sortByDesc('users')->take(6);
+
+        if (count($content) < 6)
+        {
+            $articles = $owner->getArticles()->orderBy('users','DESC')->get();
+            $blogBooks = $owner->getBlogBooks()->orderBy('users','DESC')->get();
+            $collaborations = $owner->getOwnedCollaborations()->orderBy('users','DESC')->get();
+            $contributions = $owner->getContributions()->orderBy('users','DESC')->get();
+
+            $content = $content->merge($articles);
+            $content = $content->merge($blogBooks);
+            $content = $content->merge($collaborations);
+            $content = $content->merge($contributions);
+
+            $content = $content->sortByDesc('users')->take(6);
+
+            if (count($content) < 6)
+            {
+                $ksj = User::where('username','=','ksjoshi88')->first();
+                $articles = $ksj->getArticles()->orderBy('users','DESC')->get();
+                $blogBooks = $ksj->getBlogBooks()->orderBy('users','DESC')->get();
+                $collaborations = $ksj->getOwnedCollaborations()->orderBy('users','DESC')->get();
+                $contributions = $ksj->getContributions()->orderBy('users','DESC')->get();
+
+                $content = $content->merge($articles);
+                $content = $content->merge($blogBooks);
+                $content = $content->merge($collaborations);
+                $content = $content->merge($contributions);
+
+                $content = $content->sortByDesc('users')->take(6);
+            }
+        }
+
+        return View::make('articlePreview')->with('article',$book)->with('author',$owner)->with('content',$content);
     }
 
     public function getArticlePreviewIframe($articleId)
@@ -175,16 +221,23 @@ class BlogController extends \BaseController
         $type = Input::get('articleType');
 		$ifc = Input::get('ifc');
 
+        $cPic = 'no';
+        $extension = 'nothing';
         $cover = Input::file('uploadArtCover');
-        $destinationPath = "Users/".Auth::user()->username."/Articles/";
-        $extension = $cover->getClientOriginalExtension();
-        $filename='Cover.'.$extension;
-        //Input::file('uploadCover')->move($destinationPath, $filename);
-        Image::make(Input::file('uploadArtCover'))->resize(500, 500)->save($destinationPath.$filename);
+        if ($cover != null)
+        {
+            $destinationPath = "Users/".Auth::user()->username."/Articles/";
+            $extension = $cover->getClientOriginalExtension();
+            $filename='Cover.'.$extension;
+            //Input::file('uploadCover')->move($destinationPath, $filename);
+            Image::make(Input::file('uploadArtCover'))->resize(500, 500)->save($destinationPath.$filename);
+            $cPic = 'yes';
+        }
+
 		$medias=Auth::user()->getMedia()->orderBy('updated_at','DESC')->paginate(5);
         $resources=Auth::user()->getResources()->orderBy('updated_at','DESC')->paginate(5);
 
-		$data=array('title'=>$title,'extension'=>$extension,'description'=>$description,'category'=>$category,'ifc'=>$ifc,'medias'=>$medias,'resources'=>$resources,'type'=>$type);
+		$data=array('title'=>$title,'extension'=>$extension,'description'=>$description,'category'=>$category,'ifc'=>$ifc,'medias'=>$medias,'resources'=>$resources,'type'=>$type,'cPic'=>$cPic);
         return View::make('article',$data);
 	}
 

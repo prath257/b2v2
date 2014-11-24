@@ -46,12 +46,16 @@
     @endforeach
 
 </div>
-<div style="width: 100%">
+<div style="width: 85%; float: left">
     <button id="indexButton" onclick="showIndex()" class="btn btn-success glyphicon glyphicon-list" style="float: left"></button>
     <button id="prevButton" onclick="showPrev()" class="btn btn-success glyphicon glyphicon-backward " style="float: left"></button>
     <button id="nextButton" onclick="showNext()" class="btn btn-success glyphicon glyphicon-forward"></button>
+
+    <button class="btn btn-default" title="Back to the top" style="color: #000000; position: fixed; z-index: 100" onclick="backtotop()">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+            </button>
     <div id="mycounter" style="margin-top: 5%; margin-left:0%; position: absolute; display:none;max-width: 250px">0</div>
-    <div style="margin-left: 20%">
+    <div style="margin-left: 15%">
     <br>
         <div style="float: left">
             <p style="float:left;font-size: 28px; font-family: 'Segoe UI'">{{$book->title}}</p>
@@ -84,6 +88,24 @@
         </div>
     </div>
 
+</div>
+
+<div id="relcontent" style="width: 15%; float: left">
+    @foreach ($content as $c)
+        <div class="col-lg-12" style="padding: 0px">
+            <img src="{{asset($c->cover)}}" class="col-lg-12" style="height: 200px">
+            <?php
+                if ($c->text)
+                    $type = 'article';
+                else if ($c->review)
+                    $type = 'blogBook';
+                else
+                    $type = 'collaboration';
+            ?>
+            <a href="http://b2.com/{{$type}}Preview/{{$c->id}}" style="font: 20px" class="col-lg-12">{{$c->title}}</a>
+            <div class="col-lg-12">&nbsp;</div>
+        </div>
+    @endforeach
 </div>
 
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>

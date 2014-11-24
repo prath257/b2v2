@@ -10,19 +10,13 @@
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('css/responsive-calendar.css')}}" rel="stylesheet">
     <link href="{{asset('css/summernote.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap-switch.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/diary.css')}}" rel="stylesheet">
+
 
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <body style="font-family: 'Segoe UI', 'Segoe WP', 'Helvetica Neue', 'RobotoRegular', sans-serif">
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=431744100304343&version=v2.0";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
     @include('navbar')
     <br><br><br>
     <div class="col-lg-12>">
@@ -46,18 +40,15 @@
         </div>
         <div class="col-lg-8">
         <?php $currentYear = date('Y');
-              $currentMonth = date('M');
+              $currentMonth = date('m');
               $currentDate = date('d');
-              $months=array("1"=>"Jan", "2"=>"Feb", "3"=>"Mar", "4"=>"Apr", "5"=>"May", "6"=>"Jun", "7"=>"Jul", "8"=>"Aug", "9"=>"Sep", "10"=>"Oct", "11"=>"Nov", "12"=>"Dec");
+              $months=array("1"=>"January", "2"=>"February", "3"=>"March", "4"=>"April", "5"=>"May", "6"=>"June", "7"=>"July", "8"=>"August", "9"=>"September", "10"=>"October", "11"=>"November", "12"=>"December");
         ?>
-        <div class="col-lg-12" id="PostsDate">
-        <h2>{{$currentDate}}</h2>
-        <h4>{{$currentMonth}}</h4>
-        </div>
+        <div class="col-lg-12"><p id="PostsDate" style="font-size: 30px; font-family: 'Microsoft Yi Baiti'">{{$currentDate}} {{$months[$currentMonth]}} {{$currentYear}}</p><hr></div>
               <div class="col-lg-12" id="posts">
-              <br>
               @if (count($posts) > 0)
                 @foreach($posts as $post)
+                @if($post->ispublic || $post->userid == Auth::user()->id)
                 <div id="readDiary{{$post->id}}">
                     {{$post->text}}
                 </div>
@@ -84,6 +75,15 @@
                     <textarea style="display:none" class="input-block-level" id="summernote{{$post->id}}" name="summernote" rows="18" onfocus="checkCharacters()"></textarea>
                     <div class="right-align">
                     <br>
+                    <div  id="btnAccess{{$post->id}}" class="col-lg-6" style="display: none; text-align: left" title="Private posts are only seen by you regardless of the access level of your diary.">
+                            <?php
+                                if ($post->ispublic)
+                                    $attribute = 'checked';
+                                else
+                                    $attribute = '';
+                            ?>
+                            <input id="access{{$post->id}}" class="access" type="checkbox" name="access" {{$attribute}}>
+                        </div>
                         <a id="btnSave{{$post->id}}" class="hand-over-me btn btn-success" onclick="save({{$post->id}},'edit')" style="display: none">Save</a>
 
                         <a id="btnEdit{{$post->id}}" class="hand-over-me" onclick="showEdit({{$post->id}})">Edit</a>
@@ -92,27 +92,20 @@
                     </div>
 
 
-
-
-
                     </div>
                     @endif
-                   <hr><br>
-
-
-                <input type="hidden" id="editOrSave{{$post->id}}" value="">
-
+<hr><br>
+                    <input type="hidden" id="editOrSave{{$post->id}}" value="">
+                    @else
+                        <div class="col-lg-12" style="text-align: center"><b>PRIVATE POST</b><hr></div>
+                    @endif
                 @endforeach
-
                @else
                 <h3>No posts today!</h3>
                @endif
-
               </div>
-
-
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-2 zero-padding">
             <div id="calendar" class="col-lg-12 zero-padding">
                 <div id="calendarwaiting" class="center-align"><img src="{{asset('Images/icons/waiting.gif')}}">Loading..</div>
                 <!-- Responsive calendar - START -->
@@ -167,9 +160,9 @@
         </div>
     </div>
 
-    <div class="modal fade" id="newPostModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+    <div class="modal fade col-lg-12" id="newPostModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="modal-content col-lg-12">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">New Post</h4>
@@ -178,18 +171,14 @@
                     <fieldset id="summernoteDiv">
 
                     </fieldset>
-
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="fb-comments col-lg-2 col-lg-offset-2" data-href="http://b2.com/diary/{{$user->username}}" data-width="600" data-numposts="10" data-colorscheme="light"></div>
-
-
-    <div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+    <div class="modal fade col-lg-12" id="editPostModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="modal-content col-lg-12">
                     <div class="modal-header">
                         <button type="button" class="close" onclick="cancelEdit()">&times;</button>
                         <h4 class="modal-title" id="myModalLabel">Edit Post</h4>
@@ -222,7 +211,9 @@
     <script src="{{asset('js/summernote.js')}}"></script>
     <script src="{{asset('js/responsive-calendar.js')}}"></script>
     <script src="{{asset('js/bootbox.js')}}"></script>
+    <script src="{{asset('js/bootstrap-switch.js')}}"></script>
     <script src="{{asset('js/pages/diary.js')}}"></script>
+
 
     <input type="hidden" id="refreshed" value="no">
     <script src="{{asset('js/reload.js')}}"></script>

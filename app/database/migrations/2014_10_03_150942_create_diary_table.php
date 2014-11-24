@@ -18,6 +18,7 @@ class CreateDiaryTable extends Migration {
             $table->integer('userid')->unsigned()->default(0);
             $table->foreign('userid')->references('id')->on('users')->onDelete('cascade');
             $table->binary('text',32777216);
+            $table->boolean('ispublic')->default(true);
 			$table->timestamps();
 		});
 	}

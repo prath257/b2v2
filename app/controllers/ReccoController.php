@@ -125,6 +125,8 @@ class ReccoController extends \BaseController {
             $recco = Recco::find(Input::get('id'));
             $recco->delete();
 
+            Action::delAction(Input::get('id'));
+
             $reccos = Recco::where('userid','=',Auth::user()->id)->orderBy(Input::get('sort'),'DESC')->skip(0)->take(Input::get('count'))->get();
             $moreReccos = Recco::where('userid','=',Auth::user()->id)->orderBy(Input::get('sort'),'DESC')->skip(Input::get('count'))->take(1)->get();
             return View::make('reccos')->with('reccos',$reccos)->with('moreReccos',count($moreReccos))->with('target','my')->with('count',Input::get('count'));

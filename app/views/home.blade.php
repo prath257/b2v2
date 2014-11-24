@@ -85,6 +85,9 @@
         </div>
     </div>
 </nav>
+@if(Session::has('ifcAdded'))
+    <input type="hidden" id="ifcAdded" value="{{Session::get('ifcAdded')}}">
+@endif
 <br>
 <br>
 <br>
@@ -237,8 +240,8 @@
             <div class="tab-content">
             @if(Auth::user()->pset)
               <div role="tabpanel" class="tab-pane active fade in" id="resourceNew">
-                 <span class="col-lg-2" ><a href="{{route('resourceDashboard')}}" class="btn btn-success">Upload New</a></span>
-                     <span class="col-lg-10" style="padding-top: 10px">
+                 <span class="col-lg-4" ><a href="{{route('resourceDashboard')}}" class="btn btn-success">Upload and Manage Resources</a></span>
+                     <span class="col-lg-8" style="padding-top: 10px">
                      <p style="color:black">  Resource, like source code, assignments etc. in compressed format.</p><br>
                  </span>
 
@@ -247,8 +250,8 @@
                    @endif
               </div>
               <div role="tabpanel" class="tab-pane fade" id="mediaNew">
-                 <span class="col-lg-2" ><a href="{{route('mediaDashboard')}}" class="btn btn-success">Upload New</a></span>
-                     <span class="col-lg-10" style="padding-top: 10px">
+                 <span class="col-lg-4" ><a href="{{route('mediaDashboard')}}" class="btn btn-success">Upload and Manage Media</a></span>
+                     <span class="col-lg-8" style="padding-top: 10px">
                        <p style="color:black">  Media, like your guitar song, vocals, video etc. you can make it public also.</p><br>
                      </span>
                  @if (Auth::user()->pset)
@@ -270,8 +273,8 @@
             <div class="tab-content">
             @if(Auth::user()->pset)
               <div role="tabpanel" class="tab-pane active fade in" id="quizNew">
-                   <span class="col-lg-2" ><a href="{{route('quizDashboard')}}" class="btn btn-success">Create New</a></span>
-                   <span class="col-lg-10" style="padding-top: 10px">
+                   <span class="col-lg-4" ><a href="{{route('quizDashboard')}}" class="btn btn-success">Create and Manage Quizes</a></span>
+                   <span class="col-lg-8" style="padding-top: 10px">
                         <p style="color:black"> quiz and challenge fellow barters for the same, if they score any less than 100% you earn.</p><br>
                    </span>
                   @if (Auth::user()->pset)
@@ -279,8 +282,8 @@
                   @endif
               </div>
               <div role="tabpanel" class="tab-pane fade" id="pollNew">
-                  <span class="col-lg-2" ><a href="{{route('pollDashboard')}}" class="btn btn-success">Create New</a></span>
-                  <span class="col-lg-10" style="padding-top: 10px">
+                  <span class="col-lg-4" ><a href="{{route('pollDashboard')}}" class="btn btn-success">Create and Manage Polls</a></span>
+                  <span class="col-lg-8" style="padding-top: 10px">
                      <p style="color:black"> poll and see what the fellow barters have voted for.</p><br>
                   </span>
                   @if (Auth::user()->pset)
@@ -689,11 +692,12 @@
 
 <script src="{{asset('js/bootstrap.js')}}"></script>
 <script src="{{asset('js/bootstrapValidator.min.js')}}"></script>
-<script src="{{asset('js/pages/home.js')}}"></script>
+
 <script src="{{asset('js/createArticleBlogBookCollaboration.js')}}"></script>
 <script src="{{asset('js/bootbox.js')}}"></script>
 <script src="{{asset('js/jstween-1.1.min.js')}}"></script>
 <script src="{{asset('js/jquery.flipcounter.js')}}"></script>
+<script src="{{asset('js/pages/home.js')}}"></script>
 {{--<script src="{{asset('js/jquery.bpopup.min.js')}}"></script>--}}
 </body>
 </html>

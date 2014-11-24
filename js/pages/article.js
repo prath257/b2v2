@@ -5,6 +5,11 @@ var med = 0;
 var oTableResource=null;
 var oTableMedia=null;
 var uploading = false;
+
+var allFilmVals = [];
+var filmValCount = 0;
+var filmreviewcontent = '';
+
 $(document).ready(function()
 {
     var type = $('#type').val();
@@ -51,11 +56,14 @@ $(document).ready(function()
                 $('#articleFields').html(markup);
                 $("#rating").rating();
                 $('#summernote').summernote({
-                    height:430,
+                    height:300,
                     onkeydown: function(e) {
                         checkCharacters();
                     }
                 });
+                $(".filmreviewindex").bootstrapSwitch({'onText':'Add', 'offText':'Nope'});
+                $('#previewButton').addClass('disabled');
+
             }
             else if (type == 'Music Review')
             {
@@ -257,32 +265,10 @@ function showPreview()
 
     else if (type == 'Film Review')
     {
-        $("#previewHTML").html("");
-        var desti=$('#year').val();
-        $("#previewHTML").append("<br><h3>Released In:</h3>"+desti);
-        desti=$('#genre').val();
-        $("#previewHTML").append("<br><h3>Genre:</h3>"+desti);
-        desti=$('#director').val();
-        $("#previewHTML").append("<br><h3>Director:</h3>"+desti);
-        desti=$('#cast').val();
-        $("#previewHTML").append("<br><h3>Cast:</h3>"+desti);
-        desti=$('#plot').val();
-        $("#previewHTML").append("<br><h3>Plot Synopsis:</h3>"+desti);
-        desti=$('#expectations').val();
-        $("#previewHTML").append("<br><h3>Prior Expectations:</h3>"+desti);
-        desti=$('#story').val();
-        $("#previewHTML").append("<br><h3>Story/Screenplay:</h3>"+desti);
-        var summ = $('#summernote').code();
-        $("#previewHTML").append("<br><h3> My Review:</h3>"+summ);
-        desti=$('#acting').val();
-        $("#previewHTML").append("<br><h3>Acting:</h3>"+desti);
-        desti=$('#technical').val();
-        $("#previewHTML").append("<br><h3>Technical Aspects:</h3>"+desti);
-        desti=$('#after').val();
-        $("#previewHTML").append("<br><h3>After Feelings:</h3>"+desti);
-        desti=$('#rating').val();
-        $("#previewHTML").append("<br>My Rating:<input id='prating' class='rating' readonly=true type='number' data-size='sm' value='"+desti+"'>");
+
+        $("#previewHTML").html(filmreviewcontent);
         $("#prating").rating();
+        $('#noletmeedit').hide();
         $("#preview").fadeIn(1500);
         $(".summernote").css("opacity","0");
         $('html, body').animate({scrollTop:0}, 1000);
@@ -512,6 +498,7 @@ function submit(method,button)
     var category = $("#category").val();
     var ifc = $("#ifc").val();
     var type = $("#type").val();
+    var cPic = $("#cPic").val();
 
     if (type == 'Article')
         var content = $('#summernote').code();
@@ -548,31 +535,7 @@ function submit(method,button)
     else if (type == 'Film Review')
     {
 
-        var content = "";
-        var desti=$('#year').val();
-        content+="<br><h3>Released:</h3>"+desti;
-        desti=$('#genre').val();
-        content+="<br><h3>Genre:</h3>"+desti;
-        desti=$('#director').val();
-        content+="<br><h3>Director:</h3>"+desti;
-        desti=$('#cast').val();
-        content+="<br><h3>Cast:</h3>"+desti;
-        desti=$('#plot').val();
-        content+="<br><h3>Plot Synopsis:</h3>"+desti;
-        desti=$('#expectations').val();
-        content+="<br><h3>Prior Expectations:</h3>"+desti;
-        desti=$('#story').val();
-        content+="<br><h3>Story/Screenplay:</h3>"+desti;
-        var summ = $('#summernote').code();
-        content+="<br><h3>My Review:</h3>"+summ;
-        desti=$('#acting').val();
-        content+="<br><h3>Acting:</h3>"+desti;
-        desti=$('#technical').val();
-        content+="<br><h3>Technical Aspects:</h3>"+desti;
-        desti=$('#after').val();
-        content+="<br><h3>After Feelings:</h3>"+desti;
-        desti=$('#rating').val();
-        content+="<br>My Rating:<input id='prating' class='rating' readonly=true type='number' data-size='sm' value='"+desti+"'>";
+        var content = filmreviewcontent;
     }
     else if (type == 'Music Review')
     {
@@ -735,7 +698,7 @@ content += "<h3>The Review</h3>";
     $.ajax({
         type: "POST",
         url: 'http://b2.com/createArticle',
-        data:{title: title, extension: extension, description:description, category: category, ifc: ifc, type:type, content: content, review: method},
+        data:{title: title, extension: extension, description:description, category: category, ifc: ifc, type:type, content: content, review: method, cPic: cPic},
         beforeSend: function()
         {
            if(method=='toreview')
@@ -850,23 +813,14 @@ function useMedia(path,title)
 	var content = $('#summernote').code();
 	var strpath=path;
 
-	if ((strpath.search('.mp4') > 0) || (strpath.search('.webm') > 0))
+	if ((strpath.search('.mp4') > 0))
 	{
-		content += "<video class='embed' width='320' height='240' controls><source src='"+path+"'></video>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
+		content += "<video class='embed' width='50%' height='50%' controls><source src='"+path+"'></video>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
 	}
-	else if ((strpath.search('.mp3') > 0) || (strpath.search('.wav') > 0))
+	else if ((strpath.search('.mp3') > 0))
 	{
 		content += "<audio class='embed' controls><source src='"+path+"'></audio>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
 	}
-	else if ((strpath.search('.avi') > 0) || (strpath.search('.asf') > 0) || (strpath.search('.wmv') > 0))
-	{
-		content += "<embed class='embed' width='320' height='240' src='"+path+"'></embed>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
-	}
-	else if ((strpath.search('.m4a') > 0) || (strpath.search('.mkv') > 0) || (strpath.search('.flv') > 0))
-	{
-		content += "<a href='"+path+"' target='_blank'>"+title+"</a>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
-	}
-
 	/*if((strpath.search('.mkv')!= -1)||(strpath.search('.flv')!= -1)||(strpath.search('.m4a')!= -1))
 	{
 		content+="<br><object id='Embed"+embed+"' autoplay='false' width='300' height='200' data='"+path+"'><a href='"+path+"'>"+title+"</a></object>";
@@ -931,7 +885,7 @@ function completeHandler(event)
         window.location='http://b2.com/offline';
     else
     {
-        if ((strpath.search('.mp4') > 0) || (strpath.search('.webm') > 0) || (strpath.search('.ogg') > 0))
+        /*if ((strpath.search('.mp4') > 0) || (strpath.search('.webm') > 0) || (strpath.search('.ogg') > 0))
         {
             content += "<video class='embed' width='320' height='240' controls><source src='"+strpath+"'></video>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
         }
@@ -946,6 +900,15 @@ function completeHandler(event)
         else if ((strpath.search('.m4a') > 0) || (strpath.search('.mkv') > 0) || (strpath.search('.flv') > 0))
         {
             content += "<a href='"+strpath+"' target='_blank'>"+$('#mediaTitle').val()+"</a>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
+        }*/
+
+        if ((strpath.search('.mp4') > 0))
+        {
+            content += "<video class='embed' width='50%' height='50%' controls><source src='"+strpath+"'></video>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
+        }
+        else if ((strpath.search('.mp3') > 0))
+        {
+            content += "<audio class='embed' controls><source src='"+strpath+"'></audio>&nbsp;<abbr title='For Internet Explorer, right-click on the play button and select play/pause'>Trouble playing Media?&nbsp;<span class='glyphicon glyphicon-question-sign'></span></abbr><br>";
         }
 
         $('#summernote').code(content);
@@ -1129,4 +1092,72 @@ function removeLastBlock()
             ListItem--;
         }
     });
+}
+
+function getStartedFilmReview()
+{
+    var allVals = [];
+    $('#filmreviewindex :checked').each(function()
+    {
+        allVals.push($(this).val());
+
+    });
+
+    if (allVals.length >= 3) {
+
+        allFilmVals = allVals;
+        nextElementFilmReview();
+    }
+    else{
+        bootbox.alert('Please select min 3 elements');
+    }
+}
+
+function nextElementFilmReview()
+{
+    var tempcount = filmValCount-1;
+    if (tempcount >= 0)
+    {
+        var title;
+        var tempval = allFilmVals[tempcount];
+        if (tempval == 'rating')
+        {
+            filmreviewcontent+="<br><h3>My Rating: </h3>";
+            title = $('#'+tempval).val()
+            filmreviewcontent+= "<input id='prating' class='rating' readonly=true type='number' data-size='sm' value='"+title+"'>";
+        }
+        else if (tempval == 'my-review')
+        {
+            title = 'My Review'
+            filmreviewcontent+="<br><h3>"+title+"</h3>";
+            filmreviewcontent+= $('#summernote').code();
+        }
+        else
+        {
+            title = convert_case(tempval);
+            filmreviewcontent+="<br><h3>"+title+"</h3>";
+            filmreviewcontent+= $('#'+tempval).val();
+        }
+    }
+
+
+
+    $('.film-review-blocks').hide();
+    var val = allFilmVals[filmValCount];
+
+    if (val !== undefined)
+    {
+        $('#film-review-'+val).show();
+        filmValCount++;
+    }
+    else
+    {
+        $('#film-review-done').show();
+        $('#previewButton').removeClass('disabled');
+    }
+}
+
+function convert_case(valu) {
+    valu = valu.substr(0,1).toUpperCase() + valu.substr(1).toLowerCase();
+    return valu;
 }

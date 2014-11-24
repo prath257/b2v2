@@ -11,7 +11,13 @@ class QAController extends \BaseController
                return View::make('QnA')->with('user',User::find($userId))->with('mode',$mode);
         }
         else
-            return 'wH@tS!nTheB0x';
+        {
+            if ($mode == 'ajax')
+                return 'wH@tS!nTheB0x';
+            else
+                return Redirect::guest('/')->with('redirected','true');
+        }
+
     }
 	public function postQuestion()
 	{
@@ -31,7 +37,7 @@ class QAController extends \BaseController
             $question->private = false;
 		$question->save();
 
-        AjaxController::insertToNotification(Input::get('userid'),Auth::user()->id,"question","asked you a question for ".Input::get('questionIFC'),'http://b2.com/user/'.Auth::user()->username);
+        AjaxController::insertToNotification(Input::get('userid'),Auth::user()->id,"question","asked you a question for ".Input::get('questionIFC'),'http://b2.com/QnA/'.Input::get('userid').'/get');
 
 		QAController::$user = User::find(Input::get('userid'));
 
@@ -63,7 +69,7 @@ class QAController extends \BaseController
 		$user->profile->ifc+=$question->ifc;
 		$user->profile->save();
 
-        AjaxController::insertToNotification($question->askedBy_id,Auth::user()->id,"question","answered your question",'http://b2.com/user/'.Auth::user()->username);
+        AjaxController::insertToNotification($question->askedBy_id,Auth::user()->id,"question","answered your question",'http://b2.com/QnA/'.$question->askedBy_id.'/get');
 
 		$userid=$question->askedBy_id;
 		QAController::$user = User::find($userid);
@@ -115,7 +121,7 @@ class QAController extends \BaseController
 
 		QAController::$user = User::where('id','=',Input::get('wfor'))->first();
 
-        AjaxController::insertToNotification(Input::get('wfor'),Auth::user()->id,"about"," wrote about you ",'http://b2.com/user/'.Auth::user()->username);
+        AjaxController::insertToNotification(Input::get('wfor'),Auth::user()->id,"about"," wrote about you ",'http://b2.com/profile');
 
         if (QAController::$user->settings->notifications)
         {
@@ -146,7 +152,7 @@ class QAController extends \BaseController
         $user=Auth::user();
         $user->profile->ifc+=$about->ifc;
         $user->profile->save();
-        TransactionController::insertToManager($user->id,"+".$about->ifc,"Accepted 'about you' written by",'http://b2.com/user/'.Auth::user()->username,Auth::user()->first_name.' '.Auth::user()->first_name,"profile");
+        TransactionController::insertToManager($user->id,"+".$about->ifc,"Accepted 'about you' written by",'http://b2.com/user/'.User::find($about->writtenby)->username,User::find($about->writtenby)->first_name.' '.User::find($about->writtenby)->last_name,"profile");
 
 
         $user=User::find($about->writtenby);

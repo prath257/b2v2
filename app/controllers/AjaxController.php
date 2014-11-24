@@ -288,6 +288,20 @@ class AjaxController extends \BaseController {
         $noti->save();
     }
 
+    public static function insertNidReqContri($nid,$id)
+    {
+        $noti =Notifications::where('userid','=',$id)->where('type','=','reqContri')->orderBy('created_at','DESC')->first();
+        $noti->chid=$nid;
+        $noti->save();
+    }
+
+    public static function insertNidInvite($nid,$id)
+    {
+        $noti =Notifications::where('userid','=',$id)->where('type','=','iContri')->orderBy('created_at','DESC')->first();
+        $noti->chid=$nid;
+        $noti->save();
+    }
+
     public static function insertToNotification($userid,$cuserid,$type,$message,$link)
     {
         $noti =new Notifications();
@@ -501,7 +515,7 @@ class AjaxController extends \BaseController {
         {
         Mail::send('mailers', array('user'=>Auth::user(),'keywords'=>Input::get('keywords'),'page'=>'failedSearch'), function($message)
         {
-            $message->to('prath257@live.com')->subject('Failed search');
+            $message->to('teambbarters@gmail.com')->subject('Failed search');
         });
     }
         else
@@ -580,6 +594,29 @@ class AjaxController extends \BaseController {
         {
             $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->take(3)->lists('interest_id');
             return View::make('homeContent')->with('primary',$primary)->with('data','poll');
+        }
+        else
+            return 'wH@tS!nTheB0x';
+    }
+
+    public function searchInterest()
+    {
+        if (Auth::check())
+        {
+            $keywords = Input::get('val');
+            $users = Interest::all();
+            $searchUsers=new \Illuminate\Database\Eloquent\Collection();
+            foreach ($users as $user)
+            {
+                if(Str::contains(Str::lower($user->interest_name),Str::lower($keywords)))
+                {
+                    $searchUsers->add($user);
+                }
+            }
+
+            $TOPinterests = DB::table('user_interests')->select(DB::raw('count(interest_id) as votes, interest_id'))->groupBy('interest_id')->orderBy('votes','DESC')->take(10)->lists('interest_id');
+
+            return View::make('searchedInterests')->with('interests',$searchUsers)->with('keywords',$keywords)->with('top',$TOPinterests);
         }
         else
             return 'wH@tS!nTheB0x';

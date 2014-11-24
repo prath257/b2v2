@@ -2,8 +2,10 @@
 <link href="{{asset('css/search.css')}}" rel="stylesheet">
 <link href="{{asset('css/pages/notification.css')}}" rel="stylesheet">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="{{asset('js/search.js')}}"></script>
 
+@if (Auth::check())
+<script src="{{asset('js/search.js')}}"></script>
+@endif
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="position: fixed">
     <div class="container-fluid">
@@ -24,7 +26,9 @@
                 <span class='letter'>e</span>
                 <span class='letter'>r</span>
                 <span class='letter'>s</span>
+                @if (Auth::check())
                 <li id="notificationli" class="navbar-brand" onclick="getNoti()" style="list-style-type: none"><a href="#" style="text-decoration: none">&nbsp;&nbsp;<i class="fa fa-globe" style="color:lightgray"></i>&nbsp;<span id="no_of_notification" class="text-primary" style="background-color: tomato; color: white; padding-left: 5px; padding-right: 5px;  border-radius: 50%; visibility: hidden; font-size: 12px">0</span></a></li>
+                @endif
                 <div id="notificationModal2" style="max-height: 350px; overflow-y: auto; overflow-x: auto">
                     <div id="notificationResultsModal">
                         <div  class="modal-body" style="padding-left: 10px; padding-top: 15px; padding-bottom: 15px; padding-right: 10px">
@@ -43,6 +47,7 @@
                 <strong>Attention! </strong> <p id="message"></p>
             </div>
             <ul class="nav navbar-nav navbar-right">
+            @if (Auth::check())
                 <li>
                     <form id="searchForm" class="navbar-form navbar-left" role="search">
                         <div class="form-group">
@@ -67,7 +72,7 @@
                     </div>
                 <li>
                 <li id="extra-spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-                @if (Auth::check())
+
                     <li id="home"> <a href="{{route('home')}}" style="cursor: pointer">Home</a></li>
                     <li id="profile"> <a href="{{route('profile')}}" style="cursor: pointer">{{Auth::user()->first_name}}</a></li>
                     <li id="logOut"> <a href="{{route('signout')}}" style="cursor: pointer">Log Out</a></li>

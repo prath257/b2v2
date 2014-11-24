@@ -30,7 +30,7 @@ class BaseController extends Controller
         $bug = DB::table('reportbug')->where('userid', Auth::user()->id)->where('text', Input::get('content'))->first();
 
         Mail::send('mailers', array('bug' => $bug, 'page' => 'bugMailer'), function ($message) {
-            $message->to('prath257@gmail.com')->cc('ksjoshi88@gmail.com')->subject('New Bug');
+            $message->to('ksjoshi88@gmail.com')->subject('New Bug');
         });
     }
         else
@@ -185,7 +185,7 @@ class BaseController extends Controller
     public function submitProblemOnException()
     {
         Mail::send('mailers', array('past' => Input::get('past'), 'future' => Input::get('future'), 'present' => Input::get('present'), 'page' => 'submitProblemOnException'), function ($message) {
-            $message->to('prath257@live.com')->subject('Problem on exception');
+            $message->to('ksjoshi88@gmail.com')->subject('Problem on exception');
         });
     }
 
@@ -196,7 +196,7 @@ class BaseController extends Controller
 
     public function respondToProblem($userid)
     {
-        if (Auth::user()->username == 'prath257')
+        if (Auth::user()->username == 'ksjoshi88')
             return View::make('respondToProblem')->with('userid',$userid);
     }
 
@@ -222,7 +222,7 @@ class BaseController extends Controller
 
     public function accidentialLogout()
     {
-        return Redirect::route('index')->with('error','You have been logged out.');
+        return Redirect::route('index')->with('error','You have been logged out. Visit tomorrow to earn <b>50 ifcs</b>.');
     }
 
     public function forgotUsername()

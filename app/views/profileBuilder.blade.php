@@ -195,23 +195,26 @@
                     <div class="form-group">
 
                         <div class="col-lg-8">
-                            <div id="interests" style="margin-left:10%; text-align:left">
-                                <input type="checkbox" name="interests[]" value="music">&nbsp;Music<br>
-                                <input type="checkbox" name="interests[]" value="literature">&nbsp;Literature<br>
-                                <input type="checkbox" name="interests[]" value="sports">&nbsp;Sports<br>
-                                <input type="checkbox" name="interests[]" value="fashion">&nbsp;Fashion<br>
-                                <input type="checkbox" name="interests[]" value="technology">&nbsp;Technology<br>
-                                <input type="checkbox" name="interests[]" value="cooking">&nbsp;Cooking<br>
-                                <input type="checkbox" name="interests[]" value="politics">&nbsp;Politics<br>
-                                <input type="checkbox" name="interests[]" value="moviesTelevision">&nbsp;Movies & Television<br>
-                                <input type="checkbox" name="interests[]" value="gaming">&nbsp;Gaming<br>
-                                <input type="checkbox" name="interests[]" value="automobile">&nbsp;Automobiles<br>
-                                <input type="checkbox" name="interests[]" value="travel">&nbsp;Travel<br>
+                            <div id="interests" class="interests" style="margin-left:10%; text-align:left">
+                                @foreach ($TOPinterests as $i)
+                                    <input type="checkbox" name="interests[]" value="{{Interest::find($i)->interest}}">{{Interest::find($i)->interest_name}}<br>
+                                @endforeach
 
-                                Other: <input type="text" name="other" id="other">
-                                <br><br>
-                                <button onclick="show5()" type="submit" id="isubmit" class="btn btn-primary">Next</button>
+
                             </div>
+
+                            <div class="col-lg-10" style="padding-left: 0px">
+                                                            <input type="text" class="form-control col-lg-12 other" placeholder="Other" name="other" id="other" onkeydown="interestCounterDesktopDown()" onkeyup="interestCounterDesktopUp()">
+                                                            <div class="col-lg-12 interest-search-result" style="margin-top: 5px; border: solid 1px; display: none"></div>
+                                                            </div>
+
+                                                            <div class="col-lg-2" style="padding: 0px">
+                                                                <button class="btn btn-default disabled int-search-button" type="button" onclick="allTOList()">Add</button>
+
+                                                            </div>
+
+                                                            <br><br>
+                                                            <button onclick="show5()" type="submit" id="isubmit" class="btn btn-primary">Next</button>
                         </div>
                     </div>
                 </form>
@@ -385,20 +388,24 @@
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Pick Please</label>
                         <div class="col-lg-6">
-                            <div id="interests" style="margin:10%; text-align:left">
-                                <input type="checkbox" name="interests[]" value="music">Music<br>
-                                <input type="checkbox" name="interests[]" value="literature">Literature<br>
-                                <input type="checkbox" name="interests[]" value="sports">Sports<br>
-                                <input type="checkbox" name="interests[]" value="fashion">Fashion<br>
-                                <input type="checkbox" name="interests[]" value="technology">Technology<br>
-                                <input type="checkbox" name="interests[]" value="politics">Politics<br>
-                                <input type="checkbox" name="interests[]" value="moviesTelevision">Movies & Television<br>
-                                <input type="checkbox" name="interests[]" value="gaming">Gaming<br>
-                                <input type="checkbox" name="interests[]" value="automobile">Automobiles<br>
-                                <input type="checkbox" name="interests[]" value="travel">Travel<br>
-                                <input type="checkbox" name="interests[]" value="cooking">&nbsp;Cooking<br>
-                                Other: <input type="text" name="other" id="otherPhone"><br>
-                            </div>
+
+                            <div id="interests" class="interests" style="margin-left:10%; text-align:left">
+                                                                                        @foreach ($TOPinterests as $i)
+                                                                                            <input type="checkbox" name="interests[]" value="{{Interest::find($i)->interest}}">{{Interest::find($i)->interest_name}}<br>
+                                                                                        @endforeach
+
+
+                                                                                    </div>
+
+                                                                                    <div class="col-lg-10" style="padding-left: 0px">
+                                                                                                                    <input type="text" class="form-control col-lg-12 other" placeholder="Other" name="other" id="otherPhone" onkeydown="interestCounterMobileDown()" onkeyup="interestCounterMobileUp()">
+                                                                                                                    <div class="col-lg-12 interest-search-result" style="margin-top: 5px; border: solid 1px; display: none"></div>
+                                                                                                                    </div>
+
+                                                                                                                    <div class="col-lg-2" style="padding: 0px">
+                                                                                                                        <button class="btn btn-default disabled int-search-button" type="button" onclick="allTOList()">Add</button>
+
+                                                                                                                    </div>
                         </div>
                     </div>
 
@@ -440,6 +447,8 @@
 </div>
 </div>
 
+<input type="hidden" id="interest-search-buffer" value="null">
+<input type="hidden" id="interest-search-buffer-Name" value="null">
 
 <input type="hidden" id="refreshed" value="no">
 <script src="{{asset('js/bootstrap.js')}}"></script>

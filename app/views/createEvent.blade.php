@@ -35,7 +35,7 @@
 
                 <div class="col-lg-12">
                     <div class="fileUpload btn btn-default pull-right">
-                        <span>Select event cover</span>
+                        <span>Change event cover</span>
                         <input type="file" id="uploadCover" class="upload" name="uploadCover" style="width: 100%" onchange="changeEventCover()" />
                     </div>
                 </div>

@@ -228,3 +228,13 @@ function changeFileName()
 {
     $('#fileName').html($('#resourceFile').val());
 }
+
+function openNewResourceModal()
+{
+    $('#newResourceModal').modal({
+        keyboard:false,
+        show:true,
+        backdrop:'static'
+    });
+}
+

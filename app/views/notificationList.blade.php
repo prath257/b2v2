@@ -44,7 +44,7 @@
 
          ?>
          @if(count($chat) > 0)
-            @if($form->i>15 || $form->h>0 || $form->d>0 || $form->m>0 || $form->y>0)
+            @if($form->i>15 || $form->h>0 || $form->d>0 || $form->m>0 || $form->y>0 || $chat->status == 'ongoing' || $chat->status == 'completed')
                 <small style="color: darkred">EXPIRED</small>
             @else
                 <div id="btns{{$note->id}}" class="pull-right col-lg-3">

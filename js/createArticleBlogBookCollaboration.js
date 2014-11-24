@@ -13,9 +13,6 @@ $(document).ready(function()
                         type: 'image/jpeg,image/jpg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: '  Max 2MB, allowed types: JPG,PNG or GIF'
-                    },
-                    notEmpty: {
-                        message: 'Please Select an Article Cover!'
                     }
                 }
             },
@@ -78,9 +75,6 @@ $(document).ready(function()
                         type: 'image/jpeg,image/jpg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: '  Max 2MB, allowed types: JPG,PNG or GIF'
-                    },
-                    notEmpty: {
-                        message: 'Please Select a Book Cover!'
                     }
                 }
             },
@@ -143,9 +137,6 @@ $(document).ready(function()
                         type: 'image/jpeg,image/jpg,image/png,image/gif',
                         maxSize: 2048 * 1024,   // 2 MB
                         message: '  Max 2MB, allowed types: JPG,PNG or GIF'
-                    },
-                    notEmpty: {
-                        message: 'Please Select a Book Cover!'
                     }
                 }
             },
