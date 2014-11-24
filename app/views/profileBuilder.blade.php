@@ -197,7 +197,7 @@
                         <div class="col-lg-8">
                             <div id="interests" class="interests" style="margin-left:10%; text-align:left">
                                 @foreach ($TOPinterests as $i)
-                                    <input type="checkbox" name="interests[]" value="{{Interest::find($i)->interest}}">{{Interest::find($i)->interest_name}}<br>
+                                    <input type="checkbox" name="interests[]" value="{{Interest::find($i)->interest_name}}">{{Interest::find($i)->interest_name}}<br>
                                 @endforeach
 
 
@@ -390,27 +390,25 @@
                         <div class="col-lg-6">
 
                             <div id="interests" class="interests" style="margin-left:10%; text-align:left">
-                                                                                        @foreach ($TOPinterests as $i)
-                                                                                            <input type="checkbox" name="interests[]" value="{{Interest::find($i)->interest}}">{{Interest::find($i)->interest_name}}<br>
-                                                                                        @endforeach
+                           @foreach ($TOPinterests as $i)
+                                   <input type="checkbox" name="interests[]" value="{{Interest::find($i)->interest_name}}">{{Interest::find($i)->interest_name}}<br>
+                           @endforeach
+                            </div>
 
+                                    <div class="col-lg-10" style="padding-left: 0px">
+                                    <input type="text" class="form-control col-lg-12 other" placeholder="Other" name="other" id="otherPhone" onkeydown="interestCounterMobileDown()" onkeyup="interestCounterMobileUp()">
+                                    <div class="col-lg-12 interest-search-result" style="margin-top: 5px; border: solid 1px; display: none"></div>
+                                    </div>
 
-                                                                                    </div>
+                                    <div class="col-lg-2" style="padding: 0px">
+                                        <button class="btn btn-default disabled int-search-button" type="button" onclick="allTOList()">Add</button>
 
-                                                                                    <div class="col-lg-10" style="padding-left: 0px">
-                                                                                                                    <input type="text" class="form-control col-lg-12 other" placeholder="Other" name="other" id="otherPhone" onkeydown="interestCounterMobileDown()" onkeyup="interestCounterMobileUp()">
-                                                                                                                    <div class="col-lg-12 interest-search-result" style="margin-top: 5px; border: solid 1px; display: none"></div>
-                                                                                                                    </div>
-
-                                                                                                                    <div class="col-lg-2" style="padding: 0px">
-                                                                                                                        <button class="btn btn-default disabled int-search-button" type="button" onclick="allTOList()">Add</button>
-
-                                                                                                                    </div>
+                                    </div>
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button onclick="show5()" type="submit" id="isubmitMobile" class="btn btn-primary">Start</button>
+                        </div>
                 </form>
             </div>
         </div>

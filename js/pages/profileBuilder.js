@@ -659,7 +659,6 @@ function show4()
 function show5()
 {
     var count = 0;
-    var other=null;
     $('#interestForm').data('bootstrapValidator').validate();
 
     if($('#interestForm').data('bootstrapValidator').isValid())
@@ -670,14 +669,14 @@ function show5()
 
         });
 
-        if(isPhone)
+      /*  if(isPhone)
             other=document.getElementById('otherPhone').value;
         else
             other=document.getElementById('other').value;
 
         if(!other)
-            other="None";
-        $.post("http://b2.com/saveInterests", {interests: allVals,otheri:other},function(data)
+            other="None";*/
+        $.post("http://b2.com/saveInterests", {interests: allVals},function(data)
         {
             if(data=='wH@tS!nTheB0x')
                 window.location='http://b2.com/offline';
@@ -691,8 +690,6 @@ function show5()
                     {
                         $('#priInterests').append('<input type="checkbox" name="primary[]" value="'+allVals[i]+'">'+allVals[i]+'<br>');
                     }
-                    if(other!="None")
-                        $('#priInterests').append('<input type="checkbox" name="primary[]" value="'+other+'">'+other+'<br>');
                     $('#primaryModal').modal({
                         keyboard:false,
                         show:true,
@@ -707,8 +704,7 @@ function show5()
                         $('#interest'+i).html($('#'+allVals[i]).html());
                         $('#chosenAreas').append('<input type="checkbox" name="primary[]" value="'+allVals[i]+'">'+allVals[i]+'<br>');
                     }
-                    if(other!="None")
-                        $('#chosenAreas').append('<input type="checkbox" name="primary[]" value="'+other+'">'+other+'<br>');
+
                     $('#isubmit').hide();
                     $('#hisAreas').hide();
                     $('#pickI').html('Primary Interests');
@@ -818,7 +814,7 @@ function searchInterest(val)
     $('.interest-search-result').html('<div style="text-align: center"><img src="http://b2.com/Images/icons/waiting.gif"></div>');
     $('.interest-search-result').show();
 
-    $.post('http://b2.com/searchInterests', {val: val}, function(markup)
+    $.post('http://b2.com/searchInterests', {val: val, request: 'proBuilder'}, function(markup)
     {
         if (markup == 'wH@tS!nTheB0x')
             window.location='http://b2.com/offline';
@@ -845,14 +841,17 @@ function allTOList()
     var intname = $('#interest-search-buffer-Name').val();
     if (intval != 'null' && intname != 'null')
     {
-        $('.interests').append('<input type="checkbox" name="interests[]" value="'+intval+'" data-bv-field="interests[]" checked>'+intname+'<br>');
+        $('.interests').append('<input type="checkbox" name="interests[]" value="'+intval+'" data-bv-field="interests[]">'+intname+'<br>');
         $('.other').val('');
     }
 
     $('#interest-search-buffer').val('null');
     $('#interest-search-buffer-Name').val('null');
+    $('.int-search-button').addClass('disabled');
 }
 
-/*
-var timerInterestMobile;
-var timerInterestDesktop;*/
+function hideSearchResults()
+{
+    $('.interest-search-result').hide();
+    $('.interest-search-result').html('');
+}

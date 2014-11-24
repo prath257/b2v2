@@ -614,7 +614,12 @@ class AjaxController extends \BaseController {
                 }
             }
 
-            $TOPinterests = DB::table('user_interests')->select(DB::raw('count(interest_id) as votes, interest_id'))->groupBy('interest_id')->orderBy('votes','DESC')->take(10)->lists('interest_id');
+            if (Input::get('request') == 'proBuilder')
+                $TOPinterests = DB::table('user_interests')->select(DB::raw('count(interest_id) as votes, interest_id'))->groupBy('interest_id')->orderBy('votes','DESC')->take(10)->lists('interest_id');
+            else
+                $TOPinterests = Auth::user()->interestedIn()->get()->lists('id');
+
+
 
             return View::make('searchedInterests')->with('interests',$searchUsers)->with('keywords',$keywords)->with('top',$TOPinterests);
         }

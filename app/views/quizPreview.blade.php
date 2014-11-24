@@ -11,7 +11,12 @@
     <!-- social sharing metadata -->
 
     <meta property="og:title" content="BBarters | {{$book->title}} By {{$author}}" />
-    <meta property="og:description" content="{{$book->description}}" />
+
+    @if($score!=null)
+    <meta property="og:description" content="{{User::find($score->user_id)->first_name}} scored {{$score->ifc}} ifcs by taking this quiz. Lets see how much you can!" />
+    @else
+        <meta property="og:description" content="{{$book->description}}" />
+    @endif
 
       <meta property="og:image" content="{{asset('Images/Quiz.jpg')}}" />
 

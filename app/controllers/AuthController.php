@@ -117,6 +117,8 @@ class AuthController extends \BaseController {
                                 $profile->save();
                                 $ifcAdded = 'yes';
 
+                                $user->updated_at = $currentTime;
+
                                 TransactionController::insertToManager($user->id,"+50","Bonus for visiting BBarters on ".$currentTime->format('d-m-Y'),"nope","nope","nope");
                             }
                         }
@@ -380,6 +382,9 @@ class AuthController extends \BaseController {
                                 $profile->save();
                                 $ifcAdded = 'yes';
 
+                                $user->updated_at = $currentTime;
+                                $user->save();
+
                                 TransactionController::insertToManager($user->id,"+50","Bonus for visiting BBarters on ".$currentTime->format('d-m-Y'),"nope","nope","nope");
                             }
                         }
@@ -559,6 +564,9 @@ class AuthController extends \BaseController {
                             $profile->ifc += 50;
                             $profile->save();
                             $ifcAdded = 'yes';
+
+                            $user->updated_at = $currentTime;
+                            $user->save();
 
                             TransactionController::insertToManager($user->id,"+50","Bonus for visiting BBarters on ".$currentTime->format('d-m-Y'),"nope","nope","nope");
                         }
@@ -831,6 +839,9 @@ class AuthController extends \BaseController {
                             $profile->ifc += 50;
                             $profile->save();
                             $ifcAdded = 'yes';
+
+                            $user->updated_at = $currentTime;
+                            $user->save();
 
                             TransactionController::insertToManager($user->id,"+50","Bonus for visiting BBarters on ".$currentTime->format('d-m-Y'),"nope","nope","nope");
                         }

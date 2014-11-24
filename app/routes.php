@@ -321,6 +321,8 @@
     Route::post('closeQuiz/{id}', array('as'=>'closeQuiz','before'=>'auth','uses'=>'QuizController@closeQuiz'));
     Route::post('getQuizStats/{id}',array('as'=>'getQuizStats','before'=>'auth','uses'=>'QuizController@getQuizStats'));
     Route::get('quizPreview/{id}',array('as'=>'quizPreview','uses'=>'previewController@getQuizPreview'));
+    Route::get('quizPreview/{id}/{uid}',array('as'=>'quizPreviewScore','uses'=>'previewController@getQuizPreview'));
+
     Route::get('editQuiz/{id}', array('as' => 'editQuiz', 'before' => 'auth', 'uses' => 'QuizController@editQuiz'));
     Route::post('removeExistingQuestion', array('as' => 'removeExistingQuestion', 'uses' => 'QuizController@removeExistingQuestion'));
     Route::post('editExistingQuestion', array('as' => 'editExistingQuestion', 'uses' => 'QuizController@editExistingQuestion'));
@@ -492,4 +494,29 @@ Route::post('mobile_getfriends', array('uses' => 'MobileController@getFriendList
 Route::post('mobile_Checkifc', array('uses' => 'MobileController@previewChecking'));
 
 Route::post('mobile_myreadings', array('uses' => 'MobileController@getMyReadings'));
+
+Route::post('mobile_getaction', array('uses' => 'MobileHomeController@getActionData'));
+
+Route::post('mobile_login', array('uses' => 'MobileController@login'));
+
+Route::post('mobile_logout', array('uses' => 'MobileController@logout'));
+
+Route::post('mobile_showProfile', array('uses' => 'MobileController@showProfile'));
+
+Route::post('mobile_getNotification', array('uses' => 'MobileHomeController@getNotification'));
+
+Route::post('mobile_getIdFromUserName', array('uses' => 'MobileController@getIdFromUserName'));
+
+Route::post('mobile_getPreview', array('uses' => 'MobileController@previewModel'));
+
+Route::post('mobile_getfriends', array('uses' => 'MobileController@getFriendList'));
+
+Route::post('mobile_Checkifc', array('uses' => 'MobileController@previewChecking'));
+
+Route::post('mobile_reduceIfc', array('uses' => 'MobileController@ifcReduce'));
+
+Route::post('mobile_myreadings', array('uses' => 'MobileController@getMyReadings'));
+
+
+Route::get('mobile_readArticle/{articleId}', array('uses'=>'MobileController@getArticle'));
 

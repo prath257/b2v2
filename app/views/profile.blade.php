@@ -284,6 +284,7 @@
 
         @endif
     </div>
+    </div>
     @else
     <input type="hidden" id="PTheme" value="classic">
     <div id="profileContainerDiv" class="col-lg-3 noPadding col-lg-offset-1">
@@ -510,6 +511,7 @@
 
             </div>
             @endif
+        </div>
         </div>
     @endif
 

@@ -12,6 +12,7 @@
     <link href="{{asset('css/bootstrapValidator.css')}}" rel="stylesheet">
 	<link href="{{asset('css/pages/index.css')}}" rel="stylesheet" type="text/css" >
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
+
     <!--css includes end here.-->
     <style>
 
@@ -89,9 +90,12 @@
     }
 
     </style>
+    <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.js')}}"></script>
 </head>
 <!--on hovering anywhere on the page, the default text 'Be-Barters is a social shaing website...' is shown.-->
 <body>
+
 
 
     <br>
@@ -129,5 +133,7 @@
 
        </div>
        </div>
+<script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+<script src="{{asset('js/bootstrap.js')}}"></script>
 </body>
 </html>

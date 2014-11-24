@@ -5,12 +5,18 @@
     <div class="col-lg-6">
         <div id="newInterests">
             <h2>Add New:</h2>
-            @foreach($newInterests as $newi)
-            <p class="col-lg-4">{{$newi->interest_name}}</p><input type="checkbox" class="newinterests" name="newinterests[]" value="{{$newi->interest}}"><br><br>
-            @endforeach
-            <p class="col-lg-4">Other:</p>
-            <div class="col-lg-4" style="padding: 0px"> <input type="text" id="other" class="form-control"></div>
-            <br><br>
+             <div id="add-new-switches">
+
+            </div>
+
+            <div class="col-lg-4" style="padding: 0px"> <input type="text" id="other" class="form-control other col-lg-12" placeholder="Other"  onkeydown="interestCounterDesktopDown()" onkeyup="interestCounterDesktopUp()">
+
+                                                <div class="col-lg-12 interest-search-result" style="margin-top: 5px; border: solid 1px; display: none"></div>
+                                                </div>
+                                                 <div class="col-lg-2" style="padding: 0px">
+                                                                                        <button class="btn btn-default disabled int-search-button" type="button" onclick="allTOList()">Add</button>
+
+                                                                                    </div>
         </div>
         <h2>Remove Existing:</h2>
         <div id="oldInterests">
