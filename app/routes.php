@@ -467,4 +467,29 @@ Route::post('postSuggestion', array('uses' => 'SuggetsionController@postSuggesti
 
 Route::post('searchInterests', array('uses' => 'AjaxController@searchInterest'));
 
+//mobile controller
+Route::post('mobile_fblogin', array('uses' => 'MobileAuthController@fblogin'));
+Route::post('mobile_login', array('uses' => 'MobileAuthController@login'));
+Route::post('mobile_tlogin', array('uses' => 'MobileAuthController@tlogin'));
+Route::post('mobile_glogin', array('uses' => 'MobileAuthController@glogin'));
+
+Route::post('mobile_getaction', array('uses' => 'MobileHomeController@getActionData'));
+
+Route::post('mobile_login', array('uses' => 'MobileController@login'));
+
+Route::post('mobile_logout', array('uses' => 'MobileController@logout'));
+
+Route::post('mobile_showProfile', array('uses' => 'MobileController@showProfile'));
+
+Route::post('mobile_getNotification', array('uses' => 'MobileHomeController@getNotification'));
+
+Route::post('mobile_getIdFromUserName', array('uses' => 'MobileController@getIdFromUserName'));
+
+Route::post('mobile_getPreview', array('uses' => 'MobileController@previewModel'));
+
+Route::post('mobile_getfriends', array('uses' => 'MobileController@getFriendList'));
+
+Route::post('mobile_Checkifc', array('uses' => 'MobileController@previewChecking'));
+
+Route::post('mobile_myreadings', array('uses' => 'MobileController@getMyReadings'));
 

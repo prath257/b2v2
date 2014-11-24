@@ -8,10 +8,6 @@ $(document).ready(function()
     var y= d.getFullYear();
     var m= d.getMonth()+1;
     getDates(y,m,userid);
-/*    $.post('http://b2.com/getCalendar', {userid: userid}, function(markup)
-    {
-        $('#calendar').html(markup);
-    });*/
 
     $(document).mouseover(function(e){
         if (!$(e.target).is('#access-levels,#access-levels *'))
@@ -259,6 +255,7 @@ function save(id,type)
 {
     var message=$('#summernote'+id).code();
     $('.saveNedit'+id).html("<img src='http://b2.com/Images/icons/waiting.gif'> Saving..");
+
     if ($('#access'+id+':checked').val() !== undefined)
         var access='public';
     else
@@ -282,6 +279,7 @@ function save(id,type)
     {
         var type="save";
     }*/
+
 
     $.ajax({
         type: "POST",
@@ -494,7 +492,7 @@ function getDates(year,month,id) {
                     var m = $(this).data('month');
                     var y = $(this).data('year');
                     retrieveAll(d, m, y,id);
-                    $('#PostsDate').html(d+' '+months[m-1]+' '+y);
+                    $('#PostsDate').html('<h2>'+d+'</h2><h4>'+months[m-1].substring(0,3)+'</h4>');
 
                 },
                 onMonthChange: function () {
@@ -556,24 +554,3 @@ function retrieveAll(d,m,y,userid)
 
 }
 
-/*function retrieveAll(d,m,y,userid)
- {
- $('#posts').html('<div class="center-align"><img src="http://b2.com/Images/icons/waiting.gif"></div>');
- var type="all";
- var date=""+y+"-"+m+"-"+d+" 18:07:00"; //the date to retrive from the database
-
-
- $.ajax({
- type: "GET",
- url: "http://b2.com/createDiary",
- data: {type:type,date:date,userid:userid}
- }).done(function(data)
- {
- $('#posts').html(data);  // append div after the div
-
- $('#currentYear2').val(y);
- $('#currentMonth2').val(m);
- $('#currentDate2').val(d);
- });
-
- }*/

@@ -317,6 +317,13 @@ $(document).ready(function() {
     var ifcAdded = $('#ifcAdded').val();
     if (ifcAdded == 'yes')
         bootbox.alert('50 ifcs have been credited to your account as a bonus for visiting BBarters today!');
+
+   /* $(".links8").mouseenter(function(){
+        $("#test123").animate({left:"5px"},10)
+    });
+    $("#test123").mouseleave(function(){
+        $("#test123").animate({left:"0px"},20)
+    });*/
 });
 
 function getFriendsContent()
@@ -1200,4 +1207,16 @@ function writeSuggestion(type, title, category)
 
     $('#suggestionsModal').modal('hide');
     $('#new'+type+'Modal').modal('show');
+}
+
+function promoLinks(x)
+{
+    $(x).animate({left:'5px',bottom:'5px'},10);
+
+}
+
+function promolinks(x)
+{
+    $(x).animate({left:'0px',bottom:'0px'},50);
+
 }
