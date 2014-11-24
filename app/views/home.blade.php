@@ -149,8 +149,6 @@
         </div>
         <div id="promotional-links" class="col-lg-12">
             <div class="col-lg-4" style="text-align: center">
-                <button id="testme" onclick="testme()">testme</button>
-                <p id="here">here</p>
                 <a href="{{route('friendList','get')}}" style="text-decoration: none"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#27ae60;">Friends</button></a><hr style="margin: 5px">
                 <a  href="{{route('subscribersList','get')}}"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#86891e;">Subscriptions</button></a><hr style="margin: 5px">
                 <a href="{{route('settings','getaccount')}}"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#347a17;">Account Settings</button></a>
