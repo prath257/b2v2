@@ -122,7 +122,7 @@ class ProfileController extends \BaseController {
 		$primes=Input::get('prime');
         foreach($primes as $p)
         {
-            $pid=DB::table('interests')->where('interest','=',$p)->first();
+            $pid=DB::table('interests')->where('interest_name','=',$p)->first();
             $pinter=DB::table('user_interests')->where('user_id','=',Auth::user()->id)->where('interest_id','=',$pid->id)->update(array('type' => 'primary'));
 
         }
@@ -162,14 +162,8 @@ class ProfileController extends \BaseController {
 	{
         if(Auth::check())
         {
-		if(Input::get('otheri')=="None")
-		{
-			//do nothing
-		}
-		else
-		{
 			/*$i=Input::get("i");*/
-			$irules = array('otheri' => 'required|unique:interests,interest');
+		/*	$irules = array('otheri' => 'required|unique:interests,interest');
 			$validation =Validator::make(Input::only('otheri'),$irules);
 			//if the validation fails, return to the index page with first error message
 			if($validation->fails())
@@ -186,14 +180,23 @@ class ProfileController extends \BaseController {
 				$inter->interest_name=Str::title(Input::get('otheri'));
 				$inter->save();
 				Auth::user()->interestedIn()->attach($inter->id);
-			}
-		}
+			}*/
+
 		//Now put all the interests into pivot table
 		$iarray=Input::get('interests');
 		foreach($iarray as $userInterest)
 		{
-			$finter=Interest::where('interest','=',$userInterest)->first();
-			Auth::user()->interestedIn()->attach($finter->id);
+			$finter=Interest::where('interest_name','=',$userInterest)->first();
+            if(count($finter)==0)
+            {
+                $inter = new Interest();
+                $inter->interest_name=$userInterest;
+                $inter->save();
+                Auth::user()->interestedIn()->attach($inter->id);
+
+            }
+            else
+                Auth::user()->interestedIn()->attach($finter->id);
 		}
 		return "Success";
 
@@ -213,7 +216,7 @@ class ProfileController extends \BaseController {
 		//$wallpics=Auth::user()->wall()->get();
 		$oldInterests=$user->interestedIn()->get();
 		$allInterests=Interest::all();
-		$newInterests=new \Illuminate\Database\Eloquent\Collection();
+		/*$newInterests=new \Illuminate\Database\Eloquent\Collection();
 		foreach($allInterests as $all)
 		{
 			$flag=0;
@@ -231,9 +234,10 @@ class ProfileController extends \BaseController {
 				$newInterests->add($all);
 			}
 
-		}
+		}*/
+        /*$newInterests = DB::table('user_interests')->select(DB::raw('count(interest_id) as votes, interest_id'))->where('user_id','!=',Auth::user()->id)->groupBy('interest_id')->orderBy('votes','DESC')->take(5)->lists('interest_id');*/
 		$settings = $user->settings;
-		$data=array('user'=>$user,'oldInterests'=>$oldInterests,'newInterests'=>$newInterests, 'settings'=>$settings, 'mode'=>$mode);
+		$data=array('user'=>$user,'oldInterests'=>$oldInterests, 'settings'=>$settings, 'mode'=>$mode);
 		return View::make('settings',$data);
 	    }
         else
@@ -362,82 +366,39 @@ class ProfileController extends \BaseController {
     {
         if(Auth::check())
         {
-        if(Input::get('otheri')=="None")
-        {
-            //do nothing
-        }
-        else
-        {
-            /*$i=Input::get("i");*/
-            try
+            $iarray=Input::get('newInterests');
+            if($iarray!=null)
             {
-                $irules = array('otheri' => 'required|unique:interests,interest');
-                $validation =Validator::make(Input::only('otheri'),$irules);
-                //if the validation fails, return to the index page with first error message
-                if($validation->fails())
+                foreach($iarray as $userInterest)
                 {
-                    //find out this other interest in database and put it into pivot table
-                    $ointer=Interest::where('interest','=',Input::get('otheri'))->first();
-                    Auth::user()->interestedIn()->attach($ointer->id);
+                    $finter=Interest::where('interest_name','=',$userInterest)->first();
+                    if(count($finter)==0)
+                    {
+                        $inter = new Interest();
+                        $inter->interest_name=$userInterest;
+                        $inter->save();
+                        Auth::user()->interestedIn()->attach($inter->id);
+
+                    }
+                    else
+                        Auth::user()->interestedIn()->attach($finter->id);
 
                 }
-                else
+            }
+            $oarray=Input::get('oldInterests');
+            if($oarray!=null)
+            {
+                foreach($oarray as $userInterest)
                 {
-                    //put the new other interest into database and pivot
-                    $inter = new Interest();
-                    $inter->interest=Input::get('otheri');
-                    $inter->interest_name=Str::title(Input::get('otheri'));
-                    $inter->save();
-                    Auth::user()->interestedIn()->attach($inter->id);
+                    $finter=Interest::where('interest_name','=',$userInterest)->first();
+                    Auth::user()->interestedIn()->detach($finter->id);
                 }
             }
-            catch(Exception $e)
-            {
-                return $e->getMessage();
-            }
-        }
-        //Now put all the interests into pivot table
-        $iarray=Input::get('newInterests');
-        if($iarray!=null)
-        {
-            foreach($iarray as $userInterest)
-            {
-                $finter=Interest::where('interest','=',$userInterest)->first();
-                Auth::user()->interestedIn()->attach($finter->id);
-            }
-        }
-        $oarray=Input::get('oldInterests');
-        if($oarray!=null)
-        {
-            foreach($oarray as $userInterest)
-            {
-                $finter=Interest::where('interest','=',$userInterest)->first();
-                Auth::user()->interestedIn()->detach($finter->id);
-            }
-        }
 
-        $oldInterests=Auth::user()->interestedIn()->get();
-        $allInterests=Interest::all();
-        $newInterests=new \Illuminate\Database\Eloquent\Collection();
-        foreach($allInterests as $all)
-        {
-            $flag=0;
-            foreach($oldInterests as $old)
-            {
-                if($all->id!=$old->id)
-                {
+            $oldInterests=Auth::user()->interestedIn()->get();
+            $allInterests=Interest::all();
 
-                }
-                else
-                    $flag=1;
-            }
-            if($flag==0)
-            {
-                $newInterests->add($all);
-            }
-
-        }
-        return View::make('interests')->with('oldInterests',$oldInterests)->with('newInterests',$newInterests);
+            return View::make('interests')->with('oldInterests',$oldInterests);
     }
 
         else

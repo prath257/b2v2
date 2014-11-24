@@ -87,6 +87,7 @@
 </nav>
 @if(Session::has('ifcAdded'))
     <input type="hidden" id="ifcAdded" value="{{Session::get('ifcAdded')}}">
+    {{Session::put('ifcAdded', 'no')}}
 @endif
 <br>
 <br>

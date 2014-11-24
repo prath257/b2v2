@@ -969,13 +969,11 @@ function abortHandler(event)
 }
 
 //this is the function to edit the user interests
-
 function editInterests()
 {
     var newVals = [];
     var oldVals=[];
     var i=0;
-    var other=null;
     $('#newInterests :checked').each(function()
     {
         newVals.push($(this).val());
@@ -984,12 +982,9 @@ function editInterests()
     {
         oldVals.push($(this).val());
     });
-    other=document.getElementById('other').value;
-    if(newVals.length>0 || oldVals.length>0 || other!=null)
+    if(newVals.length>0 || oldVals.length>0 )
     {
-        if(!other)
-            other="None";
-        $.post("http://b2.com/editInterests", {oldInterests: oldVals, newInterests:newVals,otheri:other},function(data)
+        $.post("http://b2.com/editInterests", {oldInterests: oldVals, newInterests:newVals},function(data)
         {
             if(data=='wH@tS!nTheB0x')
                 window.location='http://b2.com/offline';
@@ -1012,12 +1007,6 @@ function editInterests()
     }
 
 }
-
-
-
-
-
-
 
 function checkUname()
 {
@@ -1174,4 +1163,85 @@ function manageInterests()
             }
         });
     }
+}
+
+function interestCounterDesktopDown()
+{
+    clearTimeout(timerInterestDesktop);
+    var other = $('#other').val();
+    if (other.length > 0)
+        $('.int-search-button').removeClass('disabled');
+    else
+        $('.int-search-button').addClass('disabled');
+}
+
+function interestCounterDesktopUp()
+{
+    timerInterestDesktop = setTimeout(function()
+    {
+        var other = $('#other').val();
+        searchInterest(other);
+    }, 500);
+}
+
+function interestCounterMobileDown()
+{
+    clearTimeout(timerInterestMobile);
+    var other = $('#otherPhone').val();
+    if (other.length > 0)
+        $('.int-search-button').removeClass('disabled');
+    else
+        $('.int-search-button').addClass('disabled');
+}
+
+function interestCounterMobileUp()
+{
+    timerInterestMobile = setTimeout(function()
+    {
+        var other = $('#otherPhone').val();
+        searchInterest(other);
+    }, 500);
+}
+
+function searchInterest(val)
+{
+    $('.interest-search-result').html('<div style="text-align: center"><img src="http://b2.com/Images/icons/waiting.gif"></div>');
+    $('.interest-search-result').show();
+
+    $.post('http://b2.com/searchInterests', {val: val, request: 'settings'}, function(markup)
+    {
+        if (markup == 'wH@tS!nTheB0x')
+            window.location='http://b2.com/offline';
+        else
+        {
+            $('.interest-search-result').html(markup);
+
+        }
+    });
+}
+
+function getIntInInput(int)
+{
+    $('#interest-search-buffer').val(int.id);
+    $('#interest-search-buffer-Name').val(int.innerHTML);
+    $('.other').val(int.innerHTML);
+    $('.interest-search-result').html('');
+    $('.interest-search-result').hide();
+}
+
+function allTOList()
+{
+    var intval = $('#interest-search-buffer').val();
+    var intname = $('#interest-search-buffer-Name').val();
+    if (intval != 'null' && intname != 'null')
+    {
+        $('#add-new-switches').append('<p class="col-lg-4">'+intname+'</p><input type="checkbox" class="newinterests" name="newinterests[]" value="'+intval+'" checked><br><br>');
+        $(".newinterests").bootstrapSwitch({'onText':'Add', 'offText':'Nope'});
+        $('.other').val('');
+
+    }
+
+    $('#interest-search-buffer').val('null');
+    $('#interest-search-buffer-Name').val('null');
+    $('.int-search-button').addClass('disabled');
 }

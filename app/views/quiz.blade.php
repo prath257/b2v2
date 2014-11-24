@@ -136,8 +136,7 @@
                 Or would you share this on facebook/twitter?
                 <br>
                 <div class="col-lg-2">
-                <div class="fb-share-button" data-href="http://b2.com/quizPreview/{{$quiz->id}}">
-
+                <div class="fb-share-button" data-href="http://b2.com/quizPreview/{{$quiz->id}}/{{Auth::user()->id}}">
                 </div>
                 </div>
                 <div class="col-lg-2" style="padding: 3px">

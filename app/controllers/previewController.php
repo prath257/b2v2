@@ -88,15 +88,16 @@ class previewController extends \BaseController
         return $response;
     }
 
-    public function getQuizPreview($id)
+    public function getQuizPreview($id,$uid=null)
     {
         $type='quiz';
-        $response = previewController::showPreview($type,$id);
+        $response = previewController::showPreview($type,$id,$uid);
         return $response;
     }
 
-    public function showPreview($type,$id)
+    public function showPreview($type,$id,$uid=null)
     {
+        $score=null;
         if($type=='blogBook')
         {
             $book=BlogBook::find($id);
@@ -108,6 +109,11 @@ class previewController extends \BaseController
         else if($type=='quiz')
         {
             $book=Quiz::find($id);
+            if($uid!=null)
+            {
+                $score=DB::table('quiztakers')->where('quiz_id','=',$id)->where('user_id','=',$uid)->first();
+
+            }
         }
         else if($type=='collaboration')
         {
@@ -172,7 +178,8 @@ class previewController extends \BaseController
             }
         }
 
-        return View::make($type.$ext)->with('book',$book)->with('author',$fullname)->with('content',$content);
+         return View::make($type.$ext)->with('book',$book)->with('author',$fullname)->with('content',$content)->with('score',$score);
+
 
     }
 } 

@@ -321,6 +321,8 @@
     Route::post('closeQuiz/{id}', array('as'=>'closeQuiz','before'=>'auth','uses'=>'QuizController@closeQuiz'));
     Route::post('getQuizStats/{id}',array('as'=>'getQuizStats','before'=>'auth','uses'=>'QuizController@getQuizStats'));
     Route::get('quizPreview/{id}',array('as'=>'quizPreview','uses'=>'previewController@getQuizPreview'));
+    Route::get('quizPreview/{id}/{uid}',array('as'=>'quizPreviewScore','uses'=>'previewController@getQuizPreview'));
+
     Route::get('editQuiz/{id}', array('as' => 'editQuiz', 'before' => 'auth', 'uses' => 'QuizController@editQuiz'));
     Route::post('removeExistingQuestion', array('as' => 'removeExistingQuestion', 'uses' => 'QuizController@removeExistingQuestion'));
     Route::post('editExistingQuestion', array('as' => 'editExistingQuestion', 'uses' => 'QuizController@editExistingQuestion'));
