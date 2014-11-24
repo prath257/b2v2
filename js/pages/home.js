@@ -105,12 +105,12 @@ $(document).ready(function() {
             $.ajax({
                 type: "POST",
                 dataType: 'json',
-                url: "http://b2.com/get" + type + "ChartData", // This is the URL to the API
+                url: "http://bbarters.com/get" + type + "ChartData", // This is the URL to the API
                 data: {days: days}
             })
                 .done(function (data) {
                     if (data == 'wH@tS!nTheB0x')
-                        window.location = 'http://b2.com/offline';
+                        window.location = 'http://bbarters.com/offline';
                     else {
                         // When the response to the AJAX request comes back render the chart with new data
                         chart.setData(data);
@@ -288,9 +288,9 @@ $(document).ready(function() {
     });
 
     $("#mycounter").flipCounterInit({'speed': 0.05});
-    $.post('http://b2.com/getIFCs', function (ifcs) {
+    $.post('http://bbarters.com/getIFCs', function (ifcs) {
         if (ifcs == 'wH@tS!nTheB0x')
-            window.location = 'http://b2.com/offline';
+            window.location = 'http://bbarters.com/offline';
         else
             $("#mycounter").flipCounterUpdate(ifcs);
     });
@@ -302,10 +302,10 @@ $(document).ready(function() {
     loadMyRecco(0, myReccoCount + 5, 'gibber', 'increment', 'created_at');
 
     window.onbeforeunload = function () {
-        $.post('http://b2.com/removeIsOnline', function (error) {
+        $.post('http://bbarters.com/removeIsOnline', function (error) {
             if (error == 'wH@tS!nTheB0x' && loggedout == false) {
                 loggedout = true;
-                window.location = 'http://b2.com/offline';
+                window.location = 'http://bbarters.com/offline';
             }
         });
     }
@@ -324,7 +324,7 @@ function getFriendsContent()
     try
     {
         $('#listo').hide();
-        $.post('http://b2.com/getFriendsContentNotification',{days:90},function(data)
+        $.post('http://bbarters.com/getFriendsContentNotification',{days:90},function(data)
         {
             if (data == 'ZeroData')
                 $("#listo").hide();
@@ -404,12 +404,12 @@ function postInvite()
 
         $.ajax({
             type: "POST",
-            url: "http://b2.com/invite",
+            url: "http://bbarters.com/invite",
             data: {name:name, email:email}
         }).done(function(msg)
         {
             if(msg=='wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
+                window.location='http://bbarters.com/offline';
             else
             {
                 $('#inviteLinkAndErrors').html(msg);
@@ -451,12 +451,12 @@ function postTransfer()
 
         $.ajax({
                 type: "POST",
-                url: "http://b2.com/transfer",
+                url: "http://bbarters.com/transfer",
                 data: {userid:userid, ifc:ifc},
                 beforeSend: function()
                 {
 
-                  //  $("#submitTransfer").html("<img src='http://b2.com/Images/icons/waiting.gif'>");
+                  //  $("#submitTransfer").html("<img src='http://bbarters.com/Images/icons/waiting.gif'>");
 
                   $("#submitTransfer").hide();
                   $("#waiting").show();
@@ -464,7 +464,7 @@ function postTransfer()
             }).done(function(response)
             {
                 if(response=='wH@tS!nTheB0x')
-                    window.location='http://b2.com/offline';
+                    window.location='http://bbarters.com/offline';
                 else
                 {
                     $("#submitTransfer").show();
@@ -506,10 +506,10 @@ function executeSearch()
 
     if (keywords.length > 2)
     {
-        $.post('http://b2.com/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
+        $.post('http://bbarters.com/getSuggestions', {search: search, keywords: keywords, constraint: constraint, request: request}, function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
+                window.location='http://bbarters.com/offline';
             else
             {
                 if(data)
@@ -524,52 +524,52 @@ function executeSearch()
 
 function visitProfile(username)
 {
-    window.location='http://b2.com/user/'+username;
+    window.location='http://bbarters.com/user/'+username;
 }
 
 function viewArticle(id)
 {
-    window.location="http://b2.com/articlePreview/"+id;
+    window.location="http://bbarters.com/articlePreview/"+id;
 }
 
 function viewBlogBook(id)
 {
-    window.location="http://b2.com/blogBookPreview/"+id;
+    window.location="http://bbarters.com/blogBookPreview/"+id;
 }
 
 function viewResource(id)
 {
-    window.location="http://b2.com/resource/"+id;
+    window.location="http://bbarters.com/resource/"+id;
 }
 
 function viewCollaboration(id)
 {
-    window.location="http://b2.com/collaborationPreview/"+id;
+    window.location="http://bbarters.com/collaborationPreview/"+id;
 }
 
 function viewQuiz(id)
 {
-    window.location="http://b2.com/quizPreview/"+id;
+    window.location="http://bbarters.com/quizPreview/"+id;
 }
 
 function viewPoll(id)
 {
-    window.location="http://b2.com/poll/"+id;
+    window.location="http://bbarters.com/poll/"+id;
 }
 
 function viewMedia(id)
 {
-    window.location="http://b2.com/mediaPreview/"+id;
+    window.location="http://bbarters.com/mediaPreview/"+id;
 }
 
 function loadMoreEvents(interest,index)
 {
     $('#loadMoreEvents'+interest).hide();
     $('#eventWait'+interest).fadeIn();
-    $.post('http://b2.com/loadMoreEvents', {eventsCount: intCount[index-1], interest:interest}, function(markup)
+    $.post('http://bbarters.com/loadMoreEvents', {eventsCount: intCount[index-1], interest:interest}, function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
+            window.location='http://bbarters.com/offline';
         else
         {
             $('#eventWait'+interest).hide();
@@ -592,10 +592,10 @@ function showEvents(button,interest,count)
     $(button).parent().addClass('active');
     $('.catEvents').hide();
     $('#loading').show();
-    $.post('http://b2.com/showCategoryEvents', {interest: interest, count: intCount[count-1], index: count}, function(markup)
+    $.post('http://bbarters.com/showCategoryEvents', {interest: interest, count: intCount[count-1], index: count}, function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
+            window.location='http://bbarters.com/offline';
         else
         {
             $('#events'+interest).html(markup);
@@ -610,10 +610,10 @@ function loadMoreActions()
 {
     $('#loadMoreActions').hide();
     $('#waitforactions').show();
-    $.post('http://b2.com/loadMoreActions', {count: noOfActions}, function(markup)
+    $.post('http://bbarters.com/loadMoreActions', {count: noOfActions}, function(markup)
     {
         if(markup=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
+            window.location='http://bbarters.com/offline';
         else
         {
             $('#waitforactions').hide();
@@ -648,7 +648,7 @@ function actionAjax()
 {
     $.ajax({
         type: "POST",
-        url: "http://b2.com/getActionData",
+        url: "http://bbarters.com/getActionData",
         beforeSend :function()
         {
             ajaxOk=false;
@@ -657,7 +657,7 @@ function actionAjax()
         .done(function(data)
         {
             if(data=='wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
+                window.location='http://bbarters.com/offline';
             else
             {
                 ajaxOk=true;
@@ -702,7 +702,7 @@ function searchAction()
 
                     $.ajax({
                         type: "POST",
-                        url: "http://b2.com/searchAction",
+                        url: "http://bbarters.com/searchAction",
                         data:{keywords: keywords, constraint: constraint, request: request, IN: IN, FILTER: FILTER},
                         beforeSend :function()
                         {
@@ -717,25 +717,25 @@ function searchAction()
                             searching = true;
                             clearInterval(tmr);
                             tmr=null;
-                            $.post('http://b2.com/failedSearch',{keywords: keywords},function(error){
+                            $.post('http://bbarters.com/failedSearch',{keywords: keywords},function(error){
                                 if(error=='wH@tS!nTheB0x')
-                                    window.location='http://b2.com/offline';
+                                    window.location='http://bbarters.com/offline';
                             });
                         }
                     })
                         .done(function(data)
                         {
                             if(data=='wH@tS!nTheB0x')
-                                window.location='http://b2.com/offline';
+                                window.location='http://bbarters.com/offline';
                             else if (data == 'error_occurred')
                             {
                                 $('#loadActions').html('Error occured. Try searching another query.');
                                 searching = true;
                                 clearInterval(tmr);
                                 tmr=null;
-                                $.post('http://b2.com/failedSearch',{keywords: keywords},function(error){
+                                $.post('http://bbarters.com/failedSearch',{keywords: keywords},function(error){
                                     if(error=='wH@tS!nTheB0x')
-                                        window.location='http://b2.com/offline';
+                                        window.location='http://bbarters.com/offline';
                                 });
                             }
                             else
@@ -776,17 +776,17 @@ function postRecommendation()
 
         $.ajax({
             type: "POST",
-            url: "http://b2.com/post_recco",
+            url: "http://bbarters.com/post_recco",
             data:{url: url},
             beforeSend :function()
             {
-                $('#recco-data').html('<div style="text-align: center"><br><img src="http://b2.com/Images/icons/waiting.gif"> Loading site data..</div>');
+                $('#recco-data').html('<div style="text-align: center"><br><img src="http://bbarters.com/Images/icons/waiting.gif"> Loading site data..</div>');
             }
         })
         .done(function(response)
         {
             if (response == 'wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
+                window.location='http://bbarters.com/offline';
             else if (response == 'failure')
             {
                 $('#newRecommendationModal').modal('hide');
@@ -807,15 +807,15 @@ function postRecommendation()
 
 function confirmPostRecco(imageURL)
 {
-    $('#recco-post-button-container').html('<div style="text-align: right"><img src="http://b2.com/Images/icons/waiting.gif"> Saving..</div>');
+    $('#recco-post-button-container').html('<div style="text-align: right"><img src="http://bbarters.com/Images/icons/waiting.gif"> Saving..</div>');
     var url = $('#reccoLink').val();
     var title = $('#recco-preview-title').html();
     var description = $('#recco-preview-description').html();
 
-    $.post('http://b2.com/publish_recco', {url: url, title: title, desc: description, image: imageURL}, function(response)
+    $.post('http://bbarters.com/publish_recco', {url: url, title: title, desc: description, image: imageURL}, function(response)
     {
         if (response == 'wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
+            window.location='http://bbarters.com/offline';
         else
         {
             var sort = $('#RECCO-FILTER').val();
@@ -834,11 +834,11 @@ function loadRecco(skip,take,id,call,sort)
     $('.load-more-recco-all').hide();
     $('#waiting-all-'+id).show();
     if (skip == 0)
-        $('#all-recco').html("<div style='text-align: center'><br><img src='http://b2.com/Images/icons/waiting.gif'></div>");
-    $.post('http://b2.com/loadRecco', {count: skip, count2: take, sort: sort}, function(markup)
+        $('#all-recco').html("<div style='text-align: center'><br><img src='http://bbarters.com/Images/icons/waiting.gif'></div>");
+    $.post('http://bbarters.com/loadRecco', {count: skip, count2: take, sort: sort}, function(markup)
     {
         if (markup == 'wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
+            window.location='http://bbarters.com/offline';
         else
         {
             $('#waiting-all-'+id).hide();
@@ -859,11 +859,11 @@ function loadMyRecco(skip,take,id,call,sort)
     $('.load-more-recco-my').hide();
     $('#waiting-my-'+id).show();
     if (skip == 0)
-        $('#my-recco').html("<div style='text-align: center'><br><img src='http://b2.com/Images/icons/waiting.gif'></div>");
-    $.post('http://b2.com/loadMyRecco', {count: skip, count2: take, sort: sort}, function(markup)
+        $('#my-recco').html("<div style='text-align: center'><br><img src='http://bbarters.com/Images/icons/waiting.gif'></div>");
+    $.post('http://bbarters.com/loadMyRecco', {count: skip, count2: take, sort: sort}, function(markup)
     {
         if (markup == 'wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
+            window.location='http://bbarters.com/offline';
         else
         {
             $('#waiting-my-'+id).hide();
@@ -890,7 +890,7 @@ function readMoreRecco(id)
 
 function visitRecco(id,url)
 {
-    $.post('http://b2.com/incrementHits', {id: id});
+    $.post('http://bbarters.com/incrementHits', {id: id});
     window.open(url);
 }
 
@@ -901,11 +901,11 @@ function deleteRecco(id)
        if (response == true)
        {
            var sort = $('#RECCO-FILTER').val();
-           $('#my-recco').html("<div style='text-align: center'><br><img src='http://b2.com/Images/icons/waiting.gif'></div>");
-           $.post('http://b2.com/deleteRecco', {id: id, count: myReccoCount, sort: sort}, function(markup)
+           $('#my-recco').html("<div style='text-align: center'><br><img src='http://bbarters.com/Images/icons/waiting.gif'></div>");
+           $.post('http://bbarters.com/deleteRecco', {id: id, count: myReccoCount, sort: sort}, function(markup)
            {
                if (markup == 'wH@tS!nTheB0x')
-                   window.location='http://b2.com/offline';
+                   window.location='http://bbarters.com/offline';
                else
                {
                    //loadRecco(0,allReccoCount,'gibber','none',sort);
@@ -966,11 +966,11 @@ function searchRecco(sort)
     var category = $('#recco-tab').val();
     if (keywords.length > 0)
     {
-        $('#'+category+'-recco').html("<div style='text-align: center'><br><img src='http://b2.com/Images/icons/waiting.gif'> Searching..</div>");
-        $.post('http://b2.com/searchRecco', {keywords: keywords, sort: sort, category: category}, function(markup)
+        $('#'+category+'-recco').html("<div style='text-align: center'><br><img src='http://bbarters.com/Images/icons/waiting.gif'> Searching..</div>");
+        $.post('http://bbarters.com/searchRecco', {keywords: keywords, sort: sort, category: category}, function(markup)
         {
             if (markup == 'wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
+                window.location='http://bbarters.com/offline';
             else {
                 $('#' + category + '-recco').html('<br>' + markup);
             }
@@ -995,7 +995,7 @@ function cacheMarkup()
 
 function changeToDefault()
 {
-    document.getElementById("recco-preview-image").src="http://b2.com/Images/recco.jpg";
+    document.getElementById("recco-preview-image").src="http://bbarters.com/Images/recco.jpg";
     $('#change-to-default-link').hide();
 }
 
@@ -1003,10 +1003,10 @@ function writeData()
 {
     if (!artflag)
     {
-        $.post('http://b2.com/article_write', function(markup)
+        $.post('http://bbarters.com/article_write', function(markup)
         {
             if (markup == 'wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
+                window.location='http://bbarters.com/offline';
             else {
                 $('#articleDisplay').html(markup);
                 artflag = true;
@@ -1022,9 +1022,9 @@ function writebb()
 {
     if (!bbflag)
     {
-        $.post('http://b2.com/bb_write', function (markup) {
+        $.post('http://bbarters.com/bb_write', function (markup) {
             if (markup == 'wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
+                window.location='http://bbarters.com/offline';
             else {
                 $('#blogBookDisplay').html(markup);
                 bbflag = true;
@@ -1040,9 +1040,9 @@ function writecollab()
 {
     if (!collabflag)
     {
-        $.post('http://b2.com/collab_write', function (markup) {
+        $.post('http://bbarters.com/collab_write', function (markup) {
             if (markup == 'wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
+                window.location='http://bbarters.com/offline';
             else {
                 $('#collaborationDisplay').html(markup);
                 collabflag = true;
@@ -1058,9 +1058,9 @@ function resData()
 {
     if (!resflag)
     {
-        $.post('http://b2.com/res_write', function (markup) {
+        $.post('http://bbarters.com/res_write', function (markup) {
             if (markup == 'wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
+                window.location='http://bbarters.com/offline';
             else {
                 $('#resDisplay').html(markup);
                 resflag = true;
@@ -1076,9 +1076,9 @@ function mediaData()
 {
     if (!mediaflag)
     {
-        $.post('http://b2.com/media_write', function (markup) {
+        $.post('http://bbarters.com/media_write', function (markup) {
             if (markup == 'wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
+                window.location='http://bbarters.com/offline';
             else {
                 $('#mediaDisplay').html(markup);
                 mediaflag = true;
@@ -1094,9 +1094,9 @@ function quizData()
 {
     if (!quizflag)
     {
-        $.post('http://b2.com/quiz_write', function (markup) {
+        $.post('http://bbarters.com/quiz_write', function (markup) {
             if (markup == 'wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
+                window.location='http://bbarters.com/offline';
             else {
                 $('#quizDisplay').html(markup);
                 quizflag = true;
@@ -1112,9 +1112,9 @@ function pollData()
 {
     if (!pollflag)
     {
-        $.post('http://b2.com/poll_write', function (markup) {
+        $.post('http://bbarters.com/poll_write', function (markup) {
             if (markup == 'wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
+                window.location='http://bbarters.com/offline';
             else {
                 $('#pollDisplay').html(markup);
                 pollflag = true;
@@ -1145,13 +1145,13 @@ function openPivots(pivotName)
 function showSuggestions(request)
 {
     $('#suggestion-label').html(request+' Suggestions');
-    $('#suggetsion-data').html('<div style="text-align: center"><img src="http://b2.com/Images/icons/waiting.gif"></div>');
+    $('#suggetsion-data').html('<div style="text-align: center"><img src="http://bbarters.com/Images/icons/waiting.gif"></div>');
     $('#suggestionsModal').modal('show');
 
-    $.post('http://b2.com/getWritingSuggestions', {request: request}, function(markup)
+    $.post('http://bbarters.com/getWritingSuggestions', {request: request}, function(markup)
     {
         if (markup == 'wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
+            window.location='http://bbarters.com/offline';
         else {
             $('#suggetsion-data').html(markup);
         }
@@ -1177,9 +1177,9 @@ function submitSuggestion()
 
     if($('#newSuggestionForm').data('bootstrapValidator').isValid())
     {
-        $.post('http://b2.com/postSuggestion', {category: category, text: text, type: type}, function (markup) {
+        $.post('http://bbarters.com/postSuggestion', {category: category, text: text, type: type}, function (markup) {
             if (markup == 'wH@tS!nTheB0x')
-                window.location = 'http://b2.com/offline';
+                window.location = 'http://bbarters.com/offline';
             else if (markup == 'success')
             {
                 $('#newSuggestionModal').modal('hide');
@@ -1205,6 +1205,23 @@ function promoLinks(x)
 {
     $(x).animate({left:'5px',bottom:'5px'},10);
 
+}
+function testme()
+{
+    {
+        /*$.ajax({
+
+            type: "POST",
+            url: 'http://bbarters.com/mobile_reduceIfc',
+            data:{contentid:20,userid:17,authorid:31,type:'blogbook',cost:5}
+
+        }).done(function(data)
+        {
+
+            $('#here').html('hello');
+        });*/
+        $('#here').html('hello');
+    }
 }
 
 function promolinks(x)

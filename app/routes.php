@@ -487,5 +487,9 @@ Route::post('mobile_getfriends', array('uses' => 'MobileController@getFriendList
 
 Route::post('mobile_Checkifc', array('uses' => 'MobileController@previewChecking'));
 
+Route::post('mobile_reduceIfc', array('uses' => 'MobileController@ifcReduce'));
+
 Route::post('mobile_myreadings', array('uses' => 'MobileController@getMyReadings'));
+
+Route::get('mobile_readArticle/{articleId}', array('uses'=>'MobileController@getArticle'));
 
