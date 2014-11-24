@@ -302,6 +302,7 @@ $(document).ready(function() {
     loadMyRecco(0, myReccoCount + 5, 'gibber', 'increment', 'created_at');
 
     window.onbeforeunload = function () {
+
         $.post('http://b2.com/removeIsOnline', function (error) {
             if (error == 'wH@tS!nTheB0x') {
                 if (loggedout == false)
@@ -1182,10 +1183,12 @@ function submitSuggestion()
 
     if($('#newSuggestionForm').data('bootstrapValidator').isValid())
     {
+
         $('#suggestionSubmit').prop('disabled',true);
         $('#suggestionSubmit').html('Please Wait');
 
         $.post('http://b2.com/postSuggestion', {category: category, text: text, type: type}, function (markup) {
+
             if (markup == 'wH@tS!nTheB0x')
                 window.location = 'http://b2.com/offline';
             else if (markup == 'success')
@@ -1207,6 +1210,7 @@ function writeSuggestion(type, title, category)
 
     $('#suggestionsModal').modal('hide');
     $('#new'+type+'Modal').modal('show');
+
 }
 
 function promoLinks(x)
