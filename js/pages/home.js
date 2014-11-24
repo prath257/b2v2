@@ -302,20 +302,22 @@ $(document).ready(function() {
     loadMyRecco(0, myReccoCount + 5, 'gibber', 'increment', 'created_at');
 
     window.onbeforeunload = function () {
-        $.post('http://bbarters.com/removeIsOnline', function (error) {
-            if (error == 'wH@tS!nTheB0x' && loggedout == false) {
-                loggedout = true;
-                window.location = 'http://bbarters.com/offline';
+
+        $.post('http://b2.com/removeIsOnline', function (error) {
+            if (error == 'wH@tS!nTheB0x') {
+                if (loggedout == false)
+                {
+                    loggedout = true;
+                    window.location = 'http://b2.com/offline';
+                }
+
             }
         });
     }
 
-   /* $(".links8").mouseenter(function(){
-        $("#test123").animate({left:"5px"},10)
-    });
-    $("#test123").mouseleave(function(){
-        $("#test123").animate({left:"0px"},20)
-    });*/
+    var ifcAdded = $('#ifcAdded').val();
+    if (ifcAdded == 'yes')
+        bootbox.alert('50 ifcs have been credited to your account as a bonus for visiting BBarters today!');
 });
 
 function getFriendsContent()
@@ -1166,9 +1168,6 @@ function newSuggestion(type)
 
 function submitSuggestion()
 {
-    $('#suggestionSubmit').prop('disabled',true);
-    $('#suggestionSubmit').html('Please Wait');
-
     var category = $('#suggestionCategory').val();
     var text = $('#suggestionText').val();
     var type = $('#current-suggestion-type').val();
@@ -1177,7 +1176,12 @@ function submitSuggestion()
 
     if($('#newSuggestionForm').data('bootstrapValidator').isValid())
     {
-        $.post('http://bbarters.com/postSuggestion', {category: category, text: text, type: type}, function (markup) {
+
+        $('#suggestionSubmit').prop('disabled',true);
+        $('#suggestionSubmit').html('Please Wait');
+
+        $.post('http://b2.com/postSuggestion', {category: category, text: text, type: type}, function (markup) {
+
             if (markup == 'wH@tS!nTheB0x')
                 window.location = 'http://bbarters.com/offline';
             else if (markup == 'success')
@@ -1199,6 +1203,7 @@ function writeSuggestion(type, title, category)
 
     $('#suggestionsModal').modal('hide');
     $('#new'+type+'Modal').modal('show');
+
 }
 
 function promoLinks(x)
@@ -1206,23 +1211,7 @@ function promoLinks(x)
     $(x).animate({left:'5px',bottom:'5px'},10);
 
 }
-function testme()
-{
-    {
-        /*$.ajax({
 
-            type: "POST",
-            url: 'http://bbarters.com/mobile_reduceIfc',
-            data:{contentid:20,userid:17,authorid:31,type:'blogbook',cost:5}
-
-        }).done(function(data)
-        {
-
-            $('#here').html('hello');
-        });*/
-        $('#here').html('hello');
-    }
-}
 
 function promolinks(x)
 {

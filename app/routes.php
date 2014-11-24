@@ -200,6 +200,7 @@
     Route::get('mediaPreview/{id}',array('as'=>'mediaPreview','uses'=>'MediaController@getMediaPreview'));
     Route::get('media/{id}',array('as'=>'media', 'before' => 'auth', 'uses'=>'MediaController@getMediaDummy')); //Dummy view of mediaPreview with an auth filter
     Route::post('viewMedia',array('uses'=>'MediaController@viewMedia'));
+    Route::get('playMedia/{id}',array('as'=>'playMedia','before'=>'auth','uses'=>'MediaController@playMedia'));
 
    //SettingsController (AccountSettings)
 	Route::post('saveAccountSettings',array('as'=>'saveAccountSettings','uses'=>'SettingsController@saveAccountSettings'));
@@ -241,6 +242,7 @@
 
     Route::get('unansweredQuestions/{userId}', array('as' => 'unansweredQuestions', 'uses' => 'DataTableController@getUnansweredQuestions'));
     Route::get('answeredQuestions/{userId}', array('as' => 'answeredQuestions', 'uses' => 'DataTableController@getAnsweredQuestions'));
+    Route::get('askedQuestions/{userId}', array('as' => 'askedQuestions', 'uses' => 'DataTableController@getAskedQuestions'));
 
     //this is the route for getting the chart data
     Route::post('getArticleChartData', array('as'=>'getArticleChartData', 'uses'=>'GraphicsController@getArticleChartData'));
@@ -294,7 +296,7 @@
     Route::get('pollDashboard',array('as'=>'pollDashboard','before'=>'auth','uses'=>'PollController@getPollDashboard'));
     Route::post('createPoll',array('as'=>'createPoll','before'=>'csrf','uses'=>'PollController@createPoll'));
     Route::get('poll/{id}', array('as'=>'poll','uses'=>'PollController@showPoll'));
-    Route::post('submitPoll', array('as'=>'submitPoll','before'=>'auth','uses'=>'PollController@submitPoll'));
+    Route::post('submitPoll', array('as'=>'submitPoll','uses'=>'PollController@submitPoll'));
     Route::post('deletePoll/{id}', array('as'=>'deletePoll','before'=>'auth','uses'=>'PollController@deletePoll'));
     Route::post('closePoll/{id}', array('as'=>'closePoll','before'=>'auth','uses'=>'PollController@closePoll'));
     Route::post('getResult/{id}',array('as'=>'getPollResult','before'=>'auth','uses'=>'PollController@getPollResult'));
@@ -463,11 +465,8 @@ Route::post('forgotUsername', array('uses' => 'BaseController@forgotUsername'));
 Route::post('getWritingSuggestions', array('uses' => 'SuggetsionController@getWritingSuggestions'));
 Route::post('postSuggestion', array('uses' => 'SuggetsionController@postSuggestion'));
 
-//mobile controller
-Route::post('mobile_fblogin', array('uses' => 'MobileAuthController@fblogin'));
-Route::post('mobile_login', array('uses' => 'MobileAuthController@login'));
-Route::post('mobile_tlogin', array('uses' => 'MobileAuthController@tlogin'));
-Route::post('mobile_glogin', array('uses' => 'MobileAuthController@glogin'));
+Route::post('searchInterests', array('uses' => 'AjaxController@searchInterest'));
+
 
 Route::post('mobile_getaction', array('uses' => 'MobileHomeController@getActionData'));
 
@@ -490,6 +489,7 @@ Route::post('mobile_Checkifc', array('uses' => 'MobileController@previewChecking
 Route::post('mobile_reduceIfc', array('uses' => 'MobileController@ifcReduce'));
 
 Route::post('mobile_myreadings', array('uses' => 'MobileController@getMyReadings'));
+
 
 Route::get('mobile_readArticle/{articleId}', array('uses'=>'MobileController@getArticle'));
 
