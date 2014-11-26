@@ -127,7 +127,7 @@ class MobileController extends \BaseController
 
     }
 
-    public function getFriendList()
+    public function getManagerEntries()
     {
         $userid =Input::get('id');
         $friends1 = DB::table('friends')->where('friend1', '=', $userid)->where('status', '=', 'accepted')->lists('friend2');
@@ -139,12 +139,14 @@ class MobileController extends \BaseController
             $users1->add(User::find($f));
         }
 
-        $users=Manager::where('userid','=',Auth::user()->id)->get();
+        $users=Manager::where('userid','=',$userid)->get();
 
         $data = array('ifc'=>User::find($userid)->profile->ifc,'friends'=> $users1->toJson(),'entries',$users);
 
         return json_encode($data);
     }
+
+
 
 
 
@@ -424,6 +426,7 @@ class MobileController extends \BaseController
 
             //$readings = array_merge($articles,$bb,$collab);
             $reads = new \Illuminate\Database\Eloquent\Collection();
+            $contentid = new \Illuminate\Database\Eloquent\Collection();
             $title = new \Illuminate\Database\Eloquent\Collection();
             $by = new \Illuminate\Database\Eloquent\Collection();
             $category = new \Illuminate\Database\Eloquent\Collection();
@@ -431,6 +434,7 @@ class MobileController extends \BaseController
             foreach($articles as $reading)
             {
                 $reads->add($reading->users);
+                $contentid->add($reading->id);
                 $title->add($reading->title);
                 $by->add(User::find($reading->userid));
                 $category->add($reading->category);
@@ -445,6 +449,7 @@ class MobileController extends \BaseController
                 $category->add($reading->category);
                 $pic->add($reading->cover);
 
+
             }
             foreach($collab as $reading)
             {
@@ -456,7 +461,7 @@ class MobileController extends \BaseController
 
             }
 
-            $data = array('ok'=>'true','reads'=> $reads->toJson(),'title'=>$title->toJson(),'by'=>$by->toJson(),'category'=>$category->toJson(),'pic'=>$pic->toJson());
+            $data = array('ok'=>'true','contentid'=>$contentid->toJson(),'reads'=> $reads->toJson(),'title'=>$title->toJson(),'by'=>$by->toJson(),'category'=>$category->toJson(),'pic'=>$pic->toJson());
 
             return json_encode($data);
         }
@@ -485,10 +490,85 @@ public function displayContent()
     public function getArticle($articleId)
     {
         $article = Article::find($articleId);
-        return View::make('readArticle')->with('article',$article)->with('newUser','false');
+        return View::make('mreadArticle')->with('article',$article);
     }
 
+    public function getBlogbook($bb,$chap)
+    {
+        $bb = BlogBook::find($bb);
 
+        $chapter = Chapter::find($chap);
+        return View::make('mreadBlogbook')->with('book',$bb)->with('chapter',$chapter);
+    }
+
+    public function getCollaboration($collab,$chap)
+    {
+        $collab = Collaboration::find($collab);
+        //$chapters = $collab->getChapters()->get();
+        $chapter = CollaborationChapter::find($chap);
+        return View::make('mreadCollaboration')->with('collab',$collab)->with('chapter',$chapter);
+    }
+
+    public function getChapters()
+    {
+        try
+        {
+        $id = Input::get('contentid');
+        $type = Input::get('type');
+
+        $content = MobileAuthController::getContent($id,$type);
+        $chaps = $content->getChapters()->get();
+        if($type == 'collaboration')
+        {
+
+            $chapterid = new \Illuminate\Database\Eloquent\Collection();
+            $chaptername = new \Illuminate\Database\Eloquent\Collection();
+            foreach($chaps as $chap)
+            {
+                if($chap->approved == 1)
+                {
+                    $chapterid->add($chap->id);
+                    $chaptername->add($chap->title);
+                }
+            }
+            $data = array('chaptername'=>$chaptername->toJson(),'chapterid'=>$chapterid->toJson());
+        }
+        else
+        {
+            $chapterid = $chaps->lists('id');
+            $chaptername = $chaps->lists('title');
+            $data = array('chaptername'=>$chaptername,'chapterid'=>$chapterid);
+        }
+
+
+        return json_encode($data);
+        }
+        catch(Exception $e)
+        {
+            return $e."";
+        }
+
+
+    }
+
+    public function getFriends()
+    {
+        $userid =Input::get('id');
+        $friends1 = DB::table('friends')->where('friend1', '=', $userid)->where('status', '=', 'accepted')->lists('friend2');
+        $friends2 = DB::table('friends')->where('friend2', '=', $userid)->where('status', '=', 'accepted')->lists('friend1');
+        $friends = array_merge($friends1, $friends2);
+        $users = new \Illuminate\Database\Eloquent\Collection();
+        $pic = new \Illuminate\Database\Eloquent\Collection();
+
+        foreach ($friends as $f) {
+            $users->add(User::find($f));
+            $pic->add(User::find($f)->profile->profilePic);
+        }
+
+        $data = array('friends'=> $users->toJson(),'pic'=>$pic->toJson());
+
+        return json_encode($data);
+    }
 
 
 

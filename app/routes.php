@@ -520,3 +520,9 @@ Route::post('mobile_myreadings', array('uses' => 'MobileController@getMyReadings
 
 Route::get('mobile_readArticle/{articleId}', array('uses'=>'MobileController@getArticle'));
 
+Route::get('mobile_readBlogbook/{bookId}/{chapterId}', array('uses'=>'MobileController@getBlogbook'));
+
+Route::get('mobile_readCollaboration/{collab}/{chapterId}', array('uses'=>'MobileController@getCollaboration'));
+
+Route::post('mobile_getChapterList', array('uses'=>'MobileController@getChapters'));
+

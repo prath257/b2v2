@@ -64,7 +64,7 @@ class MobileAuthController extends \BaseController {
             $users = User::all();
             foreach($users as $user)
             {
-                if($user->fbid == Input::get('fbid'))
+                if($user->email == Input::get('email'))
                 {
 
                     $credentials = array('ok'=>'true','id'=>$user->id,'first_name' => $user->first_name,'last_name' => $user->last_name);
@@ -221,6 +221,11 @@ class MobileAuthController extends \BaseController {
         return $content;
     }
 
+    public function getCategory()
+    {
+        $cat = Input::get('category');
+
+    }
 
 
 
