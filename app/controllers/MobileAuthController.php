@@ -221,12 +221,23 @@ class MobileAuthController extends \BaseController {
         return $content;
     }
 
-    public function getCategory()
+    public static function getFriends($userid)
     {
-        $cat = Input::get('category');
+
+        $friends1 = DB::table('friends')->where('friend1', '=', $userid)->where('status', '=', 'accepted')->lists('friend2');
+        $friends2 = DB::table('friends')->where('friend2', '=', $userid)->where('status', '=', 'accepted')->lists('friend1');
+        $friends = array_merge($friends1, $friends2);
+        $users = new \Illuminate\Database\Eloquent\Collection();
+
+        foreach ($friends as $f)
+        {
+            $users->add(User::find($f));
+
+        }
+
+        return $users;
 
     }
-
 
 
 
