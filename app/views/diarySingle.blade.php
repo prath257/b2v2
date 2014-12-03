@@ -67,7 +67,7 @@
                                     if ($diary->ispublic)
                                         $attribute = 'checked';
                                     else
-                                        $attribute = '';
+                                        $attribute = ' ';
                                 ?>
                                 <input id="access{{$diary->id}}" class="access" type="checkbox" name="access" {{$attribute}}>
                             </div>
