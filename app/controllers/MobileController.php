@@ -300,7 +300,8 @@ class MobileController extends \BaseController
                 {
                     $takers = DB::table('quiztakers')->where('quiz_id','=',$contentid)->where('user_id','=',$id)->get();
                     if(count($takers) > 0)
-                        $data = array('ok'=>'Sorry!.Looks like you already took this Quiz','cost'=>$cost,'userifc'=>$user->profile->ifc);
+                        $data = array('ok'=>'true','cost'=>$cost,'userifc'=>$user->profile->ifc);
+                        //$data = array('ok'=>'Sorry!.Looks like you already took this Quiz','cost'=>$cost,'userifc'=>$user->profile->ifc);
                     else
                     {
                         $data = array('ok'=>'true','cost'=>$cost,'userifc'=>$user->profile->ifc);
@@ -748,7 +749,7 @@ class MobileController extends \BaseController
 
             DB::table('quiztakers')->where('quiz_id',$quiz->id)->where('user_id',$user->id)->update(array('ifc' => $ifcQuizzer));
 
-            $data = array('userifc'=>$ifcQuizzer,'takerifc'=>$ifcQuizMaker);
+            $data = array('takerifc'=>$ifcQuizzer,'ownerifc'=>$ifcQuizMaker);
 
             return json_encode($data);
 
@@ -756,7 +757,7 @@ class MobileController extends \BaseController
         catch(Exception $e)
         {
             $data = array('ok'=>$e."");
-             return json_encode($data);
+             return $e."";
         }
     }
 
