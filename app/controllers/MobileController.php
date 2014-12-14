@@ -102,6 +102,10 @@ class MobileController extends \BaseController
             {
                 $data = array('ok'=>'true','title' => $content->title, 'desc' => $content->description,'ifc'=>$content->ifc,'no_readers'=>$content->users,'author_name'=>$author->first_name." ".$author->last_name,'author_id'=>$author->id,'author_pic_url'=>$author->profile->profilePic);
             }
+            elseif($type == 'quiz')
+            {
+                $data = array('ok'=>'true','title' => $content->title, 'desc' => $content->description,'ifc'=>$content->ifc,'no_readers'=>count($readers),'author_name'=>$author->first_name." ".$author->last_name,'content_pic_url'=>$content->cover,'author_id'=>$author->id,'author_pic_url'=>$author->profile->profilePic,'time'=>$content->time);
+            }
 
             elseif($type != 'media')
                 $data = array('ok'=>'true','title' => $content->title, 'desc' => $content->description,'ifc'=>$content->ifc,'no_readers'=>count($readers),'author_name'=>$author->first_name." ".$author->last_name,'content_pic_url'=>$content->cover,'author_id'=>$author->id,'author_pic_url'=>$author->profile->profilePic);
@@ -127,7 +131,7 @@ class MobileController extends \BaseController
 
     }
 
-    public function getFriendList()
+    public function getManagerEntries()
     {
         $userid =Input::get('id');
         $friends1 = DB::table('friends')->where('friend1', '=', $userid)->where('status', '=', 'accepted')->lists('friend2');
@@ -139,12 +143,14 @@ class MobileController extends \BaseController
             $users1->add(User::find($f));
         }
 
-        $users=Manager::where('userid','=',Auth::user()->id)->get();
+        $users=Manager::where('userid','=',$userid)->get();
 
         $data = array('ifc'=>User::find($userid)->profile->ifc,'friends'=> $users1->toJson(),'entries',$users);
 
         return json_encode($data);
     }
+
+
 
 
 
@@ -294,7 +300,8 @@ class MobileController extends \BaseController
                 {
                     $takers = DB::table('quiztakers')->where('quiz_id','=',$contentid)->where('user_id','=',$id)->get();
                     if(count($takers) > 0)
-                        $data = array('ok'=>'Sorry!.Looks like you already took this Quiz','cost'=>$cost,'userifc'=>$user->profile->ifc);
+                        $data = array('ok'=>'true','cost'=>$cost,'userifc'=>$user->profile->ifc);
+                        //$data = array('ok'=>'Sorry!.Looks like you already took this Quiz','cost'=>$cost,'userifc'=>$user->profile->ifc);
                     else
                     {
                         $data = array('ok'=>'true','cost'=>$cost,'userifc'=>$user->profile->ifc);
@@ -397,6 +404,17 @@ class MobileController extends \BaseController
                     AjaxController::insertToNotification($authorid,$user->id,"purchased","purchased your collaboration ".$content->title,'http://www.bbarters.com/collaborationPreview/'.$contentid);
 
                     break;
+                case 'quiz':
+                    $user->profile->ifc += $cost;
+                    $user->profile->save();
+                    $author->profile->ifc -= $cost;
+                    $author->profile->save();
+                    $user->takenQuizzes()->attach($content->id);
+                    $content->users++;
+                    $content->save();
+                    break;
+
+
 
                 default: return "Wrong type of content!!!";
 
@@ -424,6 +442,7 @@ class MobileController extends \BaseController
 
             //$readings = array_merge($articles,$bb,$collab);
             $reads = new \Illuminate\Database\Eloquent\Collection();
+            $contentid = new \Illuminate\Database\Eloquent\Collection();
             $title = new \Illuminate\Database\Eloquent\Collection();
             $by = new \Illuminate\Database\Eloquent\Collection();
             $category = new \Illuminate\Database\Eloquent\Collection();
@@ -431,6 +450,7 @@ class MobileController extends \BaseController
             foreach($articles as $reading)
             {
                 $reads->add($reading->users);
+                $contentid->add($reading->id);
                 $title->add($reading->title);
                 $by->add(User::find($reading->userid));
                 $category->add($reading->category);
@@ -440,15 +460,18 @@ class MobileController extends \BaseController
             foreach($bb as $reading)
             {
                 $reads->add($reading->users);
+                $contentid->add($reading->id);
                 $title->add($reading->title);
                 $by->add(User::find($reading->userid));
                 $category->add($reading->category);
                 $pic->add($reading->cover);
+
 
             }
             foreach($collab as $reading)
             {
                 $reads->add($reading->users);
+                $contentid->add($reading->id);
                 $title->add($reading->title);
                 $by->add(User::find($reading->userid));
                 $category->add($reading->category);
@@ -456,7 +479,7 @@ class MobileController extends \BaseController
 
             }
 
-            $data = array('ok'=>'true','reads'=> $reads->toJson(),'title'=>$title->toJson(),'by'=>$by->toJson(),'category'=>$category->toJson(),'pic'=>$pic->toJson());
+            $data = array('ok'=>'true','contentid'=>$contentid->toJson(),'reads'=> $reads->toJson(),'title'=>$title->toJson(),'by'=>$by->toJson(),'category'=>$category->toJson(),'pic'=>$pic->toJson());
 
             return json_encode($data);
         }
@@ -470,24 +493,273 @@ class MobileController extends \BaseController
 
     }
 
-public function displayContent()
-{
-    $type = Input::get('type');
-    $content = MobileAuthController::getContent(Input::get('contentid'),$type);
-
-    switch($type)
-    {
-        case 'article':
-
-    }
-}
 
     public function getArticle($articleId)
     {
         $article = Article::find($articleId);
-        return View::make('readArticle')->with('article',$article)->with('newUser','false');
+        return View::make('mreadArticle')->with('article',$article);
     }
 
+    public function getBlogbook($bb,$chap)
+    {
+        $bb = BlogBook::find($bb);
+
+        $chapter = Chapter::find($chap);
+        return View::make('mreadBlogbook')->with('book',$bb)->with('chapter',$chapter);
+    }
+
+    public function getCollaboration($collab,$chap)
+    {
+        $collab = Collaboration::find($collab);
+        //$chapters = $collab->getChapters()->get();
+        $chapter = CollaborationChapter::find($chap);
+        return View::make('mreadCollaboration')->with('collab',$collab)->with('chapter',$chapter);
+    }
+
+    public function getChapters()
+    {
+        try
+        {
+        $id = Input::get('contentid');
+        $type = Input::get('type');
+
+        $content = MobileAuthController::getContent($id,$type);
+        $chaps = $content->getChapters()->get();
+        if($type == 'collaboration')
+        {
+
+            $chapterid = new \Illuminate\Database\Eloquent\Collection();
+            $chaptername = new \Illuminate\Database\Eloquent\Collection();
+            foreach($chaps as $chap)
+            {
+                if($chap->approved == 1)
+                {
+                    $chapterid->add($chap->id);
+                    $chaptername->add($chap->title);
+                }
+            }
+            $data = array('chaptername'=>$chaptername->toJson(),'chapterid'=>$chapterid->toJson());
+        }
+        else
+        {
+            $chapterid = $chaps->lists('id');
+            $chaptername = $chaps->lists('title');
+            $data = array('chaptername'=>$chaptername,'chapterid'=>$chapterid);
+        }
+
+
+        return json_encode($data);
+        }
+        catch(Exception $e)
+        {
+            return $e."";
+        }
+
+
+    }
+
+    public function getFriends()
+    {
+        $userid =Input::get('id');
+        $friends1 = DB::table('friends')->where('friend1', '=', $userid)->where('status', '=', 'accepted')->lists('friend2');
+        $friends2 = DB::table('friends')->where('friend2', '=', $userid)->where('status', '=', 'accepted')->lists('friend1');
+        $friends = array_merge($friends1, $friends2);
+        $users = new \Illuminate\Database\Eloquent\Collection();
+        $pic = new \Illuminate\Database\Eloquent\Collection();
+
+        foreach ($friends as $f)
+        {
+            $users->add(User::find($f));
+            $pic->add(User::find($f)->profile->profilePic);
+        }
+
+        $data = array('friends'=> $users->toJson(),'pic'=>$pic->toJson());
+
+        return json_encode($data);
+    }
+
+    public function getExplore()
+    {
+
+        try{
+
+            $userid=Input::get('id');
+            $friends1=DB::table('friends')->where('friend1','=',$userid)->where('status','=','accepted')->lists('friend2');
+            $friends2=DB::table('friends')->where('friend2','=',$userid)->where('status','=','accepted')->lists('friend1');
+            $friends3 = array_merge($friends1, $friends2);
+            $subs=DB::table('subscriptions')->where('subscriber_id',$userid)->lists('subscribed_to_id');
+            $friends4=array_merge($subs,$friends3);
+            $friends=array_unique($friends4);
+
+            $users=new \Illuminate\Database\Eloquent\Collection();
+            $blogbooks=new \Illuminate\Database\Eloquent\Collection();
+            $articles=new \Illuminate\Database\Eloquent\Collection();
+            $resources=new \Illuminate\Database\Eloquent\Collection();
+            $collaborations=new \Illuminate\Database\Eloquent\Collection();
+            $media=new \Illuminate\Database\Eloquent\Collection();
+            $contributions=new \Illuminate\Database\Eloquent\Collection();
+            $polls=new \Illuminate\Database\Eloquent\Collection();
+            $quizes=new \Illuminate\Database\Eloquent\Collection();
+            $contributors=array();
+            $cci=0;
+
+            foreach($friends as $f)
+            {
+                $users->add(User::find($f));
+            }
+            $inputDays = 90;
+            $days=intval($inputDays);
+            $range=\Carbon\Carbon::now()->subDays($days);
+            DataTableController::$range = $range;
+            foreach($users as $user)
+            {
+
+                $bb=$user->getBlogBooks()->where('created_at', '>=', $range)->get();
+                foreach($bb as $b)
+                {
+                    $blogbooks->add($b);
+                }
+                $aa=$user->getArticles()->where('created_at', '>=', $range)->get();
+                foreach($aa as $a)
+                {
+                    $articles->add($a);
+                }
+                $rr=$user->getResources()->where('created_at', '>=', $range)->get();
+                foreach($rr as $r)
+                {
+                    $resources->add($r);
+                }
+                $cc=$user->getOwnedCollaborations()->where('created_at', '>=', $range)->get();
+                foreach($cc as $c)
+                {
+                    $collaborations->add($c);
+                }
+                $contri=$user->getContributions()->get();
+                $send = $contri->filter(function($cont)
+                {
+                    if ($cont->created_at >= DataTableController::$range) {
+                        return true;
+                    }
+                });
+                foreach($send as $sen)
+                {
+                    $contributions->add($sen);
+                    $contributors[$cci]=$user->id;
+                    $cci++;
+                }
+                $pp=$user->getPolls()->where('created_at', '>=', $range)->get();
+                foreach($pp as $p)
+                {
+                    $polls->add($p);
+                }
+                $qq=$user->getQuizes()->where('created_at', '>=', $range)->get();
+                foreach($qq as $q)
+                {
+                    $quizes->add($q);
+                }
+                $med=$user->getMedia()->where('ispublic','=',true)->where('created_at', '>=', $range)->get();
+                foreach($med as $m)
+                {
+                    $media->add($m);
+                }
+            }
+            //$pollsnquizes = $polls->merge($quizes);
+
+            $blogbooks=$blogbooks->sortByDesc('created_at')->take(4);
+            $articles=$articles->sortByDesc('created_at')->take(4);
+            $resources=$resources->sortByDesc('created_at')->take(4);
+            $collaborations=$collaborations->sortByDesc('created_at')->take(2);
+            $contributions=$contributions->sortByDesc('created_at')->take(2);
+            $media=$media->sortByDesc('created_at')->take(4);
+            $polls=$polls->sortByDesc('created_at')->take(4);
+            $quizes=$quizes->sortByDesc('created_at')->take(4);
+
+            $data = array('blogbooks'=>$blogbooks->toJson(),'articles'=>$articles->toJson(),'resources'=>$resources->toJson(),'collaborations'=>$collaborations->toJson(),'contributions'=>$contributions->toJson(),'media'=>$media->toJson(),'polls'=>$polls->toJson(),'quizes'=>$quizes->toJson());
+
+            return json_encode($data);
+        }
+        catch(Exception $e)
+        {
+            $data = array('ok'=>$e."");
+            return json_encode($data);
+        }
+    }
+
+    public function getMedia()
+    {
+        try{
+
+        $media = Media::find(Input::get('contentid'));
+
+        $url = $media->path;
+
+        return $url."";
+        }
+        catch(Exception $e)
+        {
+            return $e."";
+        }
+    }
+
+    public function getQuizOptions()
+    {
+        try
+        {
+            $quiz = Quiz::find(Input::get('contentid'));
+            $options = DB::table('quizoptions')->where('quizid','=',$quiz->id)->get();
+
+            $data = array('questions'=>$options);
+
+            return json_encode($data);
+
+        }
+        catch(Exception $e)
+        {
+            $data = array('ok'=>$e."");
+             return json_encode($data);
+        }
+    }
+
+    public function getQuizResult()
+    {
+        try
+        {
+            $quiz = Quiz::find(Input::get('quizid'));
+            $correctAnswers = Input::get('correct');
+            $quizQuestionsCount = count($quiz->getOptions()->get());
+            $percentage = ($correctAnswers/$quizQuestionsCount)*100;
+            $ifcQuizzer = $quiz->ifc*($percentage/100);
+            $ifcQuizzer = round($ifcQuizzer);
+            $user = User::find(Input::get('id'));
+            $user->profile->ifc += $ifcQuizzer;
+            $user->profile->save();
+            $ifcQuizMaker = $quiz->ifc - $ifcQuizzer;
+            $ifcQuizMaker = round($ifcQuizMaker);
+            $author = User::find($quiz->ownerid);
+            $author->profile->ifc += $ifcQuizMaker;
+            $author->profile->save();
+
+            Action::postAction('Q score',$user->id,$ifcQuizzer,$quiz->id);
+
+            TransactionController::insertToManager($user->id,"+".$ifcQuizzer,"Earned from quiz",'http://www.bbarters.com/quizPreview/'.$quiz->id,$quiz->title,"content");
+
+            TransactionController::insertToManager($author->id,"+".$ifcQuizMaker,"Earned from quiz",'http://www.bbarters.com/quizPreview/'.$quiz->id,$quiz->title,"content");
+
+            AjaxController::insertToNotification($quiz->ownerid,$user->id,"purchased","Took your Quiz ".$quiz->title,'http://www.bbarters.com/quizPreview/'.$quiz->id);
+
+            DB::table('quiztakers')->where('quiz_id',$quiz->id)->where('user_id',$user->id)->update(array('ifc' => $ifcQuizzer));
+
+            $data = array('takerifc'=>$ifcQuizzer,'ownerifc'=>$ifcQuizMaker);
+
+            return json_encode($data);
+
+        }
+        catch(Exception $e)
+        {
+            $data = array('ok'=>$e."");
+             return $e."";
+        }
+    }
 
 
 

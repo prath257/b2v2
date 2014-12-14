@@ -69,7 +69,7 @@
                                     else
                                         $attribute = '';
                                 ?>
-                                <input id="access{{$diary->id}}" class="access" type="checkbox" name="access" {{$attribute}}>
+                                <input id="access{{$diary->id}}" class="access" type="checkbox" name="access[]" {{$attribute}}>
                             </div>
 
                             <a id="btnSave{{$diary->id}}" class="hand-over-me btn btn-success" onclick="save({{$diary->id}},'edit')" style="display: none">Save</a>

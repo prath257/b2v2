@@ -502,7 +502,6 @@
     Route::post('searchSoccerFriends',array('as'=>'searchSoccerFriends','uses'=>'SoccerAdminController@searchSoccerFriends'));
 
 
-
     //soccer user routes
     Route::get('playPredictor',array('as'=>'playPredictor','before'=>'auth','uses'=>'SoccerController@getPredictor'));
     Route::post('getMatchDay',array('as'=>'getMatchDay','before'=>'auth','uses'=>'SoccerController@getMatchDay'));
@@ -535,13 +534,6 @@
     Route::post('fetchClubRatings',array('as'=>'fetchClubRatings','before'=>'auth','uses'=>'SoccerGraphicsController@fetchClubRatings'));
     Route::post('getclubBestRatings',array('as'=>'getclubBestRatings','before'=>'auth','uses'=>'SoccerGraphicsController@getclubBestRatings'));
 
-
-
-
-
-
-
-
     //mobile controller
     Route::post('mobile_fblogin', array('uses' => 'MobileAuthController@fblogin'));
     Route::post('mobile_login', array('uses' => 'MobileAuthController@login'));
@@ -550,7 +542,11 @@
 
     Route::post('mobile_getaction', array('uses' => 'MobileHomeController@getActionData'));
 
+
     Route::post('mobile_login', array('uses' => 'MobileController@login'));
+
+
+
 
     Route::post('mobile_logout', array('uses' => 'MobileController@logout'));
 
@@ -570,9 +566,14 @@
 
     Route::post('mobile_getaction', array('uses' => 'MobileHomeController@getActionData'));
 
+
     Route::post('mobile_login', array('uses' => 'MobileController@login'));
 
     Route::post('mobile_logout', array('uses' => 'MobileController@logout'));
+
+
+
+//Route::post('mobile_logout', array('uses' => 'MobileController@logout'));
 
     Route::post('mobile_showProfile', array('uses' => 'MobileController@showProfile'));
 
@@ -592,4 +593,22 @@
 
 
     Route::get('mobile_readArticle/{articleId}', array('uses'=>'MobileController@getArticle'));
+
+Route::get('mobile_readBlogbook/{bookId}/{chapterId}', array('uses'=>'MobileController@getBlogbook'));
+
+Route::get('mobile_readCollaboration/{collab}/{chapterId}', array('uses'=>'MobileController@getCollaboration'));
+
+Route::post('mobile_getChapterList', array('uses'=>'MobileController@getChapters'));
+
+Route::post('mobile_getMediaUrl', array('uses'=>'MobileController@getMedia'));
+
+Route::post('mobile_explore', array('uses'=>'MobileController@getExplore'));
+
+Route::post('mobile_quiz', array('uses'=>'MobileController@getQuizOptions'));
+
+Route::post('mobile_quizResult', array('uses'=>'MobileController@getQuizResult'));
+
+
+
+
 

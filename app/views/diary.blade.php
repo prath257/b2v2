@@ -94,7 +94,7 @@
                                 else
                                     $attribute = '';
                             ?>
-                            <input id="access{{$post->id}}" class="access" type="checkbox" name="access" {{$attribute}}>
+                            <input id="access{{$post->id}}" class="access" type="checkbox" name="access[]" {{$attribute}}>
                         </div>
                         <a id="btnSave{{$post->id}}" class="hand-over-me btn btn-success" onclick="save({{$post->id}},'edit')" style="display: none">Save</a>
 
