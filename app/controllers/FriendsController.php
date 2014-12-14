@@ -92,7 +92,7 @@ class FriendsController extends \BaseController
         if(Str::length($totalResult)!=0)
            return $totalResult;
         else
-           return "<p>NO Result Found</p>";
+           return "<p>No Result Found</p>";
     }
         else
             return 'wH@tS!nTheB0x';

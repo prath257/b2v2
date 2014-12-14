@@ -138,10 +138,12 @@
         <div class="col-lg-12">
             <div id="read-and-donut" class="col-lg-4" style="padding-right: 15px; padding-left: 0px">
                 <img src="{{asset(Auth::user()->profile->profilePic)}}" style="height: 75px; width: 75px">
-                <a href="readings" class="btn btn-success"  style="margin-left: 25px">My Readings</a>
+                <a href="readings" class="btn btn-success"  style="margin-left: 25px;">My Readings</a>
                 <div id="donut-example" class="col-lg-12" style="height: 300px; padding-left: 0px; padding-right: 0px;"></div>
             </div>
             <div class="col-lg-8" style="text-align: center">
+                    <div class="col-lg-12">&nbsp;</div>
+                    <a href="soccerSpace" class="btn btn-primary"  style="margin-left: 25px">Soccer Space</a>
                     <div class="col-lg-12" style="font-size: 30px; font-family: 'Segoe UI'; margin-top: 100px; text-align: center">&nbsp;</div>
                     <div class="col-lg-12">&nbsp;</div>
                     <div id="mycounter" class="col-lg-12">0</div>

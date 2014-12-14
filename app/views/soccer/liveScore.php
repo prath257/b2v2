@@ -1,0 +1,4 @@
+<div data-type="livescore" data-id="73543" id="wgt-73543" class="tap-sport-tools" style="width:250px; height:auto;"></div>
+<div id="wgt-ft-73543" style="width:246px;"></div>
+<style type="text/css">#wgt-ft-73543  {background:#FFFFFF !important;color:#1F1F1F !important;text-decoration:none !important;padding:4px 2px !important;margin:0 !important;}#wgt-ft-73543 * {font:10px Arial !important;}#wgt-ft-73543 a {color:#1F1F1F !important;}#wgt-ft-73543 img {vertical-align:bottom !important;height:15px !important;}</style>
+<script type="text/javascript" src="http://tools.whatsthescore.com/load.min.js?249"></script>

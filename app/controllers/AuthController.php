@@ -55,7 +55,7 @@ class AuthController extends \BaseController {
             if ($r->type == 'book')
             {
                 $chapters = BlogBook::find($r->contentid)->getChapters()->get();
-                if (count($chapters) > 0 && (BlogBook::find($r->contentid)->review == 'passed' || BlogBook::find($r->contentid)->review == 'reviewed'))
+                if (count($chapters) > 0 && (BlogBook::find($r->contentid)->review == 'reviewed'))
                     $recommended->add(BlogBook::find($r->contentid));
             }
             else if ($r->type == 'article')
@@ -67,8 +67,7 @@ class AuthController extends \BaseController {
 
         if (Auth::user())
         {
-            $primary = DB::table('user_interests')->where('user_id',Auth::user()->id)->where('type','primary')->get();
-            return View::make('index')->with('cap', $cap)->with('trending',$trendingSend)->with('recommended',$recommended)->with('primary',$primary);
+            return View::make('index')->with('trending',$trendingSend)->with('recommended',$recommended);
         }
         else
         {
@@ -90,23 +89,21 @@ class AuthController extends \BaseController {
 		else
 		{
 			//if everything looks okay, we try to authenticate the user
-
 			// Set login credentials
 			$credentials = array('username' => Input::get('uname'),'password' => Input::get('pwd'));
 			// Try to authenticate the user, remember me is set to false
-			//$user = Sentry::authenticate($credentials, false);
 			Auth::attempt($credentials);
 			if(Auth::check())
 			{
 				if(Auth::user()->activated)
 				{
                     $user = Auth::user();
-
                     $ifcAdded = 'no';
                     $currentTime = new DateTime();
                     $lastSeen = $user->updated_at;
-                    $form = $currentTime->diff($lastSeen);
-                    if($form->d>0 || $form->m>0 || $form->y>0)
+                    $diff=date_diff($lastSeen,$currentTime);
+                    $d=intval($diff->format("%R%a"));
+                    if($d>0)
                     {
                         if ($user->activated == true && $user->pset == true)
                         {
@@ -138,7 +135,7 @@ class AuthController extends \BaseController {
 			//if everything went okay, we redirect to index route with success message
 			else
 			{
-				return Redirect::route('index')-> withInput()->with('error','Invalid Credentials');
+				return Redirect::route('index')-> withInput()->with('error','Login Failed - Invalid Credentials');
 			}
 		}
 	}
@@ -153,7 +150,7 @@ class AuthController extends \BaseController {
 		else
 		{
                         
-			 $validation = Validator::make(Input::all(),User::$signup_rules);
+			$validation = Validator::make(Input::all(),User::$signup_rules);
 
 			if($validation->passes())
 			{
@@ -201,6 +198,7 @@ class AuthController extends \BaseController {
 
     public function getActivation($uid)
     {
+        //this is how I encrypt and decrypt links, parameter parts of link
         $id=Crypt::decrypt($uid);
         $user=User::find($id);
         $user->activated=true;
@@ -225,6 +223,7 @@ class AuthController extends \BaseController {
                 if($invite->activated==1)
                 {
                     $id=$invite->userid;
+                    //this is the code where we give IFCs to people who sent the invitations
                     $benefactor=Profile::where('userid','=',$id)->first();
                     $benefactor->ifc += 300;
                     $benefactor->save();
@@ -257,7 +256,6 @@ class AuthController extends \BaseController {
             $kastya = User::where('username','=','ksjoshi88')->first();
             if ($kastya)
                 DB::table('friends')->insert(array('friend1'=>$kastya->id, 'friend2'=>$user->id, 'status'=>'accepted'));
-
             Auth::login($user);
             return Redirect::intended('home');
         }
@@ -370,8 +368,9 @@ class AuthController extends \BaseController {
                     $ifcAdded = 'no';
                     $currentTime = new DateTime();
                     $lastSeen = $user->updated_at;
-                    $form = $currentTime->diff($lastSeen);
-                    if($form->d>0 || $form->m>0 || $form->y>0)
+                    $diff=date_diff($lastSeen,$currentTime);
+                    $d=intval($diff->format("%R%a"));
+                    if($d>0)
                     {
                         if ($user->activated == true && $user->pset == true)
                         {
@@ -553,8 +552,9 @@ class AuthController extends \BaseController {
                 $ifcAdded = 'no';
                 $currentTime = new DateTime();
                 $lastSeen = $user->updated_at;
-                $form = $currentTime->diff($lastSeen);
-                if($form->d>0 || $form->m>0 || $form->y>0)
+                $diff=date_diff($lastSeen,$currentTime);
+                $d=intval($diff->format("%R%a"));
+                if($d>0)
                 {
                     if ($user->activated == true && $user->pset == true)
                     {
@@ -629,12 +629,9 @@ class AuthController extends \BaseController {
     //performing the first time fbsignup activity
     public function postTweepleSignup()
     {
-
         $user=User::where('twitterid','=',Input::get('twid'))->first();
-
         if($user)
         {
-
             $user->username = Input::get('username');
             $user->country = Input::get('country');
             $user->email=Input::get('email');
@@ -828,8 +825,9 @@ class AuthController extends \BaseController {
                 $ifcAdded = 'no';
                 $currentTime = new DateTime();
                 $lastSeen = $user->updated_at;
-                $form = $currentTime->diff($lastSeen);
-                if($form->d>0 || $form->m>0 || $form->y>0)
+                $diff=date_diff($lastSeen,$currentTime);
+                $d=intval($diff->format("%R%a"));
+                if($d>0)
                 {
                     if ($user->activated == true && $user->pset == true)
                     {

@@ -372,8 +372,11 @@ class ChatController extends \BaseController
 
                 $currentTime = new DateTime();
                 $lastSeen = $user->updated_at;
-                $form = $currentTime->diff($lastSeen);
-                if($form->i>4 || $form->h>0 || $form->d>0 || $form->m>0 || $form->y>0)
+                $diff=date_diff($lastSeen,$currentTime);
+                $d=intval($diff->format("%R%i"));
+                if($d>4)
+               /* $form = $currentTime->diff($lastSeen);
+                if($form->i>4 || $form->h>0 || $form->d>0 || $form->m>0 || $form->y>0)*/
                 {
                     $user->isOnline=false;
                     $user->save();
@@ -387,10 +390,15 @@ class ChatController extends \BaseController
             {
                 $user = User::find($f2);
 
-                $currentTime = new DateTime();
+               /* $currentTime = new DateTime();
                 $lastSeen = $user->updated_at;
                 $form = $currentTime->diff($lastSeen);
-                if($form->i>4)
+                if($form->i>4)*/
+                $currentTime = new DateTime();
+                $lastSeen = $user->updated_at;
+                $diff=date_diff($lastSeen,$currentTime);
+                $d=intval($diff->format("%R%i"));
+                if($d>4)
                 {
                     $user->isOnline=false;
                     $user->save();

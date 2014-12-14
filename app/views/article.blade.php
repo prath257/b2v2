@@ -292,9 +292,7 @@
 
 <input type="hidden" id="refreshed" value="no">
 <script src="{{asset('js/reload.js')}}"></script>
-
 <script src="{{asset('js/bootstrapValidator.min.js')}}"></script>
-
 <script src="{{asset('js/summernote.js')}}"></script>
 <script src="{{asset('js/bootbox.js')}}"></script>
 <script src="{{asset('js/bootstrap-switch.js')}}"></script>

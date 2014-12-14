@@ -1,0 +1,26 @@
+.noPad
+{
+    padding: 0px;
+}
+
+#liveFeed
+{
+
+}
+.chatbar
+{
+    padding: 10px;
+    outline:none;
+    resize: none;
+}
+.searchResult {
+    color: white;
+    background-color:whitesmoke;
+    color: #000033;
+}
+
+.searchResult:hover
+{
+    color: white;
+    background-color:#003163;
+}

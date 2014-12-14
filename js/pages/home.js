@@ -319,12 +319,7 @@ $(document).ready(function() {
     if (ifcAdded == 'yes')
         bootbox.alert('50 ifcs have been credited to your account as a bonus for visiting BBarters today!');
 
-   /* $(".links8").mouseenter(function(){
-        $("#test123").animate({left:"5px"},10)
-    });
-    $("#test123").mouseleave(function(){
-        $("#test123").animate({left:"0px"},20)
-    });*/
+
 });
 
 function getFriendsContent()

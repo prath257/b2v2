@@ -21,7 +21,7 @@
     <link href="{{asset('css/logo.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/blogBookPreview.css')}}" rel="stylesheet">
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
-
+<script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
 </head>
 <body>
 <div id="fb-root"></div>
@@ -240,7 +240,7 @@
 <input type="hidden" id="refreshed" value="no">
 <script src="{{asset('js/reload.js')}}"></script>
 
-<script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
 <script src="{{asset('js/bootstrapValidator.min.js')}}"></script>
 <script src="{{asset('js/bootbox.js')}}"></script>
