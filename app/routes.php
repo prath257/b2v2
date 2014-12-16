@@ -604,7 +604,6 @@ Route::post('mobile_quiz', array('uses'=>'MobileController@getQuizOptions'));
 Route::post('mobile_quizResult', array('uses'=>'MobileController@getQuizResult'));
 
 Route::post('mobile_about', array('uses'=>'MobileController@getaboutme'));
-<<<<<<< HEAD
 
 Route::post('mobile_aboutme', array('uses'=>'MobileController@getabouthim'));
 
@@ -612,7 +611,7 @@ Route::post('mobile_submitabout', array('uses'=>'MobileController@submitabout'))
 
 Route::post('mobile_addfriend', array('uses'=>'MobileAuthController@addFriend'));
 
-=======
+
 
 Route::post('mobile_aboutme', array('uses'=>'MobileController@getabouthim'));
 
@@ -620,7 +619,7 @@ Route::post('mobile_submitabout', array('uses'=>'MobileController@submitabout'))
 
 Route::post('mobile_addfriend', array('uses'=>'MobileAuthController@addFriend'));
 
->>>>>>> origin/master
+
 Route::post('mobile_acceptfriend', array('uses'=>'MobileAuthController@acceptFriend'));
 
 
