@@ -56,7 +56,7 @@
       <b style="font-size: medium">{{SoccerLeague::find($match->league)->name}}</b>
       <p>Matchday {{$match->matchday}}</p>
       </div>
-      <div class="col-xs-5 col-sm-3 col-md-3 noPad">
+      <div class="col-xs-5 col-sm-3 col-md-2 noPad">
             <div class="col-xs-12 col-sm-12 col-md-12 noPad">
                 <img src="{{SoccerTeam::find($match->hometeam)->logo}}" id="homeLogo" width="50px" height="50px">
             </div>
@@ -64,8 +64,8 @@
                 <b> {{SoccerTeam::find($match->hometeam)->name}}</b>
             </div>
       </div>
-      <div class="col-xs-1 col-sm-1 col-md-3 noPad"><b>V</b></div>
-      <div class="col-xs-5 col-sm-3 col-md-3 noPad">
+      <div class="col-xs-1 col-sm-1 col-md-1 noPad"><b>V</b></div>
+      <div class="col-xs-5 col-sm-3 col-md-2 noPad">
               <div class="col-xs-12 col-sm-12 col-md-12 noPad">
                   <img src="{{SoccerTeam::find($match->awayteam)->logo}}" id="homeLogo" width="50px" height="50px">
               </div>
@@ -76,22 +76,21 @@
 
       <div class="col-xs-12 noPad" style="font-size: small">
           <i>{{SoccerTeam::find($match->hometeam)->stadium}}</i>
-          &nbsp;|&nbsp;Start:{{date('H:i',strtotime($match->kickoff))}}&nbsp;|&nbsp;Now:{{date('H:i',time())}}
+          &nbsp;|&nbsp;Start:{{date('H:i',strtotime($match->kickoff))}}&nbsp;|&nbsp;Now:<b id='ct'>{{date('H:i',time())}}</b>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12"><hr></div>
       <div class="col-xs-12 col-sm-12 col-md-12" id="liveScore"> <a href="#" onclick="showScore()" id="scoreLink">Live Scores</a>
       </div>
 
-      <div id="liveFeed" class="col-xs-12 col-sm-8 col-md-8" style=" height:80%;border-left: solid 1px lightgray;">
-               <div id="chatbar" class="col-xs-12 col-md-12 col-sm-12 chatbar" style="height: 10%; padding: 0px">
-                        <div class="col-md-12" style="padding: 10px">
+      <div id="liveFeed" class="col-xs-12 col-sm-8 col-md-8 noPad" style=" height:80%;">
+               <div id="chatbar" class="col-xs-12 col-md-12 col-sm-12 chatbar noPad" style="height: 10%; padding: 0px">
+                        <div class="col-md-12 col-xs-12 col-sm-12 noPad" style="padding: 10px">
                             <div class="col-xs-12" id="commentArea"></div>
-                            <div class="form-group" style="margin: 0px" >
-                                    <div class="input-group" id="commentSpace">
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12 noPad" style="margin: 0px" >
+                                    <div class="input-group col-xs-12 col-sm-12 col-md-12 noPad" id="commentSpace">
                                     <textarea id="commentText" class="form-control" autocomplete="off" placeholder="Type Your Comment here." rows="2" onkeydown="playerCommentsDown()" onkeyup="playerCommentsUp()" onkeypress="checkSearch(event)"></textarea>
-                                    <span class="input-group-btn">
-                                    <button id="chatTextSubmit" class="btn btn-primary" onclick="postComment()">Post</button>
-                                    </span>
+                                     <button id="chatTextSubmit" class="bbtn pull-right" onclick="postComment()">Post</button>
+
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12" id="searchResult" style="margin-top: 5px; display: none">
                                             <br>
@@ -106,12 +105,7 @@
                    </div>
               </div>
 
-          </div>
-
-
-
-
-
+      </div>
 
 </div>
 

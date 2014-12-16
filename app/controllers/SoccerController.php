@@ -5,30 +5,10 @@ class SoccerController extends \BaseController
     public function getSoccerSpace()
     {
         $user=Auth::user();
-        $interests=Auth::user()->interestedIn()->get();
-        $oldpics=Auth::user()->getTrivia()->get();
-        $subscribers=Auth::user()->getSubscribers()->get();
-        $subscriptions=Auth::user()->getSubscribedTo()->get();
-        $subsCount=count($subscribers);
-        $subscripCount=count($subscriptions);
-        $aboutHim=Auth::user()->about()->get();
-        $questions=Auth::user()->questionsAskedToUser()->orderBy('updated_at','DESC')->paginate(2);
-        $newQues = Auth::user()->questionsAskedToUser()->where('answer','=','')->get();
-        $numQues = sizeof($newQues);
-        $newAbout = Auth::user()->about()->where('status','=','new')->get();
-        $numAbout = sizeof($newAbout);
-        $follower=DB::table('subscriptions')->where('subscribed_to_id',$user->id)->where('subscriber_id',Auth::user()->id)->first();
-        $friends1=DB::table('friends')->where('friend1','=',Auth::user()->id)->where('status','=','accepted')->lists('friend2');
-        $friends2=DB::table('friends')->where('friend2','=',Auth::user()->id)->where('status','=','accepted')->lists('friend1');
-        $friends = array_merge($friends1, $friends2);
-        $friendCount=count($friends);
-        $data=array('profile'=>Auth::user()->profile,'interests'=>$interests,'trivia'=>$oldpics,'user'=>$user,'sCount'=>$subsCount,'scCount'=>$subscripCount,'fCount'=>$friendCount,'about'=>$aboutHim,'questions'=>$questions,'follower'=>$follower,'numQues'=>$numQues,'numAbout'=>$numAbout);
-        return View::make('soccer.soccerSpace',$data);
+        return View::make('soccer.soccerSpace')->with('user',$user);
     }
 
-
-
-    //These are functions for predictor use case
+   //These are functions for predictor use case
 
     public function getPredictor()
     {

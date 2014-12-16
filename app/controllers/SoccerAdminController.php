@@ -132,10 +132,16 @@ class SoccerAdminController extends \BaseController
                 return View::make('soccer.matchdayInfo')->with('matchday', $matchDay)->with('league', $league)->with('type', $type)->with('matches',$matches);
             }
         }
-        else
+        else if($type=='schedule')
         {
             $match = DB::table('soccerschedule')->where('league', '=', $lid)->max('matchday');
             $matchDay = $match + 1;
+            return View::make('soccer.matchdayInfo')->with('matchday', $matchDay)->with('league', $league)->with('type',null);
+        }
+        else
+        {
+            $match=SoccerSchedule::Where('league','=',$lid)->where('hgoals','=',null)->first();
+            $matchDay = $match->matchday;
             return View::make('soccer.matchdayInfo')->with('matchday', $matchDay)->with('league', $league)->with('type',null);
         }
 
@@ -328,6 +334,13 @@ class SoccerAdminController extends \BaseController
     public function getLivePage()
     {
        //this is for test use
+        $mainHandle='everton';
+        $count=3;
+        $include_retweets=true;
+        $exclude_replies=true;
+        $twitterfeed=array();
+        $twitterfeed = Twitter::getUserTimeline(array('screen_name' => $mainHandle, 'count' => $count, 'include_rts' => $include_retweets, 'exclude_replies' => $exclude_replies, 'trim_user' => true));
+        return var_dump($twitterfeed);
     }
 
     //these are the function related to soccer feeds
@@ -414,6 +427,8 @@ class SoccerAdminController extends \BaseController
     {
         $feedNo=Input::get('feedNo');
         $type=intval(Input::get('type'));
+        //if(Session::has('lastCall'))
+        $lastCall=new DateTime(Session::get('lastCall'));
         $feed=Feed::find($feedNo);
         $mid=$feed->match_id;
         $matchDetails=SoccerSchedule::find($mid);
@@ -423,39 +438,21 @@ class SoccerAdminController extends \BaseController
         $awayTeam=SoccerTeam::find($matchDetails->awayteam)->name;
         $mainHandle='premierleague';
         $count=2;
-        $include_retweets=false;
+        $include_retweets=true;
         $exclude_replies=true;
         $twitterfeed=array();
         if($type==0)
         {
             //write the code to fetch premier league tweets
-            $twitterfeed = Twitter::getUserTimeline(array('screen_name' => $mainHandle, 'count' => $count, 'include_rts' => $include_retweets, 'exclude_replies' => $exclude_replies,'trim_user'=>true));
-            $leagueLast=FeedData::Where('feed',$feedNo)->where('type','pl')->orderBy('created_at','DESC')->first();
-            if($leagueLast==null)
-            {
-                foreach($twitterfeed as $tweet)
+
+                $twitterfeed = Twitter::getUserTimeline(array('screen_name' => $mainHandle, 'count' => $count, 'include_rts' => $include_retweets, 'exclude_replies' => $exclude_replies, 'trim_user' => true));
+                if($twitterfeed==null)
                 {
-                    $data = new FeedData();
-                    $data->feed = $feedNo;
-                    $data->username = 'EPL';
-                    $data->comment = $tweet->text;
-                    $data->type = 'pl';
-                    if(property_exists($tweet->entities, 'media'))
-		              $data->snap=$tweet->entities->media[0]->media_url;
-                    $data->created_at=date('Y-m-d H:i:s',strtotime($tweet->created_at));
-                    $data->save();
+                    return "";
                 }
-
-            }
-            else
-            {
-
-                foreach($twitterfeed as $tweet)
-                {
-                    $tweetTime = new DateTime($tweet->created_at);
-                    $lastTime = $leagueLast->created_at;
-                    if($tweetTime>$lastTime)
-                    {
+                $leagueLast = FeedData::Where('feed', $feedNo)->where('type', 'pl')->orderBy('created_at', 'DESC')->first();
+                if ($leagueLast == null) {
+                    foreach ($twitterfeed as $tweet) {
                         $data = new FeedData();
                         $data->feed = $feedNo;
                         $data->username = 'EPL';
@@ -463,18 +460,43 @@ class SoccerAdminController extends \BaseController
                         $data->type = 'pl';
                         if (property_exists($tweet->entities, 'media'))
                             $data->snap = $tweet->entities->media[0]->media_url;
-                        $data->created_at = date('Y-m-d H:i:s', strtotime($tweet->created_at));
+                        //$data->created_at = date('Y-m-d H:i:s', strtotime($tweet->created_at));
+                        $data->created_at = date('Y-m-d H:i:s');
                         $data->save();
                     }
+
+                }
+                else {
+                    foreach ($twitterfeed as $tweet)
+                    {
+                        $tweetTime = new DateTime($tweet->created_at);
+                        $lastTime = $leagueLast->created_at;
+                        if ($tweetTime > $lastTime) {
+                            $data = new FeedData();
+                            $data->feed = $feedNo;
+                            $data->username = 'EPL';
+                            $data->comment = $tweet->text;
+                            $data->type = 'pl';
+                            if (property_exists($tweet->entities, 'media'))
+                                $data->snap = $tweet->entities->media[0]->media_url;
+                            //$data->created_at = date('Y-m-d H:i:s', strtotime($tweet->created_at));
+                            $data->created_at = date('Y-m-d H:i:s');
+                            $data->save();
+                        }
+                    }
+
                 }
 
-            }
 
         }
         else if($type==1)
         {
             //write the code to fetch home team tweets
             $twitterfeed = Twitter::getUserTimeline(array('screen_name' => $homeHandle, 'count' => $count, 'include_rts' => $include_retweets, 'exclude_replies' => $exclude_replies,'trim_user'=>true));
+            if($twitterfeed==null)
+            {
+                return "";
+            }
             $leagueLast=FeedData::Where('feed',$feedNo)->where('type','home')->orderBy('created_at','DESC')->first();
             if($leagueLast==null)
             {
@@ -487,7 +509,8 @@ class SoccerAdminController extends \BaseController
                     $data->type = 'home';
                     if(property_exists($tweet->entities, 'media'))
                         $data->snap=$tweet->entities->media[0]->media_url;
-                    $data->created_at=date('Y-m-d H:i:s',strtotime($tweet->created_at));
+                    //$data->created_at=date('Y-m-d H:i:s',strtotime($tweet->created_at));
+                    $data->created_at = date('Y-m-d H:i:s');
                     $data->save();
                 }
 
@@ -507,7 +530,8 @@ class SoccerAdminController extends \BaseController
                         $data->type = 'home';
                         if (property_exists($tweet->entities, 'media'))
                             $data->snap = $tweet->entities->media[0]->media_url;
-                        $data->created_at = date('Y-m-d H:i:s', strtotime($tweet->created_at));
+                        //$data->created_at = date('Y-m-d H:i:s', strtotime($tweet->created_at));
+                        $data->created_at = date('Y-m-d H:i:s');
                         $data->save();
                     }
                 }
@@ -519,6 +543,10 @@ class SoccerAdminController extends \BaseController
         {
             //write the code to fetch away team tweets
             $twitterfeed = Twitter::getUserTimeline(array('screen_name' => $awayHandle, 'count' => $count, 'include_rts' => $include_retweets, 'exclude_replies' => $exclude_replies,'trim_user'=>true));
+            if($twitterfeed==null)
+            {
+                return "";
+            }
             $leagueLast=FeedData::Where('feed',$feedNo)->where('type','away')->orderBy('created_at','DESC')->first();
             if($leagueLast==null)
             {
@@ -531,7 +559,8 @@ class SoccerAdminController extends \BaseController
                     $data->type = 'away';
                     if(property_exists($tweet->entities, 'media'))
                         $data->snap=$tweet->entities->media[0]->media_url;
-                    $data->created_at=date('Y-m-d H:i:s',strtotime($tweet->created_at));
+                    //$data->created_at=date('Y-m-d H:i:s',strtotime($tweet->created_at));
+                    $data->created_at = date('Y-m-d H:i:s');
                     $data->save();
                 }
 
@@ -552,7 +581,8 @@ class SoccerAdminController extends \BaseController
                         $data->type = 'away';
                         if (property_exists($tweet->entities, 'media'))
                             $data->snap = $tweet->entities->media[0]->media_url;
-                        $data->created_at = date('Y-m-d H:i:s', strtotime($tweet->created_at));
+                        //$data->created_at = date('Y-m-d H:i:s', strtotime($tweet->created_at));
+                        $data->created_at = date('Y-m-d H:i:s');
                         $data->save();
                     }
                 }
@@ -562,10 +592,13 @@ class SoccerAdminController extends \BaseController
         }
         else
         {
-            //do nothing just get the current feeds as they are
-
+            //send the complete data without any time boundries
+            Session::put('lastCall',date('Y-m-d H:i:s'));
+            $feeds=FeedData::where('feed',$feedNo)->orderBy('created_at','DESC')->get();
+            return View::make('soccer.livePage')->with('feeds',$feeds);
         }
-        $feeds=FeedData::where('feed',$feedNo)->orderBy('created_at','DESC')->get();
+        $feeds=FeedData::where('feed',$feedNo)->where('created_at','>',$lastCall)->orderBy('created_at','DESC')->get();
+        Session::put('lastCall',date('Y-m-d H:i:s'));
         return View::make('soccer.livePage')->with('feeds',$feeds);
     }
     public function saveUserComment()
@@ -573,6 +606,7 @@ class SoccerAdminController extends \BaseController
         $slogan=' ';
         $feedNo=Input::get('feedNo');
         $comment=Input::get('text');
+        $lastCall=new DateTime(Session::get('lastCall'));
         $feed=Feed::find($feedNo);
         $user=Auth::user();
         $fanOf=SoccerTeam::find($user->team);
@@ -586,14 +620,15 @@ class SoccerAdminController extends \BaseController
         $data->comment = $comment." ".$slogan;
         $data->type = 'fan';
         $data->save();
-        $feeds=FeedData::where('feed',$feedNo)->orderBy('created_at','DESC')->get();
+        //$feeds=FeedData::where('feed',$feedNo)->orderBy('created_at','DESC')->get();
+        $feeds=FeedData::where('feed',$feedNo)->where('created_at','>',$lastCall)->orderBy('created_at','DESC')->get();
+        Session::put('lastCall',date('Y-m-d H:i:s'));
         return View::make('soccer.livePage')->with('feeds',$feeds);
 
     }
 
     public function searchSoccerFriends()
     {
-
         $flag=false;
         $foundPlayers=new \Illuminate\Database\Eloquent\Collection();
         $keywords=Input::get('name');
@@ -601,7 +636,7 @@ class SoccerAdminController extends \BaseController
 
             foreach ($users as $player)
             {
-                $name = $player->username;
+                $name = $player->first_name.' '.$player->last_name;
                 if (Str::contains(Str::lower($name), Str::lower($keywords)))
                 {
                     $flag=true;
@@ -624,6 +659,17 @@ class SoccerAdminController extends \BaseController
     public function getLiveScore()
     {
         return View::make('soccer.liveScore');
+    }
+
+    public function getLiveSoccerLinks()
+    {
+        if (Auth::check())
+        {
+            //this is the logic to create a new feed
+            $feeds= Feed::Where('live',true)->get();
+            return View::make('soccer.liveLinks')->with('feeds',$feeds);
+        }
+
     }
 
 

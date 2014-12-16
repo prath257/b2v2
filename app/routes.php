@@ -491,7 +491,7 @@
     Route::get('putMatchdayResults',array('as'=>'putMatchdayResults','before'=>'auth','uses'=>'SoccerAdminController@putMatchdayResults'));
     Route::post('getResultsTemplate',array('as'=>'getResultsTemplate','before'=>'auth','uses'=>'SoccerAdminController@createResultsTemplate'));
     Route::post('saveMatchdayResults',array('as'=>'saveMatchdayResults','before'=>'auth','uses'=>'SoccerAdminController@saveMatchdayResults'));
-    //Route::get('getLive',array('as'=>'getLive','before'=>'auth','uses'=>'SoccerAdminController@getLivePage'));
+    Route::get('getLive',array('as'=>'getLive','before'=>'auth','uses'=>'SoccerAdminController@getLivePage'));
     Route::post('getFeedData',array('as'=>'getFeedData','before'=>'auth','uses'=>'SoccerAdminController@getFeedData'));
     Route::post('createFeed',array('as'=>'createFeed','before'=>'auth','uses'=>'SoccerAdminController@createFeed'));
     Route::post('stopFeed',array('as'=>'stopFeed','before'=>'auth','uses'=>'SoccerAdminController@stopFeed'));
@@ -500,6 +500,7 @@
     Route::post('getLiveScore',array('as'=>'getLiveScore','uses'=>'SoccerAdminController@getLiveScore'));
     Route::post('saveUserComment',array('as'=>'saveUserComment','uses'=>'SoccerAdminController@saveUserComment'));
     Route::post('searchSoccerFriends',array('as'=>'searchSoccerFriends','uses'=>'SoccerAdminController@searchSoccerFriends'));
+    Route::get('getLiveSoccer',array('as'=>'getLiveSoccer','before'=>'auth','uses'=>'SoccerAdminController@getLiveSoccerLinks'));
 
 
     //soccer user routes
@@ -534,65 +535,59 @@
     Route::post('fetchClubRatings',array('as'=>'fetchClubRatings','before'=>'auth','uses'=>'SoccerGraphicsController@fetchClubRatings'));
     Route::post('getclubBestRatings',array('as'=>'getclubBestRatings','before'=>'auth','uses'=>'SoccerGraphicsController@getclubBestRatings'));
 
-    //mobile controller
-    Route::post('mobile_fblogin', array('uses' => 'MobileAuthController@fblogin'));
-    Route::post('mobile_login', array('uses' => 'MobileAuthController@login'));
-    Route::post('mobile_tlogin', array('uses' => 'MobileAuthController@tlogin'));
-    Route::post('mobile_glogin', array('uses' => 'MobileAuthController@glogin'));
-
-    Route::post('mobile_getaction', array('uses' => 'MobileHomeController@getActionData'));
-
-
-    Route::post('mobile_login', array('uses' => 'MobileController@login'));
 
 
 
+//mobile controller
+Route::post('mobile_fblogin', array('uses' => 'MobileAuthController@fblogin'));
+Route::post('mobile_login', array('uses' => 'MobileAuthController@login'));
+Route::post('mobile_tlogin', array('uses' => 'MobileAuthController@tlogin'));
+Route::post('mobile_glogin', array('uses' => 'MobileAuthController@glogin'));
 
-    Route::post('mobile_logout', array('uses' => 'MobileController@logout'));
-
-    Route::post('mobile_showProfile', array('uses' => 'MobileController@showProfile'));
-
-    Route::post('mobile_getNotification', array('uses' => 'MobileHomeController@getNotification'));
-
-    Route::post('mobile_getIdFromUserName', array('uses' => 'MobileController@getIdFromUserName'));
-
-    Route::post('mobile_getPreview', array('uses' => 'MobileController@previewModel'));
-
-    Route::post('mobile_getfriends', array('uses' => 'MobileController@getFriendList'));
-
-    Route::post('mobile_Checkifc', array('uses' => 'MobileController@previewChecking'));
-
-    Route::post('mobile_myreadings', array('uses' => 'MobileController@getMyReadings'));
-
-    Route::post('mobile_getaction', array('uses' => 'MobileHomeController@getActionData'));
+Route::post('mobile_getaction', array('uses' => 'MobileHomeController@getActionData'));
 
 
-    Route::post('mobile_login', array('uses' => 'MobileController@login'));
 
-    Route::post('mobile_logout', array('uses' => 'MobileController@logout'));
+Route::post('mobile_logout', array('uses' => 'MobileController@logout'));
+
+Route::post('mobile_showProfile', array('uses' => 'MobileController@showProfile'));
+
+Route::post('mobile_getNotification', array('uses' => 'MobileHomeController@getNotification'));
+
+Route::post('mobile_getIdFromUserName', array('uses' => 'MobileController@getIdFromUserName'));
+
+Route::post('mobile_getPreview', array('uses' => 'MobileController@previewModel'));
+
+Route::post('mobile_getfriends', array('uses' => 'MobileController@getFriendList'));
+
+Route::post('mobile_Checkifc', array('uses' => 'MobileController@previewChecking'));
+
+Route::post('mobile_myreadings', array('uses' => 'MobileController@getMyReadings'));
+
+Route::post('mobile_getaction', array('uses' => 'MobileHomeController@getActionData'));
 
 
 
 //Route::post('mobile_logout', array('uses' => 'MobileController@logout'));
 
-    Route::post('mobile_showProfile', array('uses' => 'MobileController@showProfile'));
+Route::post('mobile_showProfile', array('uses' => 'MobileController@showProfile'));
 
-    Route::post('mobile_getNotification', array('uses' => 'MobileHomeController@getNotification'));
+Route::post('mobile_getNotification', array('uses' => 'MobileHomeController@getNotification'));
 
-    Route::post('mobile_getIdFromUserName', array('uses' => 'MobileController@getIdFromUserName'));
+Route::post('mobile_getIdFromUserName', array('uses' => 'MobileController@getIdFromUserName'));
 
-    Route::post('mobile_getPreview', array('uses' => 'MobileController@previewModel'));
+Route::post('mobile_getPreview', array('uses' => 'MobileController@previewModel'));
 
-    Route::post('mobile_getfriends', array('uses' => 'MobileController@getFriendList'));
+Route::post('mobile_getfriends', array('uses' => 'MobileController@getFriendList'));
 
-    Route::post('mobile_Checkifc', array('uses' => 'MobileController@previewChecking'));
+Route::post('mobile_Checkifc', array('uses' => 'MobileController@previewChecking'));
 
-    Route::post('mobile_reduceIfc', array('uses' => 'MobileController@ifcReduce'));
+Route::post('mobile_reduceIfc', array('uses' => 'MobileController@ifcReduce'));
 
-    Route::post('mobile_myreadings', array('uses' => 'MobileController@getMyReadings'));
+Route::post('mobile_myreadings', array('uses' => 'MobileController@getMyReadings'));
 
 
-    Route::get('mobile_readArticle/{articleId}', array('uses'=>'MobileController@getArticle'));
+Route::get('mobile_readArticle/{articleId}', array('uses'=>'MobileController@getArticle'));
 
 Route::get('mobile_readBlogbook/{bookId}/{chapterId}', array('uses'=>'MobileController@getBlogbook'));
 
@@ -608,7 +603,15 @@ Route::post('mobile_quiz', array('uses'=>'MobileController@getQuizOptions'));
 
 Route::post('mobile_quizResult', array('uses'=>'MobileController@getQuizResult'));
 
+Route::post('mobile_about', array('uses'=>'MobileController@getaboutme'));
 
+Route::post('mobile_aboutme', array('uses'=>'MobileController@getabouthim'));
+
+Route::post('mobile_submitabout', array('uses'=>'MobileController@submitabout'));
+
+Route::post('mobile_addfriend', array('uses'=>'MobileAuthController@addFriend'));
+
+Route::post('mobile_acceptfriend', array('uses'=>'MobileAuthController@acceptFriend'));
 
 
 

@@ -263,10 +263,25 @@ class AjaxController extends \BaseController {
     {
         if(Auth::check())
         {
-            $action=Action::orderBy('created_at','DESC')->take(6)->get();
+            $type = Input::get('type');
+            $prevCall=new DateTime(Session::get('prevCall'));
+            if($type == 0)
+            {
+                Session::put('prevCall',date('Y-m-d H:i:s'));
+                $action=Action::orderBy('created_at','DESC')->take(6)->get();
+                if (count($action)>0)
+                    return View::make('ActionCentre')->with('actions',$action)->with('count',null)->with('moreActions',null);
 
-            if (count($action)>0)
-                return View::make('ActionCentre')->with('actions',$action)->with('count',null)->with('moreActions',null);
+            }
+            else
+            {
+                $action = Action::where('created_at', '>', $prevCall)->orderBy('created_at', 'DESC')->take(6)->get();
+                Session::put('prevCall', date('Y-m-d H:i:s'));
+                if (count($action) > 0)
+                    return View::make('ActionCentre')->with('actions', $action)->with('count', null)->with('moreActions', null);
+            }
+
+
 
         }
         else

@@ -8,9 +8,9 @@
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('dataTables.bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
-    <link href="{{asset('css/pages/soccerSpace.css')}}" rel="stylesheet">
     <link href="{{asset('css/fileUpload.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/home.css')}}" rel="stylesheet">
+    <link href="{{asset('css/pages/playerRatings.css')}}" rel="stylesheet">
     <link href="{{asset('css/morris.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/notification.css')}}" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -82,32 +82,23 @@
 </nav>
 <br>
 <br>
+<br>
+<br>
+@if(!Auth::user()->pset)
+<div class="alert alert-info alert-dismissable col-lg-6" style="margin-left: 5%">
+    <strong style="font-size: 24px">Attention! </strong> <a href="{{route('buildProfile')}}" style="font-size: 24px">Complete Profile</a> now and earn yourself upto 300i.
+</div>
+@endif
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-sm-7 col-md-5 noPadding" style="background: linear-gradient(rgba(3, 23, 34, 0.5), rgba(3, 23, 34, 0.5) ), url('{{SoccerTeam::find($user->team)->cover}}'); background-size: 100% 100%;">
-                   <div id="darkDiv" class="col-xs-12 col-sm-12 col-md-12">
+         @foreach($feeds as $feed)
+         <div class="col-xs-12 col-sm-12 col-md-12">
+         <a href="/liveSoccer/{{$feed->id}}">{{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->hometeam)->name}}  V {{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->awayteam)->name}}</a>
+         </div>
+         <div class="col-xs-12 col-sm-12 col-md-12"><hr></div>
+         @endforeach
 
-                       <div class="col-xs-3 col-sm-3 col-md-3 noPadding">
-                       <a class="pull-left" href="#"><img id="profilePic" src="{{asset($user->profile->profilePic)}}" width="100px"></a>
-                       </div>
-
-                   </div>
-        </div>
-        <div class="col-xs-12 col-sm-5 col-md-7 noPadding">
-        <div class="col-xs-12 col-sm-12 col-md-12 noPadding">
-              <button class="col-xs-6 col-sm-4 col-md-4 bbtn" onclick="transfer(1)">Play Predictor</button>
-              <button class="col-xs-6 col-sm-4 col-md-4 bbtn" onclick="transfer(2)">Player Ratings</button>
-              <button class="col-xs-12 col-sm-4 col-md-4 bbtng" onclick="transfer(3)">Live Soccer</button>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-        <hr>
-        My Team
-        <p style="font-size: x-large">{{SoccerTeam::find($user->team)->name}}</p>
-        <hr>
-        </div>
-
-        </div>
-    </div>
+     </div>
 </div>
 
 <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
