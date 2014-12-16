@@ -239,6 +239,98 @@ class MobileAuthController extends \BaseController {
 
     }
 
+    public function addFriend()
+    {
+        $userid = Input::get('userid');
+        $authid = Input::get('authid');
+        $date=new DateTime();
+        if (Input::get('reason') != '')
+            DB::table('friends')->insert(array('friend1' => $authid, 'friend2' => $userid,'status'=>'sent','reason'=>Input::get('reason'),'created_at'=>$date,'updated_at'=>$date));
+        else
+            DB::table('friends')->insert(array('friend1' => $authid, 'friend2' => $userid,'status'=>'sent','created_at'=>$date,'updated_at'=>$date));
+
+        //$rid=DB::table('friends')->where('friend1','=',Auth::user()->id)->where('friend2','=',$id)->lists('id');
+       // $rid = DB::table('friends')->where('friend1', Auth::user()->id)->where('friend2',$id)->pluck('id');
+
+        AjaxController::insertToNotification($userid,$authid,"friendR"," sent you a Friend Request ",'http://www.bbarters.com/user/'.User::find($authid)->username);
+
+        FriendsController::$user = User::find($userid);
+
+        if (FriendsController::$user->settings->notifications)
+        {
+            Mail::send('mailers', array('user'=>$authid, 'receiver'=>FriendsController::$user,'page'=>'newFriendRequestMailer'), function($message)
+            {
+                $message->to(FriendsController::$user->email,FriendsController::$user->first_name)->subject('New Friend Request!');
+            });
+        }
+    }
+    public function acceptFriend()
+    {
+       try{
+        $userid = Input::get('userid');
+        $authid = Input::get('authid');
+        
+        $authuser = User::find($authid);
+       $friends1=DB::table('friends')->where('friend1','=',$userid)->where('friend2','=',$authid)->where('status','=','accepted')->lists('friend2');
+       $friends2=DB::table('friends')->where('friend2','=',$userid)->where('friend1','=',$authid)->where('status','=','accepted')->lists('friend1');
+       $friends = array_merge($friends1, $friends2);
+       if(count($friends)>0)
+       {
+           $friend = DB::table('friends')->where('friend1','=',$userid)->where('friend2','=',$authid)->first();
+           $friend2 = DB::table('friends')->where('friend2','=',$userid)->where('friend1','=',$authid)->first();
+
+           if ($friend)
+           {
+               //$nid = $friend = DB::table('friends')->where('friend1','=',$id)->where('friend2','=',Auth::user()->id)->pluck('id');
+               DB::table('friends')->where('friend1','=',$userid)->where('friend2','=',$authid)->delete();
+           }
+           else if ($friend2)
+           {
+               //$nid = $friend2 = DB::table('friends')->where('friend2','=',$id)->where('friend1','=',Auth::user()->id)->pluck('id');
+               DB::table('friends')->where('friend2','=',$userid)->where('friend1','=',$authid)->delete();
+           }
+           return "deleted";
+       }
+           else
+           {
+        $date=new DateTime();
+        DB::table('friends')->where('friend1','=',$userid)->where('friend2','=',$authid)->update(array('status' => 'accepted','updated_at'=>$date));
+
+        /*Action::postAction('F new',$id,Auth::user()->id,null);*/
+
+        $authuser->profile->ifc += $authuser->settings->friendcost;
+        $authuser->profile->save();
+        $user = User::find($userid);
+        $user->profile->ifc -= $authuser->settings->friendcost;
+        $user->profile->save();
+
+        DB::table('notification')->where('userid','=',$authuser->id)->where('cuserid','=',$userid)->where('type','=','friendR')->update(array('type' =>'friendRR'));
+
+        TransactionController::insertToManager($authuser->id,"+".$authuser->settings->friendcost,"Accepted friend request by",'http://www.bbarters.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"content");
+
+        TransactionController::insertToManager($user->id,"-".$authuser->settings->friendcost,"Friend request accepted by",'http://www.bbarters.com/user/'.$authuser->username,$authuser->first_name.' '.$authuser->last_name,"profile");
+
+        AjaxController::insertToNotification($userid,$authuser->id,"friendRR","Accepted your Friend Request ",'http://www.bbarters.com/user/'.$authuser->username);
+
+        FriendsController::$user = $user;
+
+        if (FriendsController::$user->settings->notifications)
+        {
+            Mail::send('mailers', array('user'=>$authuser, 'receiver'=>FriendsController::$user,'page'=>'friendRequestAcceptedMailer'), function($message)
+            {
+                $message->to(FriendsController::$user->email,FriendsController::$user->first_name)->subject('Friend Request Accepted!');
+            });
+        }
+           return "added successfully";
+       }
+       }
+           catch(Exception $e)
+           {
+               return $e."";
+           }
+}
+
+
 
 
 

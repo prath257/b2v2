@@ -198,7 +198,7 @@
         </div>
     </div>
 
-    <div class="fb-comments col-lg-2 col-lg-offset-2" data-href="http://b2.com/diary/{{$user->username}}" data-width="600" data-numposts="10" data-colorscheme="light"></div>
+    <div class="fb-comments col-lg-2 col-lg-offset-2" data-href="http://www.bbarters.com/diary/{{$user->username}}" data-width="600" data-numposts="10" data-colorscheme="light"></div>
 
 
     <div class="modal fade col-lg-12" id="editPostModal" tabindex="-1" role="dialog" aria-hidden="true">

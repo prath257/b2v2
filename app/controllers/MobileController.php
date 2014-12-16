@@ -13,20 +13,56 @@ class MobileController extends \BaseController
         {
 
             // $user=DB::table('users')->where('id','=',Input::get('id'))->first();
+            $status = "noollllll";
+            $status2 = "noollllll";
+            $authid = Input::get('authid');
+            $userid = Input::get('userid');
+            $user = User::find($userid);
+            if($authid == $userid)
+            {
+                $friends1 = DB::table('friends')->where('friend1', '=', $userid)->where('status', '=', 'accepted')->lists('friend2');
+                $friends2 = DB::table('friends')->where('friend2', '=', $userid)->where('status', '=', 'accepted')->lists('friend1');
+                $friends = array_merge($friends1, $friends2);
+                $noOfFriends = count($friends);
+                $subs = $user->getSubscribers()->get();
+                $noOfSubscribers = count($subs);
 
-            $user = User::find(Input::get('id'));
 
+            }
+            else
+            {
+                $friends1=DB::table('friends')->where('friend1','=',$userid)->where('friend2','=',$authid)->where('status','=','accepted')->lists('friend2');
+                $friends2=DB::table('friends')->where('friend2','=',$userid)->where('friend1','=',$authid)->where('status','=','accepted')->lists('friend1');
+                $status=DB::table('friends')->where('friend1','=',$authid)->where('friend2','=',$userid)->pluck('status');
+                $status2=DB::table('friends')->where('friend2','=',$authid)->where('friend1','=',$userid)->pluck('status');
+                $friends = array_merge($friends1, $friends2);
+                if(count($friends>0))
+                {
+                    $noOfFriends = 'true';
+                }
+                else
+                    $noOfFriends = 'false';
+                $subscribers = DB::table('subscriptions')->where('subscribed_to_id','=',$userid)->where('subscriber_id','=',$authid)->get();
+                if(count($subscribers)>0)
+                    $noOfSubscribers = 'true';
+                else
+                    $noOfSubscribers = 'false';
+
+
+
+            }
             $data = array('ok'=>'true','profile_pic'=>$user->profile->profilePic,
                 'first_name'=>$user->first_name,'last_name'=>$user->last_name,
-                'cover_pic'=>$user->profile->coverPic);
+                'cover_pic'=>$user->profile->coverPic,'friends'=>$noOfFriends,'subscribers'=>$noOfSubscribers,'status'=>$status,'status2'=>$status2);
+
 
             return json_encode($data);
 
         }
         catch(Exception $e)
         {
-            $data = array('ok'=>$e);
-            return json_encode($data);
+            $data = array('ok'=>$e."");
+            return $e."";
         }
 
 
@@ -761,7 +797,47 @@ class MobileController extends \BaseController
         }
     }
 
+    public function getaboutme()
+    {
+        try
+        {
+            $user = User::find(Input::get('userid'));
+            $about = $user->profile->aboutMe;
+            //$data = array('about'=>$about);
+            return $about;
+        }
+        catch(Exeption $e)
+        {
+            return $e."";
+        }
+    }
 
+    public function getabouthim()
+    {
+        try
+        {
+            $about = About::where('status','=','accepted')->where('writtenfor','=',Input::get('userid'))->get();
+            $text = new \Illuminate\Database\Eloquent\Collection();
+            $author = new \Illuminate\Database\Eloquent\Collection();
+            foreach($about as $a)
+            {
+                $text->add($a->content);
+                $author->add(User::find($a->writtenby));
+            }
+            $data = array('text'=>$text->toJson(),'author'=>$author->toJson());
+            return json_encode($data);
+        }
+        catch(Exception $e)
+        {
+            return $e."";
+
+        }
+    }
+
+    public function submitabout()
+    {
+
+    }
 
 
 
