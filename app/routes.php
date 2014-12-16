@@ -352,122 +352,191 @@
         return "Tables there";
     });
 
-Route::get('test',function()
-{
-    return View::make('test');
-});
-
-//DataTables for Writings
-Route::get('getResourceWritingData', array('as'=>'getResourceWritingData', 'uses'=>'DataTableController@getResourceWritingDatatable'));
-Route::get('getMediaWritingData', array('as'=>'getMediaWritingData', 'uses'=>'DataTableController@getMediaWritingDatatable'));
-
-Route::get('earnIFCs', array('as'=>'earnIFCs', 'before' => 'auth', 'uses'=>'HomeController@earnIFCs'));
-
-//Ajax calls to load data on content.blade.php (AjaxController)
-    Route::post('getContentArticles',array('as'=>'getContentArticles','uses'=>'AjaxController@getContentArticles'));
-    Route::post('getContentBooks',array('as'=>'getContentBooks','uses'=>'AjaxController@getContentBooks'));
-    Route::post('getContentResources',array('as'=>'getContentResources','uses'=>'AjaxController@getContentResources'));
-    Route::post('getContentPollsNQuizes',array('as'=>'getContentPollsNQuizes','uses'=>'AjaxController@getContentPollsNQuizes'));
-
-Route::post('loadMoreFriends', array('as' => 'loadMoreFriends', 'uses' => 'FriendsController@loadMoreFriends'));
-Route::post('loadMoreSubscribers', array('as' => 'loadMoreSubscribers', 'uses' => 'FriendsController@loadMoreSubscribers'));
-Route::post('loadMoreSubscriptions', array('as' => 'loadMoreSubscriptions', 'uses' => 'FriendsController@loadMoreSubscriptions'));
-
-Route::get('addInterestsToWallpics', array('as' => 'addInterestsToWallpics', 'uses' => 'BaseController@addInterestsToWallpics'));
-
-Route::get('saveDefaultInterests', array('as' => 'saveDefaultInterests', 'uses' => 'BaseController@saveDefaultInterests'));
+    Route::get('test',function()
+    {
+       /* $player = json_decode(file_get_contents('http://b2.com/iva.json'));
+        return $player->team_name;*/
+        return View::make('test');
 
 
-//Events
-Route::get('createEvent', array('as' => 'createEvent', 'before' => 'auth', 'uses' => 'EventsController@getCreateEvent'));
-Route::post('createEvent', array('as' => 'postCreateEvent', 'before' => 'csrf', 'uses' => 'EventsController@postCreateEvent'));
-Route::get('event/{id}', array('as' => 'event', 'uses' => 'EventsController@getEvent'));
-Route::get('updateEvent/{id}', array('as' => 'updateEvent', 'before' => 'auth', 'uses' => 'EventsController@getUpdateEvent'));
-Route::post('updateEvent', array('as' => 'postUpdateEvent', 'uses' => 'EventsController@postUpdateEvent'));
-Route::post('deleteEvent', array('as' => 'deleteEvent', 'uses' => 'EventsController@deleteEvent'));
-Route::post('toggleEvent', array('as' => 'toggleEvent', 'uses' => 'EventsController@toggleEvent'));
-Route::post('eventRegister', array('as' => 'eventRegister', 'uses' => 'EventsController@eventRegister'));
-Route::post('cancelRegister', array('as' => 'cancelRegister', 'uses' => 'EventsController@cancelRegister'));
-Route::get('attendeeList/{id}', array('as' => 'attendeeList', 'before'=>'auth', 'uses' => 'EventsController@getAttendeeList'));
-Route::get('manageEvents', array('as' => 'manageEvents', 'before' => 'auth', 'uses' => 'EventsController@manageEvents'));
-Route::get('myEvents', array('as' => 'myEvents', 'before' => 'auth', 'uses' => 'EventsController@myEvents'));
-Route::post('mailMe', array('as' => 'mailMe', 'uses' => 'EventsController@mailMe'));
-Route::post('showCategoryEvents', array('as' => 'showCategoryEvents', 'uses' => 'EventsController@showCategoryEvents'));
-//Route::get('getHostedEvents', array('as'=>'getHostedEvents', 'uses'=>'DataTableController@getRegisteredEvents'));
-//Route::get('getRegisteredEvents', array('as'=>'getRegisteredEvents', 'uses'=>'DataTableController@getRegisteredEvents'));
+    });
+
+    //DataTables for Writings
+    Route::get('getResourceWritingData', array('as'=>'getResourceWritingData', 'uses'=>'DataTableController@getResourceWritingDatatable'));
+    Route::get('getMediaWritingData', array('as'=>'getMediaWritingData', 'uses'=>'DataTableController@getMediaWritingDatatable'));
+
+    Route::get('earnIFCs', array('as'=>'earnIFCs', 'before' => 'auth', 'uses'=>'HomeController@earnIFCs'));
+
+    //Ajax calls to load data on content.blade.php (AjaxController)
+        Route::post('getContentArticles',array('as'=>'getContentArticles','uses'=>'AjaxController@getContentArticles'));
+        Route::post('getContentBooks',array('as'=>'getContentBooks','uses'=>'AjaxController@getContentBooks'));
+        Route::post('getContentResources',array('as'=>'getContentResources','uses'=>'AjaxController@getContentResources'));
+        Route::post('getContentPollsNQuizes',array('as'=>'getContentPollsNQuizes','uses'=>'AjaxController@getContentPollsNQuizes'));
+
+    Route::post('loadMoreFriends', array('as' => 'loadMoreFriends', 'uses' => 'FriendsController@loadMoreFriends'));
+    Route::post('loadMoreSubscribers', array('as' => 'loadMoreSubscribers', 'uses' => 'FriendsController@loadMoreSubscribers'));
+    Route::post('loadMoreSubscriptions', array('as' => 'loadMoreSubscriptions', 'uses' => 'FriendsController@loadMoreSubscriptions'));
+
+    Route::get('addInterestsToWallpics', array('as' => 'addInterestsToWallpics', 'uses' => 'BaseController@addInterestsToWallpics'));
+
+    Route::get('saveDefaultInterests', array('as' => 'saveDefaultInterests', 'uses' => 'BaseController@saveDefaultInterests'));
 
 
-Route::get('ifcDeficit', array('as' => 'ifcDeficit', 'before' => 'auth', 'uses' => 'BaseController@getIFCDeficit'));
-Route::post('loadMoreEvents', array('as' => 'loadMoreEvents', 'uses' => 'AjaxController@loadMoreEvents'));
+    //Events
+    Route::get('createEvent', array('as' => 'createEvent', 'before' => 'auth', 'uses' => 'EventsController@getCreateEvent'));
+    Route::post('createEvent', array('as' => 'postCreateEvent', 'before' => 'csrf', 'uses' => 'EventsController@postCreateEvent'));
+    Route::get('event/{id}', array('as' => 'event', 'uses' => 'EventsController@getEvent'));
+    Route::get('updateEvent/{id}', array('as' => 'updateEvent', 'before' => 'auth', 'uses' => 'EventsController@getUpdateEvent'));
+    Route::post('updateEvent', array('as' => 'postUpdateEvent', 'uses' => 'EventsController@postUpdateEvent'));
+    Route::post('deleteEvent', array('as' => 'deleteEvent', 'uses' => 'EventsController@deleteEvent'));
+    Route::post('toggleEvent', array('as' => 'toggleEvent', 'uses' => 'EventsController@toggleEvent'));
+    Route::post('eventRegister', array('as' => 'eventRegister', 'uses' => 'EventsController@eventRegister'));
+    Route::post('cancelRegister', array('as' => 'cancelRegister', 'uses' => 'EventsController@cancelRegister'));
+    Route::get('attendeeList/{id}', array('as' => 'attendeeList', 'before'=>'auth', 'uses' => 'EventsController@getAttendeeList'));
+    Route::get('manageEvents', array('as' => 'manageEvents', 'before' => 'auth', 'uses' => 'EventsController@manageEvents'));
+    Route::get('myEvents', array('as' => 'myEvents', 'before' => 'auth', 'uses' => 'EventsController@myEvents'));
+    Route::post('mailMe', array('as' => 'mailMe', 'uses' => 'EventsController@mailMe'));
+    Route::post('showCategoryEvents', array('as' => 'showCategoryEvents', 'uses' => 'EventsController@showCategoryEvents'));
+    //Route::get('getHostedEvents', array('as'=>'getHostedEvents', 'uses'=>'DataTableController@getRegisteredEvents'));
+    //Route::get('getRegisteredEvents', array('as'=>'getRegisteredEvents', 'uses'=>'DataTableController@getRegisteredEvents'));
 
-Route::post('srFriends',array('as'=>'srFriends','uses'=>'FriendsController@searchFriends'));
 
-Route::get('hathwayStopIt',array('uses'=>'BaseController@hathwayStopIt'));
+    Route::get('ifcDeficit', array('as' => 'ifcDeficit', 'before' => 'auth', 'uses' => 'BaseController@getIFCDeficit'));
+    Route::post('loadMoreEvents', array('as' => 'loadMoreEvents', 'uses' => 'AjaxController@loadMoreEvents'));
 
-Route::post('ifcModal/{ifcReq}', array('as' => 'ifcModal', 'before' => 'auth', 'uses' => 'TransactionController@getIfcModal'));
+    Route::post('srFriends',array('as'=>'srFriends','uses'=>'FriendsController@searchFriends'));
 
-//for actionscontroller
-Route::post('getActionData', array('as'=>'getActionData', 'uses'=>'AjaxController@getActionData'));
+    Route::get('hathwayStopIt',array('uses'=>'BaseController@hathwayStopIt'));
 
-Route::post('notificationList',array('uses'=>'AjaxController@getNotification'));
-Route::post('numberOfNotifications',array('uses' => 'AjaxController@getNumberOfNotification'));
+    Route::post('ifcModal/{ifcReq}', array('as' => 'ifcModal', 'before' => 'auth', 'uses' => 'TransactionController@getIfcModal'));
 
-Route::post('loadMoreActions',array('uses' => 'AjaxController@loadMoreActions'));
+    //for actionscontroller
+    Route::post('getActionData', array('as'=>'getActionData', 'uses'=>'AjaxController@getActionData'));
 
-Route::post('searchAction',array('as' => 'searchAction','uses'=>'AjaxController@getSearchResults'));
+    Route::post('notificationList',array('uses'=>'AjaxController@getNotification'));
+    Route::post('numberOfNotifications',array('uses' => 'AjaxController@getNumberOfNotification'));
 
-Route::post('failedSearch',array('uses' => 'AjaxController@failedSearch'));
+    Route::post('loadMoreActions',array('uses' => 'AjaxController@loadMoreActions'));
 
-Route::get('ifcManager',array('as' => 'ifcManager','before' => 'auth', 'uses'=>'TransactionController@getIfcManager'));
+    Route::post('searchAction',array('as' => 'searchAction','uses'=>'AjaxController@getSearchResults'));
 
-Route::get('getIFCManagerData', array('as'=>'getIFCManagerData', 'uses'=>'DataTableController@getIFCManagerData'));
+    Route::post('failedSearch',array('uses' => 'AjaxController@failedSearch'));
 
-Route::post('submitProblemOnException',array('uses' => 'BaseController@submitProblemOnException'));
-Route::get('reportException',array('as'=>'reportException','uses'=>'BaseController@getReportException'));
-Route::get('respondToProblem/{userid}',array('as' => 'respondToProblem', 'before' => 'auth', 'uses' => 'BaseController@respondToProblem'));
-Route::post('respondToProblem',array('uses' => 'BaseController@postResponceToProblem'));
+    Route::get('ifcManager',array('as' => 'ifcManager','before' => 'auth', 'uses'=>'TransactionController@getIfcManager'));
 
-//diary
-Route::get('diary/{username}', array('as' => 'diary', 'before' => 'auth', 'uses' => 'DiaryController@getDiary'));
-Route::post('getCalendar', array('uses' => 'DiaryController@getCalendar'));
-Route::post('setDiaryAccess',array('as' => 'setDiaryAccess','uses'=>'DiaryController@setDiaryAccess'));
-Route::post('getUsers',array('as'=>'getUsers','uses'=>'DiaryController@getUsers'));
-Route::post('addSuser',array('as'=>'addSuser','uses'=>'DiaryController@addSuser'));
-Route::post('delSuser',array('as'=>'delSuser','uses'=>'DiaryController@delSuser'));
-Route::post('getSusers',array('as'=>'getSusers','uses'=>'DiaryController@getSusers'));
-Route::post('saveDiary', array( 'uses'=>'DiaryController@saveDiary'));
-Route::post('createDiary', array( 'uses'=>'DiaryController@createDiary'));
-Route::post('deleteDiaryPost', array( 'uses'=>'DiaryController@deleteDiaryPost'));
-Route::post('updateDiaryTitle', array( 'uses'=>'DiaryController@updateDiaryTitle'));
-Route::post('getMonthlyDates', array('as'=>'getMonthlyDates', 'uses'=>'DiaryController@getMonthlyDates'));
+    Route::get('getIFCManagerData', array('as'=>'getIFCManagerData', 'uses'=>'DataTableController@getIFCManagerData'));
 
-Route::get('offline', array('uses' => 'BaseController@accidentialLogout'));
+    Route::post('submitProblemOnException',array('uses' => 'BaseController@submitProblemOnException'));
+    Route::get('reportException',array('as'=>'reportException','uses'=>'BaseController@getReportException'));
+    Route::get('respondToProblem/{userid}',array('as' => 'respondToProblem', 'before' => 'auth', 'uses' => 'BaseController@respondToProblem'));
+    Route::post('respondToProblem',array('uses' => 'BaseController@postResponceToProblem'));
 
-//recco
-Route::post('post_recco', array('uses' => 'ReccoController@post_recco'));
-Route::post('publish_recco', array('uses' => 'ReccoController@publish_recco'));
-Route::post('loadRecco', array('uses' => 'ReccoController@loadRecco'));
-Route::post('loadMyRecco', array('uses' => 'ReccoController@loadMyRecco'));
-Route::post('incrementHits', array('uses' => 'ReccoController@incrementHits'));
-Route::post('deleteRecco', array('uses' => 'ReccoController@deleteRecco'));
-Route::post('searchRecco', array('uses' => 'ReccoController@searchRecco'));
+    //diary
+    Route::get('diary/{username}', array('as' => 'diary', 'before' => 'auth', 'uses' => 'DiaryController@getDiary'));
+    Route::post('getCalendar', array('uses' => 'DiaryController@getCalendar'));
+    Route::post('setDiaryAccess',array('as' => 'setDiaryAccess','uses'=>'DiaryController@setDiaryAccess'));
+    Route::post('getUsers',array('as'=>'getUsers','uses'=>'DiaryController@getUsers'));
+    Route::post('addSuser',array('as'=>'addSuser','uses'=>'DiaryController@addSuser'));
+    Route::post('delSuser',array('as'=>'delSuser','uses'=>'DiaryController@delSuser'));
+    Route::post('getSusers',array('as'=>'getSusers','uses'=>'DiaryController@getSusers'));
+    Route::post('saveDiary', array( 'uses'=>'DiaryController@saveDiary'));
+    Route::post('createDiary', array( 'uses'=>'DiaryController@createDiary'));
+    Route::post('deleteDiaryPost', array( 'uses'=>'DiaryController@deleteDiaryPost'));
+    Route::post('updateDiaryTitle', array( 'uses'=>'DiaryController@updateDiaryTitle'));
+    Route::post('getMonthlyDates', array('as'=>'getMonthlyDates', 'uses'=>'DiaryController@getMonthlyDates'));
 
-//home data article bb collab
-Route::post('article_write', array('uses' => 'AjaxController@article_write'));
-Route::post('bb_write', array('uses' => 'AjaxController@bb_write'));
-Route::post('collab_write', array('uses' => 'AjaxController@collab_write'));
-Route::post('res_write', array('uses' => 'AjaxController@res_write'));
-Route::post('poll_write', array('uses' => 'AjaxController@poll_write'));
-Route::post('quiz_write', array('uses' => 'AjaxController@quiz_write'));
-Route::post('media_write', array('uses' => 'AjaxController@media_write'));
+    Route::get('offline', array('uses' => 'BaseController@accidentialLogout'));
 
-Route::post('forgotUsername', array('uses' => 'BaseController@forgotUsername'));
+    //recco
+    Route::post('post_recco', array('uses' => 'ReccoController@post_recco'));
+    Route::post('publish_recco', array('uses' => 'ReccoController@publish_recco'));
+    Route::post('loadRecco', array('uses' => 'ReccoController@loadRecco'));
+    Route::post('loadMyRecco', array('uses' => 'ReccoController@loadMyRecco'));
+    Route::post('incrementHits', array('uses' => 'ReccoController@incrementHits'));
+    Route::post('deleteRecco', array('uses' => 'ReccoController@deleteRecco'));
+    Route::post('searchRecco', array('uses' => 'ReccoController@searchRecco'));
 
-//suggetsions
-Route::post('getWritingSuggestions', array('uses' => 'SuggetsionController@getWritingSuggestions'));
-Route::post('postSuggestion', array('uses' => 'SuggetsionController@postSuggestion'));
+    //home data article bb collab
+    Route::post('article_write', array('uses' => 'AjaxController@article_write'));
+    Route::post('bb_write', array('uses' => 'AjaxController@bb_write'));
+    Route::post('collab_write', array('uses' => 'AjaxController@collab_write'));
+    Route::post('res_write', array('uses' => 'AjaxController@res_write'));
+    Route::post('poll_write', array('uses' => 'AjaxController@poll_write'));
+    Route::post('quiz_write', array('uses' => 'AjaxController@quiz_write'));
+    Route::post('media_write', array('uses' => 'AjaxController@media_write'));
 
-Route::post('searchInterests', array('uses' => 'AjaxController@searchInterest'));
+    Route::post('forgotUsername', array('uses' => 'BaseController@forgotUsername'));
+
+    //suggetsions
+    Route::post('getWritingSuggestions', array('uses' => 'SuggetsionController@getWritingSuggestions'));
+    Route::post('postSuggestion', array('uses' => 'SuggetsionController@postSuggestion'));
+
+    Route::post('searchInterests', array('uses' => 'AjaxController@searchInterest'));
+
+
+    //soccer related routes
+
+    //Route::get('getPlayers',array('as'=>'getPlayers','uses'=>'SoccerController@getPlayers'));
+    Route::get('soccerSpace',array('as'=>'soccerSpace','before'=>'auth','uses'=>'SoccerController@getSoccerSpace'));
+
+    Route::get('soccerFeed/{fid}',array('as'=>'liveSoccer','uses'=>'SoccerController@getSoccerFeed'));
+    Route::get('getLiveFeeds',array('as'=>'liveFeeds','uses'=>'SoccerAdminController@getLiveFeeds'));
+
+    //soccer admin routes
+    Route::get('soccerAdmin',array('as'=>'soccerAdmin','before'=>'auth','uses'=>'SoccerAdminController@getAdminPage'));
+    Route::post('createSchedule',array('as'=>'createSchedule','before'=>'auth','uses'=>'SoccerAdminController@createSchedule'));
+    Route::post('getNextMatchDay',array('as'=>'getNextMatchDay','before'=>'auth','uses'=>'SoccerAdminController@getNextMatchDay'));
+    Route::post('getScheduleTemplate',array('as'=>'getScheduleTemplate','before'=>'auth','uses'=>'SoccerAdminController@createScheduleTemplate'));
+    Route::post('saveMatchdaySchedule',array('as'=>'saveMatchdaySchedule','before'=>'auth','uses'=>'SoccerAdminController@saveMatchdaySchedule'));
+    Route::get('putMatchdayResults',array('as'=>'putMatchdayResults','before'=>'auth','uses'=>'SoccerAdminController@putMatchdayResults'));
+    Route::post('getResultsTemplate',array('as'=>'getResultsTemplate','before'=>'auth','uses'=>'SoccerAdminController@createResultsTemplate'));
+    Route::post('saveMatchdayResults',array('as'=>'saveMatchdayResults','before'=>'auth','uses'=>'SoccerAdminController@saveMatchdayResults'));
+    Route::get('getLive',array('as'=>'getLive','before'=>'auth','uses'=>'SoccerAdminController@getLivePage'));
+    Route::post('getFeedData',array('as'=>'getFeedData','before'=>'auth','uses'=>'SoccerAdminController@getFeedData'));
+    Route::post('createFeed',array('as'=>'createFeed','before'=>'auth','uses'=>'SoccerAdminController@createFeed'));
+    Route::post('stopFeed',array('as'=>'stopFeed','before'=>'auth','uses'=>'SoccerAdminController@stopFeed'));
+    Route::get('liveSoccer/{id}',array('as'=>'liveSoccer','before'=>'auth','uses'=>'SoccerAdminController@getLiveSoccer'));
+    Route::post('getLiveSoccerData',array('as'=>'getLiveSoccerData','uses'=>'SoccerAdminController@getLiveSoccerData'));
+    Route::post('getLiveScore',array('as'=>'getLiveScore','uses'=>'SoccerAdminController@getLiveScore'));
+    Route::post('saveUserComment',array('as'=>'saveUserComment','uses'=>'SoccerAdminController@saveUserComment'));
+    Route::post('searchSoccerFriends',array('as'=>'searchSoccerFriends','uses'=>'SoccerAdminController@searchSoccerFriends'));
+    Route::get('getLiveSoccer',array('as'=>'getLiveSoccer','before'=>'auth','uses'=>'SoccerAdminController@getLiveSoccerLinks'));
+
+
+    //soccer user routes
+    Route::get('playPredictor',array('as'=>'playPredictor','before'=>'auth','uses'=>'SoccerController@getPredictor'));
+    Route::post('getMatchDay',array('as'=>'getMatchDay','before'=>'auth','uses'=>'SoccerController@getMatchDay'));
+    Route::post('getMatches',array('as'=>'getMatches','before'=>'auth','uses'=>'SoccerController@getMatches'));
+    Route::post('scorerSelector',array('before'=>'auth','uses'=>'SoccerController@getScorerMarkup'));
+    Route::post('saveMatchPredictions',array('before'=>'auth','uses'=>'SoccerController@saveMatchPredictions'));
+    Route::post('getResultsView',array('as'=>'getResultsView','before'=>'auth','uses'=>'SoccerController@getResultsView'));
+    Route::get('getScoreResults',array('as'=>'getScoreResults','before'=>'auth','uses'=>'SoccerController@getScoreResults'));
+    Route::get('getScorerResults',array('as'=>'getScorerResults','before'=>'auth','uses'=>'SoccerController@getScorerResults'));
+    Route::post('getLeagueStats',array('as'=>'getLeagueStats','uses'=>'SoccerAdminController@getLeagueStats'));
+    Route::post('getFriendsPredictions',array('as'=>'getFriendsPredictions','uses'=>'SoccerController@getFriendsPredictions'));
+    Route::get('playerRatings',array('as'=>'playerRatings','before'=>'auth','uses'=>'SoccerController@getRatingsPage'));
+    Route::post('getSquad',array('as'=>'getSquad','before'=>'auth','uses'=>'SoccerController@getSquad'));
+    Route::post('getRatingsTemplate',array('as'=>'getSquad','before'=>'auth','uses'=>'SoccerController@getRatingsTemplate'));
+    Route::post('checkMatchRatings',array('as'=>'checkMatchRatings','before'=>'auth','uses'=>'SoccerController@checkMatchRatings'));
+    Route::post('saveMatchRatings',array('as'=>'saveMatchRatings','before'=>'auth','uses'=>'SoccerController@saveMatchRatings'));
+    Route::get('getMatchRatings/{mid}/{uid?}',array('as'=>'getMatchRatings','before'=>'auth','uses'=>'SoccerController@getMatchRatings'));
+    Route::post('getMyRatings',array('as'=>'getMyRatings','before'=>'auth','uses'=>'SoccerController@getMyRatings'));
+    Route::get('getMyRatingsTable',array('as'=>'getMyRatingsTable','before'=>'auth','uses'=>'SoccerController@getMyRatingsTable'));
+    Route::post('getFriendsRatings',array('as'=>'getFriendsRatings','before'=>'auth','uses'=>'SoccerController@getFriendsRatings'));
+    Route::get('getFriendsRatingsTable',array('as'=>'getFriendsRatingsTable','before'=>'auth','uses'=>'SoccerController@getFriendsRatingsTable'));
+
+    //these are the routes for getting match_ratings graphs
+    Route::post('getMyBestRatings',array('as'=>'getMyBestRatings','before'=>'auth','uses'=>'SoccerGraphicsController@getMyBestRatings'));
+    Route::post('getFriendsBestRatings',array('as'=>'getFriendsBestRatings','before'=>'auth','uses'=>'SoccerGraphicsController@getFriendsBestRatings'));
+    Route::post('searchPlayerComments',array('as'=>'searchPlayerComments','before'=>'auth','uses'=>'SoccerGraphicsController@searchPlayerComments'));
+    Route::post('getPlayerComments',array('as'=>'getPlayerComments','before'=>'auth','uses'=>'SoccerGraphicsController@getPlayerComments'));
+    Route::post('getClubRatingsView',array('as'=>'getClubRatingsView','before'=>'auth','uses'=>'SoccerGraphicsController@getClubRatingsView'));
+    Route::post('searchClub',array('as'=>'searchClub','before'=>'auth','uses'=>'SoccerGraphicsController@searchClub'));
+    Route::post('fetchClubRatings',array('as'=>'fetchClubRatings','before'=>'auth','uses'=>'SoccerGraphicsController@fetchClubRatings'));
+    Route::post('getclubBestRatings',array('as'=>'getclubBestRatings','before'=>'auth','uses'=>'SoccerGraphicsController@getclubBestRatings'));
+
+
+
 
 //mobile controller
 Route::post('mobile_fblogin', array('uses' => 'MobileAuthController@fblogin'));
@@ -535,6 +604,7 @@ Route::post('mobile_quiz', array('uses'=>'MobileController@getQuizOptions'));
 Route::post('mobile_quizResult', array('uses'=>'MobileController@getQuizResult'));
 
 Route::post('mobile_about', array('uses'=>'MobileController@getaboutme'));
+<<<<<<< HEAD
 
 Route::post('mobile_aboutme', array('uses'=>'MobileController@getabouthim'));
 
@@ -542,6 +612,15 @@ Route::post('mobile_submitabout', array('uses'=>'MobileController@submitabout'))
 
 Route::post('mobile_addfriend', array('uses'=>'MobileAuthController@addFriend'));
 
+=======
+
+Route::post('mobile_aboutme', array('uses'=>'MobileController@getabouthim'));
+
+Route::post('mobile_submitabout', array('uses'=>'MobileController@submitabout'));
+
+Route::post('mobile_addfriend', array('uses'=>'MobileAuthController@addFriend'));
+
+>>>>>>> origin/master
 Route::post('mobile_acceptfriend', array('uses'=>'MobileAuthController@acceptFriend'));
 
 
