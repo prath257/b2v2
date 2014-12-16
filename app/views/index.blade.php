@@ -3,7 +3,6 @@
 <head>
   	<title>BBarters</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
     <!--css includes.-->
     <link rel="shortcut icon" href="{{asset('Images/icons/logo.JPG')}}">
     <link href="{{asset('css/bootstrapIndex.css')}}" rel="stylesheet">
@@ -184,7 +183,7 @@
                 </div>
             </div>
 
-            <!--<span id="take-a-tour" class=" col-lg-11 col-lg-offset-1" onclick="initiateTour()">
+           <!--<span id="take-a-tour" class=" col-lg-11 col-lg-offset-1" onclick="startTour()">
                 Take a tour  <i class="fa fa-plane"></i>
             </span>-->
 
@@ -464,7 +463,8 @@
         </div>
     </div>
 
-	<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-hidden="true">
+    @if(!Auth::check())
+    	<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 
@@ -849,6 +849,7 @@
 			</div>
 		</div>
 	</div>
+	@endif
 
     <div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog col-lg-6 col-lg-offset-3" style="min-height: 50%; margin-left: 30%">
@@ -1049,39 +1050,10 @@
             </div>
         </div>
 
-    <input type="hidden" id="refreshed" value="no">
-    <script src="{{asset('js/reload.js')}}"></script>
-
-	<script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
-	<script src="{{asset('js/bootstrap.js')}}"></script>
-	<script src="{{asset('js/bootstrapValidator.min.js')}}"></script>
-	<script src="{{asset('js/bootbox.js')}}"></script>
-	<script src="{{asset('js/pages/indexPage.js')}}"></script>
-
 </div>
-<div id="tour-body" class="sub-bodies">
-    <img id="back-image" src="{{asset('Images/3.jpg')}}">
-    <div id="BBarters">
-        <a id="logo3" class="navbar-brand logo">
-            <span class='letter3'>B</span>
-            <span class='letter3'>B</span>
-            <span class='letter3'>a</span>
-            <span class='letter3'>r</span>
-            <span class='letter3'>t</span>
-            <span class='letter3'>e</span>
-            <span class='letter3'>r</span>
-            <span class='letter3'>s</span>
-        </a>
-        <br><br>
-        <div><small><i>Don't be users, be barters.</i></small></div>
-        <br>
-        <button class="btn-success col-lg-12" onclick="startTour()">Start Tour</button>
-        <br><br>
-        <button class="btn-danger col-lg-12" onclick="backtotop()">Take me home</button>
-    </div>
-</div>
+
 <div id="main-tour-body" class="sub-bodies">
-    <div class="col-lg-12" style="margin-top: 5%">
+    <div class="col-lg-12" style="margin-top:2%">
         <div class="col-lg-2 sideBars">
             <div class="col-lg-12">
                 <button class="col-lg-12 btn navbar-btn" name="1">Add Friend</button>
@@ -1173,5 +1145,12 @@
         <div id="takeBBartersQuiz" class="btn btn-default col-lg-2"> Take BBarters Quiz</div>
     </div>
 </div>
+     <input type="hidden" id="refreshed" value="no">
+    <script src="{{asset('js/reload.js')}}"></script>
+	<script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+	<script src="{{asset('js/bootstrap.js')}}"></script>
+	<script src="{{asset('js/bootstrapValidator.min.js')}}"></script>
+	<script src="{{asset('js/bootbox.js')}}"></script>
+	<script src="{{asset('js/pages/indexPage.js')}}"></script>
 </body>
 </html>

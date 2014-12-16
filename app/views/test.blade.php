@@ -91,13 +91,14 @@
 
     </style>
     <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+    <script src="{{asset('js/test.js')}}"></script>
     <script src="{{asset('js/bootstrap.js')}}"></script>
 </head>
 <!--on hovering anywhere on the page, the default text 'Be-Barters is a social shaing website...' is shown.-->
 <body>
 
 
-
+<div id="mydiv">hey</div>
     <br>
     <br>
     <br>
@@ -133,7 +134,7 @@
 
        </div>
        </div>
-<script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
-<script src="{{asset('js/bootstrap.js')}}"></script>
+ <script src="{{asset('js/jsonQ.js')}}"></script>
+ <script src="{{asset('js/bootstrap.js')}}"></script>
 </body>
 </html>

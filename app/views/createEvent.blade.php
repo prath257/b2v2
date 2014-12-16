@@ -106,6 +106,6 @@
     <script src="{{asset('js/summernote.min.js')}}"></script>
 
 </body>
-    <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.datetimepicker.css')}}"/ >
+    <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.datetimepicker.css')}}"/>
     <script src="{{asset('js/jquery.datetimepicker.js')}}"></script>
 </html>

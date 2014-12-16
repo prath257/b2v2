@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration {
             $table->string('gid',255)->nullable();
             $table->bigInteger('twitterid')->unsigned()->nullable();
 			$table->boolean('pset')->default(false);
+            $table->integer('team')->unsigned()->default(0);
 			$table->timestamps();
 		});
 	}

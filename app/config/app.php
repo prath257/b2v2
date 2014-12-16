@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'GMT',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -120,7 +120,9 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Chumper\Datatable\DatatableServiceProvider',
-        'Intervention\Image\ImageServiceProvider'
+        'Intervention\Image\ImageServiceProvider',
+        'Thujohn\Twitter\TwitterServiceProvider'
+
 
 	),
 
@@ -189,6 +191,8 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Datatable'       => 'Chumper\Datatable\Facades\DatatableFacade',
         'Image'           => 'Intervention\Image\Facades\Image',
+        'Twitter'         => 'Thujohn\Twitter\TwitterFacade',
+
 
 	),
 

@@ -4,7 +4,6 @@
     <title>{{$user->first_name}}'s Profile | BBarters</title>
     <link rel="shortcut icon" href="{{asset('Images/icons/logo.JPG')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/profile.css')}}" rel="stylesheet">
     <link href="{{asset('css/logo.css')}}" rel="stylesheet">

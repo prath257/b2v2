@@ -5790,4 +5790,30 @@ button.close {
 	min-height: 200px;
 	min-width: 200px;
 }
+
+.bbtn {
+    font-family:"Segoe UI", "Segoe WP", "Helvetica Neue", 'RobotoRegular', sans-serif;
+    color: #ffffff;
+    background: #101f80;
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+}
+
+.bbtn:hover {
+    background: #087032;
+    text-decoration: none;
+}
+
+.bbtng {
+    font-family:"Segoe UI", "Segoe WP", "Helvetica Neue", 'RobotoRegular', sans-serif;
+    color: #ffffff;
+    background: #087032;
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+}
+
+.bbtng:hover {
+    background: #101f80;
+    text-decoration: none;
+}
 /*# sourceMappingURL=bootstrap.css.map */

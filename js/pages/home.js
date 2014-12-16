@@ -1,4 +1,5 @@
 var defaults = {
+
     animationDuration: 350,
     headerOpacity: 0.25,
     fixedHeaders: false,
@@ -12,6 +13,7 @@ var defaults = {
 };
 
 //load content
+typeSession= 0,
 bbflag = false;
 artflag = false;
 collabflag = false;
@@ -319,12 +321,7 @@ $(document).ready(function() {
     if (ifcAdded == 'yes')
         bootbox.alert('50 ifcs have been credited to your account as a bonus for visiting BBarters today!');
 
-   /* $(".links8").mouseenter(function(){
-        $("#test123").animate({left:"5px"},10)
-    });
-    $("#test123").mouseleave(function(){
-        $("#test123").animate({left:"0px"},20)
-    });*/
+
 });
 
 function getFriendsContent()
@@ -658,6 +655,7 @@ function actionAjax()
     $.ajax({
         type: "POST",
         url: "http://b2.com/getActionData",
+        data:{type:typeSession},
         beforeSend :function()
         {
             ajaxOk=false;
@@ -669,8 +667,12 @@ function actionAjax()
                 window.location='http://b2.com/offline';
             else
             {
+                typeSession=1;
                 ajaxOk=true;
-                $('#loadActions').html(data);
+                if(typeSession==0)
+                    $('#loadActions').html(data);
+                else
+                    $('#loadActions').prepend(data);
                 $('.actionImages').height(50);
                 noOfActions = 6;
                 $('#showMoreAndWaitingActions').fadeIn();

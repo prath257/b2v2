@@ -544,10 +544,10 @@ function checkGender()
 
 function initiateTour()
 {
-    clearInterval(scrollUp);
+
     $('#tour-body').show();
     $('body,html').animate({ scrollTop: $(window).height()}, 750);
-    scrollDown = window.setInterval(function()
+    window.setTimeout(function()
     {
         $('#main-body').hide();
         $('#back-image').fadeOut(1000);
@@ -559,18 +559,13 @@ function backtotop()
 {
     $('#exitTour').hide();
     $('#takeBBartersQuiz').hide();
-    if (scrollDown)
-        clearInterval(scrollDown);
-    if (scrollDown2)
-        clearInterval(scrollDown2);
-
     $('#main-body').show();
     $('body,html').animate({ scrollTop: $(window).height()}, 0);
 
     $('body,html').animate({ scrollTop: 0}, 750);
-    scrollUp = window.setInterval(function()
+    window.setTimeout(function()
     {
-        $('.sub-bodies').hide();
+        $('#main-tour-body').hide();
     }, 750);
 }
 
@@ -578,9 +573,9 @@ function startTour()
 {
     $('#main-tour-body').show();
     $('body,html').animate({ scrollTop: $(window).height()}, 750);
-    scrollDown2 = window.setInterval(function()
+    window.setTimeout(function()
     {
-        $('#tour-body').hide();
+        $('#main-body').hide();
         $('#exitTour').show();
         $('#takeBBartersQuiz').show();
     }, 750);

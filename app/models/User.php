@@ -258,4 +258,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
         return $this->hasMany('Recco','userid');
     }
+
+    //Soccer Relationships
+    public function getScorePredictions()
+    {
+        return $this->hasMany('SoccerScorePredictions','user_id');
+    }
+    public function getScorerPredictions()
+    {
+        return $this->hasMany('SoccerScorerPredictions','user_id');
+    }
+
 }

@@ -625,7 +625,7 @@ function retrieveChatData()
                     }
                     else
                         div.innerHTML = div.innerHTML + '<div style="word-wrap: break-word"><b>'+name+': </b>'+text+'</div><div class="col-lg-12">&nbsp;</div>';
-                    $("#scrollDiv").animate({ scrollTop: $('#scrollDiv')[0].scrollHeight}, 1000);
+                        $("#scrollDiv").animate({ scrollTop: $('#scrollDiv')[0].scrollHeight}, 1000);
 
                     if (focused==false)
                     {

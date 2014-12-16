@@ -254,13 +254,13 @@ function showEdit(id)
 function save(id,type)
 {
     var message=$('#summernote'+id).code();
-    $('.saveNedit'+id).html("<img src='http://b2.com/Images/icons/waiting.gif'> Saving..");
 
-    if ($('#access'+id+':checked').val() !== undefined)
+    if (document.getElementById('access'+id).checked)
         var access='public';
     else
         var access='private';
 
+    $('.saveNedit'+id).html("<img src='http://b2.com/Images/icons/waiting.gif'> Saving..");
 
    /* $('#summernote'+id).hide();
    $('#readDiary'+id).show();
