@@ -521,7 +521,7 @@
     Route::post('getRatingsTemplate',array('as'=>'getSquad','before'=>'auth','uses'=>'SoccerController@getRatingsTemplate'));
     Route::post('checkMatchRatings',array('as'=>'checkMatchRatings','before'=>'auth','uses'=>'SoccerController@checkMatchRatings'));
     Route::post('saveMatchRatings',array('as'=>'saveMatchRatings','before'=>'auth','uses'=>'SoccerController@saveMatchRatings'));
-    Route::get('getMatchRatings/{mid}/{uid?}',array('as'=>'getMatchRatings','before'=>'auth','uses'=>'SoccerController@getMatchRatings'));
+    Route::get('getMatchRatings/{mid}/{uid?}',array('as'=>'getMatchRatings','uses'=>'SoccerController@getMatchRatings'));
     Route::post('getMyRatings',array('as'=>'getMyRatings','before'=>'auth','uses'=>'SoccerController@getMyRatings'));
     Route::get('getMyRatingsTable',array('as'=>'getMyRatingsTable','before'=>'auth','uses'=>'SoccerController@getMyRatingsTable'));
     Route::post('getFriendsRatings',array('as'=>'getFriendsRatings','before'=>'auth','uses'=>'SoccerController@getFriendsRatings'));

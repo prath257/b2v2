@@ -82,7 +82,7 @@
       <div class="col-xs-12 col-sm-12 col-md-12" id="liveScore"> <a href="#" onclick="showScore()" id="scoreLink">Live Scores</a>
       </div>
 
-      <div id="liveFeed" class="col-xs-12 col-sm-8 col-md-8 noPad" style=" height:80%;">
+      <div id="liveFeed" class="col-xs-12 col-sm-8 col-md-6 noPad" style=" height:80%;">
                <div id="chatbar" class="col-xs-12 col-md-12 col-sm-12 chatbar noPad" style="height: 10%; padding: 0px">
                         <div class="col-md-12 col-xs-12 col-sm-12 noPad" style="padding: 10px">
                             <div class="col-xs-12" id="commentArea"></div>

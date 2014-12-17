@@ -5,6 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="shortcut icon" href="{{asset('Images/icons/logo.JPG')}}">
+    <!-- social sharing metadata -->
+    <meta property="og:title" content="EPL Player Ratings By {{$author->first_name}} {{$author->last_name}}" />
+    <meta property="og:description" content="{{SoccerTeam::find($match->hometeam)->name}} vs {{SoccerTeam::find($match->awayteam)->name}} Player Ratings" />
+    <meta property="og:image" content="{{SoccerTeam::find($match->hometeam)->logo}}" />
+    <meta property="og:image" content="{{SoccerTeam::find($match->awayteam)->logo}}" />
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
     <link href="{{asset('css/fileUpload.css')}}" rel="stylesheet">
@@ -14,6 +19,14 @@
 
 </head>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=431744100304343&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="position: fixed;">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -90,9 +103,18 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="col-xs-8 col-sm-4 col-md-3">
       <b style="font-size: medium">{{SoccerLeague::find($match->league)->name}}</b>
+
       </div>
-      <div class="col-xs-4 col-sm-4 col-md-4" style="padding: 0px">
-             <img src="{{SoccerLeague::find($match->league)->logo}}" id="leagueLogo" width="50px" height="50px">
+      <div class="col-xs-3 col-sm-3 col-md-2" style="padding: 0px">
+              <div class="col-xs-10 col-sm-10 col-md-10">
+               <img src="{{SoccerLeague::find($match->league)->logo}}" id="leagueLogo" width="50px" height="50px">
+              </div>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                  <div class="fb-share-button" style="padding: 5px" data-href="http://b2.com/getMatchRatings/{{$match->id}}/{{$author->id}}"></div><br>
+                  <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://b2.com/getMatchRatings/{{$match->id}}/{{$author->id}}" data-text="Check this out" data-count="none" data-hashtags="bbarters" style="margin-top: 2px">Tweet</a>
+                  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+              </div>
       </div>
       <div class="col-xs-12" style="font-size: small">
           <i>{{SoccerTeam::find($match->hometeam)->stadium}}</i>

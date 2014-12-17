@@ -424,6 +424,8 @@ class SoccerAdminController extends \BaseController
             //this is the logic to create a new feed
             $feedId=Input::get('feedId');
             $feed= Feed::find($feedId);
+            $action=Action::Where('contentid',$feed->id)->first();
+            $action->delete();
             $feed->delete();
             return 'Done';
         }

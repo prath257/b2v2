@@ -129,7 +129,7 @@ class SoccerController extends \BaseController
             ->addColumn('Match',function($model)
             {
                 $match=SoccerSchedule::find($model->match_id);
-                return SoccerTeam::find($match->hometeam)->name.' Vs '.SoccerTeam::find($match->awayteam)->name;
+                return SoccerTeam::find($match->hometeam)->name.' <b>v</b> '.SoccerTeam::find($match->awayteam)->name;
             })
             ->addColumn('Prediction',function($model)
             {
@@ -150,29 +150,36 @@ class SoccerController extends \BaseController
 
     public static function calculateScoreIFCs()
     {
-        $ifc=0;
+        $tifc=0;
         $user=Auth::user();
         $matchPredictions=Auth::user()->getScorePredictions()->get();
         foreach($matchPredictions as $matchPrediction)
         {
-            if($matchPrediction->ifc==null)
+            $match=SoccerSchedule::find($matchPrediction->match_id);
+            if($match->hgoals!=null && $match->agoals!=null)
             {
-                $ifc=0;
-                $match=SoccerSchedule::find($matchPrediction->match_id);
-                if($matchPrediction->hgoals==$match->hgoals)
+                if ($matchPrediction->ifc == null)
                 {
-                    $ifc+=50;
-                }
-                if($matchPrediction->agoals==$match->agoals)
-                {
-                    $ifc+=50;
-                }
+                    $ifc = 0;
+                    if ($matchPrediction->hgoals == $match->hgoals) {
+                        $ifc += 50;
+                    }
+                    if ($matchPrediction->agoals == $match->agoals) {
+                        $ifc += 50;
+                    }
+                    DB::table('soccerscorepredictions')->where('match_id', $matchPrediction->match_id)->where('user_id', $user->id)->update(array('ifc' => $ifc));
 
-                DB::table('soccerscorepredictions')->where('match_id',$matchPrediction->match_id)->where('user_id', $user->id)->update(array('ifc' => $ifc));
+                }
+                $user->profile->ifc += $ifc;
+                $user->profile->save();
+                $tifc+=$ifc;
+
 
             }
-            $user->profile->ifc += $ifc;
-            $user->profile->save();
+        }
+        if($tifc>0)
+        {
+            TransactionController::insertToManager($user->id,"+".$tifc,"Earnings from correct soccer score predictions","nope","nope","nope");
         }
 
     }
@@ -190,7 +197,7 @@ class SoccerController extends \BaseController
             ->addColumn('Match',function($model)
             {
                 $match=SoccerSchedule::find($model->match_id);
-                return SoccerTeam::find($match->hometeam)->name.' Vs '.SoccerTeam::find($match->awayteam)->name;
+                return SoccerTeam::find($match->hometeam)->name.' <b>v</b> '.SoccerTeam::find($match->awayteam)->name;
             })
             ->addColumn('Your Scorers',function($model)
             {
@@ -223,26 +230,36 @@ class SoccerController extends \BaseController
 
     public static function calculateScorerIFCs()
     {
-        $ifc=0;
+        $tifc=0;
         $user=Auth::user();
         $scorerPredictions=Auth::user()->getScorerPredictions()->get();
         foreach($scorerPredictions as $scorer)
         {
-            if($scorer->ifc==null)
+            $match=SoccerSchedule::find($scorer->match_id);
+            if($match->hgoals!=null && $match->agoals!=null)
             {
-                $ifc=0;
-                $scorerMatch=SoccerScorer::Where('match_id','=',$scorer->match_id)->where('player_id','=',$scorer->player_id)->first();
-                if($scorerMatch!=null)
+                if ($scorer->ifc == null)
                 {
-                    $ifc = 50;
+                    $ifc = 0;
+                    $scorerMatch = SoccerScorer::Where('match_id', '=', $scorer->match_id)->where('player_id', '=', $scorer->player_id)->first();
+                    if ($scorerMatch != null)
+                    {
+                        $ifc = 50;
+                    }
+
+                    DB::table('soccerscorerpredictions')->where('match_id', $scorer->match_id)->where('player_id', $scorer->player_id)->where('user_id', $user->id)->update(array('ifc' => $ifc));
+
                 }
-
-                DB::table('soccerscorerpredictions')->where('match_id',$scorer->match_id)->where('player_id', $scorer->player_id)->where('user_id', $user->id)->update(array('ifc' => $ifc));
-
+                $user->profile->ifc += $ifc;
+                $user->profile->save();
+                $tifc+=$ifc;
             }
-            $user->profile->ifc += $ifc;
-            $user->profile->save();
 
+        }
+
+        if($tifc>0)
+        {
+            TransactionController::insertToManager($user->id,"+".$tifc,"Earnings from correct soccer scorer predictions","nope","nope","nope");
         }
 
     }
@@ -436,6 +453,12 @@ class SoccerController extends \BaseController
                 DB::table('soccerratings')->insert(array('match_id' => $mid, 'user_id' =>$userid,'player_id'=>intval($matchratings->ratings[$i]->pid),'comment'=>$matchratings->ratings[$i]->comment,'rating'=>floatval($matchratings->ratings[$i]->score)));
             }
         }
+        $matchDetails=SoccerSchedule::find($mid);
+        $homeTeam=SoccerTeam::find($matchDetails->hometeam);
+        $awayTeam=SoccerTeam::find($matchDetails->awayteam);
+        $msg1=$homeTeam->name.' Vs '.$awayTeam->name;
+        $msg=Auth::user()->first_name.' '.Auth::user()->last_name.' has given player ratings for '.$msg1;
+        Action::postAction('newMatchRating',Auth::user()->id,null,$mid,$msg);
         return 'Success';
 
     }

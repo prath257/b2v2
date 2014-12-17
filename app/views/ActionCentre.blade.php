@@ -23,6 +23,10 @@
 
         <p id="action"><a href="{{route('liveSoccer',$action->contentid)}}">{{$action->message}}</a></p>
 
+    @elseif($action->type=='newMatchRating')
+
+            <p id="action"><a href="/getMatchRatings/{{$action->contentid}}/{{$action->user1id}}">{{$action->message}}</a></p>
+
     @elseif($action->type=='BB new chapter')
 
     <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> posted a new chapter in BlogBook
