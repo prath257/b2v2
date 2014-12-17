@@ -19,6 +19,7 @@ class CreateActionsTable extends Migration {
             $table->integer('user2id');
             $table->char('type');
             $table->integer('contentid');
+            $table->text('message')->nullable();
             $table->timestamps();
 		});
 	}

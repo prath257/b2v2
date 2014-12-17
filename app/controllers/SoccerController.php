@@ -251,57 +251,96 @@ class SoccerController extends \BaseController
     public function getFriendsPredictions()
     {
         $mid=Input::get('matchId');
+        $friend=intval(Input::get('friend'));
         $userid=Auth::user()->id;
-        $friends1=DB::table('friends')->where('friend1','=',$userid)->where('status','=','accepted')->lists('friend2');
-        $friends2=DB::table('friends')->where('friend2','=',$userid)->where('status','=','accepted')->lists('friend1');
-        $friends = array_merge($friends1, $friends2);
-        $friendData=new stdClass();
-        $found=false;
-        if(count($friends)>0)
+        if($friend==0)
         {
-             $friendData->match=$mid;
-             $friendData->fpredict=array();
-             foreach($friends as $friend)
-             {
-                 $score=SoccerScorePredictions::Where('match_id',$mid)->where('user_id',$friend)->first();
-                 if($score!=null)
-                 {
-                    $predictData=new stdClass();
-                    $predictData->fid=$friend;
-                    $predictData->hgoals=$score->hgoals;
-                    $predictData->agoals=$score->agoals;
-                    $predictData->scorers=array();
-                    $scorers=SoccerScorerPredictions::Where('match_id',$mid)->where('user_id',$friend)->get();
-                     if(count($scorers)>0)
-                     {
+            $friends1 = DB::table('friends')->where('friend1', '=', $userid)->where('status', '=', 'accepted')->lists('friend2');
+            $friends2 = DB::table('friends')->where('friend2', '=', $userid)->where('status', '=', 'accepted')->lists('friend1');
+            $friends = array_merge($friends1, $friends2);
+            $friendData = new stdClass();
+            $found = false;
+            if (count($friends) > 0)
+            {
+                $friendData->match = $mid;
+                $friendData->fpredict = array();
+                foreach ($friends as $friend) {
+                    $score = SoccerScorePredictions::Where('match_id', $mid)->where('user_id', $friend)->first();
+                    if ($score != null) {
+                        $predictData = new stdClass();
+                        $predictData->fid = $friend;
+                        $predictData->hgoals = $score->hgoals;
+                        $predictData->agoals = $score->agoals;
+                        $predictData->scorers = array();
+                        $scorers = SoccerScorerPredictions::Where('match_id', $mid)->where('user_id', $friend)->get();
+                        if (count($scorers) > 0) {
 
-                         $i=0;
-                         foreach($scorers as $scorer)
-                         {
-                             $predictData->scorers[$i]=$scorer->player_id;
-                             $i++;
-                         }
-                     }
-                     array_push($friendData->fpredict,$predictData);
-                     $found=true;
+                            $i = 0;
+                            foreach ($scorers as $scorer) {
+                                $predictData->scorers[$i] = $scorer->player_id;
+                                $i++;
+                            }
+                        }
+                        array_push($friendData->fpredict, $predictData);
+                        $found = true;
 
-                 }
+                    }
 
-             }
-             if($found==true)
-             {
-                 $homeTeam = SoccerTeam::find(SoccerSchedule::find($mid)->hometeam)->name;
-                 $awayTeam = SoccerTeam::find(SoccerSchedule::find($mid)->awayteam)->name;
-                 return View::make('soccer.friendsPrediction')->with('friendsData', $friendData)->with('home',$homeTeam)->with('away',$awayTeam);
-             }
-             else
-             {
-                 return "<h3> No Predictions by your friends found for current Matchday</h3>";
-             }
+                }
+                if ($found == true) {
+                    $homeTeam = SoccerTeam::find(SoccerSchedule::find($mid)->hometeam)->name;
+                    $awayTeam = SoccerTeam::find(SoccerSchedule::find($mid)->awayteam)->name;
+                    return View::make('soccer.friendsPrediction')->with('friendsData', $friendData)->with('home', $homeTeam)->with('away', $awayTeam);
+                } else {
+                    return "<h3> No Predictions by your friends found for current Matchday</h3>";
+                }
+            }
+            else
+            {
+                return "<h3> No Predictions by your friends found for current Matchday</h3>";
+            }
         }
         else
         {
-            return "<h3> No Predictions by your friends found for current Matchday</h3>";
+            $friendData = new stdClass();
+            $found = false;
+            $friendData->match = $mid;
+            $friendData->fpredict = array();
+            $score = SoccerScorePredictions::Where('match_id', $mid)->where('user_id', $friend)->first();
+            if ($score != null)
+            {
+                    $predictData = new stdClass();
+                    $predictData->fid = $friend;
+                    $predictData->hgoals = $score->hgoals;
+                    $predictData->agoals = $score->agoals;
+                    $predictData->scorers = array();
+                    $scorers = SoccerScorerPredictions::Where('match_id', $mid)->where('user_id', $friend)->get();
+                    if (count($scorers) > 0)
+                    {
+
+                        $i = 0;
+                        foreach ($scorers as $scorer)
+                        {
+                            $predictData->scorers[$i] = $scorer->player_id;
+                            $i++;
+                        }
+                    }
+                    array_push($friendData->fpredict, $predictData);
+                    $found = true;
+
+            }
+            if ($found == true)
+            {
+                 $homeTeam = SoccerTeam::find(SoccerSchedule::find($mid)->hometeam)->name;
+                 $awayTeam = SoccerTeam::find(SoccerSchedule::find($mid)->awayteam)->name;
+                 return View::make('soccer.friendsPrediction')->with('friendsData', $friendData)->with('home', $homeTeam)->with('away', $awayTeam);
+            }
+            else
+            {
+                return "No";
+            }
+
+
         }
 
 

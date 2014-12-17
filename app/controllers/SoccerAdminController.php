@@ -387,6 +387,11 @@ class SoccerAdminController extends \BaseController
             $feed->match_id=$matchId;
             $feed->save();
             $feed=Feed::Where('match_id',$matchId)->first();
+            $matchDetails=SoccerSchedule::find($matchId);
+            $homeTeam=SoccerTeam::find($matchDetails->hometeam);
+            $awayTeam=SoccerTeam::find($matchDetails->awayteam);
+            $msg=$homeTeam->name.' Vs '.$awayTeam->name.' Live matchfeed in now ON!';
+            Action::postAction('newFeed',Auth::user()->id,null,$feed->id,$msg);
             return '<div class="col-xs-12 col-sm-12 col-md-12" id="feed'.$feed->id.'"><a href="/liveSoccer/'.$feed->id.'">'.SoccerTeam::find(SoccerSchedule::find($feed->match_id)->hometeam)->name.' V '.SoccerTeam::find(SoccerSchedule::find($feed->match_id)->awayteam)->name.'</a><button class="btn btn-default" onclick="stopFeed('.$feed->id.')"> Stop Feed</button><hr></div>';
         }
         else
@@ -628,9 +633,35 @@ class SoccerAdminController extends \BaseController
     }
     public function saveUserComment()
     {
+        $flag=0;
+        $usernames=array();
+        $uname='';
         $slogan=' ';
         $feedNo=Input::get('feedNo');
         $comment=Input::get('text');
+        for($i=0;$i<strlen($comment);$i++)
+        {
+            if($flag==1)
+            {
+                if($comment[$i]==' ')
+                {
+                    $flag = 0;
+                    array_push($usernames,$uname);
+                    $uname='';
+                }
+                else
+                    $uname=$uname.$comment[$i];
+            }
+              if($comment[$i]=='~')
+                  $flag=1;
+
+        }
+        foreach($usernames as $username)
+        {
+            $user = User::Where('username',$username)->first();
+            $id=$user->id;
+            AjaxController::insertToNotification($id,Auth::user()->id,"tagged","tagged you in a live soccer feed ",'http://b2.com/liveSoccer/'.$feedNo);
+        }
         $lastCall=new DateTime(Session::get('lastCall'));
         $feed=Feed::find($feedNo);
         $user=Auth::user();
@@ -767,6 +798,35 @@ class SoccerAdminController extends \BaseController
         $user->save();
         return 'success';
     }
+
+    //this is the function to search friends of the user
+    public function searchFriends()
+    {
+        $flag=false;
+        $foundPlayers=new \Illuminate\Database\Eloquent\Collection();
+        $keywords=Input::get('name');
+        $users=FriendsController::selectAllFriends();
+        foreach ($users as $player)
+        {
+            $name = $player->first_name.' '.$player->last_name;
+            if (Str::contains(Str::lower($name), Str::lower($keywords)))
+            {
+                $flag=true;
+                $foundPlayers->add($player);
+            }
+        }
+        if($flag==true)
+        {
+
+            return View::make('soccer.searchedFriends')->with('users',$foundPlayers);
+        }
+        else
+        {
+            return "";
+        }
+
+    }
+
 
 
 }

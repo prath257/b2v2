@@ -19,6 +19,9 @@
     <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> posted a new BlogBook
             <a href="{{route('blogBookPreview',BlogBook::find($action->contentid)->id)}}">{{BlogBook::find($action->contentid)->title}}</a> </p>
 
+    @elseif($action->type=='newFeed')
+
+        <p id="action"><a href="{{route('liveSoccer',$action->contentid)}}">{{$action->message}}</a></p>
 
     @elseif($action->type=='BB new chapter')
 

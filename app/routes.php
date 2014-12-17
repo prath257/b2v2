@@ -502,6 +502,7 @@
     Route::post('saveUserComment',array('as'=>'saveUserComment','uses'=>'SoccerAdminController@saveUserComment'));
     Route::post('searchSoccerFriends',array('as'=>'searchSoccerFriends','uses'=>'SoccerAdminController@searchSoccerFriends'));
     Route::get('getLiveSoccer',array('as'=>'getLiveSoccer','before'=>'auth','uses'=>'SoccerAdminController@getLiveSoccerLinks'));
+    Route::post('searchFriends',array('as'=>'searchFriends','before'=>'auth','uses'=>'SoccerAdminController@searchFriends'));
 
 
     //soccer user routes

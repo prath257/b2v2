@@ -32,6 +32,7 @@
            <button class="btn btn-success" onclick="acceptFriendR('{{$note->id}}','{{$note->cuserid}}')">Accept</button> <button class="btn btn-danger" onclick="declineFriendR('{{$note->id}}','{{$note->cuserid}}')">Decline</button>
          </div>
 
+
          @elseif($note->type=='chat')
          <?php $chat = Chat::find($note->chid);
 
@@ -78,6 +79,9 @@
                 <div id="btns{{$note->id}}" class="pull-right col-lg-3">
                 <a class="btn btn-success" href="http://b2.com/acceptCollaboration/{{$link}}/{{$note->chid}}" target="_blank">Accept</a>
                 </div>
+
+
+
 
         @elseif($note->type=='reqContri')
             <?php $link = DB::table('requestcontribution')->where('collaboration_id',$note->chid)->where('user_id',$note->cuserid)->pluck('link'); ?>

@@ -12,7 +12,7 @@ class Action extends Eloquent
 {
     protected $table='actions';
 
-    public static function postAction($type,$user1id,$user2id,$contentid)
+    public static function postAction($type,$user1id,$user2id,$contentid,$message=null)
     {
         $action=new Action();
         $action->type=$type;
@@ -21,6 +21,8 @@ class Action extends Eloquent
             $action->user2id=$user2id;
         if($contentid != null)
             $action->contentid=$contentid;
+        if($message!=null)
+            $action->message=$message;
         $action->save();
 
     }

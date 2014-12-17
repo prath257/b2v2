@@ -301,4 +301,18 @@ class FriendsController extends \BaseController
         else
             return 'wH@tS!nTheB0x';
     }
+
+    public static function selectAllFriends()
+    {
+        $userid = Auth::user()->id;
+        $friends1=DB::table('friends')->where('friend1','=',$userid)->where('status','=','accepted')->lists('friend2');
+        $friends2=DB::table('friends')->where('friend2','=',$userid)->where('status','=','accepted')->lists('friend1');
+        $friends = array_merge($friends1, $friends2);
+        $user = new \Illuminate\Database\Eloquent\Collection();
+        foreach($friends as $f)
+        {
+            $user->add(User::find($f));
+        }
+        return $user;
+    }
 }

@@ -18,6 +18,7 @@ var width=0;
 
 var oTable1=null;
 var oTable2=null;
+var friendSearchTimer=null;
 
 var playerSearchTimer=null;
 
@@ -304,9 +305,9 @@ function getResults()
  {
      if($('#matchSelect').val()!='default')
      {
-         var mid=$('#matchSelect').val();
+        matchId=$('#matchSelect').val();
         showWaiting('Loading Friends Predictions');
-         $.post('http://b2.com/getFriendsPredictions',{matchId:mid},function(data)
+         $.post('http://b2.com/getFriendsPredictions',{matchId:matchId, friend:0},function(data)
          {
              closeWaiting();
              $('#matchdaySchedule').html(data);
@@ -447,6 +448,70 @@ function removeAwayPlayer(tdiv,pid)
 
 }
 
+
+// these are the functions required for searching a friend
+
+function friendSearchDown()
+{
+        clearTimeout(friendSearchTimer);
+}
+
+function friendSearchUp()
+{
+     friendSearchTimer = setTimeout(function ()
+     {
+         var friendName=$('#searchFriend').val();
+         if(friendName.length>0)
+             searchFriend(friendName);
+         else
+             $('#searchResult').hide();
+
+     }, 500);
+
+}
+
+function searchFriend(val)
+{
+    $('#searchResult').html('<div style="text-align: center"><img src="http://b2.com/Images/icons/waiting.gif">Searching...</div>');
+    $('#searchResult').show();
+    $.post('http://b2.com/searchFriends', {name: val}, function (markup)
+    {
+        if (markup == 'wH@tS!nTheB0x')
+            window.location = 'http://b2.com/offline';
+        else {
+            $('#searchResult').fadeIn();
+            $('#searchResult').html(markup);
+
+        }
+    });
+
+}
+
+function getUserData(pid)
+{
+    showWaiting('Loading Predictions');
+    $.post('http://b2.com/getFriendsPredictions',{matchId:matchId,friend:pid},function(data)
+    {
+        closeWaiting();
+        if(data=='No')
+        {
+            $('#empty').fadeIn();
+            setTimeout(function ()
+            {
+                $('#empty').fadeOut();
+            }, 4000);
+            $('#searchResult').hide();
+            $('#searchFriend').val('');
+        }
+        else
+        {
+            $('#searchResult').hide();
+            $('#searchFriend').val('');
+            $('#matchdaySchedule').html(data);
+        }
+
+    }) ;
+}
 
 
 

@@ -1,8 +1,10 @@
-<div class="col-xs-12">
-    <input type="text" id="searchFriend" placeholder="Search Friend" class="col-sm-4 col-md-4 col-xs-12 form-control">
-    <div class="col-xs-12 col-sm-4 col-md-4" id="searchResult" style="margin-top: 5px; display: none">
+<div class="col-xs-12 col-sm-5 col-md-4 noPad">
+    <input type="text" id="searchFriend" placeholder="Search Friend" class="col-sm-4 col-md-4 col-xs-12 form-control" onkeydown="friendSearchDown()" onkeyup="friendSearchUp()">
+    <label id="empty" style="display: none">No Data found</label>
+    <div class="col-xs-12 col-sm-12 col-md-12" id="searchResult" style="margin-top: 5px; display: none">
           <br>
     </div>
+
 </div>
 <hr>
 @foreach($friendsData->fpredict as $fp)
