@@ -275,7 +275,7 @@ class AjaxController extends \BaseController {
             }
             else
             {
-                $action = Action::where('created_at', '>', $prevCall)->orderBy('created_at', 'DESC')->take(6)->get();
+                $action = Action::where('created_at', '>', $prevCall)->orderBy('created_at', 'DESC')->get();
                 Session::put('prevCall', date('Y-m-d H:i:s'));
                 if (count($action) > 0)
                     return View::make('ActionCentre')->with('actions', $action)->with('count', null)->with('moreActions', null);

@@ -660,17 +660,18 @@ function actionAjax()
         {
             ajaxOk=false;
         }
-    })
-        .done(function(data)
+    }).done(function(data)
         {
             if(data=='wH@tS!nTheB0x')
                 window.location='http://b2.com/offline';
             else
             {
-                typeSession=1;
+
                 ajaxOk=true;
                 if(typeSession==0)
-                    $('#loadActions').html(data);
+                {
+                 $('#loadActions').html(data);
+                }
                 else
                     $('#loadActions').prepend(data);
                 $('.actionImages').height(50);
