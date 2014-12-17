@@ -10,6 +10,7 @@
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
     <link href="{{asset('css/fileUpload.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/home.css')}}" rel="stylesheet">
+     <link href="{{asset('css/pages/soccerPredictor.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/notification.css')}}" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.datetimepicker.css')}}"/>

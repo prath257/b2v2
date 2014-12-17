@@ -9,32 +9,32 @@
       <h5>{{SoccerTeam::find($match->hometeam)->stadium}}</h5>
     </div>
 
-    <div class="col-xs-5 col-sm-5 ">
+    <div class="col-xs-12 col-sm-5" id="homeList">
 
      <img id="homeLogo"  style="height: 200px" src="{{SoccerTeam::find($match->hometeam)->logo}}">
       <div class="col-xs-12 col-sm-12">&nbsp;</div>
-     @for($i=1;$i<=$hg;$i++)
-     <select id="homeScorer{{$i}}" class="form-control">
-             <option value="0">Own Goal</option>
-             @foreach(SoccerTeam::find($match->hometeam)->getPlayers as $player)
-             <option value="{{$player->id}}">{{$player->first_name}} {{$player->last_name}}</option>
-             @endforeach
-     </select>
-     @endfor
+      <input type="hidden" id="homeMax" value="{{$hg}}">
+      <div class="col-xs-12 col-sm-12 col-md-12 noPad">
+           <input type="text" class="form-control" placeholder="Search Player for Comments" name="other" id="homesearchPlayer" onkeydown="playerCommentsDown()" onkeyup="playerCommentsUp({{SoccerTeam::find($match->hometeam)->id}},'home')">
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 noPad" id="homesearchResult" style="margin-top: 5px; display: none">
+      <br>
+      </div>
+
+
 
     </div>
     <div class="col-xs-2 col-sm-2">&nbsp;</div>
-    <div class="col-xs-12 col-sm-5 ">
-          <img id="homeLogo" style="height: 200px" src="{{SoccerTeam::find($match->awayteam)->logo}}">
-          <div class="col-xs col-sm-12">&nbsp;</div>
-         @for($j=1;$j<=$ag;$j++)
-         <select id="awayScorer{{$j}}" class="form-control">
-             <option value="0">Own Goal</option>
-             @foreach(SoccerTeam::find($match->awayteam)->getPlayers as $player)
-             <option value="{{$player->id}}">{{$player->first_name}} {{$player->last_name}}</option>
-             @endforeach
-         </select>
-         @endfor
+    <div class="col-xs-12 col-sm-5" id="awayList">
+           <img id="homeLogo" style="height: 200px" src="{{SoccerTeam::find($match->awayteam)->logo}}">
+           <div class="col-xs col-sm-12">&nbsp;</div>
+           <input type="hidden" id="awayMax" value="{{$ag}}">
+           <div class="col-xs-12 col-sm-12 col-md-12 noPad">
+                 <input type="text" class="form-control" placeholder="Search Player for Comments" name="other" id="awaysearchPlayer" onkeydown="playerCommentsDown()" onkeyup="playerCommentsUp({{SoccerTeam::find($match->awayteam)->id}},'away')">
+           </div>
+           <div class="col-xs-12 col-sm-12 col-md-12 noPad" id="awaysearchResult" style="margin-top: 5px; display: none">
+           <br>
+           </div>
     </div>
     <div class="col-xs-12 col-sm-12">&nbsp;</div>
     <div class="col-xs-12 col-sm-12">&nbsp;</div>

@@ -495,6 +495,7 @@
     Route::post('getFeedData',array('as'=>'getFeedData','before'=>'auth','uses'=>'SoccerAdminController@getFeedData'));
     Route::post('createFeed',array('as'=>'createFeed','before'=>'auth','uses'=>'SoccerAdminController@createFeed'));
     Route::post('stopFeed',array('as'=>'stopFeed','before'=>'auth','uses'=>'SoccerAdminController@stopFeed'));
+    Route::post('deleteFeed',array('as'=>'deleteFeed','before'=>'auth','uses'=>'SoccerAdminController@deleteFeed'));
     Route::get('liveSoccer/{id}',array('as'=>'liveSoccer','before'=>'auth','uses'=>'SoccerAdminController@getLiveSoccer'));
     Route::post('getLiveSoccerData',array('as'=>'getLiveSoccerData','uses'=>'SoccerAdminController@getLiveSoccerData'));
     Route::post('getLiveScore',array('as'=>'getLiveScore','uses'=>'SoccerAdminController@getLiveScore'));
@@ -524,6 +525,8 @@
     Route::get('getMyRatingsTable',array('as'=>'getMyRatingsTable','before'=>'auth','uses'=>'SoccerController@getMyRatingsTable'));
     Route::post('getFriendsRatings',array('as'=>'getFriendsRatings','before'=>'auth','uses'=>'SoccerController@getFriendsRatings'));
     Route::get('getFriendsRatingsTable',array('as'=>'getFriendsRatingsTable','before'=>'auth','uses'=>'SoccerController@getFriendsRatingsTable'));
+    Route::post('getTeamData',array('as'=>'getTeamData','before'=>'auth','uses'=>'SoccerAdminController@getTeamData'));
+    Route::post('changeTeam',array('as'=>'changeTeam','before'=>'auth','uses'=>'SoccerAdminController@changeTheTeam'));
 
     //these are the routes for getting match_ratings graphs
     Route::post('getMyBestRatings',array('as'=>'getMyBestRatings','before'=>'auth','uses'=>'SoccerGraphicsController@getMyBestRatings'));
@@ -534,7 +537,7 @@
     Route::post('searchClub',array('as'=>'searchClub','before'=>'auth','uses'=>'SoccerGraphicsController@searchClub'));
     Route::post('fetchClubRatings',array('as'=>'fetchClubRatings','before'=>'auth','uses'=>'SoccerGraphicsController@fetchClubRatings'));
     Route::post('getclubBestRatings',array('as'=>'getclubBestRatings','before'=>'auth','uses'=>'SoccerGraphicsController@getclubBestRatings'));
-
+    Route::post('searchPlayer',array('as'=>'searchPlayer','before'=>'auth','uses'=>'SoccerGraphicsController@searchPlayer'));
 
 
 

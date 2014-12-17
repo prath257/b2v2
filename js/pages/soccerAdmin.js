@@ -381,3 +381,21 @@ function stopFeed(fid)
     });
 }
 
+function deleteFeed(fid)
+{
+    showWaiting('Deleting Feed');
+    $.post('http://b2.com/deleteFeed',{feedId:fid},function(data)
+    {
+        closeWaiting();
+        if(data=='Done')
+        {
+            $('#feed' + fid).hide();
+        }
+        else
+        {
+
+        }
+    });
+}
+
+

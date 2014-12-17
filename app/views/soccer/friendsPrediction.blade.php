@@ -1,4 +1,9 @@
-<input type="text" id="searchFriend" placeholder="Search Friend" class="col-sm-4 col-md-4 col-xs-12">
+<div class="col-xs-12">
+    <input type="text" id="searchFriend" placeholder="Search Friend" class="col-sm-4 col-md-4 col-xs-12 form-control">
+    <div class="col-xs-12 col-sm-4 col-md-4" id="searchResult" style="margin-top: 5px; display: none">
+          <br>
+    </div>
+</div>
 <hr>
 @foreach($friendsData->fpredict as $fp)
 <div class="col-xs-12 col-sm-4 col-md-4" style="border: 1px solid lightgray;padding: 0px">

@@ -128,7 +128,7 @@ function searchUser(val)
 
 function addUser(uname)
 {
-    var finalComment=restComment+'~'+uname;
+    var finalComment=restComment+'~'+uname+' ';
     $('#commentText').val(finalComment);
     $('#searchResult').hide();
     searchOn=false;

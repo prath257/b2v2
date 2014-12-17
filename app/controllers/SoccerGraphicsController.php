@@ -340,6 +340,43 @@ class SoccerGraphicsController extends \BaseController
 
     }
 
+    public function searchPlayer()
+    {
+      if(Auth::check())
+      {
+          $type=Input::get('type');
+          $flag = false;
+          $foundPlayers = new \Illuminate\Database\Eloquent\Collection();
+          $keywords = Input::get('player');
+          $teamId = Input::get('team');
+          $players = SoccerTeam::find($teamId)->getPlayers()->get();
+          foreach ($players as $player)
+          {
+              $name = $player->first_name . ' ' . $player->last_name;
+              if (Str::contains(Str::lower($name), Str::lower($keywords)))
+              {
+                  $flag = true;
+                  $foundPlayers->add($player);
+              }
+          }
+          if ($flag == true)
+          {
+
+              return View::make('soccer.playerSearch')->with('players', $foundPlayers)->with('type', $type);;
+          }
+          else
+          {
+              return "<p>No Player by this name</p>";
+          }
+
+      }
+      else
+      {
+
+      }
+
+    }
+
 
 
 

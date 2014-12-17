@@ -101,14 +101,49 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
         <hr>
-        My Team
-        <p style="font-size: x-large">{{SoccerTeam::find($user->team)->name}}</p>
+        <div class="col-xs-8 col-md-8 col-sm-8 noPadding">
+         My Team
+                <p style="font-size: x-large">{{SoccerTeam::find($user->team)->name}}</p>
+                <input type="hidden" id="teamID" value="{{SoccerTeam::find($user->team)->id}}">
+                <a href="#" onclick="changeTeam()">change team</a>
+        </div>
+        <div class="col-xs-4 col-md-4 col-sm-4 noPadding">
+                <img src="{{SoccerTeam::find($user->team)->logo}}" width="130px" height="130px">
+        </div>
+
         <hr>
+        </div>
+
+        <div id="teamData" class="col-xs-12 col-md-12 col-sm-12">
+               <div style='text-align:center'><img  src='http://b2.com/Images/icons/waiting.gif'>Loading Content...</div>
         </div>
 
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="teamModal" tabindex="-1" role="dialog" aria-hidden="true">
+      	<div class="modal-dialog">
+      		<div class="modal-content">
+      			<div class="modal-header">
+      				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      				<h5>Select your team:</h5>
+      		    </div>
+      			<div id="teamBody" class="modal-body">
+      			<fieldset>
+      			<div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <input type="text" class="form-control" placeholder="Search Club for ratings" name="other" id="searchClub" onkeydown="findClubDown()" onkeyup="findClubUp()">
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12" id="clubSearchResult" style="margin-top: 5px; display: none">
+                    <br>
+                    </div>
+                </div>
+                </fieldset>
+                </div>
+      	</div>
+      </div>
+      </div>
 
 <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
 <script src="{{asset('js/search.js')}}"></script>

@@ -18,15 +18,32 @@
     </div>
 </div>
 <div class="col-xs-12"><hr></div>
-<h3>Current Active Feeds:</h3>
+
 <div class="col-xs-12 col-md-6 col-sm-6" id="liveFeedsDiv">
 @if(count($feeds)==0)
    <p>No live feeds currently.</p>
 @else
+    <h3>Current Active Feeds:</h3>
     @foreach($feeds as $feed)
     <div class="col-xs-12 col-sm-12 col-md-12" id="feed{{$feed->id}}">
        <a href="/liveSoccer/{{$feed->id}}">{{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->hometeam)->name}} V {{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->awayteam)->name}}</a>
        <button class="btn btn-default" onclick="stopFeed({{$feed->id}})"> Stop Feed</button>
+       <hr>
+    </div>
+
+    @endforeach
+    @endif
+</div>
+
+<div class="col-xs-12 col-md-6 col-sm-6" id="legacyFeedsDiv">
+@if(count($legacyFeeds)==0)
+   <p>No Legacy feeds found.</p>
+@else
+    <h3>Legacy Feeds:</h3>
+    @foreach($legacyFeeds as $feed)
+    <div class="col-xs-12 col-sm-12 col-md-12" id="feed{{$feed->id}}">
+       <a href="/liveSoccer/{{$feed->id}}">{{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->hometeam)->name}} V {{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->awayteam)->name}}</a>
+       <button class="btn btn-default" onclick="deleteFeed({{$feed->id}})"> Delete Feed</button>
        <hr>
     </div>
 

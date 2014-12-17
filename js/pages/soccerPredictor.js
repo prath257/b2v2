@@ -5,12 +5,21 @@
 var leagueId=null;
 var matchDay=null;
 
+//these are the variables for scores predictions
+var matchId=null;
+var hgoals=0;
+var agoals=0;
+var hscorers=[];
+var ascorers=[];
+
 var predict={"league":0,"matchday":0,"predictions":[]};
 var family=null;
 var width=0;
 
 var oTable1=null;
 var oTable2=null;
+
+var playerSearchTimer=null;
 
 $(document).ready(function()
 {
@@ -44,6 +53,8 @@ function getNextMatchDay(tipo)
                 }
                 $('#matchdayDetails').fadeIn();
                 matchDay = $('#dayMatch').val();
+                predict.league=leagueId;
+                predict.matchday=matchDay;
                 if (tipo == 'predict')
                 {
                     showWaiting('Loading Matchday');
@@ -150,6 +161,11 @@ function showScorerModal(mid)
         showWaiting('Loading Players');
         $.post('http://b2.com/scorerSelector', {match: mid, home: hscore, away: ascore}, function (data)
         {
+            matchId=mid;
+            hgoals=0;
+            agoals=0;
+            ascorers=[];
+            hscorers=[];
             $('#scorerBody').html(data);
             $('#scorePredicted' + mid).html("Your prediction: " + hscore + '-' + ascore);
             closeWaiting();
@@ -172,51 +188,58 @@ function saveScores(mid)
     bootbox.confirm('Are you sure want to save your predictions, cant change them again and wont be able to make scorers predictions!',function(result) {
         if (result == true)
         {
-                    $('#check' + mid).hide();
-                    $('#done' + mid).fadeIn();
-                    $('#hg' + mid).attr('disabled', true);
-                    $('#ag' + mid).attr('disabled', true);
-                    $('#saveLink' + mid).hide();
+                $('#check' + mid).hide();
+                $('#done' + mid).fadeIn();
+                $('#hg' + mid).attr('disabled', true);
+                $('#ag' + mid).attr('disabled', true);
+                $('#saveLink' + mid).hide();
         }
     });
 }
 
 function savePredictions(mid,hg,ag)
 {
-    bootbox.confirm('Are you sure want to save your predictions, you wont be able to change them later!',function(result)
+    if(hscorers.length < hg || ascorers.length < ag)
     {
-       if(result==true)
-       {
-           predict.league=leagueId;
-           predict.matchday=matchDay;
-           var scorerid=null;
-           family = jsonQ(predict);
-           var match = family.find('match',function(){
-               return this == mid;
-           });
-           var hscorers = match.sibling('homescorers');
-           for(i=1;i<=hg;i++) {
-               scorerid=$('#homeScorer'+i).val();
-               var scorer = {"pid":scorerid};
-               hscorers.append(scorer);
-           }
-           var ascorers = match.sibling('awayscorers');
-           for(i=1;i<=ag;i++) {
-               scorerid=$('#awayScorer'+i).val();
+       bootbox.alert('Please predict all the goalscorers according to your score prediction');
+    }
 
-               var scorer = {"pid":scorerid};
-               ascorers.append(scorer);
-           }
-           $('#check'+mid).hide();
-           $('#done'+mid).fadeIn();
-           $('#hg'+mid).attr('disabled',true);
-           $('#ag'+mid).attr('disabled',true);
-           $('#saveLink'+mid).hide();
-           $('#scorerModal').modal('hide');
+    else
+    {
+        bootbox.confirm('Are you sure want to save your predictions, you wont be able to change them later!', function (result) {
+            if (result == true)
+            {
+                var scorerid = null;
+                family = jsonQ(predict);
+                var match = family.find('match', function () {
+                    return this == mid;
+                });
+                var homeScorers = match.sibling('homescorers');
 
-       }
+                for (i = 0; i < hg; i++)
+                {
+                    scorerid = hscorers[i];
+                    var scorer = {"pid": scorerid};
+                    homeScorers.append(scorer);
+                }
+                var awayScorers = match.sibling('awayscorers');
+                for (i = 0; i < ag; i++)
+                {
+                    scorerid = ascorers[i];
+                    var scorer = {"pid": scorerid};
+                    awayScorers.append(scorer);
+                }
+                $('#check' + mid).hide();
+                $('#done' + mid).fadeIn();
+                $('#hg' + mid).attr('disabled', true);
+                $('#ag' + mid).attr('disabled', true);
+                $('#saveLink' + mid).hide();
+                $('#scorerModal').modal('hide');
 
-    });
+            }
+
+        });
+    }
 
 }
 
@@ -308,5 +331,124 @@ function closeWaiting()
 {
     $('#waitingModal').modal('hide');
 }
+
+
+//this is the functions to search scorers
+function playerCommentsDown()
+{
+    clearTimeout(playerSearchTimer);
+
+
+
+}
+
+function playerCommentsUp(tid,side)
+{
+
+    playerSearchTimer = setTimeout(function()
+    {
+        var player = $('#'+side+'searchPlayer').val();
+        if(player.length>0)
+           searchPlayer(player,tid,side);
+        else
+            $('#'+side+'searchResult').hide();
+    }, 500);
+}
+
+function searchPlayer(val,tid,side)
+{
+    $('#'+side+'searchResult').html('<div style="text-align: center"><img src="http://b2.com/Images/icons/waiting.gif"></div>');
+    $('#'+side+'searchResult').show();
+
+    $.post('http://b2.com/searchPlayer', {player: val, team:tid, type:side}, function(markup)
+    {
+        if (markup == 'wH@tS!nTheB0x')
+            window.location='http://b2.com/offline';
+        else
+        {
+
+            $('#'+side+'searchResult').html(markup);
+
+        }
+    });
+}
+
+function getPlayerComments(tipo,name,pid)
+{
+    var max=0;
+    if(tipo=='home')
+    {
+        hgoals++;
+        max=parseInt($('#homeMax').val());
+        if(hgoals <= max)
+        {
+             hscorers.push(pid);
+            $('#'+tipo+'searchResult').hide();
+            $('#'+tipo+'searchPlayer').val('');
+            $('#homeList').append('<div class="col-xs-8 col-sm-8 col-md-8 chosenPlayer" onclick="removeHomePlayer(this,'+pid+')"><div class="col-xs-12"><br></div>'+name+'&nbsp;&nbsp;<i class="fa fa-times-circle" style="cursor: pointer"></i></div>');
+        }
+        else
+        {
+            hgoals--;
+            $('#'+tipo+'searchResult').hide();
+            $('#'+tipo+'searchPlayer').val('');
+            bootbox.alert('You have predicted all '+tipo+' scorers');
+        }
+
+    }
+    else
+    {
+        agoals++;
+        max=parseInt($('#awayMax').val());
+        if(agoals<=max)
+        {
+            ascorers.push(pid);
+            $('#'+tipo+'searchResult').hide();
+            $('#'+tipo+'searchPlayer').val('');
+            $('#awayList').append('<div class="col-xs-8 col-sm-8 col-md-8 chosenPlayer" onclick="removeAwayPlayer(this,'+pid+')"><div class="col-xs-12"><br></div>'+name+'&nbsp;&nbsp;<i class="fa fa-times-circle" style="cursor: pointer"></i></div>');
+
+        }
+        else
+        {
+            agoals--;
+            $('#'+tipo+'searchResult').hide();
+            $('#'+tipo+'searchPlayer').val('');
+            bootbox.alert('You have predicted all '+tipo+' scorers');
+        }
+
+    }
+
+
+}
+
+
+function removeHomePlayer(tdiv,pid)
+{
+    var myDiv=tdiv;
+    myDiv.hidden=true;
+    var index = hscorers.indexOf(pid);
+    if (index > -1)
+    {
+        hscorers.splice(index, 1);
+        hgoals--;
+    }
+}
+
+function removeAwayPlayer(tdiv,pid)
+{
+    var myDiv=tdiv;
+    myDiv.hidden=true;
+    var index = ascorers.indexOf(pid);
+    if (index > -1)
+    {
+        ascorers.splice(index, 1);
+        agoals--;
+    }
+
+}
+
+
+
+
 
 

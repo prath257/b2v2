@@ -76,7 +76,11 @@ class SoccerAdminController extends \BaseController
        //These are the real routes
     public function getAdminPage()
     {
-        return View::make('soccer.admin');
+        $username=Auth::user()->username;
+        if($username=='ksjoshi88' || $username=='ShripadKenobi')
+            return View::make('soccer.admin');
+        else
+            return "<h1>Not Authorized for Admin Page</h1>";
     }
 
     public function createSchedule()
@@ -351,16 +355,21 @@ class SoccerAdminController extends \BaseController
             $leagueId = Input::get('league');
             $matches = SoccerSchedule::Where('league', $leagueId)->whereNull('hgoals')->get();
             $feeds = new \Illuminate\Database\Eloquent\Collection();
+            $lfeeds = Feed::Where('live',false)->get();
             $newMatches = new \Illuminate\Database\Eloquent\Collection();
-            foreach ($matches as $match) {
-                $feed = Feed::Where('match_id', $match->id)->first();
-                if ($feed != null) {
+            foreach ($matches as $match)
+            {
+                $feed = Feed::Where('match_id', $match->id)->where('live',true)->first();
+                if ($feed != null)
+                {
                     $feeds->add($feed);
-                } else {
+                }
+                else
+                {
                     $newMatches->add($match);
                 }
             }
-            return View::make('soccer.manageFeeds')->with('feeds', $feeds)->with('matches', $newMatches);
+            return View::make('soccer.manageFeeds')->with('feeds', $feeds)->with('matches', $newMatches)->with('legacyFeeds',$lfeeds);
         }
         else
         {
@@ -395,6 +404,22 @@ class SoccerAdminController extends \BaseController
             $feed= Feed::find($feedId);
             $feed->live=false;
             $feed->save();
+            return 'Done';
+        }
+        else
+        {
+            return 'wH@tS!nTheB0x';
+        }
+    }
+
+    public function deleteFeed()
+    {
+        if (Auth::check())
+        {
+            //this is the logic to create a new feed
+            $feedId=Input::get('feedId');
+            $feed= Feed::find($feedId);
+            $feed->delete();
             return 'Done';
         }
         else
@@ -666,10 +691,81 @@ class SoccerAdminController extends \BaseController
         if (Auth::check())
         {
             //this is the logic to create a new feed
-            $feeds= Feed::Where('live',true)->get();
-            return View::make('soccer.liveLinks')->with('feeds',$feeds);
+            $lfeeds= Feed::Where('live',true)->get();
+            $cfeeds= Feed::Where('live',false)->get();
+            return View::make('soccer.liveLinks')->with('lfeeds',$lfeeds)->with('cfeeds',$cfeeds);
         }
 
+    }
+
+    //this is the function to get the team data on user home page
+
+    public function getTeamData()
+    {
+        $tid=Input::get('team');
+        $url=SoccerTeam::find($tid)->homepage;
+        $teamSchedule=null;
+        $teamNews=null;
+        libxml_use_internal_errors(true);
+        $page_content = file_get_contents($url);
+
+        if($page_content != null)
+        {
+            $dom_obj = new DOMDocument();
+            $dom_obj->loadHTML($page_content);
+            //First we fetch league table
+            foreach ($dom_obj->getElementsByTagName('div') as $meta) {
+                if ($meta->getAttribute('class') == 'accordion-container upcoming')
+                {
+                    $teamSchedule = $dom_obj->saveHTML($meta);
+                }
+            }
+            $dom_obj->loadHTML($teamSchedule);
+            // Preserve a reference to our DIV container
+            $mytb = $dom_obj->getElementsByTagName("div")->item(0);
+
+            foreach ($dom_obj->getElementsByTagName('a') as $meta)
+            {
+                $olink=$meta->getAttribute('href');
+                $olink='http://bbc.com'.$olink;
+                $meta->setAttribute('href',$olink);
+            }
+
+            $teamSchedule = $dom_obj->saveHTML($mytb);
+
+            //Here we start fetching Team News
+            $dom_obj->loadHTML($page_content);
+            $fixDiv = $dom_obj->getElementById('more-headlines');
+            $teamNews=$dom_obj->saveHTML($fixDiv);
+            $dom_obj->loadHTML($teamNews);
+            $mytb = $dom_obj->getElementsByTagName("div")->item(0);
+            $newsLinks=array();
+            $i=0;
+            foreach ($dom_obj->getElementsByTagName('a') as $meta)
+            {
+                if($i==5)
+                    break;
+                $olink=$meta->getAttribute('href');
+                $olink='http://bbc.com'.$olink;
+                array_push($newsLinks,$olink);
+                $i++;
+               // $meta->setAttribute('href',$olink);
+            }
+
+
+        }
+
+        return View::make('soccer.teamData')->with('schedule',$teamSchedule)->with('newsLinks',$newsLinks);
+
+    }
+
+    public function changeTheTeam()
+    {
+        $clubId=Input::get('club');
+        $user=Auth::user();
+        $user->team=$clubId;
+        $user->save();
+        return 'success';
     }
 
 

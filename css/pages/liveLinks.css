@@ -1,0 +1,29 @@
+.noPad
+{
+    padding: 0px;
+}
+
+.tLogo
+{
+    width: 100px;
+    height: 100px;
+}
+
+.liveFeed
+{
+    color: white;
+    background-color: #003300;
+    text-decoration: none;
+}
+
+.legacyFeed
+{
+    color: white;
+    background-color:#444444;
+    text-decoration: none;
+}
+
+.container
+{
+    font-family: "Segoe UI Light", "Helvetica Neue", 'RobotoLight', "Segoe UI", "Segoe WP", sans-serif;
+}

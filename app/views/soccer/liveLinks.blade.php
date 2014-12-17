@@ -6,16 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="shortcut icon" href="{{asset('Images/icons/logo.JPG')}}">
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
-    <link href="{{asset('dataTables.bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
-    <link href="{{asset('css/fileUpload.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/home.css')}}" rel="stylesheet">
-    <link href="{{asset('css/pages/playerRatings.css')}}" rel="stylesheet">
-    <link href="{{asset('css/morris.css')}}" rel="stylesheet">
+    <link href="{{asset('css/pages/liveLinks.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/notification.css')}}" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="{{asset('css/star-rating.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
-
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="position: fixed;">
@@ -91,20 +85,49 @@
 @endif
 <div class="container">
     <div class="row">
-         @foreach($feeds as $feed)
-         <div class="col-xs-12 col-sm-12 col-md-12">
-         <a href="/liveSoccer/{{$feed->id}}">{{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->hometeam)->name}}  V {{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->awayteam)->name}}</a>
+         <div class="col-xs-12 col-sm-6 col-md-6">
+          <h2>Live Feeds</h2>
+          @foreach($lfeeds as $feed)
+              <div class="col-xs-12 col-sm-12 col-md-12 liveFeed">
+              <a href="/liveSoccer/{{$feed->id}}">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                       <img src="{{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->hometeam)->logo}}" class="tLogo">
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6 noPad">
+                       <img src="{{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->awayteam)->logo}}" class="tLogo">
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12">
+                       <h3>{{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->hometeam)->name}}  v {{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->awayteam)->name}}</h3>
+                  </div>
+              </a>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12"><hr></div>
+          @endforeach
          </div>
-         <div class="col-xs-12 col-sm-12 col-md-12"><hr></div>
-         @endforeach
+        <div class="col-xs-12 col-sm-6 col-md-6 ">
+              <h2>Legacy Feeds</h2>
+              @foreach($cfeeds as $feed)
+                  <div class="col-xs-12 col-sm-12 col-md-12 legacyFeed">
+                  <a href="/liveSoccer/{{$feed->id}}">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                             <img src="{{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->hometeam)->logo}}" class="tLogo">
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 noPad">
+                             <img src="{{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->awayteam)->logo}}" class="tLogo">
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                             <h3>{{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->hometeam)->name}}  v {{SoccerTeam::find(SoccerSchedule::find($feed->match_id)->awayteam)->name}}</h3>
+                        </div>
+                  </a>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12"><hr></div>
+              @endforeach
+         </div>
 
      </div>
 </div>
 
 <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
-<script src="{{asset('js/search.js')}}"></script>
 <script src="{{asset('js/bootstrap.js')}}"></script>
-<script src="{{asset('js/bootbox.js')}}"></script>
-<script src="{{asset('js/pages/soccerSpace.js')}}"></script>
 </body>
 </html>
