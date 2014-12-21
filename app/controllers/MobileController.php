@@ -204,10 +204,10 @@ class MobileController extends \BaseController
         $senderprofile->ifc-=$ifc;
         $senderprofile->save();
 
-        TransactionController::insertToManager($userid,"-".$ifc,"IFCs transferred to","http://www.bbarters.com/user/".User::find(Input::get('userid'))->username,User::find(Input::get('userid'))->first_name." ".User::find(Input::get('userid'))->last_name,"profile");
-        TransactionController::insertToManager($receiverid,"+".$ifc,"IFCs transferred by","http://www.bbarters.com/user/".User::find($userid)->username,User::find($userid)->first_name." ".User::find($userid)->last_name,"profile");
+        TransactionController::insertToManager($userid,"-".$ifc,"IFCs transferred to","http://www.b2.com/user/".User::find(Input::get('userid'))->username,User::find(Input::get('userid'))->first_name." ".User::find(Input::get('userid'))->last_name,"profile");
+        TransactionController::insertToManager($receiverid,"+".$ifc,"IFCs transferred by","http://www.b2.com/user/".User::find($userid)->username,User::find($userid)->first_name." ".User::find($userid)->last_name,"profile");
 
-        AjaxController::insertToNotification(Input::get('userid'),Auth::user()->id,"transfered"," Transfered ".Input::get('ifc')." ifc to your account",'http://www.bbarters.com/user/'.Auth::user()->username);
+        AjaxController::insertToNotification(Input::get('userid'),Auth::user()->id,"transfered"," Transfered ".Input::get('ifc')." ifc to your account",'http://www.b2.com/user/'.Auth::user()->username);
 
         MobileController::$user = User::find($receiverid);
         $sender = User::find($userid);
@@ -376,29 +376,29 @@ class MobileController extends \BaseController
                 case 'article' : $user->readArticles()->attach($contentid);
                     $content->users ++;
                     $content->save();
-                    TransactionController::insertToManager($id,"-".$cost,"Bought article:",'http://www.bbarters.com/articlePreview/'.$content->id,$content->title,"content");
+                    TransactionController::insertToManager($id,"-".$cost,"Bought article:",'http://www.b2.com/articlePreview/'.$content->id,$content->title,"content");
 
-                    TransactionController::insertToManager($authorid,"+".$cost,"Sold article '".$content->title."' to",'http://www.bbarters.com/user/'.$user->username,$user->first_name." ".$user->last_name,"profile");
+                    TransactionController::insertToManager($authorid,"+".$cost,"Sold article '".$content->title."' to",'http://www.b2.com/user/'.$user->username,$user->first_name." ".$user->last_name,"profile");
 
-                    AjaxController::insertToNotification($authorid,$id,"purchased","purchased your article ".$content->title,'http://www.bbarters.com/articlePreview/'.$contentid);
+                    AjaxController::insertToNotification($authorid,$id,"purchased","purchased your article ".$content->title,'http://www.b2.com/articlePreview/'.$contentid);
 
                     break;
                 case 'blogbook' : $user->readBooks()->attach($contentid);
                     $content->users ++;
                     $content->save();
-                    TransactionController::insertToManager($id,"-".$cost,"Bought blogBook:",'http://www.bbarters.com/blogBookPreview/'.$content->id,$content->title,"content");
+                    TransactionController::insertToManager($id,"-".$cost,"Bought blogBook:",'http://www.b2.com/blogBookPreview/'.$content->id,$content->title,"content");
 
-                    TransactionController::insertToManager($authorid,"+".$cost,"Sold the Blogbook '".$content->title."' to",'http://www.bbarters.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
+                    TransactionController::insertToManager($authorid,"+".$cost,"Sold the Blogbook '".$content->title."' to",'http://www.b2.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
 
-                    AjaxController::insertToNotification($authorid,$id,"purchased","purchased your blogBook ".$content->title,'http://www.bbarters.com/blogBookPreview/'.$contentid);
+                    AjaxController::insertToNotification($authorid,$id,"purchased","purchased your blogBook ".$content->title,'http://www.b2.com/blogBookPreview/'.$contentid);
 
                     break;
 
                 case 'media' : $user->viewedMedia()->attach($contentid);
-                    AjaxController::insertToNotification($authorid,$id,"purchased","purchased your media ".$content->title,'http://www.bbarters.com/mediaPreview/'.$contentid);
+                    AjaxController::insertToNotification($authorid,$id,"purchased","purchased your media ".$content->title,'http://www.b2.com/mediaPreview/'.$contentid);
 
-                    TransactionController::insertToManager($id,"-".$cost,"Bought media",'http://www.bbarters.com/mediaPreview/'.$content->id,$content->title,"content");
-                    TransactionController::insertToManager($authorid,"+".$cost,"Sold media '".$content->title."' to",'http://www.bbarters.com/user/'.$user->username, $user->first_name.' '.$user->last_name,"profile");
+                    TransactionController::insertToManager($id,"-".$cost,"Bought media",'http://www.b2.com/mediaPreview/'.$content->id,$content->title,"content");
+                    TransactionController::insertToManager($authorid,"+".$cost,"Sold media '".$content->title."' to",'http://www.b2.com/user/'.$user->username, $user->first_name.' '.$user->last_name,"profile");
                     $content->users ++;
                     $content->save();
 
@@ -407,10 +407,10 @@ class MobileController extends \BaseController
                 case 'resource' : $content->users ++;
                     $content->save();
 
-                    AjaxController::insertToNotification($authorid,Auth::user()->id,"purchased","purchased your resource ".$content->title,'http://www.bbarters.com/resource/'.$contentid);
+                    AjaxController::insertToNotification($authorid,Auth::user()->id,"purchased","purchased your resource ".$content->title,'http://www.b2.com/resource/'.$contentid);
 
-                    TransactionController::insertToManager($id,"-".$cost,"Purchased resource",'http://www.bbarters.com/resource/'.$content->id,$content->title,"content");
-                    TransactionController::insertToManager($authorid,"+".$cost,"Resource '".$content->title."' purchased by",'http://www.bbarters.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
+                    TransactionController::insertToManager($id,"-".$cost,"Purchased resource",'http://www.b2.com/resource/'.$content->id,$content->title,"content");
+                    TransactionController::insertToManager($authorid,"+".$cost,"Resource '".$content->title."' purchased by",'http://www.b2.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
 
                     break;
 
@@ -424,7 +424,7 @@ class MobileController extends \BaseController
                         $contributor->profile->ifc += $cost/$noc;
                         $contributor->profile->save();
 
-                        TransactionController::insertToManager($contributor->id,"+".$cost/$noc,"Sold the collaboration '".$content->title."' to",'http://www.bbarters.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
+                        TransactionController::insertToManager($contributor->id,"+".$cost/$noc,"Sold the collaboration '".$content->title."' to",'http://www.b2.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
                     }
                     $author->profile->ifc += $cost/$noc;
                     $author->profile->save();
@@ -433,11 +433,11 @@ class MobileController extends \BaseController
                     $content->users ++;
                     $content->save();
 
-                    TransactionController::insertToManager($id,"-".$cost,"Bought collaboration:",'http://www.bbarters.com/collaborationPreview/'.$contentid,$content->title,"content");
+                    TransactionController::insertToManager($id,"-".$cost,"Bought collaboration:",'http://www.b2.com/collaborationPreview/'.$contentid,$content->title,"content");
 
-                    TransactionController::insertToManager($authorid,"+".$cost/$noc,"Sold the collaboration '".$content->title."' to",'http://www.bbarters.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
+                    TransactionController::insertToManager($authorid,"+".$cost/$noc,"Sold the collaboration '".$content->title."' to",'http://www.b2.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"profile");
 
-                    AjaxController::insertToNotification($authorid,$user->id,"purchased","purchased your collaboration ".$content->title,'http://www.bbarters.com/collaborationPreview/'.$contentid);
+                    AjaxController::insertToNotification($authorid,$user->id,"purchased","purchased your collaboration ".$content->title,'http://www.b2.com/collaborationPreview/'.$contentid);
 
                     break;
                 case 'quiz':
@@ -777,11 +777,11 @@ class MobileController extends \BaseController
 
             Action::postAction('Q score',$user->id,$ifcQuizzer,$quiz->id);
 
-            TransactionController::insertToManager($user->id,"+".$ifcQuizzer,"Earned from quiz",'http://www.bbarters.com/quizPreview/'.$quiz->id,$quiz->title,"content");
+            TransactionController::insertToManager($user->id,"+".$ifcQuizzer,"Earned from quiz",'http://www.b2.com/quizPreview/'.$quiz->id,$quiz->title,"content");
 
-            TransactionController::insertToManager($author->id,"+".$ifcQuizMaker,"Earned from quiz",'http://www.bbarters.com/quizPreview/'.$quiz->id,$quiz->title,"content");
+            TransactionController::insertToManager($author->id,"+".$ifcQuizMaker,"Earned from quiz",'http://www.b2.com/quizPreview/'.$quiz->id,$quiz->title,"content");
 
-            AjaxController::insertToNotification($quiz->ownerid,$user->id,"purchased","Took your Quiz ".$quiz->title,'http://www.bbarters.com/quizPreview/'.$quiz->id);
+            AjaxController::insertToNotification($quiz->ownerid,$user->id,"purchased","Took your Quiz ".$quiz->title,'http://www.b2.com/quizPreview/'.$quiz->id);
 
             DB::table('quiztakers')->where('quiz_id',$quiz->id)->where('user_id',$user->id)->update(array('ifc' => $ifcQuizzer));
 

@@ -112,7 +112,7 @@ class SoccerController extends \BaseController
 
     public function getScoreResults()
     {
-        SoccerController::calculateScoreIFCs();
+        //SoccerController::calculateScoreIFCs();
         $userid=Auth::user()->id;
         $matchPredictions=Auth::user()->getScorePredictions()->get();
         return Datatable::collection($matchPredictions)
@@ -151,12 +151,13 @@ class SoccerController extends \BaseController
     public static function calculateScoreIFCs()
     {
         $tifc=0;
+        $ifc=0;
         $user=Auth::user();
         $matchPredictions=Auth::user()->getScorePredictions()->get();
         foreach($matchPredictions as $matchPrediction)
         {
             $match=SoccerSchedule::find($matchPrediction->match_id);
-            if($match->hgoals!=null && $match->agoals!=null)
+            if($match->hgoals!=null)
             {
                 if ($matchPrediction->ifc == null)
                 {
@@ -170,22 +171,33 @@ class SoccerController extends \BaseController
                     DB::table('soccerscorepredictions')->where('match_id', $matchPrediction->match_id)->where('user_id', $user->id)->update(array('ifc' => $ifc));
 
                 }
-                $user->profile->ifc += $ifc;
-                $user->profile->save();
                 $tifc+=$ifc;
-
-
             }
         }
         if($tifc>0)
         {
+            $user->profile->ifc += $ifc;
+            $user->profile->save();
+            $pe=PredictEarning::find($user->id);
+            if($pe==null)
+            {
+                $pe=new PredictEarning();
+                $pe->id=$user->id;
+                $pe->ifc=$tifc;
+                $pe->save();
+            }
+            else
+            {
+                $pe->ifc+=$tifc;
+                $pe->save();
+            }
             TransactionController::insertToManager($user->id,"+".$tifc,"Earnings from correct soccer score predictions","nope","nope","nope");
         }
 
     }
     public function getScorerResults()
     {
-        SoccerController::calculateScorerIFCs();
+        //SoccerController::calculateScorerIFCs();
         $userid=Auth::user()->id;
         $matchList=new \Illuminate\Database\Eloquent\Collection();
         $matches=DB::table('soccerscorerpredictions')->select('match_id')->where('user_id', '=',$userid)->distinct()->get();
@@ -231,12 +243,13 @@ class SoccerController extends \BaseController
     public static function calculateScorerIFCs()
     {
         $tifc=0;
+        $ifc=0;
         $user=Auth::user();
         $scorerPredictions=Auth::user()->getScorerPredictions()->get();
         foreach($scorerPredictions as $scorer)
         {
             $match=SoccerSchedule::find($scorer->match_id);
-            if($match->hgoals!=null && $match->agoals!=null)
+            if($match->hgoals!=null)
             {
                 if ($scorer->ifc == null)
                 {
@@ -246,12 +259,9 @@ class SoccerController extends \BaseController
                     {
                         $ifc = 50;
                     }
-
                     DB::table('soccerscorerpredictions')->where('match_id', $scorer->match_id)->where('player_id', $scorer->player_id)->where('user_id', $user->id)->update(array('ifc' => $ifc));
 
                 }
-                $user->profile->ifc += $ifc;
-                $user->profile->save();
                 $tifc+=$ifc;
             }
 
@@ -259,6 +269,21 @@ class SoccerController extends \BaseController
 
         if($tifc>0)
         {
+            $user->profile->ifc += $tifc;
+            $user->profile->save();
+            $pe=PredictEarning::find($user->id);
+            if($pe==null)
+            {
+                $pe=new PredictEarning();
+                $pe->id=$user->id;
+                $pe->ifc=$tifc;
+                $pe->save();
+            }
+            else
+            {
+                $pe->ifc+=$tifc;
+                $pe->save();
+            }
             TransactionController::insertToManager($user->id,"+".$tifc,"Earnings from correct soccer scorer predictions","nope","nope","nope");
         }
 

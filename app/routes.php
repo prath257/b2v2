@@ -356,7 +356,12 @@
     {
        /* $player = json_decode(file_get_contents('http://b2.com/iva.json'));
         return $player->team_name;*/
-        return View::make('test');
+        //return View::make('test');
+
+        $a1=array(1,4,7,7);
+        $a2=array(1,7,7);
+        $result=array_intersect($a2,$a1);
+        return var_dump($result);
 
 
     });
@@ -496,15 +501,15 @@
     Route::post('createFeed',array('as'=>'createFeed','before'=>'auth','uses'=>'SoccerAdminController@createFeed'));
     Route::post('stopFeed',array('as'=>'stopFeed','before'=>'auth','uses'=>'SoccerAdminController@stopFeed'));
     Route::post('deleteFeed',array('as'=>'deleteFeed','before'=>'auth','uses'=>'SoccerAdminController@deleteFeed'));
-    Route::get('liveSoccer/{id}',array('as'=>'liveSoccer','before'=>'auth','uses'=>'SoccerAdminController@getLiveSoccer'));
-    Route::post('getLiveSoccerData',array('as'=>'getLiveSoccerData','uses'=>'SoccerAdminController@getLiveSoccerData'));
-    Route::post('getLiveScore',array('as'=>'getLiveScore','uses'=>'SoccerAdminController@getLiveScore'));
-    Route::post('saveUserComment',array('as'=>'saveUserComment','uses'=>'SoccerAdminController@saveUserComment'));
-    Route::post('searchSoccerFriends',array('as'=>'searchSoccerFriends','uses'=>'SoccerAdminController@searchSoccerFriends'));
+    Route::get('liveSoccer/{id}',array('as'=>'liveSoccer','before'=>'auth','uses'=>'LiveSoccerController@getLiveSoccer'));
+    Route::post('getLiveSoccerData',array('as'=>'getLiveSoccerData','uses'=>'LiveSoccerController@getLiveSoccerData'));
+    Route::post('getLiveScore',array('as'=>'getLiveScore','uses'=>'LiveSoccerController@getLiveScore'));
+    Route::post('saveUserComment',array('as'=>'saveUserComment','uses'=>'LiveSoccerController@saveUserComment'));
+    Route::post('searchSoccerFriends',array('as'=>'searchSoccerFriends','uses'=>'LiveSoccerController@searchSoccerFriends'));
     Route::get('getLiveSoccer',array('as'=>'getLiveSoccer','before'=>'auth','uses'=>'SoccerAdminController@getLiveSoccerLinks'));
     Route::post('searchFriends',array('as'=>'searchFriends','before'=>'auth','uses'=>'SoccerAdminController@searchFriends'));
-
-
+    Route::post('calculatePredictionResults',array('as'=>'calculatePredictionResults','before'=>'auth','uses'=>'SoccerAdminController@calculatePredictionResults'));
+    Route::post('simulateSoccer',array('as'=>'simulateSoccer','before'=>'auth','uses'=>'SoccerAdminController@simulateSoccer'));
     //soccer user routes
     Route::get('playPredictor',array('as'=>'playPredictor','before'=>'auth','uses'=>'SoccerController@getPredictor'));
     Route::post('getMatchDay',array('as'=>'getMatchDay','before'=>'auth','uses'=>'SoccerController@getMatchDay'));
@@ -528,6 +533,7 @@
     Route::get('getFriendsRatingsTable',array('as'=>'getFriendsRatingsTable','before'=>'auth','uses'=>'SoccerController@getFriendsRatingsTable'));
     Route::post('getTeamData',array('as'=>'getTeamData','before'=>'auth','uses'=>'SoccerAdminController@getTeamData'));
     Route::post('changeTeam',array('as'=>'changeTeam','before'=>'auth','uses'=>'SoccerAdminController@changeTheTeam'));
+    Route::post('getPredictStats',array('as'=>'getPredictStats','uses'=>'SoccerGraphicsController@getPredictStats'));
 
     //these are the routes for getting match_ratings graphs
     Route::post('getMyBestRatings',array('as'=>'getMyBestRatings','before'=>'auth','uses'=>'SoccerGraphicsController@getMyBestRatings'));
@@ -539,8 +545,10 @@
     Route::post('fetchClubRatings',array('as'=>'fetchClubRatings','before'=>'auth','uses'=>'SoccerGraphicsController@fetchClubRatings'));
     Route::post('getclubBestRatings',array('as'=>'getclubBestRatings','before'=>'auth','uses'=>'SoccerGraphicsController@getclubBestRatings'));
     Route::post('searchPlayer',array('as'=>'searchPlayer','before'=>'auth','uses'=>'SoccerGraphicsController@searchPlayer'));
-
-
+    Route::post('searchScorer',array('as'=>'searchScorer','before'=>'auth','uses'=>'SoccerGraphicsController@searchScorer'));
+    Route::post('getPredictPercent',array('as'=>'getPredictPercent','before'=>'auth','uses'=>'SoccerGraphicsController@getPredictPercent'));
+    Route::post('getLeaderboard',array('as'=>'getLeaderboard','before'=>'auth','uses'=>'SoccerGraphicsController@getLeaderboard'));
+    Route::get('getLeaderboardData',array('as'=>'getLeaderboardData','before'=>'auth','uses'=>'SoccerGraphicsController@getLeaderboardData'));
 
 //mobile controller
 Route::post('mobile_fblogin', array('uses' => 'MobileAuthController@fblogin'));

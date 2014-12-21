@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <html>
+<html>
 <head>
     <title>Home | BBarters</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -12,16 +12,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/metro.blue.css')}}" />
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
     <link href="{{asset('css/fileUpload.css')}}" rel="stylesheet">
-    <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
-    <script src="{{asset('js/jquery.metro.js')}}"></script>
-    <script src="{{asset('js/raphael.js')}}"></script>
-    <script src="{{asset('js/morris.js')}}"></script>
-
     <link href="{{asset('css/pages/notification.css')}}" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="{{asset('js/search.js')}}"></script>
-
-
 </head>
 <body  style="display: none; ">
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="position: fixed;">
@@ -43,6 +35,7 @@
                 <span class='letter'>e</span>
                 <span class='letter'>r</span>
                 <span class='letter'>s</span>
+                <a href="/soccerSpace" id="sapLogo" style="text-decoration: none;padding-left: 0px; padding-right: 0px; padding-top: 14px" class="navbar-brand"><img src="/Images/icons/soccer.png"></a>
                 <li id="notificationli" class="navbar-brand" onclick="getNoti()" style="list-style-type: none"><a href="#" style="text-decoration: none">&nbsp;&nbsp;<i class="fa fa-globe" style="color:lightgray"></i>&nbsp;<span id="no_of_notification" class="text-primary" style="background-color: tomato; color: white; padding-left: 5px; padding-right: 5px;  border-radius: 50%; visibility: hidden; font-size: 12px">0</span></a></li>
                 <div id="notificationModal2" style="max-height: 350px; overflow-y: auto; overflow-x: auto">
                     <div id="notificationResultsModal">
@@ -51,6 +44,7 @@
                         </div>
                     </div>
                 </div>
+
             </a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -689,11 +683,14 @@
 </div>
 
 <input type="hidden" id="refreshed" value="no">
+<script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+<script src="{{asset('js/jquery.metro.js')}}"></script>
+<script src="{{asset('js/raphael.js')}}"></script>
+<script src="{{asset('js/morris.js')}}"></script>
 <script src="{{asset('js/reload.js')}}"></script>
-
+<script src="{{asset('js/search.js')}}"></script>
 <script src="{{asset('js/bootstrap.js')}}"></script>
 <script src="{{asset('js/bootstrapValidator.min.js')}}"></script>
-
 <script src="{{asset('js/createArticleBlogBookCollaboration.js')}}"></script>
 <script src="{{asset('js/bootbox.js')}}"></script>
 <script src="{{asset('js/jstween-1.1.min.js')}}"></script>

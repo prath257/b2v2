@@ -7,12 +7,15 @@ var userSearchTimer=null;
 var searchOn=false;
 var searchString=null;
 var restComment='';
+var slogan=true;
+var filter='all';
+var timeInterval=17000;
 
 $(document).ready(function()
 {
 
     feed=$('#feedNo').val();
-    $.post('http://b2.com/getLiveSoccerData', {feedNo: feed,type:tr}, function (data)
+    $.post('http://b2.com/getLiveSoccerData', {feedNo: feed,type:tr,dataFilter:filter}, function (data)
     {
         $('#scrollDiv').html(data);
         getLiveData(feed);
@@ -22,7 +25,9 @@ $(document).ready(function()
     {
         // do something...
         $('#scorerBody').html('');
-    })
+    });
+
+
 });
 function addZero(i)
 {
@@ -46,12 +51,12 @@ function getLiveData()
 {
    getdate();
    tr++;
-   $.post('http://b2.com/getLiveSoccerData', {feedNo: feed,type:tr%3}, function (data)
+   $.post('http://b2.com/getLiveSoccerData', {feedNo: feed,type:tr%3,dataFilter:filter}, function (data)
    {
             $('#scrollDiv').prepend(data);
 
    });
-   timer=setTimeout(getLiveData,13000);
+   timer=setTimeout(getLiveData,17000);
 }
 
 //this is the code to search the other users
@@ -132,7 +137,7 @@ function addUser(uname)
     $('#commentText').val(finalComment);
     $('#searchResult').hide();
     searchOn=false;
-    timer=setTimeout(getLiveData,13000);
+    timer=setTimeout(getLiveData,17000);
 }
 
 
@@ -146,13 +151,13 @@ function postComment()
         clearTimeout(timer);
         $('#commentSpace').hide();
         $('#commentArea').html("<div style='text-align:center'><img  src='http://b2.com/Images/icons/waiting.gif'>Posting..</div>");
-        $.post('http://b2.com/saveUserComment',{feedNo:feed,text:comment},function(data)
+        $.post('http://b2.com/saveUserComment',{feedNo:feed,text:comment,tag:slogan,dataFilter:filter},function(data)
         {
             $('#scrollDiv').prepend(data);
             $('#commentText').val('');
             $('#commentSpace').fadeIn();
             $('#commentArea').html('');
-            timer=setTimeout(getLiveData,13000);
+            timer=setTimeout(getLiveData,17000);
         })
     }
 }
@@ -169,4 +174,37 @@ function showScore()
 
     });
 
+}
+
+//functions for filters
+
+function setSlogan(radio)
+{
+    if(slogan==true)
+    {
+        slogan=false;
+        $('#sloganSet').prop('checked', false);
+    }
+    else
+    {
+        slogan=true;
+        $('#sloganSet').prop('checked', true);
+    }
+}
+
+
+function setTeam()
+{
+    filter='team';
+}
+
+
+function setFriends()
+{
+    filter='friends';
+}
+
+function setAll()
+{
+    filter='all';
 }

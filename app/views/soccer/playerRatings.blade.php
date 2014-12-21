@@ -74,7 +74,7 @@
                 </li>
                 <li id="chats"> <a href="{{route('chats')}}" target="_blank" style="cursor: pointer">Chats</a></li>
                 <li id="profile"> <a href="{{route('profile')}}" style="cursor: pointer">{{Auth::user()->first_name}}</a></li>
-                <li id="home"> <a href="{{route('home')}}" style="cursor: pointer">Home</a></li>
+                <li id="soccerhome"> <a href="{{route('soccerSpace')}}" style="cursor: pointer">SoccerSpace</a></li>
                 <li id="logOut"> <a href="{{route('signout')}}" style="cursor: pointer">Log Out</a></li>
             </ul>
         </div>
@@ -101,11 +101,8 @@
    <br>
    <br>
    <div class="row" id="mainTask">
-
-
-
    </div>
-   <div class="col-xs-12 col-md-6 col-sm-8">
+   <div class="row" id="ratingsDiv" style="display: none">
              <button class="btn btn-primary" id="addHomePlayers" onclick="showPlayersModal('Home')" style="display: none">Rate Home XI and Subs</button>
              <button class="btn btn-success" id="addAwayPlayers" onclick="showPlayersModal('Away')" style="display: none">Rate Away XI and Subs</button>
              <button class="btn btn-alert" id="saveFinal" onclick="saveRatings()" style="display: none">Submit Match Ratings</button>

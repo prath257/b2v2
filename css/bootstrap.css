@@ -5797,11 +5797,13 @@ button.close {
     background: #101f80;
     padding: 5px 10px 5px 10px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .bbtn:hover {
     background: #087032;
     text-decoration: none;
+    color: #ffffff;
 }
 
 .bbtng {
@@ -5810,10 +5812,12 @@ button.close {
     background: #087032;
     padding: 5px 10px 5px 10px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .bbtng:hover {
-    background: #101f80;
+    background:#e51400s;
     text-decoration: none;
+    color: #ffffff;
 }
 /*# sourceMappingURL=bootstrap.css.map */

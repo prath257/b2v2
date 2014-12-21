@@ -49,7 +49,8 @@ var allReccoCount = 0;
 var reccoTimer;
 var cachedMarkup;
 
-$(document).ready(function() {
+$(document).ready(function()
+{
 
     defaults.selectedItemChanged = function (item) {
         if (item == 1) {
@@ -83,6 +84,10 @@ $(document).ready(function() {
     });
 
     var width = $(window).width();
+    if(width >766)
+    {
+        $('#sapLogo').hide();
+    }
     if (width > 1200) {
         $('#menu-group').addClass('col-lg-2');
         $('#ActionCentre').addClass('col-lg-offset-9');
@@ -93,7 +98,8 @@ $(document).ready(function() {
 
 
     }
-    else {
+    else
+    {
         $('#donut-example').hide();
     }
 
@@ -282,12 +288,12 @@ $(document).ready(function() {
         event.preventDefault();
     });
 
-    $('#searchForm').submit(function (event) {
+   /* $('#searchForm').submit(function (event) {
 
-        /* stop form from submitting normally */
+        *//* stop form from submitting normally *//*
         event.preventDefault();
         executeSearch();
-    });
+    });*/
 
     $("#mycounter").flipCounterInit({'speed': 0.05});
     $.post('http://b2.com/getIFCs', function (ifcs) {

@@ -72,7 +72,7 @@
                     </div>
                 </li>
                 <li id="chats"> <a href="{{route('chats')}}" target="_blank" style="cursor: pointer">Chats</a></li>
-                <li id="chats"> <a href="{{route('home')}}" target="_blank" style="cursor: pointer">Home</a></li>
+                <li id="soccerhome"> <a href="{{route('soccerSpace')}}" style="cursor: pointer">SoccerSpace</a></li>
                 <li id="profile"> <a href="{{route('profile')}}" style="cursor: pointer">{{Auth::user()->first_name}}</a></li>
                 <li id="logOut"> <a href="{{route('signout')}}" style="cursor: pointer">Log Out</a></li>
             </ul>
@@ -95,13 +95,27 @@
    <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="createSchedule('schedule')">Create Schedule</button>
    <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="createSchedule('results')">Save Results</button>
    <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="createSchedule('feeds')">Manage Feeds</button>
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtn">Manage Players</button>
+   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="getManagement()">Manage Users</button>
    </div>
 
    <br>
    <br>
    <br>
    <div class="row" id="mainTask">
+
+   </div>
+   <div class="row" id="mgmtView" style="display: none">
+
+    <div class="col-xs-6 col-sm-3 col-md-2">
+            <button class="bbtng" onclick="calcPredictResults()">Perform Results</button>
+    </div>
+    <div class="col-xs-6 col-sm-4 col-md-3">
+            <button class="bbtn" onclick="simulateData()">Create Data</button>
+            <input type="text" id="uid">
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12" id="mgmtTask">
+
+    </div>
 
    </div>
 
@@ -133,8 +147,6 @@
       	    </div>
         </div>
  </div>
-
-
 <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
 <script src="{{asset('js/search.js')}}"></script>
 <script src="{{asset('js/jsonQ.min.js')}}"></script>

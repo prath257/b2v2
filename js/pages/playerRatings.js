@@ -5,9 +5,14 @@ var comContent=null;
 var playerSearchTimer=null;
 var clubSearchTimer=null;
 var matchRatings={matchid:0,ratings:[]};
+var submitted=true;
 $(document).ready(function()
 {
     width = $(window).width();
+    window.onbeforeunload = function(e) {
+        if (submitted == false)
+            return 'Any unsaved changes will be lost.';
+    };
 
 });
 
@@ -15,6 +20,7 @@ function myPredictions(tipo)
 {
     $.post('http://b2.com/createSchedule',{type:tipo},function(data)
     {
+        $('#ratingsDiv').hide();
         $('#mainTask').html(data);
     });
 }
@@ -60,16 +66,17 @@ function getPlayers()
             if(data=='New')
             {
                 matchRatings.matchid=match;
+                $('#ratingsDiv').fadeIn();
                 $('#addHomePlayers').fadeIn();
                 $('#addAwayPlayers').fadeIn();
                 $('#ratingsStatus').html('');
             }
             else
             {
+                $('#ratingsDiv').fadeIn();
                 $('#ratingsStatus').append('You have already given match ratings for this: <a href="/getMatchRatings/'+match+ '" target="_blank"> see here</a');
             }
         })
-
     }
     else
     {
@@ -137,6 +144,7 @@ function addPlayers(side)
         $.post('http://b2.com/getRatingsTemplate',{players:selectedPlayers, side:side},function(data)
         {
             var x;
+            submitted=false;
             closeWaiting();
             $('#ratePlayers').html(data);
             $('.rating').rating();
@@ -173,7 +181,8 @@ function saveRatings()
     {
         if(result==true)
         {
-            $.post('http://b2.com/saveMatchRatings',{matchid:match,matchratings:JSON.stringify(matchRatings)},function(data)
+             submitted=true;
+             $.post('http://b2.com/saveMatchRatings',{matchid:match,matchratings:JSON.stringify(matchRatings)},function(data)
             {
                 if(data=='Success')
                 {
@@ -206,61 +215,135 @@ function checkLength(comment)
 
 function getMyRatings()
 {
-    showWaiting('Fetching your ratings');
-    $.post('http://b2.com/getMyRatings',{para:null},function(data)
+    if(submitted==false)
     {
-        closeWaiting();
-        $('#mainTask').html(data);
-        oTable1=$('#myRatingsTable').dataTable( {
-            "ajax": 'http://b2.com/getMyRatingsTable',
-            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
-        } );
-        //this is for generating the graph
-        var myBestRatings = Morris.Bar({
-            // ID of the element in which to draw the chart.
-            element: 'myBestPlayers',
-            data: [0,0], // Set initial data (ideally you would provide an array of default data)
-            xkey: 'player', // Set the key for X-axis
-            ykeys: ['avg_rating'], // Set the key for Y-axis
-            labels: ['Avg Rating'],
-            barColors:['#000033'],
-            axes:true,
-            grid:false,
-            hideHover:false
+        bootbox.confirm('Player Ratings unsaved! Are you sure want to proceed?',function(result) {
+            if (result == true)
+            {
+                submitted=true;
+                $('#ratingsDiv').hide();
+                showWaiting('Fetching your ratings');
+                $.post('http://b2.com/getMyRatings', {para: null}, function (data) {
+                    closeWaiting();
+                    $('#mainTask').html(data);
+                    oTable1 = $('#myRatingsTable').dataTable({
+                        "ajax": 'http://b2.com/getMyRatingsTable',
+                        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                    });
+                    //this is for generating the graph
+                    var myBestRatings = Morris.Bar({
+                        // ID of the element in which to draw the chart.
+                        element: 'myBestPlayers',
+                        data: [0, 0], // Set initial data (ideally you would provide an array of default data)
+                        xkey: 'player', // Set the key for X-axis
+                        ykeys: ['avg_rating'], // Set the key for Y-axis
+                        labels: ['Avg Rating'],
+                        barColors: ['#000033'],
+                        axes: true,
+                        grid: false,
+                        hideHover: false
+                    });
+                    //make a call to get the data
+                    requestData(5000, myBestRatings, 'MyBestRatings');
+                });
+            }
         });
-        //make a call to get the data
-        requestData(5000, myBestRatings,'MyBestRatings');
-    });
+    }
+    else
+    {
+        $('#ratingsDiv').hide();
+        showWaiting('Fetching your ratings');
+        $.post('http://b2.com/getMyRatings', {para: null}, function (data) {
+            closeWaiting();
+            $('#mainTask').html(data);
+            oTable1 = $('#myRatingsTable').dataTable({
+                "ajax": 'http://b2.com/getMyRatingsTable',
+                "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+            });
+            //this is for generating the graph
+            var myBestRatings = Morris.Bar({
+                // ID of the element in which to draw the chart.
+                element: 'myBestPlayers',
+                data: [0, 0], // Set initial data (ideally you would provide an array of default data)
+                xkey: 'player', // Set the key for X-axis
+                ykeys: ['avg_rating'], // Set the key for Y-axis
+                labels: ['Avg Rating'],
+                barColors: ['#000033'],
+                axes: true,
+                grid: false,
+                hideHover: false
+            });
+            //make a call to get the data
+            requestData(5000, myBestRatings, 'MyBestRatings');
+        });
+    }
 }
 
 
 function getFriendsRatings()
 {
-    showWaiting('Fetching Friends ratings');
-    $.post('http://b2.com/getFriendsRatings',{para:null},function(data)
+    if(submitted==false)
     {
-        closeWaiting();
-        $('#mainTask').html(data);
-        oTable1=$('#friendsRatingsTable').dataTable( {
-            "ajax": 'http://b2.com/getFriendsRatingsTable',
-            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
-        } );
+        bootbox.confirm('Player Ratings unsaved! Are you sure want to proceed?',function(result) {
+            if (result == true)
+            {
+                submitted=true;
+                $('#ratingsDiv').hide();
+                showWaiting('Fetching Friends ratings');
+                $.post('http://b2.com/getFriendsRatings', {para: null}, function (data) {
+                    closeWaiting();
+                    $('#mainTask').html(data);
+                    oTable1 = $('#friendsRatingsTable').dataTable({
+                        "ajax": 'http://b2.com/getFriendsRatingsTable',
+                        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+                    });
 
-        var friendsBestRatings = Morris.Bar({
-            // ID of the element in which to draw the chart.
-            element: 'friendsBestPlayers',
-            data: [0,0], // Set initial data (ideally you would provide an array of default data)
-            xkey: 'player', // Set the key for X-axis
-            ykeys: ['avg_rating'], // Set the key for Y-axis
-            labels: ['Avg Rating'],
-            barColors:['#000033'],
-            axes:true,
-            grid:false,
-            hideHover:false
+                    var friendsBestRatings = Morris.Bar({
+                        // ID of the element in which to draw the chart.
+                        element: 'friendsBestPlayers',
+                        data: [0, 0], // Set initial data (ideally you would provide an array of default data)
+                        xkey: 'player', // Set the key for X-axis
+                        ykeys: ['avg_rating'], // Set the key for Y-axis
+                        labels: ['Avg Rating'],
+                        barColors: ['#000033'],
+                        axes: true,
+                        grid: false,
+                        hideHover: false
+                    });
+                    //make a call to get the data
+                    requestData(5000, friendsBestRatings, 'FriendsBestRatings');
+                });
+            }
         });
-        //make a call to get the data
-        requestData(5000, friendsBestRatings,'FriendsBestRatings');
-    });
+    }
+    else
+    {
+        $('#ratingsDiv').hide();
+        showWaiting('Fetching Friends ratings');
+        $.post('http://b2.com/getFriendsRatings', {para: null}, function (data) {
+            closeWaiting();
+            $('#mainTask').html(data);
+            oTable1 = $('#friendsRatingsTable').dataTable({
+                "ajax": 'http://b2.com/getFriendsRatingsTable',
+                "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
+            });
+
+            var friendsBestRatings = Morris.Bar({
+                // ID of the element in which to draw the chart.
+                element: 'friendsBestPlayers',
+                data: [0, 0], // Set initial data (ideally you would provide an array of default data)
+                xkey: 'player', // Set the key for X-axis
+                ykeys: ['avg_rating'], // Set the key for Y-axis
+                labels: ['Avg Rating'],
+                barColors: ['#000033'],
+                axes: true,
+                grid: false,
+                hideHover: false
+            });
+            //make a call to get the data
+            requestData(5000, friendsBestRatings, 'FriendsBestRatings');
+        });
+    }
 }
 
 function requestData(days, chart, type)
@@ -337,7 +420,10 @@ function playerCommentsUp(tipo)
     playerSearchTimer = setTimeout(function()
     {
         var player = $('#searchPlayer').val();
-        searchPlayer(player,tipo);
+        if(player.length>0)
+           searchPlayer(player,tipo);
+        else
+            $('#searchResult').html('');
     }, 500);
 }
 
@@ -378,10 +464,27 @@ function getPlayerComments(tipo,pid)
 
 function getClubRatings()
 {
-    $.post('http://b2.com/getClubRatingsView',{type:null},function(data)
+    if(submitted==false)
     {
-        $('#mainTask').html(data);
-    });
+        bootbox.confirm('Player Ratings unsaved! Are you sure want to proceed?',function(result)
+        {
+            if (result == true)
+            {
+                submitted=true;
+                $('#ratingsDiv').hide();
+                $.post('http://b2.com/getClubRatingsView', {type: null}, function (data) {
+                    $('#mainTask').html(data);
+                });
+            }
+        });
+    }
+    else
+    {
+        $('#ratingsDiv').hide();
+        $.post('http://b2.com/getClubRatingsView', {type: null}, function (data) {
+            $('#mainTask').html(data);
+        });
+    }
 }
 
 //these are the functions for finidng the club for ratings
@@ -395,7 +498,10 @@ function findClubUp()
     clubSearchTimer = setTimeout(function()
     {
         var club = $('#searchClub').val();
-        searchClub(club);
+        if(club.length>0)
+          searchClub(club);
+        else
+            $('#clubSearchResult').html('');
     }, 500);
 }
 
@@ -403,7 +509,6 @@ function searchClub(val)
 {
     $('#clubSearchResult').html('<div style="text-align: center"><img src="http://b2.com/Images/icons/waiting.gif"></div>');
     $('#clubSearchResult').show();
-
     $.post('http://b2.com/searchClub', {club: val}, function(markup)
     {
         if (markup == 'wH@tS!nTheB0x')
@@ -418,6 +523,7 @@ function searchClub(val)
 
 function getClub(cid,cname)
 {
+    $('#searchClub').val('');
     $('#clubSearchResult').html('');
     showWaiting('Fetching Club Stats for '+cname);
     $.post('http://b2.com/fetchClubRatings',{club:cid},function(data)

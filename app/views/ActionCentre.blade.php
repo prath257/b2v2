@@ -97,12 +97,15 @@
 
 @elseif($action->type=='Diary new')
     <p id="action"><a href="{{route('user',$user1->username)}}">{{$user1->first_name}} {{$user1->last_name}}</a> made a new post to
-            <a href="{{route('diary',$user1->username)}}">diary</a> </p>
-
-
+    @if($user1->gender=='male')
+    his
+    @else
+    her
     @endif
-    </div>
-    @endforeach
+    <a href="{{route('diary',$user1->username)}}"> diary</a> </p>
+@endif
+</div>
+@endforeach
 
 
 @if ($count == null && $moreActions == null)

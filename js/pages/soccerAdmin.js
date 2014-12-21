@@ -19,6 +19,9 @@ var agoals=0;
 var hscorers=[];
 var ascorers=[];
 
+//this is timer vaiable
+var playerSearchTimer=null;
+
 $(document).ready(function()
 {
     width = $(window).width();
@@ -332,9 +335,7 @@ function savePredictions(mid,hg,ag)
 function submitResults()
 {
     var mcount=$('#matchCount').val();
-    if(predict.predictions.length == mcount) {
-
-        bootbox.confirm('Are you sure want to matchday scores, this will be it for this MatchDay!', function (result) {
+    bootbox.confirm('Are you sure want to submit Matchday results?', function (result) {
             if (result == true) {
                 showWaiting('Saving Results');
                 predict.league = leagueId;
@@ -348,11 +349,7 @@ function submitResults()
 
             }
         });
-    }
-    else
-    {
-        bootbox.alert('Dear Admin,please provide results for all matches!');
-    }
+
 }
 
 
@@ -427,25 +424,25 @@ function playerCommentsDown()
 
 }
 
-function playerCommentsUp(tid,side)
+function playerCommentsUp(hs,as,side)
 {
 
     playerSearchTimer = setTimeout(function()
     {
         var player = $('#'+side+'searchPlayer').val();
         if(player.length>0)
-            searchPlayer(player,tid,side);
+            searchPlayer(player,hs,as,side);
         else
             $('#'+side+'searchResult').hide();
     }, 500);
 }
 
-function searchPlayer(val,tid,side)
+function searchPlayer(val,hs,as,side)
 {
     $('#'+side+'searchResult').html('<div style="text-align: center"><img src="http://b2.com/Images/icons/waiting.gif"></div>');
     $('#'+side+'searchResult').show();
 
-    $.post('http://b2.com/searchPlayer', {player: val, team:tid, type:side}, function(markup)
+    $.post('http://b2.com/searchScorer', {player: val, homeSide:hs, awaySide:as,type:side}, function(markup)
     {
         if (markup == 'wH@tS!nTheB0x')
             window.location='http://b2.com/offline';
@@ -530,3 +527,56 @@ function removeAwayPlayer(tdiv,pid)
     }
 
 }
+
+//these are the functions for management
+function getManagement()
+{
+         $('#mgmtView').fadeIn();
+}
+
+//this is the function call to calculate prediction results for all
+function calcPredictResults()
+{
+    bootbox.confirm('Results should be calculated only after completion of entire matchday, are you sure?',function(result)
+    {
+       if(result==true)
+       {
+           showWaiting('Calculating, Please wait');
+           $.post('http://b2.com/calculatePredictionResults',{data:null},function(data)
+           {
+               if(data=='Done')
+               {
+                   closeWaiting();
+                   bootbox.alert('All results out Boss!');
+               }
+               else
+               {
+                   closeWaiting();
+                   bootbox.alert('Something went wrong!');
+               }
+           });
+       }
+    });
+
+}
+
+//this is the function call to simulate stats a bit
+function simulateData()
+{
+    var user=$('#uid').val();
+    showWaiting('Simulating, Please wait');
+    $.post('http://b2.com/simulateSoccer',{uid:user},function(data)
+    {
+        if(data=='Done')
+        {
+            closeWaiting();
+            bootbox.alert('The Data is in the house boss!');
+        }
+        else
+        {
+            closeWaiting();
+            bootbox.alert('Something went wrong!');
+        }
+    });
+}
+

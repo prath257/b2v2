@@ -15,7 +15,7 @@
       <div class="col-xs-12 col-sm-12">&nbsp;</div>
       <input type="hidden" id="homeMax" value="{{$hg}}">
       <div class="col-xs-12 col-sm-12 col-md-12 noPad">
-           <input type="text" class="form-control" placeholder="Search Player for Comments" name="other" id="homesearchPlayer" onkeydown="playerCommentsDown()" onkeyup="playerCommentsUp({{SoccerTeam::find($match->hometeam)->id}},'home')">
+           <input type="text" class="form-control" placeholder="Search Player for Comments" name="other" id="homesearchPlayer" onkeydown="playerCommentsDown()" onkeyup="playerCommentsUp({{SoccerTeam::find($match->hometeam)->id}},{{SoccerTeam::find($match->awayteam)->id}},'home')">
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 noPad" id="homesearchResult" style="margin-top: 5px; display: none">
       <br>
@@ -30,7 +30,7 @@
            <div class="col-xs col-sm-12">&nbsp;</div>
            <input type="hidden" id="awayMax" value="{{$ag}}">
            <div class="col-xs-12 col-sm-12 col-md-12 noPad">
-                 <input type="text" class="form-control" placeholder="Search Player for Comments" name="other" id="awaysearchPlayer" onkeydown="playerCommentsDown()" onkeyup="playerCommentsUp({{SoccerTeam::find($match->awayteam)->id}},'away')">
+                 <input type="text" class="form-control" placeholder="Search Player for Comments" name="other" id="awaysearchPlayer" onkeydown="playerCommentsDown()" onkeyup="playerCommentsUp({{SoccerTeam::find($match->hometeam)->id}},{{SoccerTeam::find($match->awayteam)->id}},'away')">
            </div>
            <div class="col-xs-12 col-sm-12 col-md-12 noPad" id="awaysearchResult" style="margin-top: 5px; display: none">
            <br>

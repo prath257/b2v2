@@ -77,7 +77,7 @@ class SoccerAdminController extends \BaseController
     public function getAdminPage()
     {
         $username=Auth::user()->username;
-        if($username=='ksjoshi88' || $username=='ShripadKenobi')
+        if($username=='ksjoshi88')
             return View::make('soccer.admin');
         else
             return "<h1>Not Authorized for Admin Page</h1>";
@@ -132,7 +132,7 @@ class SoccerAdminController extends \BaseController
             }
             else
             {
-                $matches=SoccerSchedule::Where('league',$lid)->where('matchday',$matchDay)->get();
+                $matches=SoccerSchedule::Where('league',$lid)->where('matchday',$matchDay)->whereNotNull('hgoals')->get();
                 return View::make('soccer.matchdayInfo')->with('matchday', $matchDay)->with('league', $league)->with('type', $type)->with('matches',$matches);
             }
         }
@@ -196,7 +196,7 @@ class SoccerAdminController extends \BaseController
     {
         $lid=Input::get('league');
         $md=Input::get('md');
-        $matches=SoccerSchedule::Where('league','=',$lid)->where('matchday','=',$md)->get();
+        $matches=SoccerSchedule::Where('league','=',$lid)->where('matchday','=',$md)->where('hgoals','=',null)->get();
         return View::make('soccer.matchDayResults')->with('matches',$matches);
 
     }
@@ -435,290 +435,6 @@ class SoccerAdminController extends \BaseController
         }
     }
 
-    public function getLiveSoccer($fid)
-    {
-        $feed=Feed::find($fid);
-        if($feed->live)
-        {
-            $mid = $feed->match_id;
-            $matchDetails = SoccerSchedule::find($mid);
-            $author = Auth::user();
-            return View::make('soccer.liveSoccer')->with('match', $matchDetails)->with('author', $author)->with('feedId', $feed->id);
-        }
-        else
-        {
-            //here send the old feed data if you want
-            $mid = $feed->match_id;
-            $matchDetails = SoccerSchedule::find($mid);
-            $author = Auth::user();
-            return View::make('soccer.oldSoccer')->with('match', $matchDetails)->with('author', $author)->with('feedId', $feed->id);
-        }
-    }
-
-    public function getLiveSoccerData()
-    {
-        $feedNo=Input::get('feedNo');
-        $type=intval(Input::get('type'));
-        //if(Session::has('lastCall'))
-        $lastCall=new DateTime(Session::get('lastCall'));
-        $feed=Feed::find($feedNo);
-        $mid=$feed->match_id;
-        $matchDetails=SoccerSchedule::find($mid);
-        $homeHandle=SoccerTeam::find($matchDetails->hometeam)->handle;
-        $awayHandle=SoccerTeam::find($matchDetails->awayteam)->handle;
-        $homeTeam=SoccerTeam::find($matchDetails->hometeam)->name;
-        $awayTeam=SoccerTeam::find($matchDetails->awayteam)->name;
-        $mainHandle='premierleague';
-        $count=2;
-        $include_retweets=true;
-        $exclude_replies=true;
-        $twitterfeed=array();
-        if($type==0)
-        {
-            //write the code to fetch premier league tweets
-
-                $twitterfeed = Twitter::getUserTimeline(array('screen_name' => $mainHandle, 'count' => $count, 'include_rts' => $include_retweets, 'exclude_replies' => $exclude_replies, 'trim_user' => true));
-                if($twitterfeed==null)
-                {
-                    return "";
-                }
-                $leagueLast = FeedData::Where('feed', $feedNo)->where('type', 'pl')->orderBy('created_at', 'DESC')->first();
-                if ($leagueLast == null) {
-                    foreach ($twitterfeed as $tweet) {
-                        $data = new FeedData();
-                        $data->feed = $feedNo;
-                        $data->username = 'EPL';
-                        $data->comment = $tweet->text;
-                        $data->type = 'pl';
-                        if (property_exists($tweet->entities, 'media'))
-                            $data->snap = $tweet->entities->media[0]->media_url;
-                        //$data->created_at = date('Y-m-d H:i:s', strtotime($tweet->created_at));
-                        $data->created_at = date('Y-m-d H:i:s');
-                        $data->save();
-                    }
-
-                }
-                else {
-                    foreach ($twitterfeed as $tweet)
-                    {
-                        $tweetTime = new DateTime($tweet->created_at);
-                        $lastTime = $leagueLast->created_at;
-                        if ($tweetTime > $lastTime) {
-                            $data = new FeedData();
-                            $data->feed = $feedNo;
-                            $data->username = 'EPL';
-                            $data->comment = $tweet->text;
-                            $data->type = 'pl';
-                            if (property_exists($tweet->entities, 'media'))
-                                $data->snap = $tweet->entities->media[0]->media_url;
-                            //$data->created_at = date('Y-m-d H:i:s', strtotime($tweet->created_at));
-                            $data->created_at = date('Y-m-d H:i:s');
-                            $data->save();
-                        }
-                    }
-
-                }
-
-
-        }
-        else if($type==1)
-        {
-            //write the code to fetch home team tweets
-            $twitterfeed = Twitter::getUserTimeline(array('screen_name' => $homeHandle, 'count' => $count, 'include_rts' => $include_retweets, 'exclude_replies' => $exclude_replies,'trim_user'=>true));
-            if($twitterfeed==null)
-            {
-                return "";
-            }
-            $leagueLast=FeedData::Where('feed',$feedNo)->where('type','home')->orderBy('created_at','DESC')->first();
-            if($leagueLast==null)
-            {
-                foreach($twitterfeed as $tweet)
-                {
-                    $data = new FeedData();
-                    $data->feed = $feedNo;
-                    $data->username = $homeTeam;
-                    $data->comment = $tweet->text;
-                    $data->type = 'home';
-                    if(property_exists($tweet->entities, 'media'))
-                        $data->snap=$tweet->entities->media[0]->media_url;
-                    //$data->created_at=date('Y-m-d H:i:s',strtotime($tweet->created_at));
-                    $data->created_at = date('Y-m-d H:i:s');
-                    $data->save();
-                }
-
-            }
-            else
-            {
-                foreach($twitterfeed as $tweet)
-                {
-                    $tweetTime = new DateTime($tweet->created_at);
-                    $lastTime = $leagueLast->created_at;
-                    if($tweetTime>$lastTime)
-                    {
-                        $data = new FeedData();
-                        $data->feed = $feedNo;
-                        $data->username =$homeTeam;
-                        $data->comment = $tweet->text;
-                        $data->type = 'home';
-                        if (property_exists($tweet->entities, 'media'))
-                            $data->snap = $tweet->entities->media[0]->media_url;
-                        //$data->created_at = date('Y-m-d H:i:s', strtotime($tweet->created_at));
-                        $data->created_at = date('Y-m-d H:i:s');
-                        $data->save();
-                    }
-                }
-
-            }
-
-        }
-        else if($type==2)
-        {
-            //write the code to fetch away team tweets
-            $twitterfeed = Twitter::getUserTimeline(array('screen_name' => $awayHandle, 'count' => $count, 'include_rts' => $include_retweets, 'exclude_replies' => $exclude_replies,'trim_user'=>true));
-            if($twitterfeed==null)
-            {
-                return "";
-            }
-            $leagueLast=FeedData::Where('feed',$feedNo)->where('type','away')->orderBy('created_at','DESC')->first();
-            if($leagueLast==null)
-            {
-                foreach($twitterfeed as $tweet)
-                {
-                    $data = new FeedData();
-                    $data->feed = $feedNo;
-                    $data->username = $awayTeam;
-                    $data->comment = $tweet->text;
-                    $data->type = 'away';
-                    if(property_exists($tweet->entities, 'media'))
-                        $data->snap=$tweet->entities->media[0]->media_url;
-                    //$data->created_at=date('Y-m-d H:i:s',strtotime($tweet->created_at));
-                    $data->created_at = date('Y-m-d H:i:s');
-                    $data->save();
-                }
-
-            }
-            else
-            {
-
-                foreach($twitterfeed as $tweet)
-                {
-                    $tweetTime = new DateTime($tweet->created_at);
-                    $lastTime = $leagueLast->created_at;
-                    if($tweetTime>$lastTime)
-                    {
-                        $data = new FeedData();
-                        $data->feed = $feedNo;
-                        $data->username = $awayTeam;
-                        $data->comment = $tweet->text;
-                        $data->type = 'away';
-                        if (property_exists($tweet->entities, 'media'))
-                            $data->snap = $tweet->entities->media[0]->media_url;
-                        //$data->created_at = date('Y-m-d H:i:s', strtotime($tweet->created_at));
-                        $data->created_at = date('Y-m-d H:i:s');
-                        $data->save();
-                    }
-                }
-
-            }
-
-        }
-        else
-        {
-            //send the complete data without any time boundries
-            Session::put('lastCall',date('Y-m-d H:i:s'));
-            $feeds=FeedData::where('feed',$feedNo)->orderBy('created_at','DESC')->get();
-            return View::make('soccer.livePage')->with('feeds',$feeds);
-        }
-        $feeds=FeedData::where('feed',$feedNo)->where('created_at','>',$lastCall)->orderBy('created_at','DESC')->get();
-        Session::put('lastCall',date('Y-m-d H:i:s'));
-        return View::make('soccer.livePage')->with('feeds',$feeds);
-    }
-    public function saveUserComment()
-    {
-        $flag=0;
-        $usernames=array();
-        $uname='';
-        $slogan=' ';
-        $feedNo=Input::get('feedNo');
-        $comment=Input::get('text');
-        for($i=0;$i<strlen($comment);$i++)
-        {
-            if($flag==1)
-            {
-                if($comment[$i]==' ')
-                {
-                    $flag = 0;
-                    array_push($usernames,$uname);
-                    $uname='';
-                }
-                else
-                    $uname=$uname.$comment[$i];
-            }
-              if($comment[$i]=='~')
-                  $flag=1;
-
-        }
-        foreach($usernames as $username)
-        {
-            $user = User::Where('username',$username)->first();
-            $id=$user->id;
-            AjaxController::insertToNotification($id,Auth::user()->id,"tagged","tagged you in a live soccer feed ",'http://b2.com/liveSoccer/'.$feedNo);
-        }
-        $lastCall=new DateTime(Session::get('lastCall'));
-        $feed=Feed::find($feedNo);
-        $user=Auth::user();
-        $fanOf=SoccerTeam::find($user->team);
-        if($fanOf!=null)
-        {
-            $slogan=$fanOf->tags;
-        }
-        $data = new FeedData();
-        $data->feed = $feedNo;
-        $data->username = '<a href="/user/'.$user->username.'">'.$user->username.'</a>';
-        $data->comment = $comment." ".$slogan;
-        $data->type = 'fan';
-        $data->save();
-        //$feeds=FeedData::where('feed',$feedNo)->orderBy('created_at','DESC')->get();
-        $feeds=FeedData::where('feed',$feedNo)->where('created_at','>',$lastCall)->orderBy('created_at','DESC')->get();
-        Session::put('lastCall',date('Y-m-d H:i:s'));
-        return View::make('soccer.livePage')->with('feeds',$feeds);
-
-    }
-
-    public function searchSoccerFriends()
-    {
-        $flag=false;
-        $foundPlayers=new \Illuminate\Database\Eloquent\Collection();
-        $keywords=Input::get('name');
-        $users=User::all();
-
-            foreach ($users as $player)
-            {
-                $name = $player->first_name.' '.$player->last_name;
-                if (Str::contains(Str::lower($name), Str::lower($keywords)))
-                {
-                    $flag=true;
-                    $foundPlayers->add($player);
-                }
-            }
-            if($flag==true)
-            {
-
-                return View::make('soccer.searchedUsers')->with('users',$foundPlayers);
-            }
-            else
-            {
-                return "";
-            }
-
-    }
-
-    //this is the  function to get the live score
-    public function getLiveScore()
-    {
-        return View::make('soccer.liveScore');
-    }
-
     public function getLiveSoccerLinks()
     {
         if (Auth::check())
@@ -826,6 +542,112 @@ class SoccerAdminController extends \BaseController
         {
             return "";
         }
+
+    }
+    //these are admin related functions
+    public function calculatePredictionResults()
+    {
+        $tifc=0;
+        $ifc=0;
+        $tp=0;
+        $matchDay = DB::table('soccerschedule')->whereNotNull('hgoals')->max('matchday');
+        $matches=SoccerSchedule::Where('matchday',$matchDay)->get();
+        foreach($matches as $match)
+        {
+            $tp=0;
+            $ifc=0;
+            $tifc=0;
+            $matchScorers=SoccerScorer::Where('match_id',$match->id)->select('player_id')->get();
+            $scorers=array();
+            foreach($matchScorers as $ms)
+            {
+                array_push($scorers,$ms->player_id);
+            }
+            $matchPredictions = SoccerScorePredictions::Where('match_id',$match->id)->get();
+            foreach ($matchPredictions as $matchPrediction)
+            {
+                    $tp=0;
+                    $ifc=0;
+                    $tifc=0;
+                    if ($matchPrediction->ifc === null)
+                    {
+                        $tp=150;
+                        $ifc = 0;
+                        if ($matchPrediction->hgoals == $match->hgoals)
+                        {
+                            $ifc += 50;
+                        }
+                        if ($matchPrediction->agoals == $match->agoals)
+                        {
+                            $ifc += 50;
+                        }
+                        DB::table('soccerscorepredictions')->where('match_id', $matchPrediction->match_id)->where('user_id', $matchPrediction->user_id)->update(array('ifc' => $ifc));
+
+                    }
+                    $tifc += $ifc;
+                    $user=User::find($matchPrediction->user_id);
+                    $userPredictions=DB::table('soccerscorerpredictions')->where('user_id',$user->id)->where('match_id',$matchPrediction->match_id)->whereNull('ifc')->select('player_id')->get();
+                    if(count($userPredictions)>0)
+                    {
+                        DB::table('soccerscorerpredictions')->where('match_id', $match->id)->where('user_id', $user->id)->update(array('ifc' => 0));
+                        $tp+=50*intval($match->hgoals)+50*intval($match->agoals);
+                        $uscorers=array();
+                        foreach($userPredictions as $us)
+                        {
+                           array_push($uscorers,$us->player_id);
+                        }
+                        $result=array_intersect($uscorers,$scorers);
+                        $ifc=count($result)*50;
+                        foreach($result as $sp)
+                        {
+                            DB::table('soccerscorerpredictions')->where('match_id', $match->id)->where('player_id', $sp)->where('user_id', $user->id)->update(array('ifc' => 50));
+                        }
+                        $tifc+=$ifc;
+                    }
+                    if ($tifc > 0)
+                    {
+
+                        $user->profile->ifc += $tifc;
+                        $user->profile->save();
+                        TransactionController::insertToManager($user->id, "+" . $tifc, "Earnings from correct soccer score predictions", "nope", "nope", "nope");
+                        AjaxController::insertToNotification($user->id,Auth::user()->id,"transfered","Credited you with ".$tifc." IFCs as Soccer Prediction Earnings" ,'http://b2.com/playPredictor');
+                    }
+                    $pe = PredictEarning::find($user->id);
+                    if ($pe == null)
+                    {
+                        $pe = new PredictEarning();
+                        $pe->id = $user->id;
+                        $pe->ifc = $tifc;
+                        $pe->total=$tp;
+                        $pe->save();
+                    }
+                    else
+                    {
+                        $pe->ifc += $tifc;
+                        $pe->total+= $tp;
+                        $pe->save();
+                    }
+            }
+
+        }
+        return 'Done';
+    }
+
+    //this is the function to simulate the soccer
+    public function simulateSoccer()
+    {
+        $user=User::find(Input::get('uid'));
+        $matchDay = DB::table('soccerschedule')->whereNotNull('hgoals')->max('matchday');
+        $matches=SoccerSchedule::Where('matchday',$matchDay)->get();
+
+        foreach($matches as $match)
+        {
+            //$limit=rand(0,3);
+            $hp=rand(0,3);
+            $ap=rand(0,3);
+            DB::table('soccerscorepredictions')->insert(array('match_id' => $match->id, 'hgoals'=>$hp,'agoals'=>$ap,'user_id'=>$user->id));
+        }
+        return 'Done';
 
     }
 

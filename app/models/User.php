@@ -233,9 +233,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	//this is the function to update the users last activity
 	public function updateActivity()
 	{
-		$this->updated_at=new Datetime();
+        $this->isOnline = true;
+        $this->isLive=false;
+        $this->updated_at=new Datetime();
 		$this->save();
 	}
+    public function updateSoccerActivity()
+    {
+        $this->isOnline = true;
+        $this->isLive = true;
+        $this->updated_at=new Datetime();
+        $this->save();
+    }
 
     //Events
     public function getHostedEvents()

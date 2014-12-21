@@ -1,5 +1,5 @@
  <div class="col-xs-12 col-md-12 col-sm-12">
-
+   <p style="font-size: x-large">Friend's Ratings</p>
    <button class="btn btn-primary" id="mrButton" onclick="toggleLinks('mr')">All Match Ratings</button>
    <button class="btn btn-success" id="cmButton" onclick="toggleLinks('cm')">All Player Comments</button>
    <button class="btn btn-danger" id="grButton" onclick="toggleLinks('gr')" style="display: none">Best Rated Players</button>
@@ -24,8 +24,8 @@
  </div>
 
   <div class="col-xs-12 col-sm-6 col-md-6" id="bestPlayersDiv">
-        <div class="col-xs-12 col-sm-6 col-md-6">Best Rated Players by Friends:</div>
-        <div id="friendsBestPlayers" class="col-xs-12 col-sm-12 col-md-12" style="height:400px;"></div>
+         <div id="friendsBestPlayers" class="col-xs-12 col-sm-12 col-md-12" style="height:400px;">
+          </div>
   </div>
 
   <div class="col-xs-12 col-md-6 col-sm-6" id="commentsDiv" style="display: none">

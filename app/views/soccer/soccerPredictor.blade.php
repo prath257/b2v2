@@ -10,7 +10,8 @@
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
     <link href="{{asset('css/fileUpload.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/home.css')}}" rel="stylesheet">
-     <link href="{{asset('css/pages/soccerPredictor.css')}}" rel="stylesheet">
+    <link href="{{asset('css/pages/soccerPredictor.css')}}" rel="stylesheet">
+    <link href="{{asset('css/morris.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/notification.css')}}" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.datetimepicker.css')}}"/>
@@ -73,7 +74,7 @@
                 </li>
                 <li id="chats"> <a href="{{route('chats')}}" target="_blank" style="cursor: pointer">Chats</a></li>
                 <li id="profile"> <a href="{{route('profile')}}" style="cursor: pointer">{{Auth::user()->first_name}}</a></li>
-                <li id="home"> <a href="{{route('home')}}" style="cursor: pointer">Home</a></li>
+                <li id="soccerhome"> <a href="{{route('soccerSpace')}}" style="cursor: pointer">SoccerSpace</a></li>
                 <li id="logOut"> <a href="{{route('signout')}}" style="cursor: pointer">Log Out</a></li>
             </ul>
         </div>
@@ -83,23 +84,34 @@
 <br>
 <br>
 <br>
-@if(!Auth::user()->pset)
-<div class="alert alert-info alert-dismissable col-lg-6" style="margin-left: 5%">
-    <strong style="font-size: 24px">Attention! </strong> <a href="{{route('buildProfile')}}" style="font-size: 24px">Complete Profile</a> now and earn yourself upto 300i.
-</div>
-@endif
 <div class="container">
    <div class="row">
    <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="myPredictions('predict')">Predict Matches</button>
    <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="getResults()">My Predictions</button>
    <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="myPredictions('friends')">Friends Predictions</button>
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="getLeagueStats()">League Stats</button>
+   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="getStatsView()">Statistics</button>
    </div>
 
    <br>
    <br>
    <br>
    <div class="row" id="mainTask">
+
+   </div>
+   <div class="row" id="statsView" style="display: none">
+           <div class="col-xs-3 col-sm-2 col-md-2">
+                 <button class="btn btn-primary" onclick="getPredictStats()">My Stats</button>
+           </div>
+           <div class="col-xs-4 col-sm-2 col-md-2">
+                 <button class="btn btn-success" onclick="getLeaderboard()">Leaderboard</button>
+           </div>
+           <div class="col-xs-5 col-sm-2 col-md-2">
+                <button class="btn btn-danger" onclick="getLeagueStats()">League Stats</button>
+           </div>
+
+           <div class="col-xs-12 col-sm-12 col-md-12" id="statsMain">
+
+           </div>
 
    </div>
 </div>
@@ -136,6 +148,8 @@
 <script src="{{asset('js/search.js')}}"></script>
 <script src="{{asset('js/jsonQ.min.js')}}"></script>
 <script src="{{asset('js/bootstrap.js')}}"></script>
+<script src="{{asset('js/raphael.js')}}"></script>
+<script src="{{asset('js/morris.js')}}"></script>
 <script src="{{asset('js/bootbox.js')}}"></script>
 <script src="{{asset('js/jquery.datetimepicker.js')}}"></script>
 <script src="{{asset('js/pages/soccerPredictor.js')}}"></script>

@@ -187,7 +187,7 @@ class SoccerGraphicsController extends \BaseController
                     }
                     else
                     {
-                        return "<p>Player not found for this team</p>";
+                        return "<p>No Comments found!</p>";
                     }
                 }
 
@@ -377,6 +377,188 @@ class SoccerGraphicsController extends \BaseController
 
     }
 
+    public function searchScorer()
+    {
+        if(Auth::check())
+        {
+            $type=Input::get('type');
+            $flag = false;
+            $foundPlayers = new \Illuminate\Database\Eloquent\Collection();
+            $keywords = Input::get('player');
+            $home = Input::get('homeSide');
+            $away = Input::get('awaySide');
+            $players = SoccerPlayer::Where('team',$home)->orWhere('team',$away)->get();
+            foreach ($players as $player)
+            {
+                $name = $player->first_name . ' ' . $player->last_name;
+                if (Str::contains(Str::lower($name), Str::lower($keywords)))
+                {
+                    $flag = true;
+                    $foundPlayers->add($player);
+                }
+            }
+            if ($flag == true)
+            {
+
+                return View::make('soccer.playerSearch')->with('players', $foundPlayers)->with('type', $type);;
+            }
+            else
+            {
+                return "<p>No Player by this name</p>";
+            }
+
+        }
+        else
+        {
+
+        }
+
+    }
+
+    //these are the functions to get prediction stats
+
+    public function getPredictStats()
+    {
+        $te=0;
+        $pe=PredictEarning::find(Auth::user()->id);
+        if($pe!=null)
+        {
+            $te=$pe->ifc;
+        }
+        return View::make('soccer.predictStats')->with('totalEarning',$te);
+    }
+
+    public function getPredictPercent()
+    {
+        if(Auth::check())
+        {
+            $user=Auth::user();
+            $tifc=0;
+            $ifc=0;
+            $total=0;
+            $totalIFC=0;
+            $tpossible=0;
+            //First Lets Calculate Score Accuracy
+            $matchPredictions=Auth::user()->getScorePredictions()->get();
+            foreach($matchPredictions as $matchPrediction)
+            {
+                $match=SoccerSchedule::find($matchPrediction->match_id);
+                if($match->hgoals!=null)
+                {
+
+                        $ifc = 0;
+                        if ($matchPrediction->hgoals == $match->hgoals)
+                        {
+                            $ifc += 50;
+                        }
+                        if ($matchPrediction->agoals == $match->agoals)
+                        {
+                            $ifc += 50;
+                        }
+                        $tpossible+=100;
+                        $tifc+=$ifc;
+                }
+            }
+            $totalIFC=$tifc;
+            $total=$tpossible;
+            $scoreAccuracy=($tifc/$tpossible)*100;
+            $scoreAccuracy=round($scoreAccuracy,2);
+
+            //Now Lets Calculate Scorer Accuracy
+            $tifc=0;
+            $tpossible=0;
+            $ifc=0;
+            $scorerPredictions=Auth::user()->getScorerPredictions()->get();
+            $matches=DB::table('soccerscorerpredictions')->select('match_id')->where('user_id', '=',$user->id)->distinct()->get();
+            foreach($matches as $match)
+            {
+                $matchDetails=SoccerSchedule::find($match->match_id);
+                if($matchDetails->hgoals!=null)
+                   $tpossible+=50*intval($matchDetails->hgoals)+50*intval($matchDetails->agoals);
+            }
+            foreach($scorerPredictions as $scorer)
+            {
+                $match=SoccerSchedule::find($scorer->match_id);
+                if($match->hgoals!=null)
+                {
+                        $ifc = 0;
+                        $scorerMatch = SoccerScorer::Where('match_id', '=', $scorer->match_id)->where('player_id', '=', $scorer->player_id)->first();
+                        if ($scorerMatch != null)
+                        {
+                            $ifc = 50;
+                        }
+                        $tifc+=$ifc;
+                }
+
+            }
+            $scorerAccuracy=($tifc/$tpossible)*100;
+            $scorerAccuracy=round($scorerAccuracy,2);
+            $stats=array();
+            $stats[0]=array('label'=>'Score Accuracy %','value'=>$scoreAccuracy);
+            $stats[1]=array('label'=>'Scorers Accuracy %','value'=>$scorerAccuracy);
+            return $stats;
+
+        }
+        else
+            return 'wH@tS!nTheB0x';
+    }
+
+    public function getLeaderboard()
+    {
+        return View::make('soccer.leaderBoard');
+    }
+
+    public function getLeaderboardData()
+    {
+        $user=Auth::user();
+        $leaders=PredictEarning::orderBy('ifc','DESC')->get();
+        $leaderList=new \Illuminate\Database\Eloquent\Collection();
+        if(count($leaders)>0)
+        {
+            $r=1;
+            foreach($leaders as $leader)
+            {
+                $player=new stdClass();
+                $player->rank=$r;
+                $player->id=$leader->id;
+                $player->earning=$leader->ifc;
+                $player->total=$leader->total;
+                $leaderList->add($player);
+                $r++;
+            }
+        }
+        return Datatable::collection($leaderList)
+            ->orderColumns('accuracy','earnings')
+            ->addColumn('rank',function($model)
+            {
+                return $model->rank;
+            })
+            ->addColumn('name',function($model)
+            {
+                $name=User::find($model->id)->first_name.' '.User::find($model->id)->last_name;
+                return $name;
+            })
+            ->addColumn('accuracy',function($model)
+            {
+                if($model->total==0)
+                    return 0;
+                else
+                {
+                    $accuracy=round(intval($model->earning)/intval($model->total),2)*100;
+                    return $accuracy;
+                }
+            })
+            ->addColumn('earnings',function($model)
+            {
+                return $model->earning;
+            })
+            ->addColumn('country',function($model)
+            {
+                $country=User::find($model->id)->country;
+                return $country;
+            })
+            ->make();
+    }
 
 
 
