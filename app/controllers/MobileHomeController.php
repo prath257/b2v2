@@ -53,6 +53,11 @@ class MobileHomeController extends \BaseController {
                 elseif($action->type == 'Q score')
                     $content->add(DB::table('quiz')->where('id','=',$action->contentid)->first());
 
+                else if($action->type== 'newMatchRating')
+                     $content->add($action);
+                else if($action->type == 'newFeed')
+                    $content->add($action);
+
                 $author->add( DB::table('users')->where('id','=',$action->user1id)->first());
                 $pic->add (User::find($action->user1id)->profile->profilePic);
 
