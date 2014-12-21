@@ -627,3 +627,4 @@ Route::post('mobile_acceptfriend', array('uses'=>'MobileAuthController@acceptFri
 
 
 
+Route::post('mobile_getDates', array('uses'=>'MobileDiaryController@getDates'));
