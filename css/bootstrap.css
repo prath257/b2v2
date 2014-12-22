@@ -5798,12 +5798,13 @@ button.close {
     padding: 5px 10px 5px 10px;
     text-decoration: none;
     cursor: pointer;
+    border: none;
 }
 
 .bbtn:hover {
-    background: #087032;
+    background:whitesmoke;
     text-decoration: none;
-    color: #ffffff;
+    color: #000000;
 }
 
 .bbtng {
@@ -5813,11 +5814,50 @@ button.close {
     padding: 5px 10px 5px 10px;
     text-decoration: none;
     cursor: pointer;
+    border: none;
 }
 
 .bbtng:hover {
-    background:#e51400s;
+    background:whitesmoke;
     text-decoration: none;
-    color: #ffffff;
+    color: #000000;
 }
+.bbtnr {
+    font-family:"Segoe UI", "Segoe WP", "Helvetica Neue", 'RobotoRegular', sans-serif;
+    color: #ffffff;
+    background: #BA2222;
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}
+
+.bbtnr:hover {
+    background:whitesmoke;
+    text-decoration: none;
+    color: #000000;
+}
+
+.bbtnd {
+    font-family:"Segoe UI", "Segoe WP", "Helvetica Neue", 'RobotoRegular', sans-serif;
+    color: #ffffff;
+    background: #2e2f37;
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}
+
+.bbtnd:hover {
+    background:whitesmoke;
+    text-decoration: none;
+    color: #000000;
+}
+.barterHeader
+{
+    font-family: "Segoe UI", "Segoe WP", "Helvetica Neue", 'RobotoRegular', sans-serif;
+    font-size: x-large;
+    text-align: center;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

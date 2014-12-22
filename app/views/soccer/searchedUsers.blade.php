@@ -1,6 +1,6 @@
 @foreach($users as $player)
            @if($player->pset==true)
-           <div class="col-xs-12 col-sm-8 col-md-7 searchResult noPad" onclick="addUser('{{$player->username}}')">
+           <div class="col-xs-12 col-sm-12s col-md-12 searchResult noPad" onclick="addUser('{{$player->username}}')">
               <div class="col-xs-2 col-md-3 col-sm-3 noPad">
                   <img src="{{$player->profile->profilePic}}" width="45px" height="45px">
               </div>

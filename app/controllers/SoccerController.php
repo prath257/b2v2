@@ -329,17 +329,23 @@ class SoccerController extends \BaseController
                     }
 
                 }
-                if ($found == true) {
+                if ($found == true)
+                {
                     $homeTeam = SoccerTeam::find(SoccerSchedule::find($mid)->hometeam)->name;
                     $awayTeam = SoccerTeam::find(SoccerSchedule::find($mid)->awayteam)->name;
-                    return View::make('soccer.friendsPrediction')->with('friendsData', $friendData)->with('home', $homeTeam)->with('away', $awayTeam);
-                } else {
-                    return "<h3> No Predictions by your friends found for current Matchday</h3>";
+                    return View::make('soccer.friendsPrediction')->with('friendsData', $friendData)->with('home', $homeTeam)->with('away', $awayTeam)->with('empty',false);
+                }
+                else
+                {
+                    $homeTeam = SoccerTeam::find(SoccerSchedule::find($mid)->hometeam)->name;
+                    $awayTeam = SoccerTeam::find(SoccerSchedule::find($mid)->awayteam)->name;
+                    return View::make('soccer.friendsPrediction')->with('friendsData', $friendData)->with('home', $homeTeam)->with('away', $awayTeam)->with('empty',true);
+
                 }
             }
             else
             {
-                return "<h3> No Predictions by your friends found for current Matchday</h3>";
+                return "<h4> No Predictions by friends found for this Matchday.</h4>";
             }
         }
         else
@@ -359,7 +365,6 @@ class SoccerController extends \BaseController
                     $scorers = SoccerScorerPredictions::Where('match_id', $mid)->where('user_id', $friend)->get();
                     if (count($scorers) > 0)
                     {
-
                         $i = 0;
                         foreach ($scorers as $scorer)
                         {

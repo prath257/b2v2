@@ -82,9 +82,9 @@
       <div class="col-xs-12 col-sm-12 col-md-7 noPad" id="filtersDiv">
       <div class="col-xs-4 col-sm-2 col-md-2 noPad filters"> <input type="checkbox" id="sloganSet" value="true" onclick="setSlogan(this)" checked>Team Tag</div>
       <div class="btn-group btn-group-xs pull-right" role="group">
-        <button type="button" class="btn btn-default" onclick="setTeam()">All</button>
-        <button type="button" class="btn btn-default" onclick="setFriends()">Friends</button>
-        <button type="button" class="btn btn-default" onclick="setAll()">{{SoccerTeam::find(Auth::user()->team)->nickname}}</button>
+        <button type="button" id="sab" value="all" class="btn btn-default">All</button>
+        <button type="button" id="sfb" value="friends" class="btn btn-default">Friends</button>
+        <button type="button" id="stb" value="team" class="btn btn-default">{{SoccerTeam::find(Auth::user()->team)->nickname}}</button>
       </div>
       </div>
       <div id="liveFeed" class="col-xs-12 col-sm-8 col-md-6 noPad" style=" height:80%;">
@@ -93,7 +93,7 @@
                             <div class="col-xs-12" id="commentArea"></div>
                             <div class="form-group col-xs-12 col-sm-12 col-md-12 noPad" style="margin: 0px" >
                                     <div class="input-group col-xs-12 col-sm-12 col-md-12 noPad" id="commentSpace">
-                                    <textarea id="commentText" class="form-control" autocomplete="off" placeholder="Type Your Comment here." rows="2" onkeydown="playerCommentsDown()" onkeyup="playerCommentsUp()" onkeypress="checkSearch(event)"></textarea>
+                                     <textarea id="commentText" class="form-control" autocomplete="off" placeholder="Type Your Comment here." rows="2"  onkeydown="playerCommentsDown()" onkeyup="playerCommentsUp()" onkeypress="checkSearch(event)"></textarea>
                                      <button id="chatTextSubmit" class="bbtn pull-right" onclick="postComment()">Post</button>
 
                                     </div>

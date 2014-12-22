@@ -14,13 +14,25 @@ $(document).ready(function()
             return 'Any unsaved changes will be lost.';
     };
 
+    //this is for scrolling up and hiding search reasults
+    $(document).click(function (e)
+    {
+
+        if ($(e.target).is('.comIn'))
+        {
+            $('body,html').animate({ scrollUp: 400}, 500);
+        }
+
+    });
+
 });
 
-function myPredictions(tipo)
+function myPredictions(tipo,title)
 {
     $.post('http://b2.com/createSchedule',{type:tipo},function(data)
     {
         $('#ratingsDiv').hide();
+        $('.barterHeader').html(title);
         $('#mainTask').html(data);
     });
 }
@@ -70,9 +82,12 @@ function getPlayers()
                 $('#addHomePlayers').fadeIn();
                 $('#addAwayPlayers').fadeIn();
                 $('#ratingsStatus').html('');
+                $('#ratePlayers').html('');
+
             }
             else
             {
+                $('#ratePlayers').html('');
                 $('#ratingsDiv').fadeIn();
                 $('#ratingsStatus').append('You have already given match ratings for this: <a href="/getMatchRatings/'+match+ '" target="_blank"> see here</a');
             }
@@ -213,7 +228,7 @@ function checkLength(comment)
 }
 //these are the functions for getting myratings
 
-function getMyRatings()
+function getMyRatings(title)
 {
     if(submitted==false)
     {
@@ -222,6 +237,7 @@ function getMyRatings()
             {
                 submitted=true;
                 $('#ratingsDiv').hide();
+                $('.barterHeader').html(title);
                 showWaiting('Fetching your ratings');
                 $.post('http://b2.com/getMyRatings', {para: null}, function (data) {
                     closeWaiting();
@@ -252,6 +268,7 @@ function getMyRatings()
     else
     {
         $('#ratingsDiv').hide();
+        $('.barterHeader').html(title);
         showWaiting('Fetching your ratings');
         $.post('http://b2.com/getMyRatings', {para: null}, function (data) {
             closeWaiting();
@@ -280,7 +297,7 @@ function getMyRatings()
 }
 
 
-function getFriendsRatings()
+function getFriendsRatings(title)
 {
     if(submitted==false)
     {
@@ -289,6 +306,7 @@ function getFriendsRatings()
             {
                 submitted=true;
                 $('#ratingsDiv').hide();
+                $('.barterHeader').html(title);
                 showWaiting('Fetching Friends ratings');
                 $.post('http://b2.com/getFriendsRatings', {para: null}, function (data) {
                     closeWaiting();
@@ -319,6 +337,7 @@ function getFriendsRatings()
     else
     {
         $('#ratingsDiv').hide();
+        $('.barterHeader').html(title);
         showWaiting('Fetching Friends ratings');
         $.post('http://b2.com/getFriendsRatings', {para: null}, function (data) {
             closeWaiting();
@@ -387,6 +406,7 @@ function toggleLinks(type)
         $('#mrButton').hide();
         $('#grButton').show();
         $('#cmButton').show();
+        $('.subTitle').html($('#mrButton').html())
     }
     if(type=='gr')
     {
@@ -396,7 +416,7 @@ function toggleLinks(type)
         $('#grButton').hide();
         $('#mrButton').show();
         $('#cmButton').show();
-
+        $('.subTitle').html($('#grButton').html())
     }
     if(type=='cm')
     {
@@ -406,6 +426,7 @@ function toggleLinks(type)
         $('#cmButton').hide();
         $('#grButton').show();
         $('#mrButton').show();
+        $('.subTitle').html($('#cmButton').html())
     }
 }
 function playerCommentsDown()
@@ -462,7 +483,7 @@ function getPlayerComments(tipo,pid)
 
 }
 
-function getClubRatings()
+function getClubRatings(title)
 {
     if(submitted==false)
     {
@@ -472,6 +493,7 @@ function getClubRatings()
             {
                 submitted=true;
                 $('#ratingsDiv').hide();
+                $('.barterHeader').html(title);
                 $.post('http://b2.com/getClubRatingsView', {type: null}, function (data) {
                     $('#mainTask').html(data);
                 });
@@ -481,6 +503,7 @@ function getClubRatings()
     else
     {
         $('#ratingsDiv').hide();
+        $('.barterHeader').html(title);
         $.post('http://b2.com/getClubRatingsView', {type: null}, function (data) {
             $('#mainTask').html(data);
         });

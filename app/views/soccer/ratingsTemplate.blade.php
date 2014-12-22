@@ -1,4 +1,7 @@
-<div class="com-xs-12 col-sm-12 col-md-12"><h4>{{$team->name}} Player Ratings</h4></div>
+<div class="com-xs-12 col-sm-12 col-md-12">
+    <hr>
+    <p class="subTitle">{{$team->name}} Player Ratings</p>
+</div>
 @foreach($squad as $player)
 <div class="col-xs-12 col-sm-6 com-md-6">
     <br>
@@ -7,9 +10,7 @@
         <p style="font-weight: bold; color: #000033;padding: 0px">{{$player->last_name}}</p>
     </div>
     <div class="col-xs-8 col-sm-9 col-md-9" style="padding-left: 0px">
-        <div class="col-xs-12 col-sm-12 col-md-12" style="padding-left: 0px">
-            <textarea id="comment{{$player->id}}" class="form-control" rows="2" width="100%" placeholder="Comments upto 250 chars" onkeyup="checkLength(this)"></textarea>
-        </div>
+          <textarea id="comment{{$player->id}}" class="form-control comIn" rows="2" width="100%" placeholder="Comments upto 250 chars" onkeyup="checkLength(this)"></textarea>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12" style="padding-top: 5px">
         <input id="rating{{$player->id}}" value="5" type="number" class="rating" min=0 max=10 step=0.5 data-stars=10 data-size="xs">

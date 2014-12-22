@@ -69,7 +69,8 @@ $(document).ready(function()
     $('#ActionCentre').height($(window).height() * 0.9);
 
     $(document).click(function (e) {
-        if (!$(e.target).is('#searchRecco,#searhRecco *,#RECCO-FILTER,#RECCO-FILTER *,.recco-duo-tabs,.recco-duo-tabs *')) {
+        if (!$(e.target).is('#searchRecco,#searhRecco *,#RECCO-FILTER,#RECCO-FILTER *,.recco-duo-tabs,.recco-duo-tabs *'))
+        {
             var category = $('#recco-tab').val();
             $('#' + category + '-recco').html(cachedMarkup);
             var keywords = $('#searchRecco').val('');

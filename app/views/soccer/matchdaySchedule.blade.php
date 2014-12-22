@@ -23,7 +23,7 @@
                   <a href="#" class="bbtng" onclick="showScorerModal({{$match->id}})" id="scorersLink{{$match->id}}">Predict Scorers</a>
           </div>
           <div class="col-xs-12 col-sm-4 col-md-4" id="clear{{$match->id}}" style="display: none">
-                <button class="btn btn-default" onclick="clearPrediction({{$match->id}})">Redo Prediction</button>
+                <button class="btn btn-warning" onclick="clearPrediction({{$match->id}})">Redo Prediction</button>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12"><hr></div>
   @endforeach
@@ -32,12 +32,16 @@
           <button id="submitPredictions" class="btn btn-success" onclick="submitPredictions()"> Submit Predictions</button>
    </div>
   @else
-    <div class="com-xs-12 col-sm-12 com-md-12">
+    <div class="com-xs-12 col-sm-12 com-md-12" style="font-family: "Segoe UI", "Segoe WP", "Helvetica Neue", 'RobotoRegular', sans-serif">
     <input type="hidden" id="nopredict" value="no">
      <h3>No matches found.</h3>
-             <h4>Hey, either you have already made the predictions for this matchday or the prediction time is up.</h4>
-             <h5>Predictions are allowed upto an hour before kickoff.Next Matchday predictions will be open as soon as this matchday results are out.</h5>
-     </div>
+             <ul>
+             <li>Either you have already made the predictions for this matchday</li>
+             <li>Or the prediction time is up for all matches for this matchday</li>
+             <li>Predictions are only allowed upto an hour before kickoff.</li>
+             <li>Next Matchday predictions will be open,after this matchday results are out.</li>
+             </ul>
+    </div>
   @endif
 
 

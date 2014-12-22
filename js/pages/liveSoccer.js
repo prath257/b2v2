@@ -9,7 +9,6 @@ var searchString=null;
 var restComment='';
 var slogan=true;
 var filter='all';
-var timeInterval=17000;
 
 $(document).ready(function()
 {
@@ -27,6 +26,58 @@ $(document).ready(function()
         $('#scorerBody').html('');
     });
 
+    //this is for data filter
+    $(".btn-group button").click(function ()
+    {
+        filter=$(this).val();
+        var gid=this.id;
+        if(gid=="sab")
+        {
+            $('#sab').addClass('btn-primary');
+            $('#sfb').removeClass('btn-primary');
+            $('#stb').removeClass('btn-primary');
+            applyFilter();
+
+        }
+        else if(gid=="sfb")
+        {
+            $('#sfb').addClass('btn-primary');
+            $('#sab').removeClass('btn-primary');
+            $('#stb').removeClass('btn-primary');
+            applyFilter();
+
+        }
+        else
+        {
+            $('#stb').addClass('btn-primary');
+            $('#sfb').removeClass('btn-primary');
+            $('#sab').removeClass('btn-primary');
+            applyFilter();
+
+        }
+    });
+
+    //this is the code to hide search results upon outside click
+    $(document).click(function (e)
+    {
+
+        if ($(e.target).is('#searchResult'))
+        {
+            //do nothing
+        }
+        else if($(e.target).is('#commentText'))
+        {
+            $('body,html').animate({ scrollTop: 150}, 500);
+            $('#searchResult').html('');
+            $('#searchResult').hide();
+
+        }
+        else
+        {
+            $('#searchResult').html('');
+            $('#searchResult').hide();
+        }
+    });
 
 });
 function addZero(i)
@@ -118,10 +169,12 @@ function searchUser(val)
         {
             $('#searchResult').html('<div style="text-align: center"><img src="http://b2.com/Images/icons/waiting.gif">Searching...</div>');
             $('#searchResult').show();
-            $.post('http://b2.com/searchSoccerFriends', {name: val}, function (markup) {
+            $.post('http://b2.com/searchSoccerFriends', {name: val}, function (markup)
+            {
                 if (markup == 'wH@tS!nTheB0x')
                     window.location = 'http://b2.com/offline';
-                else {
+                else
+                {
                     $('#searchResult').fadeIn();
                     $('#searchResult').html(markup);
 
@@ -135,6 +188,7 @@ function addUser(uname)
 {
     var finalComment=restComment+'~'+uname+' ';
     $('#commentText').val(finalComment);
+    $('#searchResult').html('');
     $('#searchResult').hide();
     searchOn=false;
     timer=setTimeout(getLiveData,17000);
@@ -149,13 +203,10 @@ function postComment()
     if(comment.length>2)
     {
         clearTimeout(timer);
-        $('#commentSpace').hide();
-        $('#commentArea').html("<div style='text-align:center'><img  src='http://b2.com/Images/icons/waiting.gif'>Posting..</div>");
+        $('#commentText').val('');
         $.post('http://b2.com/saveUserComment',{feedNo:feed,text:comment,tag:slogan,dataFilter:filter},function(data)
         {
             $('#scrollDiv').prepend(data);
-            $('#commentText').val('');
-            $('#commentSpace').fadeIn();
             $('#commentArea').html('');
             timer=setTimeout(getLiveData,17000);
         })
@@ -192,19 +243,13 @@ function setSlogan(radio)
     }
 }
 
-
-function setTeam()
+function applyFilter()
 {
-    filter='team';
-}
-
-
-function setFriends()
-{
-    filter='friends';
-}
-
-function setAll()
-{
-    filter='all';
+    clearTimeout(userSearchTimer);
+    $('#scrollDiv').html('<div style="text-align: center"><img src="http://b2.com/Images/icons/waiting.gif">Filtering...</div>');
+    $.post('http://b2.com/getFilterData',{feedNo:feed,dataFilter:filter},function(data)
+    {
+        $('#scrollDiv').html(data);
+        timer=setTimeout(getLiveData,17000);
+    });
 }

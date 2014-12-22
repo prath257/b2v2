@@ -95,9 +95,9 @@
         </div>
         <div class="col-xs-12 col-sm-5 col-md-7 noPadding">
         <div class="col-xs-12 col-sm-12 col-md-12 noPadding">
-              <button class="col-xs-6 col-sm-4 col-md-4 bbtn" onclick="transfer(1)">Play Predictor</button>
+              <button class="col-xs-6 col-sm-4 col-md-4 bbtng" onclick="transfer(1)">Play Predictor</button>
               <button class="col-xs-6 col-sm-4 col-md-4 bbtn" onclick="transfer(2)">Player Ratings</button>
-              <button class="col-xs-12 col-sm-4 col-md-4 bbtng" onclick="transfer(3)">Live Soccer</button>
+              <button class="col-xs-12 col-sm-4 col-md-4 bbtnd" onclick="transfer(3)">Live Soccer</button>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
         <hr>

@@ -9,7 +9,7 @@
         <div id="clubBestPlayers" class="col-xs-12 col-sm-12 col-md-12" style="height:400px;"></div>
   </div>
 
- <div class="col-xs-12 col-md-12 col-sm-12" id="commentsDiv" style="display: none">
+ <div class="col-xs-12 col-md-12 col-sm-12 noPad" id="commentsDiv" style="display: none">
         <br><br>
         <div class="col-xs-12 col-sm-8 col-md-8">
             <input type="text" class="form-control" placeholder="Search Player for Comments" name="other" id="searchPlayer" onkeydown="playerCommentsDown()" onkeyup="playerCommentsUp('{{$club->id}}')">

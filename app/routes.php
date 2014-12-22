@@ -510,6 +510,8 @@
     Route::post('searchFriends',array('as'=>'searchFriends','before'=>'auth','uses'=>'SoccerAdminController@searchFriends'));
     Route::post('calculatePredictionResults',array('as'=>'calculatePredictionResults','before'=>'auth','uses'=>'SoccerAdminController@calculatePredictionResults'));
     Route::post('simulateSoccer',array('as'=>'simulateSoccer','before'=>'auth','uses'=>'SoccerAdminController@simulateSoccer'));
+
+
     //soccer user routes
     Route::get('playPredictor',array('as'=>'playPredictor','before'=>'auth','uses'=>'SoccerController@getPredictor'));
     Route::post('getMatchDay',array('as'=>'getMatchDay','before'=>'auth','uses'=>'SoccerController@getMatchDay'));
@@ -534,6 +536,7 @@
     Route::post('getTeamData',array('as'=>'getTeamData','before'=>'auth','uses'=>'SoccerAdminController@getTeamData'));
     Route::post('changeTeam',array('as'=>'changeTeam','before'=>'auth','uses'=>'SoccerAdminController@changeTheTeam'));
     Route::post('getPredictStats',array('as'=>'getPredictStats','uses'=>'SoccerGraphicsController@getPredictStats'));
+    Route::post('getFilterData',array('as'=>'getFilterData','uses'=>'LiveSoccerController@getFilterData'));
 
     //these are the routes for getting match_ratings graphs
     Route::post('getMyBestRatings',array('as'=>'getMyBestRatings','before'=>'auth','uses'=>'SoccerGraphicsController@getMyBestRatings'));

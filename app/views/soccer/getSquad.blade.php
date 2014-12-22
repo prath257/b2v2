@@ -7,14 +7,14 @@
 <hr>
 <h3>Defenders</h3>
 @foreach($defence as $player)
-<input type="checkbox" id="{{$player->id}}">
+<input type="checkbox"  id="{{$player->id}}">
 {{$player->first_name}}&nbsp;{{$player->last_name}}
 <br>
 @endforeach
 <hr>
 <h3>Midfielders</h3>
 @foreach($midfield as $player)
-<input type="checkbox" id="{{$player->id}}">
+<input type="checkbox"  id="{{$player->id}}">
 {{$player->first_name}}&nbsp;{{$player->last_name}}
 <br>
 @endforeach

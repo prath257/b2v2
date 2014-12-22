@@ -48,13 +48,13 @@ ClassLoader::addDirectories(array(
 
 App::error(function(Exception $exception, $code)
 {
-	Log::error($exception);
+	//Log::error($exception);
     //return $exception;
-   /* Mail::send('mailers', array('exception'=>$exception,'page'=>'exception'), function($message)
+   /* Mail::send('mailers', array('exception'=>$exception->getMessage().' File: '.$exception->getFile().' Line: '.$exception->getLine(),'page'=>'exception'), function($message)
     {
         $message->to('ksjoshi88@gmail.com')->subject('Exception');
     });*/
-    //return View::make('exception');
+    return View::make('exception');
 });
 
 /*

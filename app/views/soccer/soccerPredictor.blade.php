@@ -15,7 +15,6 @@
     <link href="{{asset('css/pages/notification.css')}}" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.datetimepicker.css')}}"/>
-
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="position: fixed;">
@@ -72,9 +71,9 @@
                         </label>
                     </div>
                 </li>
-                <li id="chats"> <a href="{{route('chats')}}" target="_blank" style="cursor: pointer">Chats</a></li>
+                 <li id="soccerhome"> <a href="{{route('soccerSpace')}}" style="cursor: pointer">SoccerSpace</a></li>
+                 <li id="home"> <a href="{{route('home')}}" style="cursor: pointer">Home</a></li>
                 <li id="profile"> <a href="{{route('profile')}}" style="cursor: pointer">{{Auth::user()->first_name}}</a></li>
-                <li id="soccerhome"> <a href="{{route('soccerSpace')}}" style="cursor: pointer">SoccerSpace</a></li>
                 <li id="logOut"> <a href="{{route('signout')}}" style="cursor: pointer">Log Out</a></li>
             </ul>
         </div>
@@ -86,15 +85,14 @@
 <br>
 <div class="container">
    <div class="row">
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="myPredictions('predict')">Predict Matches</button>
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="getResults()">My Predictions</button>
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="myPredictions('friends')">Friends Predictions</button>
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="getStatsView()">Statistics</button>
+   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="myPredictions('predict','Predict Matches')">Predict Matches</button>
+   <button class="col-xs-6 col-sm-6 col-md-3 bbtnr" onclick="getResults('My Predictions')">My Predictions</button>
+   <button class="col-xs-6 col-sm-6 col-md-3 bbtng" onclick="myPredictions('friends','Friend\'s Predictions')">Friends Predictions</button>
+   <button class="col-xs-6 col-sm-6 col-md-3 bbtnd" onclick="getStatsView('Statistics')">Statistics</button>
    </div>
-
    <br>
-   <br>
-   <br>
+   <p class="barterHeader"></p>
+   <hr>
    <div class="row" id="mainTask">
 
    </div>

@@ -1,3 +1,8 @@
+.noPad
+{
+    padding: 0px;
+}
+
 .searchResult {
     color: white;
     background-color:whitesmoke;
@@ -8,4 +13,17 @@
 {
     color: white;
     background-color:#003163;
+}
+
+#clubDiv
+{
+    font-family: "Segoe UI", "Segoe WP", "Helvetica Neue", 'RobotoRegular', sans-serif;
+}
+
+.subTitle
+{
+    font-family: "Segoe UI", "Segoe WP", "Helvetica Neue", 'RobotoRegular', sans-serif;
+    font-size:medium;
+    text-align: center;
+    margin-top: 20px;
 }

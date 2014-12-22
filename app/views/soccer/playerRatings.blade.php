@@ -91,23 +91,31 @@
 @endif
 <div class="container">
    <div class="row">
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="myPredictions('newratings')">Give Ratings</button>
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="getMyRatings()">My Ratings</button>
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="getFriendsRatings()">Friends Ratings</button>
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="getClubRatings()">Club Ratings</button>
+   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="myPredictions('newratings','New Player Ratings')">Give Ratings</button>
+   <button class="col-xs-6 col-sm-6 col-md-3 bbtnr" onclick="getMyRatings('My Ratings')">My Ratings</button>
+   <button class="col-xs-6 col-sm-6 col-md-3 bbtng" onclick="getFriendsRatings('Friend\'s Ratings')">Friends Ratings</button>
+   <button class="col-xs-6 col-sm-6 col-md-3 bbtnd" onclick="getClubRatings('Club Ratings')">Club Ratings</button>
 </div>
-
    <br>
-   <br>
-   <br>
+   <p class="barterHeader"></p>
+   <hr>
    <div class="row" id="mainTask">
    </div>
    <div class="row" id="ratingsDiv" style="display: none">
-             <button class="btn btn-primary" id="addHomePlayers" onclick="showPlayersModal('Home')" style="display: none">Rate Home XI and Subs</button>
-             <button class="btn btn-success" id="addAwayPlayers" onclick="showPlayersModal('Away')" style="display: none">Rate Away XI and Subs</button>
-             <button class="btn btn-alert" id="saveFinal" onclick="saveRatings()" style="display: none">Submit Match Ratings</button>
-             <br>
-             <label id="ratingsStatus" style="font-size: 12px; color: #003300"></label>
+       <div class="col-xs-6 col-sm-4 col-md-4" id="addHomePlayers" style="display: none">
+             <button class="bbtn"  onclick="showPlayersModal('Home')">Rate Home XI and Subs</button>
+       </div>
+       <div class="col-xs-6 col-sm-4 col-md-4" id="addAwayPlayers" style="display: none">
+             <button class="bbtng"  onclick="showPlayersModal('Away')">Rate Away XI and Subs</button>
+       </div>
+       <div class="col-xs-6 col-sm-4 col-md-4" id="saveFinal" style="display: none">
+             <button class="bbtnd"  onclick="saveRatings()">Submit Match Ratings</button>
+       </div>
+       <div class="col-xs-12 col-sm-12 col-md-12" id="ratingsStatus">
+             <div class="col-xs-12"><hr></div>
+             <label style="font-size: 12px; color: #003300"></label>
+       </div>
+
    </div>
 
    <div class="row" id="ratePlayers">

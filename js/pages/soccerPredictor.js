@@ -30,9 +30,43 @@ $(document).ready(function()
         if (submitted == false)
             return 'Any unsaved changes will be lost.';
     };
+    //this is for scrolling up and hiding search reasults
+    $(document).click(function (e)
+    {
+
+        if ($(e.target).is('#searchResult'))
+        {
+            //do nothing
+        }
+        else if($(e.target).is('#searchFriend'))
+        {
+            $('body,html').animate({ scrollTop: 300}, 500);
+            $('#searchResult').html('');
+            $('#searchResult').hide();
+
+        }
+        else if($(e.target).is('#homesearchPlayer,#awaysearchPlayer'))
+        {
+            $('#scorerModal').animate({ scrollTop: 300}, 500);
+            $('#homesearchResult').html('');
+            $('#homesearchResult').hide();
+            $('#awaysearchResult').html('');
+            $('#awaysearchResult').hide();
+        }
+        else
+        {
+            $('#searchResult').html('');
+            $('#searchResult').hide();
+            $('#homesearchResult').html('');
+            $('#homesearchResult').hide();
+            $('#awaysearchResult').html('');
+            $('#awaysearchResult').hide();
+        }
+    });
+
 });
 
-function myPredictions(tipo)
+function myPredictions(tipo,title)
 {
     if(submitted==false)
     {
@@ -42,6 +76,7 @@ function myPredictions(tipo)
             {
                 submitted=true;
                 $('#statsView').hide();
+                $('.barterHeader').html(title);
                 $.post('http://b2.com/createSchedule', {type: tipo}, function (data) {
                     $('#mainTask').html(data);
                     $('#mainTask').fadeIn();
@@ -52,6 +87,7 @@ function myPredictions(tipo)
     else
     {
         $('#statsView').hide();
+        $('.barterHeader').html(title);
         $.post('http://b2.com/createSchedule', {type: tipo}, function (data) {
             $('#mainTask').html(data);
             $('#mainTask').fadeIn();
@@ -325,7 +361,7 @@ function submitPredictions()
 }
 
 //this are the functions for get results use case
-function getResults()
+function getResults(title)
 {
     if(submitted==false)
     {
@@ -335,6 +371,7 @@ function getResults()
             {
                 submitted=true;
                 $('#statsView').hide();
+                $('.barterHeader').html(title);
                 showWaiting('Loading Results');
                 $.post('http://b2.com/getResultsView', {type: null}, function (data) {
                     $('#mainTask').fadeIn();
@@ -357,6 +394,7 @@ function getResults()
     else
     {
         $('#statsView').hide();
+        $('.barterHeader').html(title);
         showWaiting('Loading Results');
         $.post('http://b2.com/getResultsView', {type: null}, function (data) {
             $('#mainTask').fadeIn();
@@ -444,9 +482,7 @@ function searchPlayer(val,hs,as,side)
             window.location='http://b2.com/offline';
         else
         {
-
             $('#'+side+'searchResult').html(markup);
-
         }
     });
 }
@@ -463,7 +499,7 @@ function getPlayerComments(tipo,name,pid)
              hscorers.push(pid);
             $('#'+tipo+'searchResult').hide();
             $('#'+tipo+'searchPlayer').val('');
-            $('#homeList').append('<div class="col-xs-8 col-sm-8 col-md-8 chosenPlayer" onclick="removeHomePlayer(this,'+pid+')"><div class="col-xs-12"><br></div>'+name+'&nbsp;&nbsp;<i class="fa fa-times-circle" style="cursor: pointer"></i></div>');
+            $('#homeList').append('<div class="col-xs-6 col-sm-6 col-md-6 chosenPlayer" onclick="removeHomePlayer(this,'+pid+')"><div class="col-xs-12"><br></div>'+name+'&nbsp;&nbsp;<i class="fa fa-times-circle" style="cursor: pointer"></i></div>');
         }
         else
         {
@@ -483,7 +519,7 @@ function getPlayerComments(tipo,name,pid)
             ascorers.push(pid);
             $('#'+tipo+'searchResult').hide();
             $('#'+tipo+'searchPlayer').val('');
-            $('#awayList').append('<div class="col-xs-8 col-sm-8 col-md-8 chosenPlayer" onclick="removeAwayPlayer(this,'+pid+')"><div class="col-xs-12"><br></div>'+name+'&nbsp;&nbsp;<i class="fa fa-times-circle" style="cursor: pointer"></i></div>');
+            $('#awayList').append('<div class="col-xs-6 col-sm-6 col-md-6 chosenPlayer" onclick="removeAwayPlayer(this,'+pid+')"><div class="col-xs-12"><br></div>'+name+'&nbsp;&nbsp;<i class="fa fa-times-circle" style="cursor: pointer"></i></div>');
 
         }
         else
@@ -623,7 +659,7 @@ function requestData(days, chart, type)
     }
 }
 
-function getStatsView()
+function getStatsView(title)
 {
     if(submitted==false)
     {
@@ -632,6 +668,7 @@ function getStatsView()
             if(result==true)
             {
                 submitted=true;
+                $('.barterHeader').html(title);
                 $('#mainTask').hide();
                 $('#statsView').fadeIn();
             }
@@ -639,6 +676,7 @@ function getStatsView()
     }
     else
     {
+        $('.barterHeader').html(title);
         $('#mainTask').hide();
         $('#statsView').fadeIn();
     }

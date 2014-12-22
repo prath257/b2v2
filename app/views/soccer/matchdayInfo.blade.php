@@ -1,6 +1,7 @@
 <input type="hidden" id="dayMatch" value="{{$matchday}}">
+<div class="col-xs-12 col-sm-1 col-md-1">&nbsp;</div>
 @if($type=='friends')
- <div class="col-xs-12 col-sm-4 col-md-4">
+ <div class="col-xs-12 col-sm-4 col-md-4 noPad">
 
         <select id="matchSelect" class="form-control" name="matchSelect" onchange="getFriendsPredictions()">
              <option value="default">Select Match</option>
@@ -11,7 +12,7 @@
 
  </div>
  @elseif($type=='newratings')
-  <div class="col-xs-12 col-sm-5 col-md-4">
+  <div class="col-xs-12 col-sm-5 col-md-4 noPad">
 
          <select id="matchSelect" class="form-control" name="matchSelect" onchange="getPlayers()">
               <option value="default">Select Match</option>
@@ -22,11 +23,11 @@
 
   </div>
  @endif
-<div class="col-sx-12 col-sm-4 col-md-4">
+<div class="col-xs-12 col-sm-5 col-md-5">
     <h3>{{$league->name}}</h3>
     <h5>Matchday {{$matchday}}</h5>
 </div>
-<div class="col-sx-12 col-sm-4 col-md-4">
+<div class="col-xs-12 col-sm-2 col-md-2">
     <img src="{{$league->logo}}" id="leagueLogo" width="100px" height="100px">
 </div>
 
