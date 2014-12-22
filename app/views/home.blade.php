@@ -91,9 +91,50 @@
     <strong style="font-size: 24px">Attention! </strong> <a href="{{route('buildProfile')}}" style="font-size: 24px">Complete Profile</a> now and earn yourself upto 300i.
 </div>
 @endif
+<div class="col-lg-3 col-xs-12 col-sm-12" id="ActionCentre" style="padding-right: 0px" onmouseover="okToAjax(false,1)" onmouseout="okToAjax(true,1)">
+<div id="searchnfilters" class="col-lg-12">
 
-<div class="col-lg-9">
-    <div class="col-lg-3" style="padding: 0px">
+<input id="searchPandC" class="col-lg-9 form-control" style="margin-top: 15px" onkeyup="searchAction()" onkeydown="clearSearchInterval()" onblur="okToAjax(true,2)" onfocus="okToAjax(false,2)" placeholder="Search people and content.">
+<br><br><br id="removethis">
+<?php $intrrr = Interest::all(); ?>
+<div id="filterdiv" class="col-lg-12" style="padding: 0px; display: none">
+<div class="col-lg-1" style="padding-top: 2px; padding-left: 0px; word-wrap: normal">In</div>
+<div class="col-lg-5" style="padding-left: 0px">
+<select id="IN" class="form-control" name="IN" onchange="searchAction()" style="padding-top: 0px; padding-bottom: 0px; height: 25px">
+       <option value="0">All</option>
+       @foreach($intrrr as $int)
+       <option value="{{$int->id}}">{{$int->interest_name}}</option>
+       @endforeach
+</select>
+</div>
+<div class="col-lg-2" style="padding-top: 2px; padding-left: 0px">Sort</div>
+<div class="col-lg-4" style="padding: 0px">
+<select id="FILTER" class="form-control" name="FILTER" onchange="searchAction()"  style="padding-top: 0px; padding-bottom: 0px; height: 25px">
+       <option value="latest">Latest</option>
+       <option value="trending">Trending</option>
+</select>
+<br>
+</div>
+</div>
+</div>
+
+    <div id="loadActions">
+
+    </div>
+    @if ($moreAction > 0)
+        <div id="showMoreAndWaitingActions" style="text-align: center; display: none">
+
+        <button id="loadMoreActions" class="btn btn-default" onclick="loadMoreActions()" style="margin-top: 10px">Show more</button>
+        <div id="waitforactions" style="display: none">
+            <img  src="{{asset('Images/icons/waiting.gif')}}">Loading..
+            </div>
+        </div>
+    @endif
+</div>
+
+
+<div class="col-lg-9 col-xs-12 col-sm-12">
+    <div class="col-lg-3 col-xs-12 col-sm-12" id="leftMenu" style="padding: 0px">
         <div id="menu-group" class="list-group">
             <a id="pivot-home" href="#" class="list-group-item active" onclick="openPivots('home')">
                 <h4 class="list-group-item-heading">home</h4>
@@ -126,39 +167,38 @@
         </div>
     </div>
 
-    <div class="col-lg-9">
+    <div class="col-lg-9 col-xs-12 col-sm-12">
 
         <div id="home-content" class="hidden-content">
         <div class="col-lg-12">
-            <div id="read-and-donut" class="col-lg-4" style="padding-right: 15px; padding-left: 0px">
-                <img src="{{asset(Auth::user()->profile->profilePic)}}" style="height: 75px; width: 75px">
-                <a href="readings" class="btn btn-success"  style="margin-left: 25px;">My Readings</a>
-                <div id="donut-example" class="col-lg-12" style="height: 300px; padding-left: 0px; padding-right: 0px;"></div>
+            <br><br><br><br>
+            <div id="read-and-donut" class="col-lg-6" style="padding-right: 15px; padding-left: 0px">
+                <img src="{{asset(Auth::user()->profile->profilePic)}}" style="height: 60px; width: 60px">
+                <a href="readings" class="bbtn">My Readings</a>
+                <a href="soccerSpace" class="bbtng">Soccer Space</a>
+                <div id="donut-example" class="col-lg-8" style="height: 300px; padding-left: 0px; padding-right: 0px;"></div>
             </div>
-            <div class="col-lg-8" style="text-align: center">
-                    <div class="col-lg-12">&nbsp;</div>
-                    <a href="soccerSpace" class="btn btn-primary"  style="margin-left: 25px">Soccer Space</a>
-                    <div class="col-lg-12" style="font-size: 30px; font-family: 'Segoe UI'; margin-top: 100px; text-align: center">&nbsp;</div>
+            <div class="col-lg-6" style="text-align: center">
                     <div class="col-lg-12">&nbsp;</div>
                     <div id="mycounter" class="col-lg-12">0</div>
 
             </div>
         </div>
-        <div id="promotional-links" class="col-lg-12">
-            <div class="col-lg-4" style="text-align: center">
-                <a href="{{route('friendList','get')}}" style="text-decoration: none"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#27ae60;">Friends</button></a><hr style="margin: 5px">
-                <a  href="{{route('subscribersList','get')}}"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#86891e;">Subscriptions</button></a><hr style="margin: 5px">
-                <a href="{{route('settings','getaccount')}}"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#347a17;">Account Settings</button></a>
+        <div id="promotional-links" class="col-lg-12 col-xs-12 col-sm-12">
+            <div class="col-lg-4 col-xs-12">
+                <a href="{{route('friendList','get')}}" class="bbtn" >Friends</a><hr style="margin: 5px">
+                <a href="{{route('subscribersList','get')}}" class="bbtng" >Subscriptions</a><hr style="margin: 5px">
+                <a href="{{route('settings','getaccount')}}" class="bbtnd" >Account Settings</a><hr style="margin: 5px">
             </div>
-            <div class="col-lg-4" style="text-align: center">
-                <a href="{{route('ifcManager')}}"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#752e37;">IFC Manager</button></a><hr style="margin: 5px">
-                <a style="cursor: pointer" data-toggle="modal" data-target="#earnIFCModal"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#27ae60;">Earn IFCs</button></button></a>{{--<hr style="margin: 5px">--}}
+            <div class="col-lg-4 col-xs-12">
+                <a style="cursor: pointer" data-toggle="modal" data-target="#earnIFCModal" class="bbtng">Earn IFCs</a><hr style="margin: 5px">
+                <a href="{{route('ifcManager')}}" class="bbtn">IFC Manager</a><hr style="margin: 5px">
                 {{--<a>Take BBarters Tour</a>--}}
             </div>
-            <div class="col-lg-4" style="text-align: center">
-                <a href="{{route('diary',Auth::user()->username)}}"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#0d8480;">Manage Diary</button></a><hr style="margin: 5px">
-                <a onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#347a17; text-decoration: none" href="{{route('QnA',array(Auth::user()->id,'get'))}}">QnA</a><hr style="margin: 5px">
-                <a href="{{route('settings','getinterests')}}"><button onmouseover="promoLinks(this)" onmouseout="promolinks(this)" class="btn btn-default links8" style="background-color:#86891e;">Manage Interests</button></a>
+            <div class="col-lg-4 col-xs-12">
+                <a href="{{route('QnA',array(Auth::user()->id,'get'))}}" class="bbtng">QnA</a><hr style="margin: 5px">
+                <a href="{{route('diary',Auth::user()->username)}}" class="bbtn">Write Diary</a><hr style="margin: 5px">
+                <a href="{{route('settings','getinterests')}}" class="bbtnd">Manage Interests</a>
             </div>
         </div>
         </div>
@@ -394,44 +434,6 @@
 
 </div>
 
-<div class="col-lg-3 col-lg-offset-9" id="ActionCentre" style="padding-right: 0px" onmouseover="okToAjax(false,1)" onmouseout="okToAjax(true,1)">
-<div id="searchnfilters" class="col-lg-12">
-
-<input id="searchPandC" class="col-lg-9 form-control" style="margin-top: 15px" onkeyup="searchAction()" onkeydown="clearSearchInterval()" onblur="okToAjax(true,2)" onfocus="okToAjax(false,2)" placeholder="Search people and content.">
-<br><br><br id="removethis">
-<?php $intrrr = Interest::all(); ?>
-<div id="filterdiv" class="col-lg-12" style="padding: 0px; display: none">
-<div class="col-lg-1" style="padding-top: 2px; padding-left: 0px; word-wrap: normal">In</div>
-<div class="col-lg-5" style="padding-left: 0px">
-<select id="IN" class="form-control" name="IN" onchange="searchAction()" style="padding-top: 0px; padding-bottom: 0px; height: 25px">
-       <option value="0">All</option>
-       @foreach($intrrr as $int)
-       <option value="{{$int->id}}">{{$int->interest_name}}</option>
-       @endforeach
-</select>
-</div>
-<div class="col-lg-2" style="padding-top: 2px; padding-left: 0px">Sort</div>
-<div class="col-lg-4" style="padding: 0px">
-<select id="FILTER" class="form-control" name="FILTER" onchange="searchAction()"  style="padding-top: 0px; padding-bottom: 0px; height: 25px">
-       <option value="latest">Latest</option>
-       <option value="trending">Trending</option>
-</select>
-<br>
-</div>
-</div>
-</div>
-
-    <div id="loadActions"></div>
-    @if ($moreAction > 0)
-        <div id="showMoreAndWaitingActions" style="text-align: center; display: none">
-
-        <button id="loadMoreActions" class="btn btn-default" onclick="loadMoreActions()" style="margin-top: 10px">Show more</button>
-        <div id="waitforactions" style="display: none">
-            <img  src="{{asset('Images/icons/waiting.gif')}}">Loading..
-            </div>
-        </div>
-    @endif
-</div>
 
 <!-- IFC Manager -->
 <div class="modal fade" id="earnIFCModal" tabindex="-1" role="dialog" aria-hidden="true">

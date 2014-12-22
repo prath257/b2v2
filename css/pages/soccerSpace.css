@@ -1,6 +1,7 @@
 html,body,.container
 {
     height:100%;
+
 }
 .container
 {
@@ -87,17 +88,11 @@ a
     list-style-type: none;
 }
 
-.teamSchedule
+.accordion-container
 {
-    color: #ffffff;
-    background-color: #000033;
+    background-color: white;
 }
 
-.teamSchedule h2
-{
-    color: #ffffff;
-    background-color: #003300;
-}
 
 .newsLink
 {
@@ -126,4 +121,22 @@ a
 {
     color: white;
     background-color:#003163;
+}
+abbr
+{
+    font-size: small;
+}
+.home-team
+{
+    color: #000033;
+}
+
+.away-team
+{
+    color: #000033;
+}
+
+.title
+{
+    font-size: 24px;
 }

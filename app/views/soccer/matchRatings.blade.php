@@ -14,15 +14,10 @@
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
     <link href="{{asset('css/fileUpload.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/home.css')}}" rel="stylesheet">
+    <link href="{{asset('css/pages/matchRatings.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/notification.css')}}" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <style>
-    .noPad
-    {
-        padding: 0px;
-    }
 
-    </style>
 </head>
 <body>
 <div id="fb-root"></div>
@@ -95,7 +90,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
       <div class="col-xs-8 col-sm-4 col-md-3">
       <b style="font-size: medium">{{SoccerLeague::find($match->league)->name}}</b>
-
+      <p>Player Ratings</p>
       </div>
       <div class="col-xs-3 col-sm-3 col-md-2" style="padding: 0px">
               <div class="col-xs-10 col-sm-10 col-md-10">
@@ -113,11 +108,11 @@
           <br>Kickoff: {{date('d M Y H:i',strtotime($match->kickoff))}}
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12" style="font-size: 12px">
-      <div class="col-xs-9 col-sm-4 col-md-3 noPad">Player Ratings By: <a href="{{route('user',$author->username)}}">{{$author->first_name}}&nbsp;{{$author->last_name}}</a></div>
-      <div class="col-xs-3 col-sm-3 col-md-3 noPad"><a class="bbtn" href="{{route('soccerSpace')}}">U Give</a></div>
+      <div class="col-xs-8 col-sm-4 col-md-3 noPad">Ratings By: <a href="{{route('user',$author->username)}}">{{$author->first_name}}&nbsp;{{$author->last_name}}</a></div>
+      <div class="col-xs-4 col-sm-3 col-md-3 noPad"><a class="btn-xs btn-success comBlock" href="{{route('soccerSpace')}}">Give Ratings</a></div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12"><hr></div>
-      <div class="col-xs-12 col-sm-6 col-md-6">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-4">
           <div class="col-xs-5 col-sm-3 col-md-3">
               <img src="{{SoccerTeam::find($match->hometeam)->logo}}" id="homeLogo" width="50px" height="50px">
           </div>
@@ -125,11 +120,11 @@
               <p style="font-size: large"> {{SoccerTeam::find($match->hometeam)->name}}</p>
           </div>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-6 col-xs-offset-5 col-sm-offset-2 col-md-offset-2">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-xs-offset-5 col-sm-offset-6 col-md-offset-6">
       Vs
       </div>
       <div class="col-xs-12">&nbsp;</div>
-      <div class="col-xs-12 col-sm-6 col-md-6">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-4">
       <div class="col-xs-5 col-sm-3 col-md-3">
           <img src="{{SoccerTeam::find($match->awayteam)->logo}}" id="awayLogo" width="50px" height="50px">
       </div>
@@ -139,14 +134,15 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12"><hr></div>
       @foreach($ratings as $rating)
-      <div class="col-xs-12 col-sm-12 col-md-6" style="padding: 2px;border-bottom: 1px whitesmoke solid;">
-      <div class="col-xs-4 col-sm-2 col-md-2">
+      <div class="col-xs-12 col-sm-7 col-md-6 col-md-offset-4 col-sm-offset-4">
+      <div class="col-xs-3 col-sm-2 col-md-2">
         <img src="{{SoccerPlayer::find($rating->player_id)->picture}}" width="50px" height="50px">
       </div>
-      <div class="col-xs-8 col-sm-10 col-md-10 comment">
+      <div class="col-xs-9 col-sm-10 col-md-10 comment">
       <p><b style="color: #000033">{{SoccerPlayer::find($rating->player_id)->last_name}}</b>:{{$rating->comment}} &nbsp;<b>{{$rating->rating}}/10</b></p>
       </div>
       </div>
+      <div class="col-xs-12 col-sm-12 col-md-12">&nbsp;</div>
       @endforeach
 
 

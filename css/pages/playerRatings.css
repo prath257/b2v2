@@ -27,3 +27,8 @@
     text-align: center;
     margin-top: 20px;
 }
+
+#playersModal
+{
+    font-family: "Segoe UI", "Segoe WP", "Helvetica Neue", 'RobotoRegular', sans-serif;
+}

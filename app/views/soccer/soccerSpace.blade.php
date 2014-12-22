@@ -115,7 +115,7 @@
         </div>
 
         <div id="teamData" class="col-xs-12 col-md-12 col-sm-12">
-               <div style='text-align:center'><img  src='http://b2.com/Images/icons/waiting.gif'>Loading Content...</div>
+               <div style='text-align:center'><img  src='http://b2.com/Images/icons/waiting.gif'>Loading Team Data...</div>
         </div>
 
         </div>

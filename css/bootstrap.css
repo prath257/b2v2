@@ -5860,4 +5860,20 @@ button.close {
     text-align: center;
 }
 
+.bbtn {
+    -webkit-transition: background 1s; /* For Safari 3.1 to 6.0 */
+    transition: background 1s;
+}
+.bbtng {
+    -webkit-transition: background 1s; /* For Safari 3.1 to 6.0 */
+    transition: background 1s;
+}
+.bbtnr {
+    -webkit-transition: background 1s; /* For Safari 3.1 to 6.0 */
+    transition: background 1s;
+}
+.bbtnd {
+    -webkit-transition: background 1s; /* For Safari 3.1 to 6.0 */
+    transition: background 1s;
+}
 /*# sourceMappingURL=bootstrap.css.map */

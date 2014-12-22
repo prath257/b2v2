@@ -1,29 +1,29 @@
-<h3>GoalKeepers</h3>
+<p class="barterHeader">GoalKeepers</p>
 @foreach($goalies as $player)
-<input type="checkbox" id="{{$player->id}}">
-{{$player->first_name}}&nbsp;{{$player->last_name}}
-<br>
+<div class="col-xs-12">
+  <input type="checkbox" id="{{$player->id}}" class="form-control" style="width: 40px; height: 25px; float: left"><b>{{$player->first_name}}&nbsp;{{$player->last_name}}</b>
+</div>
 @endforeach
 <hr>
-<h3>Defenders</h3>
+<p class="barterHeader">Defenders</p>
 @foreach($defence as $player)
-<input type="checkbox"  id="{{$player->id}}">
-{{$player->first_name}}&nbsp;{{$player->last_name}}
-<br>
+<div class="col-xs-12">
+  <input type="checkbox" id="{{$player->id}}" class="form-control" style="width: 40px; height: 25px; float: left"><b>{{$player->first_name}}&nbsp;{{$player->last_name}}</b>
+</div>
 @endforeach
 <hr>
-<h3>Midfielders</h3>
+<p class="barterHeader">Midfielders</p>
 @foreach($midfield as $player)
-<input type="checkbox"  id="{{$player->id}}">
-{{$player->first_name}}&nbsp;{{$player->last_name}}
-<br>
+<div class="col-xs-12">
+  <input type="checkbox" id="{{$player->id}}" class="form-control" style="width: 40px; height: 25px; float: left"><b>{{$player->first_name}}&nbsp;{{$player->last_name}}</b>
+</div>
 @endforeach
 <hr>
-<h3>Strikers</h3>
+<p class="barterHeader">Strikers</p>
 @foreach($forwards as $player)
-<input type="checkbox" id="{{$player->id}}">
-{{$player->first_name}}&nbsp;{{$player->last_name}}
-<br>
+<div class="col-xs-12">
+  <input type="checkbox" id="{{$player->id}}" class="form-control" style="width: 40px; height: 25px; float: left"><b>{{$player->first_name}}&nbsp;{{$player->last_name}}</b>
+</div>
 @endforeach
-<hr>
-<button class="btn btn-primary" onclick="addPlayers('{{$side}}')">Submit Players</button>
+<div class="col-xs-12"><hr></div>
+<button class="btn btn-primary center-block"  onclick="addPlayers('{{$side}}')">Submit Players</button>

@@ -13,6 +13,7 @@ function getTeamData()
     $.post('http://b2.com/getTeamData',{team:tid},function(data)
     {
         $('#teamData').html(data);
+        $('abbr').removeAttr("title");
     });
 }
 

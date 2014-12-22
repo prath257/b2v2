@@ -89,20 +89,22 @@ $(document).ready(function()
     {
         $('#sapLogo').hide();
     }
-    if (width > 1200) {
+    else
+    {
+        $('#donut-example').hide();
+        $('#leftMenu').hide();
+
+    }
+    if (width > 1200)
+    {
         $('#menu-group').addClass('col-lg-2');
         $('#ActionCentre').addClass('col-lg-offset-9');
         var chartUserData = Morris.Donut({
             element: 'donut-example',
             data: [0, 0]
         });
-
-
     }
-    else
-    {
-        $('#donut-example').hide();
-    }
+
 
     $("div.metro-pivot").metroPivot(defaults);
 
