@@ -13,13 +13,14 @@ class MobileController extends \BaseController
         {
 
             // $user=DB::table('users')->where('id','=',Input::get('id'))->first();
-            $status = "noollllll";
-            $status2 = "noollllll";
+            $status = null;
+            $status2 = null;
             $authid = Input::get('authid');
             $userid = Input::get('userid');
             $user = User::find($userid);
             if($authid == $userid)
             {
+
                 $friends1 = DB::table('friends')->where('friend1', '=', $userid)->where('status', '=', 'accepted')->lists('friend2');
                 $friends2 = DB::table('friends')->where('friend2', '=', $userid)->where('status', '=', 'accepted')->lists('friend1');
                 $friends = array_merge($friends1, $friends2);
