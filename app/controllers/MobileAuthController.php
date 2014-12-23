@@ -2,7 +2,7 @@
 
 class MobileAuthController extends \BaseController {
 
-
+    public static $user=null;
     public function login()
     {
         try
@@ -241,9 +241,12 @@ class MobileAuthController extends \BaseController {
 
     public function addFriend()
     {
+        try{
         $userid = Input::get('userid');
         $authid = Input::get('authid');
+        MobileAuthController::$user = User::find($userid);
         $date=new DateTime();
+
         if (Input::get('reason') != '')
             DB::table('friends')->insert(array('friend1' => $authid, 'friend2' => $userid,'status'=>'sent','reason'=>Input::get('reason'),'created_at'=>$date,'updated_at'=>$date));
         else
@@ -254,14 +257,20 @@ class MobileAuthController extends \BaseController {
 
         AjaxController::insertToNotification($userid,$authid,"friendR"," sent you a Friend Request ",'http://www.b2.com/user/'.User::find($authid)->username);
 
-        FriendsController::$user = User::find($userid);
+            MobileAuthController::$user = User::find($userid);
 
-        if (FriendsController::$user->settings->notifications)
-        {
-            Mail::send('mailers', array('user'=>$authid, 'receiver'=>FriendsController::$user,'page'=>'newFriendRequestMailer'), function($message)
+
+
+            Mail::send('mailers', array('user'=>User::find($authid), 'receiver'=>MobileAuthController::$user,'page'=>'newFriendRequestMailer'), function($message)
             {
-                $message->to(FriendsController::$user->email,FriendsController::$user->first_name)->subject('New Friend Request!');
+                $message->to(MobileAuthController::$user->email,MobileAuthController::$user->first_name)->subject('New Friend Request!');
             });
+
+        return "success";
+    }
+        catch(Exception $e)
+        {
+            return $e."";
         }
     }
     public function acceptFriend()
@@ -312,13 +321,13 @@ class MobileAuthController extends \BaseController {
 
         AjaxController::insertToNotification($userid,$authuser->id,"friendRR","Accepted your Friend Request ",'http://www.b2.com/user/'.$authuser->username);
 
-        FriendsController::$user = $user;
+               MobileAuthController::$user = $user;
 
-        if (FriendsController::$user->settings->notifications)
+        if (MobileAuthController::$user->settings->notifications)
         {
-            Mail::send('mailers', array('user'=>$authuser, 'receiver'=>FriendsController::$user,'page'=>'friendRequestAcceptedMailer'), function($message)
+            Mail::send('mailers', array('user'=>$authuser, 'receiver'=>MobileAuthController::$user,'page'=>'friendRequestAcceptedMailer'), function($message)
             {
-                $message->to(FriendsController::$user->email,FriendsController::$user->first_name)->subject('Friend Request Accepted!');
+                $message->to(MobileAuthController::$user->email,MobileAuthController::$user->first_name)->subject('Friend Request Accepted!');
             });
         }
            return "added successfully";
@@ -329,6 +338,19 @@ class MobileAuthController extends \BaseController {
                return $e."";
            }
 }
+    public function cancelFriend()
+    {
+        $id = Input::get('userid');
+        $authid = Input::get('authid');
+        DB::table('friends')->where('friend2','=',$id)->where('friend1','=',$authid)->delete();
+        return "success";
+    }
+    public function addSubscriber()
+    {
+        $userid = Input::get('userid');
+        $authid = Input::get('authid');
+
+    }
 
 
 

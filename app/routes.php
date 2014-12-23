@@ -637,6 +637,6 @@ Route::post('mobile_addfriend', array('uses'=>'MobileAuthController@addFriend'))
 
 Route::post('mobile_acceptfriend', array('uses'=>'MobileAuthController@acceptFriend'));
 
-
+Route::post('mobile_cancelFriend', array('uses'=>'MobileAuthController@cancelFriend'));
 
 Route::post('mobile_getDates', array('uses'=>'MobileDiaryController@getDates'));

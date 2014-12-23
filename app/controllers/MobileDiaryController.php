@@ -6,52 +6,53 @@ class MobileDiaryController extends \BaseController {
     {
         try
         {
-        $userid = Input::get('userid');
-        $authid = Input::get('authid');
-        $user = User::find($userid);
-        $auth = User::find($authid);
-        $flag = 0;
-        $dates = new \Illuminate\Database\Eloquent\Collection();
-        if($user->settings->diaryAccess !='public')
-        {
-            if($user->settings->diaryAccess == 'semi')
+            $dates = new \Illuminate\Database\Eloquent\Collection();
+            $userid = Input::get('userid');
+            $authid = Input::get('authid');
+            $user = User::find($userid);
+            //$auth = User::find($authid);
+            $flag = 0;
+
+            if($user->settings->diaryAccess !='public')
             {
-                $susers = Diaryshare::where('duserid',$userid)->get();
-                foreach($susers as $suser)
+                if($user->settings->diaryAccess == 'semi')
                 {
-                    if($authid == $suser)
+                    $susers = Diaryshare::where('duserid',$userid)->get();
+                    foreach($susers as $suser)
                     {
-                        $flag==1;
-                        break;
+                        if($authid == $suser)
+                        {
+                            $flag==1;
+                            break;
+                        }
                     }
+                    if($flag == 0)
+                        $message = 'Sorry this user has not shared their diary with you.';
+                    else
+                        $message = 'true';
                 }
-                if($flag == 0)
-                    $message = 'Sorry this user has not shared their diary with you.';
                 else
-                    $message = 'true';
+                    $message = 'Sorry this user has not shared their diary with you.';
             }
             else
-                    $message = 'Sorry this user has not shared their diary with you.';
-        }
-        else
                 $message = 'true';
-        if($message == 'true')
-        {
-            $posts = Diary::where('userid',$userid)->get();
-            foreach($posts as $post)
+            if($message == 'true')
             {
-                $postDateTime = $post->created_at;
-                $postDate = $postDateTime->format('Y-m-d');
-                $dates->add($postDate);
+                $posts = Diary::where('userid',$userid)->get();
+                foreach($posts as $post)
+                {
+                    $postDateTime = $post->created_at;
+                    $postDate = $postDateTime->format('Y-m-d');
+                    $dates->add($postDate);
+                }
+                $data = array('message'=>$message,'dates'=>$dates->toJson());
+                return json_encode($data);
             }
-            $data = array('message'=>$message,'dates'=>$dates->toJson());
-            return json_encode($data);
-        }
-        else
-        {
-            $data = array('message'=>$message);
-            return json_encode($data);
-        }
+            else
+            {
+                $data = array('message'=>$message);
+                return json_encode($data);
+            }
         }
         catch(Exception $e)
         {
