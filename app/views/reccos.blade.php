@@ -2,8 +2,9 @@
     <div class="thumbnail col-lg-12 reccos" style="color: #000000; padding-top: 15px">
         <div class="col-lg-10">
             <div class="col-lg-12" style="padding: 0px; margin-bottom: 10px">
-                <h4 style="text-transform: none"><b>{{{$recco->title}}}</b></h4>
+                <a href="#" onclick="visitRecco({{$recco->id}},'{{$recco->url}}')"><h4 style="text-transform: none"><b>{{{$recco->title}}}</b></h4></a>
                 <small>- Recommended by <a href="{{route('user',$recco->user->username)}}" target="_blank">{{$recco->user->first_name}} {{$recco->user->last_name}}</a></small>
+                <p><b>{{$recco->hits}}</b> Hits</p>
             </div>
             <div class="col-lg-12" style="padding: 0px">
                 <p id="original{{$recco->id}}">{{{Str::limit($recco->description,140)}}}
@@ -15,15 +16,13 @@
                 @else
                     </p>
                 @endif
-                <button class="btn btn-primary" onclick="visitRecco({{$recco->id}},'{{$recco->url}}')">Visit Link</button>
                 @if ($recco->userid == Auth::user()->id)
                     <button class="btn btn-danger" onclick="deleteRecco({{$recco->id}})">Delete Recommendation</button>
                 @endif
             </div>
         </div>
         <div class="col-lg-2">
-            <img class="col-lg-12" src="{{$recco->image}}" style="height: 100px; padding: 0px">
-            <p class="col-lg-12" style="text-align: center"><b>{{$recco->hits}}</b> HITS</p>
+            <img class="img-responsive" src="{{$recco->image}}" >
         </div>
     </div>
 @endforeach

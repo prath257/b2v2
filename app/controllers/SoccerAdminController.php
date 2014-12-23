@@ -550,6 +550,7 @@ class SoccerAdminController extends \BaseController
         $tifc=0;
         $ifc=0;
         $tp=0;
+        $users=array();
         $matchDay = DB::table('soccerschedule')->whereNotNull('hgoals')->max('matchday');
         $matches=SoccerSchedule::Where('matchday',$matchDay)->get();
         foreach($matches as $match)
@@ -610,7 +611,7 @@ class SoccerAdminController extends \BaseController
                         $user->profile->ifc += $tifc;
                         $user->profile->save();
                         TransactionController::insertToManager($user->id, "+" . $tifc, "Earnings from correct soccer score predictions", "nope", "nope", "nope");
-                        AjaxController::insertToNotification($user->id,Auth::user()->id,"transfered","Credited you with ".$tifc." IFCs as Soccer Prediction Earnings" ,'http://b2.com/playPredictor');
+                        array_push($users,$user->id);
                     }
                     $pe = PredictEarning::find($user->id);
                     if ($pe == null)
@@ -629,6 +630,10 @@ class SoccerAdminController extends \BaseController
                     }
             }
 
+        }
+        foreach($users as $user)
+        {
+            AjaxController::insertToNotification($user, Auth::user()->id, "transfered", "Soccer Prediction results are out, check how much you earned!", 'http://b2.com/playPredictor');
         }
         return 'Done';
     }

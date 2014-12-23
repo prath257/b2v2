@@ -1,6 +1,6 @@
 <?php $PIcount = 0;
-$colors = array("#555450", "#1c5a5e", "#5fa09d", "#6e2f40", "#989d27", "#403e6f");
-    $darkColors = array("#4c4b47","#185256","#559693","#5f2535","#898e21", "#373563");?>
+$colors = array("#FFFFFF");
+    $darkColors = array("#FFFFFF");?>
 @foreach ($primary as $p)
 
     <?php
@@ -60,10 +60,8 @@ $colors = array("#555450", "#1c5a5e", "#5fa09d", "#6e2f40", "#989d27", "#403e6f"
         @endforeach
     @endif
     @if (count($content) > 0 && $pollCount == 1)
-<?php $colorIndex = rand(0, 5); ?>
-<div id="carousel{{$data}}{{$PIcount}}" class="carousel slide carousel-fade col-lg-4 well" style="color: white; margin-bottom: 0px; background-color: {{$colors[$colorIndex]}}">
-        <h4 class="col-lg-12" style="color: white; padding: 5px">{{Str::limit(Interest::find($p)->interest_name,15)}}</h4><br>
-
+<div id="carousel{{$data}}{{$PIcount}}" class="carousel slide carousel-fade col-xs-12 col-sm-4 col-md-3 well" style="margin-bottom: 0px; background-color: {{$colors[0]}}">
+        <h4 class="col-xs-12 col-sm-6 col-md-4" style="padding: 5px;text-align: center">{{Str::limit(Interest::find($p)->interest_name,15)}}</h4><br>
         <div class="carousel-inner">
             <?php $i=0; ?>
             @foreach ($content as $tr)
@@ -77,14 +75,14 @@ $colors = array("#555450", "#1c5a5e", "#5fa09d", "#6e2f40", "#989d27", "#403e6f"
                     <div class="col-lg-12" style="padding: 0px; height: 100%">
 
                         @if ($data == 'quiz')
-                                            <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="col-lg-12" style="padding: 0px; height: 225px" src="{{asset('Images/Quiz.jpg')}}"></a>
-                                        @elseif($data == 'poll')
-                                            <a href="{{route($ClassicRoutes,$tr)}}" target="_blank"><img class="col-lg-12" style="padding: 0px; height: 225px" src="{{asset('Images/Poll.png')}}"></a>
-                                        @elseif($data == 'res')
-                                            <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="col-lg-12" style="padding: 0px; height: 225px" src="{{asset('Images/Resource.jpg')}}"></a>
-                                        @else
-                                            <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="col-lg-12" style="padding: 0px; height: 225px" src="{{asset($tr->cover)}}"></a>
-                                        @endif
+                            <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="img-responsive" src="{{asset('Images/Quiz.jpg')}}"></a>
+                        @elseif($data == 'poll')
+                            <a href="{{route($ClassicRoutes,$tr)}}" target="_blank"><img class="img-responsive" src="{{asset('Images/Poll.png')}}"></a>
+                        @elseif($data == 'res')
+                            <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="img-responsive"     src="{{asset('Images/Resource.jpg')}}"></a>
+                        @else
+                            <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="img-responsive" src="{{asset($tr->cover)}}"></a>
+                        @endif
                         <div class="col-lg-12" style="padding: 15px">
                         <?php
                                                         if ($data == 'poll')
@@ -97,10 +95,10 @@ $colors = array("#555450", "#1c5a5e", "#5fa09d", "#6e2f40", "#989d27", "#403e6f"
                                                         else
                                                             $id = $tr->id;
                                                     ?>
-                                                    <a href="{{route($ClassicRoutes,$id)}}" target="_blank" style="font-size: 16px; color: white"><b>{{Str::limit($title,40)}}</b></a>
+                                                    <a href="{{route($ClassicRoutes,$id)}}" target="_blank" style="font-size: 16px;"><b>{{Str::limit($title,40)}}</b></a>
                         </div>
-                        <div class="col-lg-12 carousel-box-holders" style="padding: 10px; background-color: {{$darkColors[$colorIndex]}}; text-align: center;">
-                            <div class="col-lg-6 carousel-bottom-boxes" style="padding: 0px; border-right: solid 2px {{$colors[$colorIndex]}}">
+                        <div class="col-lg-12 carousel-box-holders" style="padding: 10px; background-color: {{$darkColors[0]}}; text-align: center;">
+                            <div class="col-lg-6 carousel-bottom-boxes" style="padding: 0px; border-right: solid 2px {{$colors[0]}}">
                                 <?php
                                  if ($data == 'poll' || $data == 'quiz')
                                  {
@@ -124,10 +122,10 @@ $colors = array("#555450", "#1c5a5e", "#5fa09d", "#6e2f40", "#989d27", "#403e6f"
                                  else
                                     $ifccc = $tr->ifc;
                                      ?>
-                                <div class="col-lg-12" style="padding: 0px; padding-right: 5px"><a href="{{route('user',$username)}}" target="_blank" style="color: white"><small>{{Str::limit($name,20)}}</small></a></div>
+                                <div class="col-lg-12" style="padding: 0px; padding-right: 5px"><a href="{{route('user',$username)}}" target="_blank"><small>{{Str::limit($name,20)}}</small></a></div>
                             </div>
                             <div class="col-lg-6 carousel-bottom-boxes" style="padding: 0px">
-                                <div class="col-lg-6" style="padding: 0px; border-right: solid 2px {{$colors[$colorIndex]}}">
+                                <div class="col-lg-6" style="padding: 0px; border-right: solid 2px {{$colors[0]}}">
                                     {{$icon}}
                                 </div>
                                 <div class="col-lg-6" style="padding: 0px">{{$ifccc}} <i>i</i></div>

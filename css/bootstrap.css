@@ -5804,7 +5804,7 @@ button.close {
 .bbtn:hover {
     background:whitesmoke;
     text-decoration: none;
-    color: #000000;
+    color: #000033;
 }
 
 .bbtng {
@@ -5820,7 +5820,7 @@ button.close {
 .bbtng:hover {
     background:whitesmoke;
     text-decoration: none;
-    color: #000000;
+    color: #000033;
 }
 .bbtnr {
     font-family:"Segoe UI", "Segoe WP", "Helvetica Neue", 'RobotoRegular', sans-serif;
@@ -5835,7 +5835,7 @@ button.close {
 .bbtnr:hover {
     background:whitesmoke;
     text-decoration: none;
-    color: #000000;
+    color: #000033;
 }
 
 .bbtnd {
@@ -5851,7 +5851,7 @@ button.close {
 .bbtnd:hover {
     background:whitesmoke;
     text-decoration: none;
-    color: #000000;
+    color: #000033;
 }
 .barterHeader
 {

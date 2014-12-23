@@ -1,6 +1,6 @@
 //load content
 typeSession= 0,
-    bbflag = false;
+bbflag = false;
 artflag = false;
 collabflag = false;
 resflag = false;
@@ -237,12 +237,12 @@ $(document).ready(function()
         event.preventDefault();
     });
 
-    /* $('#searchForm').submit(function (event) {
+   /* $('#searchForm').submit(function (event) {
 
-     *//* stop form from submitting normally *//*
- event.preventDefault();
- executeSearch();
- });*/
+        *//* stop form from submitting normally *//*
+        event.preventDefault();
+        executeSearch();
+    });*/
 
     getFriendsContent();
     actionAjax();
@@ -403,43 +403,43 @@ function postTransfer()
         $('#transferSubmit').prop('disabled', true);
 
         $.ajax({
-            type: "POST",
-            url: "http://b2.com/transfer",
-            data: {userid:userid, ifc:ifc},
-            beforeSend: function()
-            {
-
-                //  $("#submitTransfer").html("<img src='http://b2.com/Images/icons/waiting.gif'>");
-
-                $("#submitTransfer").hide();
-                $("#waiting").show();
-            }
-        }).done(function(response)
-        {
-            if(response=='wH@tS!nTheB0x')
-                window.location='http://b2.com/offline';
-            else
-            {
-                $("#submitTransfer").show();
-                $("#waiting").hide();
-
-                if (response == 'Success')
+                type: "POST",
+                url: "http://b2.com/transfer",
+                data: {userid:userid, ifc:ifc},
+                beforeSend: function()
                 {
-                    $("#submitTransfer").html("<button type='submit' id='transferSubmit' onclick='postTransfer()' class='btn btn-primary'>Submit</button>");
-                    $('#transferModal').modal('hide');
-                    bootbox.alert('IFCs successfully transferred to your friend!');
-                    $('#transferSubmit').prop('disabled', false);
-                    $("#transferSubmit").html("Submit");
+
+                  //  $("#submitTransfer").html("<img src='http://b2.com/Images/icons/waiting.gif'>");
+
+                  $("#submitTransfer").hide();
+                  $("#waiting").show();
                 }
+            }).done(function(response)
+            {
+                if(response=='wH@tS!nTheB0x')
+                    window.location='http://b2.com/offline';
                 else
                 {
-                    $('#transferModal').modal('hide');
-                    bootbox.alert("Sorry, you've got only "+response+" IFCs and that's why you cannot perform this transaction!");
-                    $('#transferSubmit').prop('disabled', false);
-                    $("#transferSubmit").html("Submit");
+                    $("#submitTransfer").show();
+                    $("#waiting").hide();
+
+                    if (response == 'Success')
+                    {
+                        $("#submitTransfer").html("<button type='submit' id='transferSubmit' onclick='postTransfer()' class='btn btn-primary'>Submit</button>");
+                        $('#transferModal').modal('hide');
+                        bootbox.alert('IFCs successfully transferred to your friend!');
+                        $('#transferSubmit').prop('disabled', false);
+                        $("#transferSubmit").html("Submit");
+                    }
+                    else
+                    {
+                        $('#transferModal').modal('hide');
+                        bootbox.alert("Sorry, you've got only "+response+" IFCs and that's why you cannot perform this transaction!");
+                        $('#transferSubmit').prop('disabled', false);
+                        $("#transferSubmit").html("Submit");
+                    }
                 }
-            }
-        });
+            });
 
     }
 }
@@ -608,25 +608,25 @@ function actionAjax()
             ajaxOk=false;
         }
     }).done(function(data)
-    {
-        if(data=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
-        else
         {
-
-            ajaxOk=true;
-            if(typeSession==0)
-            {
-                $('#loadActions').html(data);
-            }
+            if(data=='wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
             else
-                $('#loadActions').prepend(data);
-            $('.actionImages').height(50);
-            noOfActions = 6;
-            $('#showMoreAndWaitingActions').fadeIn();
-            $('#loadMoreActions').show();
-        }
-    });
+            {
+
+                ajaxOk=true;
+                if(typeSession==0)
+                {
+                 $('#loadActions').html(data);
+                }
+                else
+                    $('#loadActions').prepend(data);
+                $('.actionImages').height(50);
+                noOfActions = 6;
+                $('#showMoreAndWaitingActions').fadeIn();
+                $('#loadMoreActions').show();
+            }
+        });
 }
 
 function loadActionCenter()
@@ -659,35 +659,19 @@ function searchAction()
                 var constraint = 'all';
                 var request = 'home';
 
-                $.ajax({
-                    type: "POST",
-                    url: "http://b2.com/searchAction",
-                    data:{keywords: keywords, constraint: constraint, request: request, IN: IN, FILTER: FILTER},
-                    beforeSend :function()
-                    {
-                        searching=false;
-                        /*ajaxOk=false;
-                         ajaxOk2=false;*/
-                        $('#loadMoreActions').hide();
-                        $('#loadActions').html("<div style='text-align:center'><img  src='Images/icons/waiting.gif'> Loading..</div>");
-                    },
-                    error:function (){
-                        $('#loadActions').html('Error occured. Try searching another query.');
-                        searching = true;
-                        clearInterval(tmr);
-                        tmr=null;
-                        $.post('http://b2.com/failedSearch',{keywords: keywords},function(error){
-                            if(error=='wH@tS!nTheB0x')
-                                window.location='http://b2.com/offline';
-                        });
-                    }
-                })
-                    .done(function(data)
-                    {
-                        if(data=='wH@tS!nTheB0x')
-                            window.location='http://b2.com/offline';
-                        else if (data == 'error_occurred')
+                    $.ajax({
+                        type: "POST",
+                        url: "http://b2.com/searchAction",
+                        data:{keywords: keywords, constraint: constraint, request: request, IN: IN, FILTER: FILTER},
+                        beforeSend :function()
                         {
+                            searching=false;
+                            /*ajaxOk=false;
+                            ajaxOk2=false;*/
+                            $('#loadMoreActions').hide();
+                            $('#loadActions').html("<div style='text-align:center'><img  src='Images/icons/waiting.gif'> Loading..</div>");
+                        },
+                        error:function (){
                             $('#loadActions').html('Error occured. Try searching another query.');
                             searching = true;
                             clearInterval(tmr);
@@ -697,23 +681,39 @@ function searchAction()
                                     window.location='http://b2.com/offline';
                             });
                         }
-                        else
-                        {
-                            searching=true;
-
-                            $('#loadActions').html(data);
-
-                            clearInterval(tmr);
-                            tmr=null;
-                        }
                     })
+                        .done(function(data)
+                        {
+                            if(data=='wH@tS!nTheB0x')
+                                window.location='http://b2.com/offline';
+                            else if (data == 'error_occurred')
+                            {
+                                $('#loadActions').html('Error occured. Try searching another query.');
+                                searching = true;
+                                clearInterval(tmr);
+                                tmr=null;
+                                $.post('http://b2.com/failedSearch',{keywords: keywords},function(error){
+                                    if(error=='wH@tS!nTheB0x')
+                                        window.location='http://b2.com/offline';
+                                });
+                            }
+                            else
+                            {
+                                searching=true;
+
+                                $('#loadActions').html(data);
+
+                                clearInterval(tmr);
+                                tmr=null;
+                            }
+                        })
             }
         }, 1000);
     }
     else
     {
-        /*        ajaxOk=true;
-         ajaxOk2=true;*/
+/*        ajaxOk=true;
+        ajaxOk2=true;*/
         actionAjax();
     }
 }
@@ -742,25 +742,25 @@ function postRecommendation()
                 $('#recco-data').html('<div style="text-align: center"><br><img src="http://b2.com/Images/icons/waiting.gif"> Loading site data..</div>');
             }
         })
-            .done(function(response)
+        .done(function(response)
+        {
+            if (response == 'wH@tS!nTheB0x')
+                window.location='http://b2.com/offline';
+            else if (response == 'failure')
             {
-                if (response == 'wH@tS!nTheB0x')
-                    window.location='http://b2.com/offline';
-                else if (response == 'failure')
-                {
-                    $('#newRecommendationModal').modal('hide');
-                    bootbox.alert('Sorry, the entered link didn\'t yeild any data.');
-                    $('#recco-data').html('');
-                    $('#reccoLink').val('');
-                }
+                $('#newRecommendationModal').modal('hide');
+                bootbox.alert('Sorry, the entered link didn\'t yeild any data.');
+                $('#recco-data').html('');
+                $('#reccoLink').val('');
+            }
+            else
+            {
+                if (response.indexOf("ThisIsNothingButWasteNoOneNeedsToReadThisNoThisAintAGlitch") == -1)
+                    $('#recco-data').html(response);
                 else
-                {
-                    if (response.indexOf("ThisIsNothingButWasteNoOneNeedsToReadThisNoThisAintAGlitch") == -1)
-                        $('#recco-data').html(response);
-                    else
-                        $('#recco-data').html('<div style="text-align: center"><br>Failed to load site data. Try another URL.</div>');
-                }
-            });
+                    $('#recco-data').html('<div style="text-align: center"><br>Failed to load site data. Try another URL.</div>');
+            }
+        });
     }
 }
 
@@ -857,23 +857,23 @@ function deleteRecco(id)
 {
     bootbox.confirm('Are you sure?',function(response)
     {
-        if (response == true)
-        {
-            var sort = $('#RECCO-FILTER').val();
-            $('#my-recco').html("<div style='text-align: center'><br><img src='http://b2.com/Images/icons/waiting.gif'></div>");
-            $.post('http://b2.com/deleteRecco', {id: id, count: myReccoCount, sort: sort}, function(markup)
-            {
-                if (markup == 'wH@tS!nTheB0x')
-                    window.location='http://b2.com/offline';
-                else
-                {
-                    //loadRecco(0,allReccoCount,'gibber','none',sort);
-                    bootbox.alert('Recommendation successfully deleted.');
-                    $('#my-recco').html('<br>'+markup);
-                    $('#load-more-recco-my-'+myReccoCount).show();
-                }
-            });
-        }
+       if (response == true)
+       {
+           var sort = $('#RECCO-FILTER').val();
+           $('#my-recco').html("<div style='text-align: center'><br><img src='http://b2.com/Images/icons/waiting.gif'></div>");
+           $.post('http://b2.com/deleteRecco', {id: id, count: myReccoCount, sort: sort}, function(markup)
+           {
+               if (markup == 'wH@tS!nTheB0x')
+                   window.location='http://b2.com/offline';
+               else
+               {
+                   //loadRecco(0,allReccoCount,'gibber','none',sort);
+                   bootbox.alert('Recommendation successfully deleted.');
+                   $('#my-recco').html('<br>'+markup);
+                   $('#load-more-recco-my-'+myReccoCount).show();
+               }
+           });
+       }
     });
 }
 

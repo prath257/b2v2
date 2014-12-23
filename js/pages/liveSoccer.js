@@ -16,8 +16,10 @@ $(document).ready(function()
     feed=$('#feedNo').val();
     $.post('http://b2.com/getLiveSoccerData', {feedNo: feed,type:tr,dataFilter:filter}, function (data)
     {
-        $('#scrollDiv').html(data);
-        getLiveData(feed);
+            $('#scrollDiv').html(data);
+            getLiveData(feed);
+
+
     });
      height= $(window).height();
     $('#liveScoreModal').on('hidden.bs.modal', function (e)
@@ -104,7 +106,15 @@ function getLiveData()
    tr++;
    $.post('http://b2.com/getLiveSoccerData', {feedNo: feed,type:tr%3,dataFilter:filter}, function (data)
    {
-            $('#scrollDiv').prepend(data);
+       if(data=='off')
+       {
+           window.location='http://b2.com/liveSoccer/'+feed;
+       }
+       else
+       {
+           $('#scrollDiv').prepend(data);
+       }
+
 
    });
    timer=setTimeout(getLiveData,17000);
@@ -206,9 +216,17 @@ function postComment()
         $('#commentText').val('');
         $.post('http://b2.com/saveUserComment',{feedNo:feed,text:comment,tag:slogan,dataFilter:filter},function(data)
         {
-            $('#scrollDiv').prepend(data);
-            $('#commentArea').html('');
-            timer=setTimeout(getLiveData,17000);
+            if(data=='off')
+            {
+                window.location='http://b2.com/liveSoccer/'+feed;
+            }
+            else
+            {
+                $('#scrollDiv').prepend(data);
+                $('#commentArea').html('');
+                timer=setTimeout(getLiveData,17000);
+            }
+
         })
     }
 }
@@ -249,7 +267,15 @@ function applyFilter()
     $('#scrollDiv').html('<div style="text-align: center"><img src="http://b2.com/Images/icons/waiting.gif">Filtering...</div>');
     $.post('http://b2.com/getFilterData',{feedNo:feed,dataFilter:filter},function(data)
     {
-        $('#scrollDiv').html(data);
-        timer=setTimeout(getLiveData,17000);
+        if(data=='off')
+        {
+            window.location='http://b2.com/liveSoccer/'+feed;
+        }
+        else
+        {
+            $('#scrollDiv').html(data);
+            timer=setTimeout(getLiveData,17000);
+        }
+
     });
 }

@@ -7,7 +7,7 @@
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('css/bootstrapValidator.css')}}" rel="stylesheet">
     <link href="{{asset('css/jquery.flipcounter.css')}}" rel="stylesheet">
-    <link href="{{asset('css/pages/home.css')}}" rel="stylesheet">
+    <link href="{{asset('css/pages/bhome.css')}}" rel="stylesheet">
     <link href="{{asset('css/morris.css')}}" rel="stylesheet">
     <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
     <link href="{{asset('css/fileUpload.css')}}" rel="stylesheet">
@@ -621,7 +621,7 @@
 <script src="{{asset('js/bootbox.js')}}"></script>
 <script src="{{asset('js/jstween-1.1.min.js')}}"></script>
 <script src="{{asset('js/jquery.flipcounter.js')}}"></script>
-<script src="{{asset('js/pages/home.js')}}"></script>
+<script src="{{asset('js/pages/bhome.js')}}"></script>
 {{--<script src="{{asset('js/jquery.bpopup.min.js')}}"></script>--}}
 </body>
 </html>

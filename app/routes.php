@@ -510,6 +510,8 @@
     Route::post('searchFriends',array('as'=>'searchFriends','before'=>'auth','uses'=>'SoccerAdminController@searchFriends'));
     Route::post('calculatePredictionResults',array('as'=>'calculatePredictionResults','before'=>'auth','uses'=>'SoccerAdminController@calculatePredictionResults'));
     Route::post('simulateSoccer',array('as'=>'simulateSoccer','before'=>'auth','uses'=>'SoccerAdminController@simulateSoccer'));
+    Route::post('getOldFilterData',array('as'=>'getOldFilterData','uses'=>'LiveSoccerController@getOldFilterData'));
+    Route::post('getOldSoccerData',array('as'=>'getOldSoccerData','uses'=>'LiveSoccerController@getOldSoccerData'));
 
 
     //soccer user routes
