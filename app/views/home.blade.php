@@ -120,21 +120,21 @@
                 </div>
                 </div>
                 <div class="col-xs-12">&nbsp;</div>
-                <div id="donut-example" class="col-xs-12 col-sm-4 col-md-4 noPad" style="height: 200px;"></div>
-                <div id="mycounter" class="col-xs-0 col-sm-8 col-md-4 col-md-offset-4 noPad" style="display: none; padding-top:35px;">0</div>
+                <div id="donut-example" class="col-xs-12 col-sm-7 col-md-4 noPad" style="height: 200px;"></div>
+                <div id="mycounter" class="col-xs-0 col-sm-12 col-md-5 col-md-offset-3 noPad" style="display: none; padding-top:35px;">0</div>
 
             </div>
             <div class="col-xs-4 col-sm-4 col-md-2 col-md-offset-2">
-                    <button class="bbtnd mb"> <a href="{{route('soccerSpace')}}">SoccerSpace</a></button><hr style="margin: 10px">
-                    <button class="bbtn mb"> <a href="{{route('friendList','get')}}">Friends</a></button><hr style="margin: 10px">
-                    <button class="bbtng mb"> <a href="{{route('subscribersList','get')}}" >Subscriptions</a></button><hr style="margin: 10px">
-                    <button class="bbtnd mb"> <a href="{{route('settings','getaccount')}}" >Settings</a> </button><hr style="margin: 10px">
-                    <button class="bbtn mb"> <a style="cursor: pointer" data-toggle="modal" data-target="#earnIFCModal">Earn IFCs</a> </button><hr style="margin: 10px">
-                    <button class="bbtng mb"><a href="{{route('ifcManager')}}">IFC Manager</a> </button><hr style="margin: 10px">
+                    <button class="bbtnd mb" onclick="location='/soccerSpace';">SoccerSpace</button><hr style="margin: 10px">
+                    <button class="bbtn mb" onclick="location='/friendList/get'; ">Friends</button><hr style="margin: 10px">
+                    <button class="bbtng mb" onclick="location='/subscribersList/get'; "> Subscriptions</button><hr style="margin: 10px">
+                    <button class="bbtnd mb" onclick="location='/settings/getaccount'; ">Settings</button><hr style="margin: 10px">
+                    <button class="bbtn mb" data-toggle="modal" data-target="#earnIFCModal">Earn IFCs</button><hr style="margin: 10px">
+                    <button class="bbtng mb" onclick="location='/ifcManager';">IFC Manager</button><hr style="margin: 10px">
                     {{--<a>Take BBarters Tour</a>--}}
-                    <button class="bbtnd mb"><a href="{{route('QnA',array(Auth::user()->id,'get'))}}">QnA</a> </button><hr style="margin: 10px">
-                    <button class="bbtn mb"><a href="{{route('diary',Auth::user()->username)}}">Write Diary</a> </button><hr style="margin: 10px">
-                    <button class="bbtng mb"><a href="{{route('settings','getinterests')}}">Interests</a> </button>
+                    <button class="bbtnd mb" onclick="location='/QnA/{{Auth::user()->id}}/get';">QnA</button><hr style="margin: 10px">
+                    <button class="bbtn mb" onclick="location='/diary/{{Auth::user()->username}}';">Write Diary</button><hr style="margin: 10px">
+                    <button class="bbtng mb" onclick="location='/settings/getinterests';">Interests</button>
             </div>
        </div>
        <!-- here the home UI ends and now starts the explore one-->

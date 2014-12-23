@@ -631,7 +631,8 @@ class SoccerAdminController extends \BaseController
             }
 
         }
-        foreach($users as $user)
+        $uusers=array_unique($users);
+        foreach($uusers as $user)
         {
             AjaxController::insertToNotification($user, Auth::user()->id, "transfered", "Soccer Prediction results are out, check how much you earned!", 'http://b2.com/playPredictor');
         }

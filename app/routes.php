@@ -352,18 +352,9 @@
         return "Tables there";
     });
 
-    Route::get('test',function()
+    Route::get('testing',function()
     {
-       /* $player = json_decode(file_get_contents('http://b2.com/iva.json'));
-        return $player->team_name;*/
-        //return View::make('test');
-
-        $a1=array(1,4,7,7);
-        $a2=array(1,7,7);
-        $result=array_intersect($a2,$a1);
-        return var_dump($result);
-
-
+        return View::make('test');
     });
 
     //DataTables for Writings

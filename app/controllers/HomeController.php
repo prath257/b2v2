@@ -68,7 +68,7 @@ class HomeController extends BaseController
         }
     }
 
-    
+
     public function postInvite()
     {
         if(Auth::check())

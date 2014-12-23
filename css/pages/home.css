@@ -17,18 +17,6 @@ body
     width: 110px;
 }
 
-.mb a
-{
-    text-decoration: none;
-    color: white;
-}
-
-.mb a:hover
-{
-    text-decoration: none;
-    color: #000033;
-}
-
 .headMass
 {
     font-family: "Segoe UI", "Segoe WP", "Helvetica Neue", 'RobotoRegular', sans-serif;

@@ -17,7 +17,7 @@
     <link href="{{asset('css/star-rating.min.css')}}" media="all" rel="stylesheet" type="text/css"/>
 
 </head>
-<body>
+<body style="font-family: sans-serif">
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="position: fixed;">
     <div class="container-fluid">
         <div class="navbar-header">
