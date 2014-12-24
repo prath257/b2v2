@@ -1,5 +1,5 @@
 @foreach($comments as $rating)
-  <div class="col-xs-12 col-sm-8 col-md-8" style="padding: 2px;border-bottom: 1px whitesmoke solid;">
+  <div class="col-xs-12 col-sm-12 col-md-12" style="padding: 5px;border-bottom: 1px whitesmoke solid;">
       <div class="col-xs-4 col-sm-2 col-md-2">
         <img src="{{SoccerPlayer::find($rating->player_id)->picture}}" width="50px" height="50px">
       </div>

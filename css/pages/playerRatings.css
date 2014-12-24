@@ -19,6 +19,14 @@
 {
     font-family: "Segoe UI", "Segoe WP", "Helvetica Neue", 'RobotoRegular', sans-serif;
 }
+#smallDiv
+{
+    margin-top: 200px;
+}
+#ActionCentre
+{
+    border-left: 1px solid #f0f0f0;
+}
 
 .subTitle
 {

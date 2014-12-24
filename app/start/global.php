@@ -54,7 +54,7 @@ App::error(function(Exception $exception, $code)
     {
         $message->to('ksjoshi88@gmail.com')->subject('Exception');
     });*/
-    return View::make('exception');
+    //return View::make('exception');
 });
 
 /*

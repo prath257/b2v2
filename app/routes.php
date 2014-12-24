@@ -354,7 +354,7 @@
 
     Route::get('testing',function()
     {
-        return View::make('test');
+       return "Yeah Test it";
     });
 
     //DataTables for Writings
@@ -503,6 +503,7 @@
     Route::post('simulateSoccer',array('as'=>'simulateSoccer','before'=>'auth','uses'=>'SoccerAdminController@simulateSoccer'));
     Route::post('getOldFilterData',array('as'=>'getOldFilterData','uses'=>'LiveSoccerController@getOldFilterData'));
     Route::post('getOldSoccerData',array('as'=>'getOldSoccerData','uses'=>'LiveSoccerController@getOldSoccerData'));
+    Route::get('feedMe/{fid}','SoccerAdminController@feedMe');
 
 
     //soccer user routes

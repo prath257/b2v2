@@ -116,7 +116,7 @@
 
        </div>
    </div>
-   <div class="col-xs-12 col-sm-12" id="smallDiv"><br><br><br><br><br><br><br><hr></div>
+   <div class="col-xs-12 col-sm-12" id="smallDiv"><hr></div>
    <div class="col-xs-12 col-sm-12 col-md-3 noPad" id="ActionCentre" onmouseover="okToAjax(false,1)" onmouseout="okToAjax(true,1)">
           <div id="searchnfilters" class="col-xs-12 col-sm-12 col-md-12 noPad">
                  <div class="col-xs-12">

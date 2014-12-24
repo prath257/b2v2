@@ -430,6 +430,7 @@ class AuthController extends \BaseController {
                     //create a default profile
                     $uprofile=new Profile();
                     $uprofile->userid=$user->id;
+                    $uprofile->profilePic=$profile->photoURL;
                     $uprofile->ifc=200;
                     $uprofile->save();
                     TransactionController::insertToManager($user->id,"+200","Start up ifc.","nope","nope","nope");
@@ -605,6 +606,7 @@ class AuthController extends \BaseController {
                  //create a default profile
                 $uprofile=new Profile();
                 $uprofile->userid=$user->id;
+                $uprofile->profilePic=$profile->photoURL;
                 $uprofile->ifc=200;
                 $uprofile->save();
 
@@ -892,6 +894,7 @@ class AuthController extends \BaseController {
             //create a default profile
             $uprofile=new Profile();
             $uprofile->userid=$user->id;
+            $uprofile->profilePic=$profile->photoURL;
             $uprofile->ifc=200;
             $uprofile->save();
 

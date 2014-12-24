@@ -78,6 +78,7 @@ function myPredictions(tipo,title)
     $.post('http://b2.com/createSchedule',{type:tipo},function(data)
     {
         $('#ratingsDiv').hide();
+        $('#ratePlayers').hide();
         $('.barterHeader').html(title);
         $('#mainTask').html(data);
     });
@@ -129,6 +130,7 @@ function getPlayers()
                 $('#addAwayPlayers').fadeIn();
                 $('#ratingsStatus').html('');
                 $('#ratePlayers').html('');
+                $('#ratePlayers').fadeIn();
 
             }
             else
@@ -283,6 +285,7 @@ function getMyRatings(title)
             {
                 submitted=true;
                 $('#ratingsDiv').hide();
+                $('#ratePlayers').hide();
                 $('.barterHeader').html(title);
                 showWaiting('Fetching your ratings');
                 $.post('http://b2.com/getMyRatings', {para: null}, function (data) {
@@ -314,6 +317,7 @@ function getMyRatings(title)
     else
     {
         $('#ratingsDiv').hide();
+        $('#ratePlayers').hide();
         $('.barterHeader').html(title);
         showWaiting('Fetching your ratings');
         $.post('http://b2.com/getMyRatings', {para: null}, function (data) {
@@ -352,6 +356,7 @@ function getFriendsRatings(title)
             {
                 submitted=true;
                 $('#ratingsDiv').hide();
+                $('#ratePlayers').hide();
                 $('.barterHeader').html(title);
                 showWaiting('Fetching Friends ratings');
                 $.post('http://b2.com/getFriendsRatings', {para: null}, function (data) {
@@ -383,6 +388,7 @@ function getFriendsRatings(title)
     else
     {
         $('#ratingsDiv').hide();
+        $('#ratePlayers').hide();
         $('.barterHeader').html(title);
         showWaiting('Fetching Friends ratings');
         $.post('http://b2.com/getFriendsRatings', {para: null}, function (data) {
@@ -539,6 +545,7 @@ function getClubRatings(title)
             {
                 submitted=true;
                 $('#ratingsDiv').hide();
+                $('#ratePlayers').hide();
                 $('.barterHeader').html(title);
                 $.post('http://b2.com/getClubRatingsView', {type: null}, function (data) {
                     $('#mainTask').html(data);
@@ -549,6 +556,7 @@ function getClubRatings(title)
     else
     {
         $('#ratingsDiv').hide();
+        $('#ratePlayers').hide();
         $('.barterHeader').html(title);
         $.post('http://b2.com/getClubRatingsView', {type: null}, function (data) {
             $('#mainTask').html(data);

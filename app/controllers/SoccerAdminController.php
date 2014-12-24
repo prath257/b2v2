@@ -643,7 +643,7 @@ class SoccerAdminController extends \BaseController
     public function simulateSoccer()
     {
         $user=User::find(Input::get('uid'));
-        $matchDay = DB::table('soccerschedule')->whereNotNull('hgoals')->max('matchday');
+        $matchDay = DB::table('soccerschedule')->whereNull('hgoals')->max('matchday');
         $matches=SoccerSchedule::Where('matchday',$matchDay)->get();
 
         foreach($matches as $match)
@@ -656,6 +656,23 @@ class SoccerAdminController extends \BaseController
         return 'Done';
 
     }
+
+    //this is the method to generate random feeds
+   function feedMe($fid)
+   {
+             $userids=array(613,594,571,536,506,449,417);
+             $comments=array("OK, that was some goal ~ksjoshi88 #KTBFFH",'~prath257 #City is going to kick your a** and get the title',"Chels all the wayyyy! #KTBFHHH","~sahilj88 please get a life, Augero is  1000 times better than Costa (sic)#COYG","Whhat was that pass..OOTW..CESC FABULOUS,sic crazy!","This match is going to be the best match of the year, trust me! #COYG","~ksjoshi88 Joose Mourinho is nothing but a bus driver, Thats it #ComeOnCity");
+             for($i=0;$i<7;$i++)
+             {
+                 $fd=new FeedData();
+                 $fd->feed=$fid;
+                 $fd->username=User::find($userids[$i])->username;
+                 $fd->comment=$comments[$i];
+                 $fd->type='fan';
+                 $fd->save();
+                 sleep(5);
+             }
+   }
 
 
 
