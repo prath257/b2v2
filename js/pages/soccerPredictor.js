@@ -20,12 +20,49 @@ var width=0;
 var oTable1=null;
 var oTable2=null;
 var friendSearchTimer=null;
-
 var playerSearchTimer=null;
+
+//these are the variables related to action center
+var typeSession= 0;
+var noOfInterests = $('#noOfInterests').val();
+noOfInterests = parseInt(noOfInterests);
+var noOfActions = 6;
+/*var focusAction = false;*/
+var ajaxOk=true;     // to enable the ajax call when the mouse moves away from the div
+var searching=true;
+var ajaxOk2=true;   //to enable ajax call when the focus is moved away from input search boc
+var tmr=null;
+var loggedout = false;
+
+var intCount=[];
+intCount[0] = 3;
+for (i=1; i<noOfInterests; i++)
+{
+    intCount[i] = 0;
+}
 
 $(document).ready(function()
 {
     width = $(window).width();
+    if(width <365)
+    {
+        $('#loadActions').css({"font-size":"13px"});
+        if(width < 322)
+        {
+            $("#headRow").css({"padding":"0px"});
+        }
+    }
+    else if(width >768 )
+    {
+        $('#sapLogo').hide();
+        if(width > 991)
+        {
+            $('#smallDiv').hide();
+        }
+    }
+
+
+    $('#ActionCentre').height($(window).height() * 0.9);
     window.onbeforeunload = function(e) {
         if (submitted == false)
             return 'Any unsaved changes will be lost.';
@@ -45,7 +82,7 @@ $(document).ready(function()
             $('#searchResult').hide();
 
         }
-        else if($(e.target).is('#homesearchPlayer,#awaysearchPlayer'))
+        else if($(e.target).is('#homesearchPlayer,#awaysearchPlayer,#searchPandC'))
         {
             $('#scorerModal').animate({ scrollTop: 300}, 500);
             $('#homesearchResult').html('');
@@ -61,9 +98,11 @@ $(document).ready(function()
             $('#homesearchResult').hide();
             $('#awaysearchResult').html('');
             $('#awaysearchResult').hide();
+            $('#filterdiv').slideUp(300);
         }
     });
-
+    actionAjax();
+    loadActionCenter();
 });
 
 function myPredictions(tipo,title)
@@ -727,6 +766,170 @@ function getLeaderboard()
 
 }
 
+//these are action center related methods
+function loadMoreActions()
+{
+    $('#loadMoreActions').hide();
+    $('#waitforactions').show();
+    $.post('http://b2.com/loadMoreActions', {count: noOfActions}, function(markup)
+    {
+        if(markup=='wH@tS!nTheB0x')
+            window.location='http://b2.com/offline';
+        else
+        {
+            $('#waitforactions').hide();
+            $('#ActionContent').append(markup);
+            var more = $('#moreActions'+noOfActions).val();
+            more = parseInt(more);
+            if (more != 0)
+                $('#loadMoreActions').show();
+            noOfActions += 10;
+        }
+    });
+}
+
+function okToAjax(type,vari)
+{
+
+    if(vari==1)
+        ajaxOk=type;
+    else
+    {
+        ajaxOk2=type;
+
+        if (type == false)
+        {
+            $('#filterdiv').slideDown(300);
+
+        }
+    }
+}
+
+function actionAjax()
+{
+    $.ajax({
+        type: "POST",
+        url: "http://b2.com/getActionData",
+        data:{type:typeSession},
+        beforeSend :function()
+        {
+            ajaxOk=false;
+        }
+    }).done(function(data)
+    {
+        if(data=='wH@tS!nTheB0x')
+            window.location='http://b2.com/offline';
+        else
+        {
+
+            ajaxOk=true;
+            if(typeSession==0)
+            {
+                $('#loadActions').html(data);
+            }
+            else
+                $('#loadActions').prepend(data);
+            $('.actionImages').height(50);
+            noOfActions = 6;
+            $('#showMoreAndWaitingActions').fadeIn();
+            $('#loadMoreActions').show();
+        }
+    });
+}
+
+function loadActionCenter()
+{
+    var  timer = window.setInterval( function() {
+        if(ajaxOk&&ajaxOk2)
+        {
+            actionAjax();
+        }
+    }, 5000);
+}
+
+function searchAction()
+{
+    var keywords=$('#searchPandC').val();
+    var IN = $('#IN').val();
+    var FILTER = $('#FILTER').val();
+
+    if(keywords.length>0)
+    {
+        if(tmr!=null)
+        {
+            clearInterval(tmr);
+        }
+
+        tmr = window.setInterval( function() {
+
+            if(searching)
+            {
+                var constraint = 'all';
+                var request = 'home';
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://b2.com/searchAction",
+                    data:{keywords: keywords, constraint: constraint, request: request, IN: IN, FILTER: FILTER},
+                    beforeSend :function()
+                    {
+                        searching=false;
+                        /*ajaxOk=false;
+                         ajaxOk2=false;*/
+                        $('#loadMoreActions').hide();
+                        $('#loadActions').html("<div style='text-align:center'><img  src='Images/icons/waiting.gif'> Loading..</div>");
+                    },
+                    error:function (){
+                        $('#loadActions').html('Error occured. Try searching another query.');
+                        searching = true;
+                        clearInterval(tmr);
+                        tmr=null;
+                        $.post('http://b2.com/failedSearch',{keywords: keywords},function(error){
+                            if(error=='wH@tS!nTheB0x')
+                                window.location='http://b2.com/offline';
+                        });
+                    }
+                })
+                    .done(function(data)
+                    {
+                        if(data=='wH@tS!nTheB0x')
+                            window.location='http://b2.com/offline';
+                        else if (data == 'error_occurred')
+                        {
+                            $('#loadActions').html('Error occured. Try searching another query.');
+                            searching = true;
+                            clearInterval(tmr);
+                            tmr=null;
+                            $.post('http://b2.com/failedSearch',{keywords: keywords},function(error){
+                                if(error=='wH@tS!nTheB0x')
+                                    window.location='http://b2.com/offline';
+                            });
+                        }
+                        else
+                        {
+                            searching=true;
+
+                            $('#loadActions').html(data);
+
+                            clearInterval(tmr);
+                            tmr=null;
+                        }
+                    })
+            }
+        }, 1000);
+    }
+    else
+    {
+        /*        ajaxOk=true;
+         ajaxOk2=true;*/
+        actionAjax();
+    }
+}
+
+function clearSearchInterval()
+{
+    clearInterval(tmr);
+}
 
 
 

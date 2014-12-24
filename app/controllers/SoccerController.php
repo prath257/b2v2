@@ -13,7 +13,10 @@ class SoccerController extends \BaseController
     public function getPredictor()
     {
         $leagues=SoccerLeague::All();
-        return View::make('soccer.soccerPredictor')->with('leagues',$leagues);
+        $interests = Auth::user()->interestedIn()->get();
+        $moreAction=Action::orderBy('created_at','DESC')->skip(6)->take(1)->get();
+        $categories=Auth::user()->interestedIn()->get();
+        return View::make('soccer.soccerPredictor')->with('leagues',$leagues)->with('interests',$interests)->with('moreAction',count($moreAction))->with('categories',$categories);
     }
 
     public function getMatchDay()
@@ -396,7 +399,10 @@ class SoccerController extends \BaseController
     //These are the functions related to player ratings use case
     public function getRatingsPage()
     {
-        return View::make('soccer.playerRatings');
+        $interests = Auth::user()->interestedIn()->get();
+        $moreAction=Action::orderBy('created_at','DESC')->skip(6)->take(1)->get();
+        $categories=Auth::user()->interestedIn()->get();
+        return View::make('soccer.playerRatings')->with('interests',$interests)->with('moreAction',count($moreAction))->with('categories',$categories);
     }
 
     public function getSquad()
@@ -487,7 +493,7 @@ class SoccerController extends \BaseController
         $homeTeam=SoccerTeam::find($matchDetails->hometeam);
         $awayTeam=SoccerTeam::find($matchDetails->awayteam);
         $msg1=$homeTeam->name.' Vs '.$awayTeam->name;
-        $msg=Auth::user()->first_name.' '.Auth::user()->last_name.' has given player ratings for '.$msg1;
+        $msg=Auth::user()->first_name.' '.Auth::user()->last_name.'<span style="color:#000000;"> has given player ratings for </span>'.$msg1;
         Action::postAction('newMatchRating',Auth::user()->id,null,$mid,$msg);
         return 'Success';
 

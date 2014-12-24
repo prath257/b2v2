@@ -1,0 +1,116 @@
+<?php if ($moreActions == null && $count == null): ?>
+    <div class="col-lg-12">
+
+    <div id="ActionContent" style="max-height: 450px; overflow: auto;">
+<?php endif; ?>
+    <?php foreach ($actions as $action): ?>
+    <?php $user1=User::find($action->user1id);?>
+    <div class="col-lg-12 action-jackson" style="padding-left: 0px; padding-right: 0px; padding-top: 10px; padding-bottom: 10px">
+        <a href="<?php echo route('user',$user1->username); ?>"><img class="actionImages" style="float:left; width:50px; height: 50px; margin-right: 10px" src="<?php echo $user1->profile->profilePic; ?>"/></a>
+    <?php if($action->type=='A new'): ?>
+
+    <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a> posted a new <?php echo Article::find($action->contentid)->type; ?>
+            <a href="<?php echo route('articlePreview',Article::find($action->contentid)->id); ?>"><?php echo Article::find($action->contentid)->title; ?></a> </p>
+
+
+
+    <?php elseif($action->type=='BB new'): ?>
+
+    <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a> posted a new BlogBook
+            <a href="<?php echo route('blogBookPreview',BlogBook::find($action->contentid)->id); ?>"><?php echo BlogBook::find($action->contentid)->title; ?></a> </p>
+
+    <?php elseif($action->type=='newFeed'): ?>
+
+        <p id="action"><a href="<?php echo route('liveSoccer',$action->contentid); ?>"><?php echo $action->message; ?></a></p>
+
+    <?php elseif($action->type=='newMatchRating'): ?>
+
+            <p id="action"><a href="/getMatchRatings/<?php echo $action->contentid; ?>/<?php echo $action->user1id; ?>"><?php echo $action->message; ?></a></p>
+
+    <?php elseif($action->type=='BB new chapter'): ?>
+
+    <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a> posted a new chapter in BlogBook
+            <a href="<?php echo route('blogBookPreview',BlogBook::find($action->contentid)->id); ?>"><?php echo BlogBook::find($action->contentid)->title; ?></a> </p>
+
+
+
+    <?php elseif($action->type=='C new'): ?>
+
+    <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a>
+    posted a new Collaboration
+    <a href="<?php echo route('collaborationPreview',Collaboration::find($action->contentid)->id); ?>">
+    <?php echo Collaboration::find($action->contentid)->title; ?></a> </p>
+
+
+
+    <?php elseif($action->type=='C new chapter'): ?>
+
+    <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a> posted a new chapter in Collaboration
+            <a href="<?php echo route('collaborationPreview',Collaboration::find($action->contentid)->id); ?>"><?php echo Collaboration::find($action->contentid)->title; ?></a> </p>
+
+
+    <?php elseif($action->type=='C req'): ?>
+
+    <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a> is now contributing to Collaboration
+            <a href="<?php echo route('collaborationPreview',Collaboration::find($action->contentid)->id); ?>"><?php echo Collaboration::find($action->contentid)->title; ?></a> </p>
+
+
+
+    <?php elseif($action->type=='M new'): ?>
+
+    <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a> uploaded new Media
+            <a href="<?php echo route('mediaPreview',Media::find($action->contentid)->id); ?>"><?php echo Media::find($action->contentid)->title; ?></a> </p>
+
+
+
+    <?php elseif($action->type=='R new'): ?>
+
+    <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a> uploaded new Resource
+            <a href="<?php echo route('resource',Resource::find($action->contentid)->id); ?>"><?php echo Resource::find($action->contentid)->title; ?></a> </p>
+
+
+
+    <?php elseif($action->type=='E new'): ?>
+    <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a> is hosting a new Event
+            <a href="<?php echo route('event',BEvent::find($action->contentid)->id); ?>"><?php echo BEvent::find($action->contentid)->name; ?></a> </p>
+
+
+
+    <?php elseif($action->type=='P new'): ?>
+    <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a> posted a new Poll:
+            <a href="<?php echo route('poll',Poll::find($action->contentid)->id); ?>"><i><?php echo Str::limit(Poll::find($action->contentid)->question,50); ?></i></a> </p>
+
+
+
+    <?php elseif($action->type=='Q new'): ?>
+    <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a> posted a new Quiz
+            <a href="<?php echo route('quizPreview',Quiz::find($action->contentid)->id); ?>"><?php echo Quiz::find($action->contentid)->title; ?></a> </p>
+
+        <?php elseif($action->type=='Q score'): ?>
+        <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a> earned <?php echo $action->user2id; ?> IFCs by taking the Quiz
+            <a href="<?php echo route('quizPreview',Quiz::find($action->contentid)->id); ?>"><?php echo Quiz::find($action->contentid)->title; ?></a> </p>
+
+<?php elseif($action->type=='Recco new'): ?>
+    <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a> recommends
+            <a onclick="visitRecco(<?php echo $action->contentid; ?>,'<?php echo Recco::find($action->contentid)->url; ?>')" style="cursor: pointer"><?php echo Recco::find($action->contentid)->title; ?></a> </p>
+
+
+<?php elseif($action->type=='Diary new'): ?>
+    <p id="action"><a href="<?php echo route('user',$user1->username); ?>"><?php echo $user1->first_name; ?> <?php echo $user1->last_name; ?></a> made a new post to
+    <?php if($user1->gender=='male'): ?>
+    his
+    <?php else: ?>
+    her
+    <?php endif; ?>
+    <a href="<?php echo route('diary',$user1->username); ?>"> diary</a> </p>
+<?php endif; ?>
+</div>
+<?php endforeach; ?>
+
+
+<?php if ($count == null && $moreActions == null): ?>
+</div>
+</div>
+<?php else: ?>
+<input type="hidden" id="moreActions<?php echo $count; ?>" value="<?php echo $moreActions; ?>">
+<?php endif; ?>

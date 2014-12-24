@@ -61,7 +61,7 @@ $colors = array("#FFFFFF");
     @endif
     @if (count($content) > 0 && $pollCount == 1)
 <div id="carousel{{$data}}{{$PIcount}}" class="carousel slide carousel-fade col-xs-12 col-sm-4 col-md-3 well" style="margin-bottom: 0px; background-color: {{$colors[0]}}">
-        <h4 class="col-xs-12 col-sm-6 col-md-4" style="padding: 5px;text-align: center">{{Str::limit(Interest::find($p)->interest_name,15)}}</h4><br>
+        <h4 class="col-xs-12 col-sm-6 col-md-6" style="padding: 5px;text-align: center">{{Str::limit(Interest::find($p)->interest_name,15)}}</h4><br>
         <div class="carousel-inner">
             <?php $i=0; ?>
             @foreach ($content as $tr)

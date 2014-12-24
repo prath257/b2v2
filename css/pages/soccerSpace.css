@@ -129,14 +129,22 @@ abbr
 .home-team
 {
     color: #000033;
+    font-weight: bold;
 }
 
 .away-team
 {
     color: #000033;
+    font-weight: bold;
 }
 
 .title
 {
     font-size: 24px;
+}
+
+ul.upcoming-fixtures
+{
+    font-size: medium;
+    border-bottom:1px solid #808080;
 }

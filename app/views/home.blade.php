@@ -312,15 +312,15 @@
 
    <!-- So this is action center div -->
    <div class="col-xs-12 col-sm-4 col-md-3 noPad" id="ActionCentre" onmouseover="okToAjax(false,1)" onmouseout="okToAjax(true,1)">
-       <div id="searchnfilters" class="col-xs-12 col-sm-12 col-md-12">
+       <div id="searchnfilters" class="col-xs-12 col-sm-12 col-md-12 noPad">
        <div class="col-xs-12">
-                   <input id="searchPandC" class="form-control" style="margin-top: 10px" onkeyup="searchAction()" onkeydown="clearSearchInterval()" onblur="okToAjax(true,2)" onfocus="okToAjax(false,2)" placeholder="Search people/content">
+         <input id="searchPandC" class="form-control" style="margin-top: 10px" onkeyup="searchAction()" onkeydown="clearSearchInterval()" onblur="okToAjax(true,2)" onfocus="okToAjax(false,2)" placeholder="Search people/content">
        </div>
        <div class="col-xs-12 col-sm-12 col-md-12">&nbsp;</div>
        <?php $intrrr = Interest::all(); ?>
            <div id="filterdiv" class="col-xs-12 col-sm-12 col-md-12" style="padding: 0px; display: none">
-               <div class="col-xs-1" style="padding-top: 2px; padding-left: 0px; word-wrap: normal">In</div>
-               <div class="col-xs-5" style="padding-left: 0px">
+
+               <div class="col-xs-5 col-xs-offset-1" style="padding-left: 0px">
                <select id="IN" class="form-control" name="IN" onchange="searchAction()" style="padding-top: 0px; padding-bottom: 0px; height: 25px">
                       <option value="0">All</option>
                       @foreach($intrrr as $int)
@@ -328,13 +328,12 @@
                       @endforeach
                </select>
                </div>
-           <div class="col-xs-2" style="padding-top: 2px; padding-left: 0px">Sort</div>
-           <div class="col-xs-4" style="padding: 0px">
-           <select id="FILTER" class="form-control" name="FILTER" onchange="searchAction()"  style="padding-top: 0px; padding-bottom: 0px; height: 25px">
-                  <option value="latest">Latest</option>
-                  <option value="trending">Trending</option>
-           </select>
-           <br>
+               <div class="col-xs-4 col-xs-offset-1" style="padding: 0px">
+                   <select id="FILTER" class="form-control" name="FILTER" onchange="searchAction()"  style="padding-top: 0px; padding-bottom: 0px; height: 25px">
+                          <option value="latest">Latest</option>
+                          <option value="trending">Trending</option>
+                   </select>
+                   <br>
            </div>
            </div>
        </div>

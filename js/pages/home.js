@@ -53,7 +53,7 @@ $(document).ready(function()
     });
 
     var width = $(window).width();
-    if(width >768)
+    if(width >=768)
     {
         $('#sapLogo').hide();
         $('#topMenu').addClass('btn-group-lg');
@@ -66,13 +66,13 @@ $(document).ready(function()
                 $("#mycounter").flipCounterUpdate(ifcs);
         });
     }
-    if(width < 361)
-    {
-        $('#topMenu').addClass('btn-group-xs');
-    }
-    if(width >= 361 && width < 768)
+    else
     {
         $('#topMenu').addClass('btn-group-sm');
+        if(width < 361)
+        {
+            $('#topMenu').addClass('btn-group-xs');
+        }
     }
 
     $('body').fadeIn();

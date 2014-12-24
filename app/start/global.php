@@ -31,7 +31,7 @@ ClassLoader::addDirectories(array(
 |
 */
 
-//Log::useFiles(storage_path().'/logs/laravel.log');
+Log::useFiles(storage_path().'/logs/laravel.log');
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +48,7 @@ ClassLoader::addDirectories(array(
 
 App::error(function(Exception $exception, $code)
 {
-	//Log::error($exception);
+	Log::error($exception);
     //return $exception;
    /* Mail::send('mailers', array('exception'=>$exception->getMessage().' File: '.$exception->getFile().' Line: '.$exception->getLine(),'page'=>'exception'), function($message)
     {

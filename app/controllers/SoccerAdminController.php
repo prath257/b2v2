@@ -390,7 +390,7 @@ class SoccerAdminController extends \BaseController
             $matchDetails=SoccerSchedule::find($matchId);
             $homeTeam=SoccerTeam::find($matchDetails->hometeam);
             $awayTeam=SoccerTeam::find($matchDetails->awayteam);
-            $msg=$homeTeam->name.' Vs '.$awayTeam->name.' Live matchfeed in now ON!';
+            $msg=$homeTeam->name.' Vs '.$awayTeam->name.'<span style="color:#000000;"> Live MatchFeed is now ON!</span>';
             Action::postAction('newFeed',Auth::user()->id,null,$feed->id,$msg);
             return '<div class="col-xs-12 col-sm-12 col-md-12" id="feed'.$feed->id.'"><a href="/liveSoccer/'.$feed->id.'">'.SoccerTeam::find(SoccerSchedule::find($feed->match_id)->hometeam)->name.' V '.SoccerTeam::find(SoccerSchedule::find($feed->match_id)->awayteam)->name.'</a><button class="btn btn-default" onclick="stopFeed('.$feed->id.')"> Stop Feed</button><hr></div>';
         }

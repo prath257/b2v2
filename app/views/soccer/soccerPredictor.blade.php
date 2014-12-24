@@ -36,6 +36,7 @@
                 <span class='letter'>e</span>
                 <span class='letter'>r</span>
                 <span class='letter'>s</span>
+                <a href="/soccerSpace" id="sapLogo" style="text-decoration: none;padding-left: 4px; padding-right: 0px; padding-top: 14px" class="navbar-brand"><img src="/Images/icons/soccer.png"></a>
                 <li id="notificationli" class="navbar-brand" onclick="getNoti()" style="list-style-type: none"><a href="#" style="text-decoration: none">&nbsp;&nbsp;<i class="fa fa-globe" style="color:lightgray"></i>&nbsp;<span id="no_of_notification" class="text-primary" style="background-color: tomato; color: white; padding-left: 5px; padding-right: 5px;  border-radius: 50%; visibility: hidden; font-size: 12px">0</span></a></li>
                 <div id="notificationModal2" style="max-height: 350px; overflow-y: auto; overflow-x: auto">
                     <div id="notificationResultsModal">
@@ -71,8 +72,8 @@
                         </label>
                     </div>
                 </li>
-                 <li id="soccerhome"> <a href="{{route('soccerSpace')}}" style="cursor: pointer">SoccerSpace</a></li>
-                 <li id="home"> <a href="{{route('home')}}" style="cursor: pointer">Home</a></li>
+                <li id="soccerhome"> <a href="{{route('soccerSpace')}}" style="cursor: pointer">SoccerSpace</a></li>
+                <li id="home"> <a href="{{route('home')}}" style="cursor: pointer">Home</a></li>
                 <li id="profile"> <a href="{{route('profile')}}" style="cursor: pointer">{{Auth::user()->first_name}}</a></li>
                 <li id="logOut"> <a href="{{route('signout')}}" style="cursor: pointer">Log Out</a></li>
             </ul>
@@ -83,33 +84,77 @@
 <br>
 <br>
 <br>
-<div class="container">
-   <div class="row">
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="myPredictions('predict','Predict Matches')">Predict Matches</button>
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtnr" onclick="getResults('My Predictions')">My Predictions</button>
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtng" onclick="myPredictions('friends','Friend\'s Predictions')">Friends Predictions</button>
-   <button class="col-xs-6 col-sm-6 col-md-3 bbtnd" onclick="getStatsView('Statistics')">Statistics</button>
+<div class="container-fluid">
+
+   <div class="col-xs-12 col-sm-12 col-md-9 noPad">
+      <div class="row" id="headRow" style="padding: 15px">
+      <button class="col-xs-6 col-sm-6 col-md-3 bbtn" onclick="myPredictions('predict','Predict Matches')">Predict Matches</button>
+      <button class="col-xs-6 col-sm-6 col-md-3 bbtnr" onclick="getResults('My Predictions')">My Predictions</button>
+      <button class="col-xs-6 col-sm-6 col-md-3 bbtng" onclick="myPredictions('friends','Friend\'s Predictions')">Friends Predictions</button>
+      <button class="col-xs-6 col-sm-6 col-md-3 bbtnd" onclick="getStatsView('Statistics')">Statistics</button>
+      </div>
+      <br>
+      <p class="barterHeader"></p>
+      <hr>
+       <div class="row" id="mainTask">
+
+       </div>
+       <div class="row" id="statsView" style="display: none">
+               <div class="col-xs-3 col-sm-2 col-md-2">
+                     <button class="btn btn-primary" onclick="getPredictStats()">My Stats</button>
+               </div>
+               <div class="col-xs-4 col-sm-2 col-md-2">
+                     <button class="btn btn-success" onclick="getLeaderboard()">Leaderboard</button>
+               </div>
+               <div class="col-xs-5 col-sm-2 col-md-2">
+                    <button class="btn btn-danger" onclick="getLeagueStats()">League Stats</button>
+               </div>
+
+               <div class="col-xs-12 col-sm-12 col-md-12" id="statsMain">
+
+               </div>
+
+       </div>
    </div>
-   <br>
-   <p class="barterHeader"></p>
-   <hr>
-   <div class="row" id="mainTask">
+   <div class="col-xs-12 col-sm-12" id="smallDiv"><br><br><br><br><br><br><br><hr></div>
+   <div class="col-xs-12 col-sm-12 col-md-3 noPad" id="ActionCentre" onmouseover="okToAjax(false,1)" onmouseout="okToAjax(true,1)">
+          <div id="searchnfilters" class="col-xs-12 col-sm-12 col-md-12 noPad">
+                 <div class="col-xs-12">
+                   <input id="searchPandC" class="form-control" style="margin-top: 10px" onkeyup="searchAction()" onkeydown="clearSearchInterval()" onblur="okToAjax(true,2)" onfocus="okToAjax(false,2)" placeholder="Search people/content">
+                 </div>
+                 <div class="col-xs-12 col-sm-12 col-md-12">&nbsp;</div>
+                 <?php $intrrr = Interest::all(); ?>
+                     <div id="filterdiv" class="col-xs-12 col-sm-12 col-md-12" style="padding: 0px; display: none">
 
-   </div>
-   <div class="row" id="statsView" style="display: none">
-           <div class="col-xs-3 col-sm-2 col-md-2">
-                 <button class="btn btn-primary" onclick="getPredictStats()">My Stats</button>
-           </div>
-           <div class="col-xs-4 col-sm-2 col-md-2">
-                 <button class="btn btn-success" onclick="getLeaderboard()">Leaderboard</button>
-           </div>
-           <div class="col-xs-5 col-sm-2 col-md-2">
-                <button class="btn btn-danger" onclick="getLeagueStats()">League Stats</button>
-           </div>
+                         <div class="col-xs-5 col-xs-offset-1" style="padding-left: 0px">
+                         <select id="IN" class="form-control" name="IN" onchange="searchAction()" style="padding-top: 0px; padding-bottom: 0px; height: 25px">
+                                <option value="0">All</option>
+                                @foreach($intrrr as $int)
+                                <option value="{{$int->id}}">{{$int->interest_name}}</option>
+                                @endforeach
+                         </select>
+                         </div>
+                         <div class="col-xs-4 col-xs-offset-1" style="padding: 0px">
+                             <select id="FILTER" class="form-control" name="FILTER" onchange="searchAction()"  style="padding-top: 0px; padding-bottom: 0px; height: 25px">
+                                    <option value="latest">Latest</option>
+                                    <option value="trending">Trending</option>
+                             </select>
+                             <br>
+                     </div>
+                     </div>
+                 </div>
 
-           <div class="col-xs-12 col-sm-12 col-md-12" id="statsMain">
+          <div id="loadActions" class="col-xs-12 col-sm-12 col-md-12 noPad">
 
-           </div>
+          </div>
+          @if ($moreAction > 0)
+              <div id="showMoreAndWaitingActions" class="col-xs-12 col-sm-12 col-md-12" style="text-align: center; display: none">
+                  <button id="loadMoreActions" class="btn btn-default" onclick="loadMoreActions()" style="margin-top: 10px">Show more</button>
+                  <div id="waitforactions" style="display: none">
+                      <img  src="{{asset('Images/icons/waiting.gif')}}">Loading..
+                  </div>
+              </div>
+          @endif
 
    </div>
 </div>

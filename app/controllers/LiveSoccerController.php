@@ -269,10 +269,7 @@ class LiveSoccerController extends \BaseController
         }
         catch(Exception $e)
         {
-            Mail::send('mailers', array('exception'=>$e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine(),'page'=>'exception'), function($message)
-            {
-                $message->to('ksjoshi88@gmail.com')->subject('Exception');
-            });
+            Log::error($e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine());
             return "<h4>#soccerSpace: Connection Issue, Please reload the page.</h4>";
         }
     }
@@ -377,10 +374,7 @@ class LiveSoccerController extends \BaseController
         }
         catch(Exception $e)
         {
-            Mail::send('mailers', array('exception'=>$e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine(),'page'=>'exception'), function($message)
-            {
-                $message->to('ksjoshi88@gmail.com')->subject('Exception');
-            });
+            Log::error($e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine());
             return "<h4>#soccerSpace: Connection Issue, Please reload the page.</h4>";
         }
 
@@ -410,10 +404,7 @@ class LiveSoccerController extends \BaseController
         }
         catch(Exception $e)
         {
-            Mail::send('mailers', array('exception'=>$e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine(),'page'=>'exception'), function($message)
-            {
-                $message->to('ksjoshi88@gmail.com')->subject('Exception');
-            });
+            Log::error($e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine());
             return "";
         }
 
@@ -440,7 +431,7 @@ class LiveSoccerController extends \BaseController
                     $rawFeeds = FeedData::where('feed', $feedNo)->where('type', '<>', 'fan')->get();
                     foreach ($rawFeeds as $feed) {
                         $user = User::Where('username', $feed->username)->first();
-                        if ($user !== null) {
+                       if ($user !== null) {
                             if (Friend::isFriend($user->id)) {
                                 $feeds->add($feed);
                             }
@@ -487,10 +478,7 @@ class LiveSoccerController extends \BaseController
         }
         catch(Exception $e)
         {
-            Mail::send('mailers', array('exception'=>$e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine(),'page'=>'exception'), function($message)
-                {
-                    $message->to('ksjoshi88@gmail.com')->subject('Exception');
-                });
+            Log::error($e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine());
             $feeds = FeedData::where('feed', $feedNo)->orderBy('created_at', 'DESC')->get();
             Session::put('lastCall', date('Y-m-d H:i:s'));
             return View::make('soccer.livePage')->with('feeds', $feeds);
@@ -510,10 +498,7 @@ class LiveSoccerController extends \BaseController
         }
         catch(Exception $e)
         {
-            Mail::send('mailers', array('exception'=>$e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine(),'page'=>'exception'), function($message)
-            {
-                $message->to('ksjoshi88@gmail.com')->subject('Exception');
-            });
+            Log::error($e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine());
             return "<h4>#soccerSpace: Connection Issue, Please reload the page.</h4>";
         }
     }
@@ -573,10 +558,7 @@ class LiveSoccerController extends \BaseController
         }
         catch(Exception $e)
         {
-            Mail::send('mailers', array('exception'=>$e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine(),'page'=>'exception'), function($message)
-            {
-                $message->to('ksjoshi88@gmail.com')->subject('Exception');
-            });
+            Log::error($e->getMessage().' File: '.$e->getFile().' Line: '.$e->getLine());
             $feeds = FeedData::where('feed', $feedNo)->orderBy('created_at', 'DESC')->get();
             return View::make('soccer.livePage')->with('feeds', $feeds);
         }
