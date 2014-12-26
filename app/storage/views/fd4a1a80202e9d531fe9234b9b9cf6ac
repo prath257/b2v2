@@ -3,22 +3,22 @@
 <head>
     <title>Profile Builder | BBarters</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="shortcut icon" href="{{asset('Images/icons/logo.JPG')}}">
+    <link rel="shortcut icon" href="<?php echo asset('Images/icons/logo.JPG'); ?>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!-- Latest compiled and minified CSS -->
-    <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
-    <link href="{{asset('css/bootstrapValidator.css')}}" rel="stylesheet">
-    <link href="{{asset('css/pages/profileBuilder.css')}}" rel="stylesheet">
-    <link href="{{asset('css/logo.css')}}" rel="stylesheet">
-    <link href="{{asset('css/bootstrap-switch.css')}}" rel="stylesheet">
-    <link href="{{asset('css/jquery.flipcounter.css')}}" rel="stylesheet">
-    <link href="{{asset('css/jquery.Jcrop.min.css')}}" type="text/css" rel="stylesheet">
-    <link href="{{asset('css/fileUpload.css')}}" rel="stylesheet">
-    <link href="{{asset('css/WPModal.css')}}" rel="stylesheet">
-    <link href="{{asset('css/responsive-slider.css')}}" rel="stylesheet">
-    <script src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
-    <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script src="{{asset('js/jquery.Jcrop.min.js')}}"></script>
+    <link href="<?php echo asset('css/bootstrap.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('css/bootstrapValidator.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('css/pages/profileBuilder.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('css/logo.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('css/bootstrap-switch.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('css/jquery.flipcounter.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('css/jquery.Jcrop.min.css'); ?>" type="text/css" rel="stylesheet">
+    <link href="<?php echo asset('css/fileUpload.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('css/WPModal.css'); ?>" rel="stylesheet">
+    <link href="<?php echo asset('css/responsive-slider.css'); ?>" rel="stylesheet">
+    <script src="<?php echo asset('js/jquery-1.11.1.min.js'); ?>"></script>
+    <script src="<?php echo asset('js/jquery.min.js'); ?>"></script>
+    <script src="<?php echo asset('js/jquery.Jcrop.min.js'); ?>"></script>
 
 </head>
 <body>
@@ -32,7 +32,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a></a>
-            <a id="logo" class="navbar-brand logo" href="{{route('index')}}">
+            <a id="logo" class="navbar-brand logo" href="<?php echo route('index'); ?>">
                 <span class='letter' style="text-shadow: 1px 1px 1px green; color: green">B</span>
                 <span class='letter'>B</span>
                 <span class='letter'>a</span>
@@ -50,9 +50,9 @@
                 <strong>Attention! </strong> <p id="message"></p>
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <li id="home"> <a href="{{route('home')}}" style="cursor: pointer">Home</a></li>
-                <li id="profile"> <a href="{{route('profile')}}" style="cursor: pointer">{{Auth::user()->first_name}}</a></li>
-                <li id="logOut"> <a href="{{route('signout')}}" style="cursor: pointer">Log Out</a></li>
+                <li id="home"> <a href="<?php echo route('home'); ?>" style="cursor: pointer">Home</a></li>
+                <li id="profile"> <a href="<?php echo route('profile'); ?>" style="cursor: pointer"><?php echo Auth::user()->first_name; ?></a></li>
+                <li id="logOut"> <a href="<?php echo route('signout'); ?>" style="cursor: pointer">Log Out</a></li>
                 <li><a></a> </li>
                 <li><a></a> </li>
             </ul>
@@ -62,7 +62,7 @@
 <br>
 <br>
 <br>
-<input type="hidden" id="userName" value="{{Auth::user()->username}}">
+<input type="hidden" id="userName" value="<?php echo Auth::user()->username; ?>">
 <div class="container">
 
 <div class="col-lg-5" id="profileDivs">
@@ -99,7 +99,7 @@
         <div id="pictureDiv" style="display: none">
 
             <h3 id="picHead">Set Your Profile Pic<!-- and Tune--></h3>
-            {{Form::open(array('id'=>'pform','class'=>'form-horizontal'))}}
+            <?php echo Form::open(array('id'=>'pform','class'=>'form-horizontal')); ?>
 
             <div class="form-group">
                 <input type="hidden" id="w" name="w" />
@@ -109,7 +109,7 @@
                 <input type="hidden" id="x2" name="x2" />
                 <input type="hidden" id="y2" name="y2" />
                 <div id="image_div" class="col-lg-6" style="width:100%;alignment-adjust:central; padding-left: 20px;overflow-y: scroll">
-                    <img src="{{asset('Images/Anony.jpg')}}" id="load_img" class="img-responsive" />
+                    <img src="<?php echo asset('Images/Anony.jpg'); ?>" id="load_img" class="img-responsive" />
                 </div>
 
                 <div class="col-lg-12">&nbsp;</div>
@@ -122,7 +122,7 @@
                     <div class="error" style="display: none;"></div>
                 </div>
                 <button id="mysubmit" onclick="createProfile()" class="btn btn-primary col-lg-1" style="margin-right: 50px; display: none">Set</button>
-                {{Form::close()}}
+                <?php echo Form::close(); ?>
                 <button id="myCancel" onclick="cancelPhoto()" class="btn btn-primary col-lg-1" style="margin-right: 50px; display: none">Cancel</button>
                 <div id="uploadController" class="col-lg-6" style="display: none;">
                     <div id="mediaProgress" class="progress progress-striped active col-lg-12" style="margin-top: 5px; padding: 0px">
@@ -196,9 +196,9 @@
 
                         <div class="col-lg-8">
                             <div id="interests" class="interests" style="margin-left:10%; text-align:left">
-                                @foreach ($TOPinterests as $i)
-                                    <input type="checkbox" name="interests[]" value="{{Interest::find($i)->interest_name}}">{{Interest::find($i)->interest_name}}<br>
-                                @endforeach
+                                <?php foreach ($TOPinterests as $i): ?>
+                                    <input type="checkbox" name="interests[]" value="<?php echo Interest::find($i)->interest_name; ?>"><?php echo Interest::find($i)->interest_name; ?><br>
+                                <?php endforeach; ?>
 
 
                             </div>
@@ -320,11 +320,11 @@
                 <h4 class="modal-title" id="myModalLabel">Set Profile Pic<!-- and Tune--></h4>
             </div>
             <div class="modal-body">
-                {{Form::open(array('id'=>'pformMobile','class'=>'form-horizontal'))}}
+                <?php echo Form::open(array('id'=>'pformMobile','class'=>'form-horizontal')); ?>
 
                 <div class="form-group">
                     <div id="image_divMobile" style="alignment-adjust:central">
-                        <img src="{{asset('Images/Anony.jpg')}}" id="load_imgMobile" width="220px" height="200px"/>
+                        <img src="<?php echo asset('Images/Anony.jpg'); ?>" id="load_imgMobile" width="220px" height="200px"/>
                     </div>
                     <br>
                     <input type="file" style="width:220px;" id="profilePicMobile" name="profilePic">
@@ -338,7 +338,7 @@
                 </div>
                 <div class="modal-footer">
                     <button id="mysubmitMobile" onclick="createProfile()" class="btn btn-primary">Set</button>
-                    {{Form::close()}}
+                    <?php echo Form::close(); ?>
                 </div>
 
             </div>
@@ -390,9 +390,9 @@
                         <div class="col-lg-6">
 
                             <div id="interests" class="interests" style="margin-left:10%; text-align:left">
-                           @foreach ($TOPinterests as $i)
-                                   <input type="checkbox" name="interests[]" value="{{Interest::find($i)->interest_name}}">{{Interest::find($i)->interest_name}}<br>
-                           @endforeach
+                           <?php foreach ($TOPinterests as $i): ?>
+                                   <input type="checkbox" name="interests[]" value="<?php echo Interest::find($i)->interest_name; ?>"><?php echo Interest::find($i)->interest_name; ?><br>
+                           <?php endforeach; ?>
                             </div>
 
                                     <div class="col-lg-10" style="padding-left: 0px">
@@ -449,13 +449,13 @@
 <input type="hidden" id="interest-search-buffer-Name" value="null">
 
 <input type="hidden" id="refreshed" value="no">
-<script src="{{asset('js/bootstrap.js')}}"></script>
+<script src="<?php echo asset('js/bootstrap.js'); ?>"></script>
 <script src="../../js/responsive-slider.js"></script>
-<script src="{{asset('js/reload.js')}}"></script>
-<script src="{{asset('js/bootstrapValidator.min.js')}}"></script>
-<script src="{{asset('js/bootstrap-switch.js')}}"></script>
-<script src="{{asset('js/pages/profileBuilder.js')}}"></script>
-<script src="{{asset('js/jstween-1.1.min.js')}}"></script>
-<script src="{{asset('js/jquery.flipcounter.js')}}"></script>
+<script src="<?php echo asset('js/reload.js'); ?>"></script>
+<script src="<?php echo asset('js/bootstrapValidator.min.js'); ?>"></script>
+<script src="<?php echo asset('js/bootstrap-switch.js'); ?>"></script>
+<script src="<?php echo asset('js/pages/profileBuilder.js'); ?>"></script>
+<script src="<?php echo asset('js/jstween-1.1.min.js'); ?>"></script>
+<script src="<?php echo asset('js/jquery.flipcounter.js'); ?>"></script>
 </body>
 </html>

@@ -523,7 +523,8 @@ class SoccerAdminController extends \BaseController
         $flag=false;
         $foundPlayers=new \Illuminate\Database\Eloquent\Collection();
         $keywords=Input::get('name');
-        $users=FriendsController::selectAllFriends();
+        //$users=FriendsController::selectAllFriends();
+        $users=User::all();
         foreach ($users as $player)
         {
             $name = $player->first_name.' '.$player->last_name;

@@ -354,7 +354,20 @@
 
     Route::get('testing',function()
     {
-       return "Yeah Test it";
+       return View::make('testing');
+    });
+
+    Route::post('savePP',function()
+    {
+        foreach($_FILES as $file)
+        {
+            $name=$file['name'];
+            //add this to trivia table too
+            $new_path='Images/Test/'.$name;
+            copy($file['tmp_name'],$new_path);
+
+        }
+       return 'Saved';
     });
 
     //DataTables for Writings

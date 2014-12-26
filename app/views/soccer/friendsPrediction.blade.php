@@ -2,7 +2,7 @@
 <div class="col-xs-12 col-sm-5 col-md-3 noPad">
     <input type="text" id="searchFriend" placeholder="Search All Users" class="col-sm-4 col-md-4 col-xs-12 form-control" onkeydown="friendSearchDown()" onkeyup="friendSearchUp()">
     <label id="empty" style="padding: 5px">No Data found for friends. You can search for all users above.</label>
-    <div class="col-xs-12 col-sm-12 col-md-12" id="searchResult" style="margin-top: 5px; display: none">
+    <div class="col-xs-12 col-sm-12 col-md-12 noPad" id="searchResult" style="margin-top: 5px; display: none">
           <br>
     </div>
 
@@ -11,7 +11,7 @@
 <div class="col-xs-12 col-sm-5 col-md-3 noPad">
     <input type="text" id="searchFriend" placeholder="Search All Users" class="col-sm-4 col-md-4 col-xs-12 form-control" onkeydown="friendSearchDown()" onkeyup="friendSearchUp()">
     <label id="empty" style="display: none; padding: 5px">No Data found</label>
-    <div class="col-xs-12 col-sm-12 col-md-12" id="searchResult" style="margin-top: 5px; display: none">
+    <div class="col-xs-12 col-sm-12 col-md-12 noPad" id="searchResult" style="margin-top: 5px; display: none">
           <br>
     </div>
 

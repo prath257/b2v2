@@ -383,7 +383,7 @@ class SoccerController extends \BaseController
             {
                  $homeTeam = SoccerTeam::find(SoccerSchedule::find($mid)->hometeam)->name;
                  $awayTeam = SoccerTeam::find(SoccerSchedule::find($mid)->awayteam)->name;
-                 return View::make('soccer.friendsPrediction')->with('friendsData', $friendData)->with('home', $homeTeam)->with('away', $awayTeam);
+                 return View::make('soccer.friendsPrediction')->with('friendsData', $friendData)->with('home', $homeTeam)->with('away', $awayTeam)->with('empty',false);
             }
             else
             {

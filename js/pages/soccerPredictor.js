@@ -55,12 +55,12 @@ $(document).ready(function()
     else if(width >768 )
     {
         $('#sapLogo').hide();
-        if(width > 991)
-        {
-            $('#smallDiv').hide();
-        }
-    }
 
+    }
+    if(width < 991)
+    {
+        $('#smallDiv').fadeIn();
+    }
 
     $('#ActionCentre').height($(window).height() * 0.9);
     window.onbeforeunload = function(e) {

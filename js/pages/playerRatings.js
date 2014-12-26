@@ -41,14 +41,16 @@ $(document).ready(function()
         {
             $("#headRow").css({"padding":"0px"});
         }
+
     }
     else if(width >768 )
     {
         $('#sapLogo').hide();
-        if(width > 991)
-        {
-            $('#smallDiv').hide();
-        }
+
+    }
+    if(width < 991)
+    {
+        $('#smallDiv').fadeIn();
     }
 
     $('#ActionCentre').height($(window).height() * 0.9);
