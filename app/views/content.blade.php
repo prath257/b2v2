@@ -6,7 +6,7 @@
         <h1 style="text-transform: uppercase; font-size: 32px; font-weight: bolder; font-family: 'proxima-nova',proxima-nova,Arial,sans-serif">{{$user->first_name}} {{$user->last_name}}</h1>
         <div style="font-size: 12px; color: #6f6d6a; padding-left: 10px">{{$user->country}}</div>
         <br>
-        <img src="{{asset($user->profile->profilePic)}}" style="height: 100px; width: 100px">
+        <img src="{{$user->profile->profilePic}}" style="height: 100px; width: 100px">
         <br><br>
         <h3 style="font-family: 'proxima-nova',proxima-nova,Arial,sans-serif; font-size: 22px; font-weight: 700">{{Str::title($interest->interest_name)}}</h3>
         <br>

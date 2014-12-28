@@ -25,7 +25,7 @@
    {{$away}}&nbsp; <b style="color: darkblue">{{$fp->agoals}}</b>
    </div>
    <div class="col-xs-4 col-sm-4 col-md-4">
-    <img src="{{asset(User::find($fp->fid)->profile->profilePic)}}" style="height: 50px; width: 50px">
+    <img src="{{User::find($fp->fid)->profile->profilePic}}" style="height: 50px; width: 50px">
     <br>
     <a href="/user/{{User::find($fp->fid)->username}}">{{User::find($fp->fid)->first_name}}</a>
    </div>

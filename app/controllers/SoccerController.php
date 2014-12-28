@@ -237,7 +237,7 @@ class SoccerController extends \BaseController
             })
             ->addColumn('Earning',function($model)
             {
-                $ifcs=DB::table('soccerscorerpredictions')->select(DB::raw('sum(ifc) as total'))->where('match_id', '=',$model->match_id)->groupBy('match_id')->get();
+                $ifcs=DB::table('soccerscorerpredictions')->select(DB::raw('sum(ifc) as total'))->where('match_id', '=',$model->match_id)->where('user_id',Auth::user()->id)->groupBy('match_id')->get();
                 return $ifcs[0]->total;
             })
             ->make();

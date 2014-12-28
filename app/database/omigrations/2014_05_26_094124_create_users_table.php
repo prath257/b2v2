@@ -24,7 +24,6 @@ class CreateUsersTable extends Migration {
 			$table->string('country',30);
 			$table->boolean('activated')->default(false);
             $table->boolean('isOnline')->default(false);
-            $table->boolean('isLive')->default(false);
 			$table->string('remember_token',255);
 			$table->string('fbid',255)->nullable();
             $table->string('gid',255)->nullable();

@@ -13,7 +13,7 @@ class SoccerGraphicsController extends \BaseController
              for($i=0;$i<$lim;$i++)
              {
                  $playerName=SoccerPlayer::find($bestPlayers[$i]->player_id)->last_name;
-                 $finalData[$i] = array('player' => $playerName, 'avg_rating' => $bestPlayers[$i]->avg_rating);
+                 $finalData[$i] = array('player' => $playerName, 'avg_rating' => round($bestPlayers[$i]->avg_rating,2));
              }
 
          }

@@ -8,7 +8,7 @@ $request=User::find($sender);
 <button id="closeButton" type="button" class="close closeButton" onclick="closeAlert('frequest')">&times;</button>
 <div id="Request{{$request->id}}" class="col-lg-12" style="padding: 0px">
     <div class="col-lg-8">
-        <img src="{{asset($request->profile->profilePic)}}" height="50px" width="50px">
+        <img src="{{$request->profile->profilePic}}" height="50px" width="50px">
         <a href="{{route('user',$request->username)}}" style="text-decoration: none" target="_blank">{{$request->first_name}} {{$request->last_name}}</a>
         <br>
         <p id="extraText">sent you a friend request.</p>
@@ -44,7 +44,7 @@ $request=User::find($sender);
     <div id="anotherRequest{{$request->id}}">
         <strong>Hey!</strong>
         <div  style="margin-left: 0px">
-            <img style="float: left" src="{{asset($request->profile->profilePic)}}" width="40px" height="40px">
+            <img style="float: left" src="{{$request->profile->profilePic}}" width="40px" height="40px">
             <div>
                 <a href="{{route('user',$request->username)}}" style="text-decoration: none; font-size: 20px">&nbsp;&nbsp;{{$request->first_name}}</a>
             </div>
@@ -66,7 +66,7 @@ $user = User::find($question->askedBy_id);
 <div>
     <div>
         <div  style="margin-left: 0px">
-            <img style="float: left" src="{{asset($user->profile->profilePic)}}" width="40px" height="40px">
+            <img style="float: left" src="{{$user->profile->profilePic}}" width="40px" height="40px">
             <div>
                 <a href="{{route('user',$user->username)}}" style="text-decoration: none; font-size: 20px">&nbsp;&nbsp;{{$user->first_name}}</a>
             </div>
@@ -92,7 +92,7 @@ $user = User::find($question->askedTo_id);
 <div>
     <div>
         <div  style="margin-left: 0px">
-            <img style="float: left" src="{{asset($user->profile->profilePic)}}" width="40px" height="40px">
+            <img style="float: left" src="{{$user->profile->profilePic}}" width="40px" height="40px">
             <div>
                 <a href="{{route('user',$user->username)}}" style="text-decoration: none; font-size: 20px">&nbsp;&nbsp;{{$user->first_name}}</a>
             </div>
@@ -115,7 +115,7 @@ $user = User::find($about->writtenby);
 <div>
     <div>
         <div  style="margin-left: 0px">
-            <img style="float: left" src="{{asset($user->profile->profilePic)}}" width="40px" height="40px">
+            <img style="float: left" src="{{$user->profile->profilePic}}" width="40px" height="40px">
             <div>
                 <a href="{{route('user',$user->username)}}" style="text-decoration: none; font-size: 20px">&nbsp;&nbsp;{{$user->first_name}}</a>
             </div>
@@ -140,7 +140,7 @@ $user = User::find($about->writtenby);
     <div>
         <div>
             <div  style="margin-left: 0px">
-                <img style="float: left" src="{{asset($user->profile->profilePic)}}" width="40px" height="40px">
+                <img style="float: left" src="{{$user->profile->profilePic}}" width="40px" height="40px">
                 <div>
                     <a href="{{route('user',$user->username)}}" style="text-decoration: none; font-size: 20px">&nbsp;&nbsp;{{$user->first_name}}</a>
                 </div>
@@ -167,7 +167,7 @@ $user = User::find($about->writtenby);
     <div>
         <div>
             <div  style="margin-left: 0px">
-                <img style="float: left" src="{{asset($user->profile->profilePic)}}" width="40px" height="40px">
+                <img style="float: left" src="{{$user->profile->profilePic}}" width="40px" height="40px">
                 <div>
                     <a href="{{route('user',$user->username)}}" style="text-decoration: none; font-size: 20px">&nbsp;&nbsp;{{$user->first_name}}</a>
                 </div>
@@ -188,7 +188,7 @@ $user = User::find($about->writtenby);
      <div>
         <div>
             <div  style="margin-left: 0px">
-                <img style="float: left" src="{{asset($user->profile->profilePic)}}" width="40px" height="40px">
+                <img style="float: left" src="{{$user->profile->profilePic}}" width="40px" height="40px">
                 <div>
                     <a href="{{route('user',$user->username)}}" style="text-decoration: none; font-size: 20px">&nbsp;&nbsp;{{$user->first_name}}</a>
                 </div>
@@ -218,7 +218,7 @@ $user = User::find($about->writtenby);
     <div>
         <div>
             <div  style="margin-left: 0px">
-                <img style="float: left" src="{{asset($user->profile->profilePic)}}" width="40px" height="40px">
+                <img style="float: left" src="{{$user->profile->profilePic}}" width="40px" height="40px">
                 <div>
                     <a href="{{route('user',$user->username)}}" style="text-decoration: none; font-size: 20px">&nbsp;&nbsp;{{$user->first_name}}</a>
                 </div>

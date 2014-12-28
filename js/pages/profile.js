@@ -11,19 +11,6 @@ var oTableAsked=null;
 var qdes=0;
 var timer=null;
 
-var defaults = {
-    animationDuration: 350,
-    headerOpacity: 0.25,
-    fixedHeaders: false,
-    headerSelector: function (item) { return item.children("h3").first(); },
-    itemSelector: function (item) { return item.children(".pivot-item"); },
-    headerItemTemplate: function () { return $("<span class='header' />"); },
-    pivotItemTemplate: function () { return $("<div class='pivotItem' />"); },
-    itemsTemplate: function () { return $("<div class='items' />"); },
-    headersTemplate: function () { return $("<div class='headers' />"); },
-    controlInitialized: undefined,
-    selectedItemChanged: undefined
-};
 
 var articleCount = 0;
 var bookCount = 0;
@@ -56,6 +43,7 @@ $(document).ready(function()
         {
             document.getElementById('PPPTdiv').style.marginTop = (height*0.3)+'px';
             $('#PPPTdiv').height(height-45-(height*0.3));
+            $('#boxMargin').hide();
         }
         else
         {
@@ -70,9 +58,9 @@ $(document).ready(function()
     }
     else
     {
-        if (width > 1200)
+        if (width > 900)
         {
-
+              $('#boxMargin').hide();
         }
         else
         {
@@ -185,9 +173,6 @@ $(document).ready(function()
 
     $("#mycounter").flipCounterInit({'speed': 0.05});
 
-    getChats();
-
-    getIFCs();
 
 
 
@@ -237,146 +222,6 @@ function playPause(btn)
     }
 }
 
-function getChats()
-{
-
-    //updateNotifications();
-    getIFCs();
-    getStatus();
-    setTimeout(getChats,4000);
-
-}
-//notifications
-/*function updateNotifications(){
-
-    var notifyModalContent = $("#notifyText").html();
-    if(notifyModalContent=="")
-    {
-        $.get('http://b2.com/getNotification',function(data)
-        {
-            if(data)
-            {
-                if (data != 'TheMonumentsMenGeorgeClooneyMattDamon')
-                {
-                    $("#notifyText").html(data);
-                    $('#notifyModal').modal({
-                        keyboard:false,
-                        show:true,
-                        backdrop:'static'
-                    });
-                }
-            }
-        });
-    }
-}*/
-
-function getIFCs()
-{
-    $.post('http://b2.com/getIFCs', function(ifcs)
-    {
-        if(ifcs=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
-        else
-        $("#mycounter").flipCounterUpdate(ifcs);
-    });
-}
-
-
-function closeAlert(string)
-{
-    if(string=='frequest')
-    {
-        $("#notifyModal").modal('hide');
-        $("#extraText").hide();
-        $(".adbuttons").removeClass("col-lg-12");
-        $(".adbuttons:first-child").addClass("col-lg-5");
-        $(".adbuttons:nth-child(2)").addClass("col-lg-6 col-lg-offset-1");
-        $("#closeButton").hide();
-        document.getElementById('newFriendRequestsContent').innerHTML += $("#fieldset").html();
-        $("#notifyText").html("");
-    }
-    else if (string=='faccepted' || string=='qasked' || string=='qanswered' || string=='aboutrequest' || string=='aboutaccepted' || string=='subscription' || string=='chatrequest' || string=='chataccepted')
-    {
-        $("#notifyModal").modal('hide');
-        $("#notifyText").html("");
-    }
-}
-
-//Chat
-function acceptChat(acid)
-{
-    $.ajax({
-        type: "POST",
-        url: "http://b2.com/acceptChat",
-        data: {id:acid}
-    }).done(function(error)
-    {
-        if(error=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
-        else
-        {
-            if (error)
-            {
-                $("#notifyText").append(error);
-            }
-            else
-            {
-                $.post('http://b2.com/getChatLink',{id: acid}, function(link)
-                {
-                    if(link=='wH@tS!nTheB0x')
-                        window.location='http://b2.com/offline';
-                    else
-                    {
-                        /*window.open('http://b2.com/chatRoom/'+link, '_blank', "height=400,width=270,resizable=false");*/
-                        $("#notifyModal").modal('hide');
-                        $("#notifyText").html("");
-                        window.location='http://b2.com/chats/'+link;
-                    }
-                });
-            }
-        }
-    });
-}
-
-function declineChat(dcid)
-{
-    bootbox.confirm("Are you sure?", function(result) {
-        if (result==true)
-        {
-            $.ajax({
-                type: "POST",
-                url: "http://b2.com/declineChat",
-                data: {id:dcid}
-            }).done(function(error)
-            {
-                if(error=='wH@tS!nTheB0x')
-                    window.location='http://b2.com/offline';
-                else
-                {
-                    $("#notifyModal").modal('hide');
-                    $("#notifyText").html("");
-                }
-            });
-        }
-    });
-
-}
-
-function startChat(scid)
-{
-
-    $.post('http://b2.com/getChatLink',{id: scid}, function(link)
-    {
-        if(link=='wH@tS!nTheB0x')
-            window.location='http://b2.com/offline';
-        else
-        {
-            $("#notifyModal").modal('hide');
-            $("#notifyText").html("");
-            window.location='http://b2.com/chats/'+link;
-        }
-    });
-}
 
 var count = 1;
 function showTrivia()
@@ -661,22 +506,6 @@ function earnIFC()
 }
 
 
-//this is the function to update user status
-/*function getStatus()
-{
-    var uid=$('#profileId').val();
-    $.post('http://b2.com/getStatus',{id:uid},function(data)
-    {
-        if (data=="yesBwoy")
-        {
-            $("#chatStatus").html("<figure id='online' class='circle'></figure>");
-        }
-        else if (data=="nopeBwoy")
-        {
-            $("#chatStatus").html("<figure id='offline' class='circle'></figure>");
-        }
-    });
-}*/
 
 function showSettings()
 {

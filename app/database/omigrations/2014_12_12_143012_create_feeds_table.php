@@ -18,8 +18,7 @@ class CreateFeedsTable extends Migration {
             $table->integer('match_id')->unsigned()->default(0);
             $table->foreign('match_id')->references('id')->on('soccerschedule')->onDelete('cascade');
             $table->boolean('live')->default(true);
-            $table->integer('admin')->unsigned()->nullable();
-            $table->timestamps();
+			$table->timestamps();
 		});
 	}
 

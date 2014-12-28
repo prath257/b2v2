@@ -178,11 +178,14 @@ class SoccerAdminController extends \BaseController
                 $match->kickoff = $schedule->matches[$i]->kickoff;
                 $match->save();
             }
+            $msg='<span style="color:#000000;">Matchday '.$schedule->matchday.' prediction window is now open.</span>';
+            Action::postAction('predOn',Auth::user()->id,null,null,$msg);
         }
         else
         {
                 return 'No';
         }
+
         return 'Success';
     }
 
@@ -242,7 +245,6 @@ class SoccerAdminController extends \BaseController
             }
 
         }
-
         return 'Success';
     }
 
@@ -635,7 +637,7 @@ class SoccerAdminController extends \BaseController
         $uusers=array_unique($users);
         foreach($uusers as $user)
         {
-            AjaxController::insertToNotification($user, Auth::user()->id, "transfered", "Soccer Prediction results are out, check how much you earned!", 'http://b2.com/playPredictor');
+            AjaxController::insertToNotification($user, Auth::user()->id, "transfered", ": Your Soccer Prediction results are out, check now!", 'http://b2.com/playPredictor');
         }
         return 'Done';
     }

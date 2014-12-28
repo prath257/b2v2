@@ -113,7 +113,7 @@
             <div class="col-xs-8 col-sm-8 col-md-8 noPad">
                 <div class="col-xs-12 col-sm-11 col-md-11 col-sm-offset-1 noPad">
                 <div class="col-xs-5 col-sm-4 col-md-2 noPad">
-                 <img src="{{asset(Auth::user()->profile->profilePic)}}" style="height: 50px; width:50px">
+                 <img src="{{Auth::user()->profile->profilePic}}" style="height: 50px; width:50px">
                 </div>
                 <div class="col-xs-7 col-sm-8 col-md-10" style="padding-left: 5px;">
                    <p class="headMass">{{Auth::user()->first_name}}</p> <a href="readings">Readings</a>

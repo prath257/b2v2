@@ -88,7 +88,7 @@
                    <div id="darkDiv" class="col-xs-12 col-sm-12 col-md-12">
 
                        <div class="col-xs-3 col-sm-3 col-md-3 noPadding">
-                       <a class="pull-left" href="#"><img id="profilePic" src="{{asset($user->profile->profilePic)}}" width="100px"></a>
+                       <a class="pull-left" href="#"><img id="profilePic" src="{{$user->profile->profilePic}}" width="100px"></a>
                        </div>
 
                    </div>

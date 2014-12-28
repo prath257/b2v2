@@ -62,7 +62,18 @@ $(document).ready(function()
     });
 
 
-
+    /*profileTune:
+    {
+        message: 'The profile Tune is not valid',
+            validators: {
+        file: {
+            extension: 'mp3,ogg,m4a,ra',
+                maxSize: 5120 * 1024,   // 5 MB
+                message: 'Size upto 5MB, types: mp3 ogg m4a ra'
+        }
+    }
+     }
+    */
 
     $('#aboutForm').bootstrapValidator({
         live:'enabled',

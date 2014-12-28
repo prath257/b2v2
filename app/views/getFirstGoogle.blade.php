@@ -330,7 +330,7 @@
             <div class="modal-body">
                 <fieldset>
                     <p>
-                        These are standard rules about posting content on b2.com, through it on facebook,twitter and other social networking sites.
+                        These are standard rules about posting content on bbarters.com, through it on facebook,twitter and other social networking sites.
                         They are designed to ensure users feel safe, keen to take part again and keep to its focus.
 
                     <h4>General Rules</h4>
@@ -342,37 +342,37 @@
                     Don't impersonate or falsely claim to represent a person or organisation.
                     Protect your privacy and that of others. Please don’t post private addresses, phone numbers, email addresses or other online contact details.
                     Stay on-topic. Please don't post messages that are unrelated to the topic.
-                    Comments/Content/Views on b2.com are moderated before going live. If a comment contravenes the safety rules it will not be published or will be removed from the site.
+                    Comments/Content/Views on bbarters.com are moderated before going live. If a comment contravenes the safety rules it will not be published or will be removed from the site.
 
                     <h3>Content disclaimer</h3>
 
-                    Views expressed by users are theirs alone and do not represent the views of b2.com.
+                    Views expressed by users are theirs alone and do not represent the views of bbarters.com.
 
                     <h3>Copyright and neighbouring rights</h3>
 
-                    You own the copyright in your postings, articles and pictures, but you also agree to grant b2.com a perpetual, royalty-free, non-exclusive, sublicenseable right and license to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, perform, play, and exercise all copyright and publicity rights with respect to any such work worldwide and/or to incorporate it in other works in any media now known or later developed for the full term of any rights that may exist in such content.
-                    If you do not wish to grant such rights to the b2.com, it is suggested that you do not submit your comment to this site.
+                    You own the copyright in your postings, articles and pictures, but you also agree to grant bbarters.com a perpetual, royalty-free, non-exclusive, sublicenseable right and license to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, perform, play, and exercise all copyright and publicity rights with respect to any such work worldwide and/or to incorporate it in other works in any media now known or later developed for the full term of any rights that may exist in such content.
+                    If you do not wish to grant such rights to the bbarters.com, it is suggested that you do not submit your comment to this site.
 
-                    You should remember that you are legally responsible for what you write. By submitting any content you undertake to indemnify the b2.com against any liability arising from breach of confidentiality or copyright, or any obscene, defamatory, seditious, blasphemous or other actionable statement you may make.
-                    The copying and use of the b2.com logo and other b2.com-related logos is not permitted without prior approval of the b2.com.
+                    You should remember that you are legally responsible for what you write. By submitting any content you undertake to indemnify the bbarters.com against any liability arising from breach of confidentiality or copyright, or any obscene, defamatory, seditious, blasphemous or other actionable statement you may make.
+                    The copying and use of the bbarters.com logo and other bbarters.com-related logos is not permitted without prior approval of the bbarters.com.
 
                     <h3>Virus protection</h3>
 
                     The site operators make every effort to check and test material at all stages of production. It is always wise for users to run an anti virus program on all material downloaded from the internet.
-                    b2.com cannot accept any responsibility for any loss, disruption or damage to your data or your computer system which may occur whilst using material from the b2.com website.
+                    bbarters.com cannot accept any responsibility for any loss, disruption or damage to your data or your computer system which may occur whilst using material from the bbarters.com website.
 
                     <h3>Your privacy</h3>
 
                     Cookies are pieces of data that are often created when you visit a website and are stored in the cookie directory of your own computer.
                     Cookies are used to store a session ID which allows you to log-in and make comments. No personal information is stored in the Cookie.
                     Other websites linked from this site are not covered by this privacy policy.
-                    b2.com does require a user to enter a name and working email address in order to post a comment on this blog. This information is securely stored and will not be passed on to any third parties.
+                    bbarters.com does require a user to enter a name and working email address in order to post a comment on this blog. This information is securely stored and will not be passed on to any third parties.
 
                     <h3>Links to and from other websites</h3>
 
-                    b2.com is not responsible for the contents or reliability of the external websites and does not necessarily endorse the views expressed within them.
+                    bbarters.com is not responsible for the contents or reliability of the external websites and does not necessarily endorse the views expressed within them.
                     Links to external sites should not be taken as endorsement of any kind. We cannot guarantee that these links will work all of the time and we have no control over the availability of the linked pages.
-                    b2.com encourages users to establish hypertext links to the site. You do not have to ask permission to link directly to pages hosted on the website. We do not object to you linking directly to our information, but you should obtain permission if you intend to use our logo.
+                    bbarters.com encourages users to establish hypertext links to the site. You do not have to ask permission to link directly to pages hosted on the website. We do not object to you linking directly to our information, but you should obtain permission if you intend to use our logo.
                     </p>
                 </fieldset>
             </div>

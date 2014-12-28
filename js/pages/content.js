@@ -303,7 +303,7 @@ function postInvite()
         }).done(function(msg)
         {
             if(msg=='wH@tS!nTheB0x')
-                window.location='http::/b2.com/offline';
+                window.location='http::/bbarters.com/offline';
             $('#inviteLinkAndErrors').html(msg);
             $("#inviteLinkAndErrors").show();
         });

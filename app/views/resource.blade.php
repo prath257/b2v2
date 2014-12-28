@@ -77,7 +77,7 @@
                         ?>
                         <div class="col-lg-12" style="padding: 0px">
                         <div class="col-lg-3" style="padding: 0px">
-                        <img src="{{asset($owner->profile->profilePic)}}" style="border-radius: 50%; height: 75px; width: 75px">
+                        <img src="{{$owner->profile->profilePic}}" style="border-radius: 50%; height: 75px; width: 75px">
                         </div>
                         <div class="col-lg-9" style="padding-top: 10px">
                             <p style="font-size: 22px">{{$owner->first_name}} {{$owner->last_name}}</p>

@@ -367,7 +367,7 @@
                             <input type="hidden" id="x2" name="x2" />
                             <input type="hidden" id="y2" name="y2" />
                             <div id="image_div" style="alignment-adjust:central; padding-left: 20px;overflow: scroll">
-                                <img src="{{asset($user->profile->profilePic)}}" id="load_img" />
+                                <img src="{{$user->profile->profilePic}}" id="load_img" />
                             </div>
                             <br>
                             <br>

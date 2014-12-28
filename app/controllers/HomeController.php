@@ -60,7 +60,7 @@ class HomeController extends BaseController
 
             $categories=Auth::user()->interestedIn()->get();
 
-            return View::make('home')->with('friends',$users1)->with('events',$send)->with('count',$count)->with('interests',$interests)->with('moreAction',count($moreAction))->with('categories',$categories);
+            return View::make('home')->with('friends',$users1)->with('events',$send)->with('count',$count)->with('interests',$interests)->with('moreAction',count($moreAction))->with('categories',$categories);;
         }
         catch(Exception $e)
         {

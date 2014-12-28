@@ -29,7 +29,7 @@
     <br><br><br>
     <div class="col-lg-12>">
         <div class="col-lg-2">
-            <img class="col-lg-12" src="{{asset($user->profile->profilePic)}}" style="margin-bottom: 20px">
+            <img class="col-lg-12" src="{{$user->profile->profilePic}}" style="margin-bottom: 20px">
             <i><h4 id="diaryTitle" class="col-lg-12 segoe center-align" style="font-size: 25px">{{$user->settings->diaryTitle}}</h4></i>
             @if (Auth::user()->id == $user->id)
             <div class="col-lg-12"><input id="diaryTitleInput" type="text" class="form-control" style="display: none"></div>
@@ -198,7 +198,7 @@
         </div>
     </div>
 
-    <div class="fb-comments col-lg-2 col-lg-offset-2" data-href="http://www.b2.com/diary/{{$user->username}}" data-width="600" data-numposts="10" data-colorscheme="light"></div>
+    <div class="fb-comments col-lg-2 col-lg-offset-2" data-href="http://b2.com/diary/{{$user->username}}" data-width="600" data-numposts="10" data-colorscheme="light"></div>
 
 
     <div class="modal fade col-lg-12" id="editPostModal" tabindex="-1" role="dialog" aria-hidden="true">

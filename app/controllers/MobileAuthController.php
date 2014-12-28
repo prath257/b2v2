@@ -255,7 +255,7 @@ class MobileAuthController extends \BaseController {
         //$rid=DB::table('friends')->where('friend1','=',Auth::user()->id)->where('friend2','=',$id)->lists('id');
        // $rid = DB::table('friends')->where('friend1', Auth::user()->id)->where('friend2',$id)->pluck('id');
 
-        AjaxController::insertToNotification($userid,$authid,"friendR"," sent you a Friend Request ",'http://www.b2.com/user/'.User::find($authid)->username);
+        AjaxController::insertToNotification($userid,$authid,"friendR"," sent you a Friend Request ",'http://www.bbarters.com/user/'.User::find($authid)->username);
 
             MobileAuthController::$user = User::find($userid);
 
@@ -315,11 +315,11 @@ class MobileAuthController extends \BaseController {
 
         DB::table('notification')->where('userid','=',$authuser->id)->where('cuserid','=',$userid)->where('type','=','friendR')->update(array('type' =>'friendRR'));
 
-        TransactionController::insertToManager($authuser->id,"+".$authuser->settings->friendcost,"Accepted friend request by",'http://www.b2.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"content");
+        TransactionController::insertToManager($authuser->id,"+".$authuser->settings->friendcost,"Accepted friend request by",'http://www.bbarters.com/user/'.$user->username,$user->first_name.' '.$user->last_name,"content");
 
-        TransactionController::insertToManager($user->id,"-".$authuser->settings->friendcost,"Friend request accepted by",'http://www.b2.com/user/'.$authuser->username,$authuser->first_name.' '.$authuser->last_name,"profile");
+        TransactionController::insertToManager($user->id,"-".$authuser->settings->friendcost,"Friend request accepted by",'http://www.bbarters.com/user/'.$authuser->username,$authuser->first_name.' '.$authuser->last_name,"profile");
 
-        AjaxController::insertToNotification($userid,$authuser->id,"friendRR","Accepted your Friend Request ",'http://www.b2.com/user/'.$authuser->username);
+        AjaxController::insertToNotification($userid,$authuser->id,"friendRR","Accepted your Friend Request ",'http://www.bbarters.com/user/'.$authuser->username);
 
                MobileAuthController::$user = $user;
 

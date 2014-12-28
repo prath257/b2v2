@@ -257,6 +257,7 @@ class AuthController extends \BaseController {
             if ($kastya)
                 DB::table('friends')->insert(array('friend1'=>$kastya->id, 'friend2'=>$user->id, 'status'=>'accepted'));
             Auth::login($user);
+            Action::postAction('newUser',Auth::user()->id,null,null,null);
             return Redirect::intended('home');
         }
         else
@@ -499,7 +500,7 @@ class AuthController extends \BaseController {
                     $kastya = User::where('username','=','ksjoshi88')->first();
                     if ($kastya)
                         DB::table('friends')->insert(array('friend1'=>$kastya->id, 'friend2'=>$user->id, 'status'=>'accepted'));
-
+                    Action::postAction('newUser',Auth::user()->id,null,null,null);
                     return Redirect::intended('home');
                 }
                 else
@@ -592,7 +593,7 @@ class AuthController extends \BaseController {
                 $user->password=Hash::make('kastya_88twadvait_b2');
                 $user->username='tweeple'.$profile->identifier;
                 $user->country="Global";
-                $user->email='teamb2@b2.com';
+                $user->email='teamb2@bbarters.com';
                 $user->save();
                 //this is the code to set the default user settings
                 $uset=new UserSetting();
@@ -677,7 +678,7 @@ class AuthController extends \BaseController {
                     $kastya = User::where('username','=','ksjoshi88')->first();
                     if ($kastya)
                         DB::table('friends')->insert(array('friend1'=>$kastya->id, 'friend2'=>$user->id, 'status'=>'accepted'));
-
+                    Action::postAction('newUser',Auth::user()->id,null,null,null);
                     return Redirect::intended('home');
                 }
                 else
@@ -956,7 +957,7 @@ class AuthController extends \BaseController {
                     $kastya = User::where('username','=','ksjoshi88')->first();
                     if ($kastya)
                         DB::table('friends')->insert(array('friend1'=>$kastya->id, 'friend2'=>$user->id, 'status'=>'accepted'));
-
+                    Action::postAction('newUser',Auth::user()->id,null,null,null);
                     return Redirect::intended('home');
                 }
                 else

@@ -522,6 +522,4 @@ class ProfileController extends \BaseController {
         else
             return 'wH@tS!nTheB0x';
     }
-
-
 }

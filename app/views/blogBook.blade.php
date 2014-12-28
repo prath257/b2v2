@@ -73,7 +73,7 @@
                 <div class="content">
                     <div class="scroller" style="word-wrap: break-word">
                         <h2>{{$book->title}}</h2>
-                         <div class="fb-like" data-href="https://b2.com/beta/blogBook/{{$book->id}}" data-layout="standard" data-action="recommend" data-show-faces="false" data-share="false"></div>
+                         <div class="fb-like" data-href="https://bbarters.com/beta/blogBook/{{$book->id}}" data-layout="standard" data-action="recommend" data-show-faces="false" data-share="false"></div>
                         <img src="{{asset($book->cover)}}" width="100%" style="overflow: hidden">
 
                     </div>

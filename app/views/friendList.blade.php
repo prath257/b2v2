@@ -39,7 +39,7 @@
 <div class="col-lg-10 col-lg-offset-1">
     <div class="col-lg-12 well" style="align-content: center">
         <div class="col-lg-1">
-            <img src="{{asset(Auth::user()->profile->profilePic)}}" height="50px" width="50px">
+            <img src="{{Auth::user()->profile->profilePic}}" height="50px" width="50px">
         </div>
         <div class="col-lg-11">
             <p class="col-lg-12" style="font-size: 24px; padding: 0px">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p>

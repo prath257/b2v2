@@ -74,7 +74,7 @@
             <div class="darkDiv col-lg-10 col-lg-offset-1">
                 <div class="col-lg-12 noPadding">
                     <a class="pull-left col-lg-4" href="#" style="padding: 5px">
-                        <img id="profilePic" src="{{asset($user->profile->profilePic)}}" width="150px">
+                        <img id="profilePic" src="{{$user->profile->profilePic}}" width="150px">
                     </a>
                     <div id="usernameProfiletune" class="col-lg-8">
                         <h3 id="name">{{$user->username}}</h3>

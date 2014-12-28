@@ -4,6 +4,7 @@
     <title>{{$user->first_name}}'s Profile | BBarters</title>
     <link rel="shortcut icon" href="{{asset('Images/icons/logo.JPG')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('css/pages/profile.css')}}" rel="stylesheet">
     <link href="{{asset('css/logo.css')}}" rel="stylesheet">
@@ -49,7 +50,7 @@
 </nav>
 
 <input id="profileId" type="hidden" value="{{$user->id}}">
-
+<!--
 <div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div id="notificationModal" class="modal-dialog">
 
@@ -61,77 +62,77 @@
         </div>
 
     </div>
-</div>
-<div id="bodyDiv" class="col-lg-12 noPadding" style="display: none">
+</div>-->
+<div id="bodyDiv" class="col-md-12 noPadding" style="display: none">
     @if ($user->settings->profileTheme == 'standard')
     <input type="hidden" id="PTheme" value="standard">
-    <div id="profileContainerDiv" class="col-lg-5 noPadding">
-        <div id="profileDiv" class="col-lg-12 noPadding" style="background: linear-gradient(rgba(3, 23, 34, 0.7), rgba(3, 23, 34, 0.7) ), url('{{$user->profile->coverPic}}'); background-size: 100% 100%;">
+    <div id="profileContainerDiv" class="col-md-5 noPadding">
+        <div id="profileDiv" class="col-md-12 noPadding" style="background: linear-gradient(rgba(3, 23, 34, 0.7), rgba(3, 23, 34, 0.7) ), url('{{$user->profile->coverPic}}'); background-size: 100% 100%;">
 
         </div>
-        <div id="PPPTdiv" class="col-lg-12 noPadding">
-            <div class="darkDiv col-lg-10 col-lg-offset-1">
-                <div class="col-lg-12 noPadding">
-                    <a class="pull-left col-lg-4" href="#" style="padding: 5px">
-                        <img id="profilePic" src="{{asset($user->profile->profilePic)}}" width="150px">
+        <div id="PPPTdiv" class="col-xs-12 col-sm-12 col-md-12 noPadding">
+            <div class="darkDiv col-xs-10 col-sm-10 col-md-10 col-xs-offset-1 col-sm-offset-1 col-md-offset-1">
+                <div class="col-xs-12 col-sm-12 col-md-12 noPadding">
+                    <a class="pull-left col-xs-12 col-sm-4 col-md-4" href="#" style="padding: 5px">
+                        <img id="profilePic" src="{{$user->profile->profilePic}}" width="150px">
                     </a>
-                    <div id="usernameProfiletune" class="col-lg-8">
+                    <div id="usernameProfiletune" class="col-xs-12 col-sm-8 col-md-8">
                         <h3 id="name">{{$user->username}}</h3>
                         <a id="PTglyphicon" onclick="playPause()"><span id="ptButton" class="glyphicon glyphicon-music"></span></a>
                         <audio src="{{$user->profile->profileTune}}" type="audio/mpeg" id="pt"></audio>
                     </div>
                 </div>
                 @if($user->pset)
-                <div class="col-lg-12 noPadding">
+                <div class="col-xs-12 col-sm-12 col-md-12 noPadding">
 
                     @if($user->id==Auth::user()->id)
-                    <a href="#" class="socialButtons col-lg-4 col-lg-offset-2 noPadding" onclick="getFriendList(); return false;"><span class="glyphicon glyphicon-user"></span> Friends <br class="breaks"><span class="count"><b>{{$fCount}}</b></span></a>
-                    <div class="col-lg-12 newLine">&nbsp;</div>
-                        <a href="#" class="socialButtons col-lg-4 noPadding" onclick="getSubscriberList(); return false;"><span class="glyphicon glyphicon-star"></span> Subscriptions <br class="breaks"><span class="count"><b>{{$sCount}} - {{$scCount}}</b></span></a>
+                    <a href="#" class="socialButtons col-md-4 col-md-offset-2 noPadding" onclick="getFriendList(); return false;"><span class="glyphicon glyphicon-user"></span> Friends <br class="breaks"><span class="count"><b>{{$fCount}}</b></span></a>
+                    <div class="col-md-12 newLine">&nbsp;</div>
+                        <a href="#" class="socialButtons col-md-4 noPadding" onclick="getSubscriberList(); return false;"><span class="glyphicon glyphicon-star"></span> Subscriptions <br class="breaks"><span class="count"><b>{{$sCount}} - {{$scCount}}</b></span></a>
                     @else
                         @if(Friend::isFriend($user->id))
-                            <a id="UnFriend" href="#" class="socialButtons friends col-lg-4 col-lg-offset-2 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-minus-sign"></span> UnFriend</a>
+                            <a id="UnFriend" href="#" class="socialButtons friends col-md-4 col-md-offset-2 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-minus-sign"></span> UnFriend</a>
                         @elseif(Friend::requestSent($user->id))
-                            <a id="CancelRequest" href="#" class="socialButtons friends col-lg-4 col-lg-offset-2 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-remove"></span> CancelRequest</a>
+                            <a id="CancelRequest" href="#" class="socialButtons friends col-md-4 col-md-offset-2 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-remove"></span> CancelRequest</a>
                         @elseif(Friend::requestNotYetAccepted($user->id))
-                            <a id="AcceptRequest" href="#" class="socialButtons friends col-lg-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-ok"></span> AcceptRequest</a>
-                    <div class="col-lg-12 newLine">&nbsp;</div>
-                        <a id="DeclineRequest" href="#" class="socialButtons friends col-lg-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-remove"></span> DeclineRequest</a>
+                            <a id="AcceptRequest" href="#" class="socialButtons friends col-md-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-ok"></span> AcceptRequest</a>
+                    <div class="col-md-12 newLine">&nbsp;</div>
+                        <a id="DeclineRequest" href="#" class="socialButtons friends col-md-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-remove"></span> DeclineRequest</a>
                         @else
-                            <a id="AddFriend" href="#" class="socialButtons friends col-lg-4 col-lg-offset-2 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-plus-sign"></span> AddFriend</a>
+                            <a id="AddFriend" href="#" class="socialButtons friends col-md-4 col-md-offset-2 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-plus-sign"></span> AddFriend</a>
                         @endif
-                    <div class="col-lg-12 newLine">&nbsp;</div>
+                    <div class="col-md-12 newLine">&nbsp;</div>
                         <!-- Buttons related to Followers -->
                         <input type="hidden" id="subcost" value="{{$user->settings->subcost}}">
                         @if($follower)
-                                <a id="UnFollow" href="#" class="socialButtons follow col-lg-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-minus-sign"></span> UnFollow</a>
+                                <a id="UnFollow" href="#" class="socialButtons follow col-md-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-minus-sign"></span> UnFollow</a>
                         @else
-                                <a id="Follow" href="#" class="socialButtons follow col-lg-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-pushpin"></span> Follow</a>
+                                <a id="Follow" href="#" class="socialButtons follow col-md-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-pushpin"></span> Follow</a>
                         @endif
                     @endif
                 </div>
                 @endif
             </div>
         </div>
-        <div id="bottomLinks" class="col-lg-12 noPadding btn-group">
+        <div id="bottomLinks" class="col-xs-12 col-sm-12 col-md-12 noPadding btn-group">
             @if($user->pset)
             @if (Auth::user()->id != $user->id)
-            <button type="button" class="btn btn-default bottomButtons col-lg-6 noPadding bb" onclick="showAboutUser()"><a class="buttonLinks"><span class="glyphicon glyphicon-pencil"></span> About {{$user->first_name}}</a></button>
-            <button type="button" class="btn btn-default bottomButtons col-lg-6 noPadding bb" onclick="showQuestions()"><a class="buttonLinks"><span class="glyphicon glyphicon-question-sign"></span> Ask {{$user->first_name}}</a></button>
+            <button type="button" class="btn btn-default bottomButtons col-md-6 noPadding bb" onclick="showAboutUser()"><a class="buttonLinks"><span class="glyphicon glyphicon-pencil"></span> About {{$user->first_name}}</a></button>
+            <button type="button" class="btn btn-default bottomButtons col-md-6 noPadding bb" onclick="showQuestions()"><a class="buttonLinks"><span class="glyphicon glyphicon-question-sign"></span> Ask {{$user->first_name}}</a></button>
             @else
-            <button type="button" class="btn btn-default bottomButtons col-lg-4 noPadding bbAuth" onclick="showAboutUser()"><a class="buttonLinks"><span class="glyphicon glyphicon-pencil"></span> About me</a></button>
-            <button type="button" class="btn btn-default bottomButtons col-lg-4 noPadding bbAuth" onclick="showQuestions()"><a class="buttonLinks"><span class="glyphicon glyphicon-question-sign"></span> Questions</a></button>
-            <button type="button" class="btn btn-default bottomButtons col-lg-4 noPadding bbAuth" onclick="showSettings()"><a class="buttonLinks"><span class="glyphicon glyphicon-cog"></span> Settings</a></button>
+            <button type="button" class="btn btn-default bottomButtons col-md-4 noPadding bbAuth" onclick="showAboutUser()"><a class="buttonLinks"><span class="glyphicon glyphicon-pencil"></span> About me</a></button>
+            <button type="button" class="btn btn-default bottomButtons col-md-4 noPadding bbAuth" onclick="showQuestions()"><a class="buttonLinks"><span class="glyphicon glyphicon-question-sign"></span> Questions</a></button>
+            <button type="button" class="btn btn-default bottomButtons col-md-4 noPadding bbAuth" onclick="showSettings()"><a class="buttonLinks"><span class="glyphicon glyphicon-cog"></span> Settings</a></button>
             @endif
             @endif
         </div>
     </div>
 
-    <div id="interestsDiv" class="col-lg-7">
+    <div id="interestsDiv" class="col-md-7">
         <div id="interestsContainer">
         <h1 id="FullName">{{Str::title($user->first_name)}} {{Str::title($user->last_name)}}</h1>
         @if(!Auth::user()->pset)
-            <div class="alert alert-info alert-dismissable col-lg-6">
+            <div class="alert alert-info alert-dismissable col-md-6">
                 <strong>Attention! </strong> Without a valid profile you won't be able to create any content or interact with anyone. So, complete it now and earn yourself upto 300i
                 <br>
                 <a href="{{route('buildProfile')}}"><h3>Complete Profile</h3></a>
@@ -147,7 +148,7 @@
             @endif
         @endif
         <br>
-        <div class="col-lg-12 noPadding">
+        <div class="col-md-12 noPadding">
 
             <?php $PIcount=0; ?>
             @foreach ($interests as $interest)
@@ -168,12 +169,12 @@
 
                         $content = $content->sortByDesc('users')->take(3);
                     ?>
-                    <div class="col-lg-4">
-                        <a class="darkLinks col-lg-12" style="padding: 0px" onclick="showUserContent({{$interest->id}})"><h4>{{Str::limit($interest->interest_name,15)}}</h4></a>
+                    <div class="col-md-4">
+                        <a class="darkLinks col-md-12" style="padding: 0px" onclick="showUserContent({{$interest->id}})"><h4>{{Str::limit($interest->interest_name,15)}}</h4></a>
                         @if (count($content) > 0)
                             <?php $PIcount++; ?>
 
-                        <div id="carousel{{$PIcount}}" class="carousel slide carousel-fade col-lg-12" style="padding: 0px">
+                        <div id="carousel{{$PIcount}}" class="carousel slide carousel-fade col-md-12" style="padding: 0px">
 
                             <div class="carousel-inner">
                                 <?php $i=0; ?>
@@ -207,7 +208,7 @@
                                             <div style="overflow: auto">
                                                 <div>
                                                     <div>
-                                                        <div class="caption col-lg-12 noPadding" style="padding-top: 5px">
+                                                        <div class="caption col-md-12 noPadding" style="padding-top: 5px">
                                                             <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank" class="darkLinks" style="font-size: 16px">{{$tr->title}}</a>
 
                                                         </div>
@@ -233,22 +234,22 @@
                         </div>
 
                         @else
-                        <div class="col-lg-12" style="padding: 0px">
-                            <div class="col-lg-12" style="padding: 0px; color: white">
-                                <div class="col-lg-12 noPadding contento-divs" style="background-color: #1c5a5e; border-radius: 4px">
-                                    <img src="{{asset('Images/no-content.jpg')}}" class="col-lg-12 noPadding contento-images" style="height: 150px">
-                                    <div class="col-lg-12">
+                        <div class="col-md-12" style="padding: 0px">
+                            <div class="col-md-12" style="padding: 0px; color: white">
+                                <div class="col-md-12 noPadding contento-divs" style="background-color: #1c5a5e; border-radius: 4px">
+                                    <img src="{{asset('Images/no-content.jpg')}}" class="col-md-12 noPadding contento-images" style="height: 150px">
+                                    <div class="col-md-12">
                                         <h4 style="font-weight: bolder"><a style="color: white">No work yet.</a></h4>
                                         <p>It seems like {{$user->first_name}} hasn't got any work up there. Rest assured it will be up there soon.</p>
                                     </div>
-                                    <!--<div class="col-lg-12 ifc-readerr" style="text-align: center; background-color: #185256">
-                                        <div id="ifc-readerr" class="col-lg-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px; border-right: 2px solid #1c5a5e">
-                                            <div class="col-lg-12 noPadding"><b>None</b></div>
-                                            <div class="col-lg-12 noPadding" style="font-size: 12px">IFCs</div>
+                                    <!--<div class="col-md-12 ifc-readerr" style="text-align: center; background-color: #185256">
+                                        <div id="ifc-readerr" class="col-md-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px; border-right: 2px solid #1c5a5e">
+                                            <div class="col-md-12 noPadding"><b>None</b></div>
+                                            <div class="col-md-12 noPadding" style="font-size: 12px">IFCs</div>
                                         </div>
-                                        <div class="col-lg-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px">
-                                            <div class="col-lg-12 noPadding"><b>Many</b></div>
-                                            <div class="col-lg-12 noPadding" style="font-size: 12px">Readers <i class="fa fa-clock-o"></i></div>
+                                        <div class="col-md-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px">
+                                            <div class="col-md-12 noPadding"><b>Many</b></div>
+                                            <div class="col-md-12 noPadding" style="font-size: 12px">Readers <i class="fa fa-clock-o"></i></div>
                                         </div>
                                     </div>-->
                                 </div>
@@ -261,10 +262,10 @@
             @endforeach
                 <input type="hidden" id="PICOUNT" value="{{$PIcount}}">
 </div>
-        <div class="col-lg-12">&nbsp;</div>
-        <div class="col-lg-12">&nbsp;</div>
+        <div class="col-md-12">&nbsp;</div>
+        <div class="col-md-12">&nbsp;</div>
         <h4 style="padding-left:15px ">Secondary Interests:</h4>
-        <div class="col-lg-12">
+        <div class="col-md-12">
             <?php $secondaryInterestCount=0; ?>
             @foreach($interests as $interest)
             <?php $type = DB::table('user_interests')->where('user_id',$user->id)->where('interest_id',$interest->id)->first(); ?>
@@ -286,10 +287,10 @@
     </div>
     @else
     <input type="hidden" id="PTheme" value="classic">
-    <div id="profileContainerDiv" class="col-lg-3 noPadding col-lg-offset-1">
+    <div id="profileContainerDiv" class="col-md-3 noPadding col-md-offset-1">
     <br><br><br>
         <h3 style="font-family: 'Segoe UI', 'Segoe WP', 'Helvetica Neue', 'RobotoRegular', sans-serif; text-transform: none; padding-left: 15px">{{$user->first_name}} {{$user->last_name}}</h3>
-            <div class="col-lg-12">
+            <div class="col-md-12">
                 @if($user->pset)
                     @if (Auth::user()->id != $user->id)
                     <a onclick="showAboutUser()" class="classicLinks"> About {{$user->first_name}}</a> |
@@ -302,50 +303,50 @@
                 @endif
             </div>
             <br><br>
-            <div class="col-lg-6 picnusername">
-                <img src="{{$user->profile->profilePic}}" height="150" width="150">
+            <div class="col-xs-4 col-sm-6 col-md-6 picnusername">
+                <img src="{{$user->profile->profilePic}}" height="150" class="img-responsive">
             </div>
-            <div id="username-profiletune" class="col-lg-6 picnusername noPadding">
+            <div id="username-profiletune" class="col-xs-8 col-sm-6 col-md-6 picnusername noPadding">
                 <h4 style="word-wrap: break-word; text-transform: none">{{$user->username}}</h4>
 
                 <a id="PTglyphicon" onclick="playPause()" style="color: #000000"><span id="ptButton" class="glyphicon glyphicon-music"></span></a>
                 <audio src="{{$user->profile->profileTune}}" type="audio/mpeg" id="pt"></audio>
             </div>
-            <div class="col-lg-12">
+            <div class="col-xs-12 col-sm-12 col-md-12">
             @if($user->pset)
-                <div class="col-lg-12">&nbsp;</div>
-                <div class="col-lg-12 noPadding">
+                <div class="col-md-12">&nbsp;</div>
+                <div class="col-md-12 noPadding">
 
                     @if($user->id==Auth::user()->id)
-                    <a href="#" class="socialButtons2 wannabeInexed col-lg-4 noPadding" onclick="getFriendList(); return false;"><span class="glyphicon glyphicon-user"></span> Friends <br class="breaks"><span class="count"><b>{{$fCount}}</b></span></a>
-                    <div class="col-lg-12 newLine">&nbsp;</div>
-                        <a href="#" class="socialButtons2 wannabeInexed col-lg-4 noPadding" onclick="getSubscriberList(); return false;"><span class="glyphicon glyphicon-star"></span> Subscriptions <br class="breaks"><span class="count"><b>{{$sCount}} - {{$scCount}}</b></span></a>
+                    <a href="#" class="socialButtons2 wannabeInexed col-md-6 noPadding" onclick="getFriendList(); return false;"><span class="glyphicon glyphicon-user"></span> Friends <br class="breaks"><span class="count"><b>{{$fCount}}</b></span></a>
+                    <div class="col-md-12 newLine">&nbsp;</div>
+                        <a href="#" class="socialButtons2 wannabeInexed col-md-6 noPadding" onclick="getSubscriberList(); return false;"><span class="glyphicon glyphicon-star"></span> Subscriptions <br class="breaks"><span class="count"><b>{{$sCount}} - {{$scCount}}</b></span></a>
                     @else
                         @if(Friend::isFriend($user->id))
-                            <a id="UnFriend" href="#" class="socialButtons2 wannabeInexed friends col-lg-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-minus-sign"></span> UnFriend</a>
+                            <a id="UnFriend" href="#" class="socialButtons2 wannabeInexed friends col-md-6 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-minus-sign"></span> UnFriend</a>
                         @elseif(Friend::requestSent($user->id))
-                            <a id="CancelRequest" href="#" class="socialButtons2 wannabeInexed friends col-lg-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-remove"></span> CancelRequest</a>
+                            <a id="CancelRequest" href="#" class="socialButtons2 wannabeInexed friends col-md-6 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-remove"></span> CancelRequest</a>
                         @elseif(Friend::requestNotYetAccepted($user->id))
-                            <a id="AcceptRequest" href="#" class="socialButtons2 wannabeInexed friends col-lg-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-ok"></span> AcceptRequest</a>
-                    <div class="col-lg-12 newLine">&nbsp;</div>
-                        <a id="DeclineRequest" href="#" class="socialButtons2 wannabeInexed friends col-lg-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-remove"></span> DeclineRequest</a>
+                            <a id="AcceptRequest" href="#" class="socialButtons2 wannabeInexed friends col-md-6 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-ok"></span> AcceptRequest</a>
+                    <div class="col-md-12 newLine">&nbsp;</div>
+                        <a id="DeclineRequest" href="#" class="socialButtons2 wannabeInexed friends col-md-6 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-remove"></span> DeclineRequest</a>
                         @else
-                            <a id="AddFriend" href="#" class="socialButtons2 wannabeInexed friends col-lg-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-plus-sign"></span> AddFriend</a>
+                            <a id="AddFriend" href="#" class="socialButtons2 wannabeInexed friends col-md-6 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-plus-sign"></span> AddFriend</a>
                         @endif
-                    <div class="col-lg-12 newLine">&nbsp;</div>
+                    <div class="col-md-12 newLine">&nbsp;</div>
                         <!-- Buttons related to Followers -->
                         <input type="hidden" id="subcost" value="{{$user->settings->subcost}}">
                         @if($follower)
-                                <a id="UnFollow" href="#" class="socialButtons2 wannabeInexed follow col-lg-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-minus-sign"></span> UnFollow</a>
+                                <a id="UnFollow" href="#" class="socialButtons2 wannabeInexed follow col-md-6 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-minus-sign"></span> UnFollow</a>
                         @else
-                                <a id="Follow" href="#" class="socialButtons2 wannabeInexed follow col-lg-4 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-pushpin"></span> Follow</a>
+                                <a id="Follow" href="#" class="socialButtons2 wannabeInexed follow col-md-6 noPadding" onclick="openModal(this); return false;"><span class="glyphicon glyphicon-pushpin"></span> Follow</a>
                         @endif
                     @endif
                 </div>
             @endif
             </div>
-            <div class="col-lg-12">
-            <br><br>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+            <br>
                 <p id="aboutUser">{{$user->profile->aboutMe}} <a id="readMore" class="darkLinks" onclick="showAboutUser()">Read more..</a></p>
                     @if (Auth::user()->id == $user->id)
                     <p><a class="darkLinks" href="http://b2.com/diary/{{$user->username}}">Read Diary</a></p>
@@ -356,10 +357,9 @@
                         @endif
                     @endif
             </div>
-            <div class="col-lg-12 noPadding">
-            <br>
-            <h4 style="padding-left:15px ">Secondary Interests:</h4>
-                <div class="col-lg-12">
+            <div class="col-xs-12 col-sm-12 col-md-12 noPadding">
+             <h4 style="padding-left:15px ">Secondary Interests:</h4>
+                <div class="col-md-12">
                     <?php $secondaryInterestCount=0; ?>
                     @foreach($interests as $interest)
                     <?php $type = DB::table('user_interests')->where('user_id',$user->id)->where('interest_id',$interest->id)->first(); ?>
@@ -378,21 +378,21 @@
             </div>
         </div>
 
-        <div id="interestsDiv" class="col-lg-7">
+        <div id="interestsDiv" class="col-md-7">
+
             <div id="interestsContainer">
             @if(!Auth::user()->pset)
-                <div class="alert alert-info alert-dismissable col-lg-6">
+                <div class="alert alert-info alert-dismissable col-md-6">
                     <strong>Attention! </strong> Without a valid profile you won't be able to create any content or interact with anyone. So, complete it now and earn yourself upto 300i
                     <br>
                     <a href="{{route('buildProfile')}}"><h3>Complete Profile</h3></a>
                 </div>
-            @else
-
-            <br>
-            <div class="col-lg-12 noPadding">
-
+           @else
+           <br>
+          <div class="col-md-12 noPadding">
+              <div class="col-xs-12">&nbsp;</div>
                 <?php $PIcount=0; ?>
-                <br><br><br>
+                <br>
                 @foreach ($interests as $interest)
 
                     <?php $type = DB::table('user_interests')->where('user_id',$user->id)->where('interest_id',$interest->id)->first(); ?>
@@ -412,12 +412,12 @@
 
                             $content = $content->sortByDesc('users')->take(3);
                         ?>
-                        <div class="col-lg-4">
-                            <a class="darkLinks col-lg-12" style="padding: 0px" onclick="showUserContent({{$interest->id}})"><h4>{{Str::limit($interest->interest_name,15)}}</h4></a>
+                        <div class="col-md-4">
+                            <a class="darkLinks col-md-12" style="padding: 0px" onclick="showUserContent({{$interest->id}})"><h4>{{Str::limit($interest->interest_name,15)}}</h4></a>
                         @if (count($content) > 0)
                             <?php $PIcount++; ?>
 
-                            <div id="carousel{{$PIcount}}" class="carousel slide carousel-fade col-lg-12" style="padding: 0px">
+                            <div id="carousel{{$PIcount}}" class="carousel slide carousel-fade col-md-12" style="padding: 0px">
 
                                         <div class="carousel-inner">
                                             <?php $i=0; ?>
@@ -448,24 +448,20 @@
                                                         <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank"><img class="Profileimages" src="{{asset($tr->cover)}}" height="100px" width="100px"></a>
                                                     @endif
                                                 </div>
-                                                <div style="height: 200px; overflow: auto">
+                                                <div style="height: 150px; overflow: auto">
                                                     <div>
                                                         <div>
-                                                            <div class="caption col-lg-12 noPadding" style="padding-top: 5px">
+                                                            <div class="caption col-md-12 noPadding" style="padding-top: 5px">
                                                                 <a href="{{route($ClassicRoutes,$tr->id)}}" target="_blank" class="darkLinks" style="font-size: 16px">{{$tr->title}}</a>
                                                                 <div class="description">{{Str::limit($tr->description,140)}}</div>
                                                             </div>
-
-
-
-                                                        </div>
+                                                       </div>
                                                     </div>
                                                 </div>
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <div style="height: 5%">
-
+                                        <div style="height: 5%; z-index: 100; overflow: auto">
                                             <ul class="carousel-indicators pull-right" style="left: auto; list-style-type: none">
                                                 @for ($contentC = 0; $contentC < $i; $contentC++)
                                                     <?php
@@ -481,33 +477,34 @@
                                     </div>
 
                         @else
-                        <div class="col-lg-12" style="padding: 0px">
-                        <div class="col-lg-12" style="padding: 0px; color: white">
-                            <div class="col-lg-12 noPadding contento-divs" style="background-color: #1c5a5e; border-radius: 4px">
-                                <img src="{{asset('Images/no-content.jpg')}}" class="col-lg-12 noPadding contento-images" style="height: 225px">
-                                <div class="col-lg-12">
+                        <div class="col-md-12" style="padding: 0px">
+                        <div class="col-md-12" style="padding: 0px; color: white">
+                            <div class="col-md-12 noPadding contento-divs" style="background-color: #1c5a5e; border-radius: 4px">
+                                <img src="{{asset('Images/no-content.jpg')}}" class="col-md-12 noPadding contento-images" style="height: 225px">
+                                <div class="col-md-12">
                                     <h4 style="font-weight: bolder"><a style="color: white">No work yet.</a></h4>
                                     <p>It seems like {{$user->first_name}} hasn't got any work up there. Rest assured it will be up there soon.</p>
                                 </div>
-                                <!--<div class="col-lg-12 ifc-readerr" style="text-align: center; background-color: #185256">
-                                    <div id="ifc-readerr" class="col-lg-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px; border-right: 2px solid #1c5a5e">
-                                        <div class="col-lg-12 noPadding"><b>None</b></div>
-                                        <div class="col-lg-12 noPadding" style="font-size: 12px">IFCs</div>
+                                <!--<div class="col-md-12 ifc-readerr" style="text-align: center; background-color: #185256">
+                                    <div id="ifc-readerr" class="col-md-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px; border-right: 2px solid #1c5a5e">
+                                        <div class="col-md-12 noPadding"><b>None</b></div>
+                                        <div class="col-md-12 noPadding" style="font-size: 12px">IFCs</div>
                                     </div>
-                                    <div class="col-lg-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px">
-                                        <div class="col-lg-12 noPadding"><b>Many</b></div>
-                                        <div class="col-lg-12 noPadding" style="font-size: 12px">Readers <i class="fa fa-clock-o"></i></div>
+                                    <div class="col-md-6 contento-bottom-boxes" style="padding-top: 15px; padding-left: 15px; padding-right: 15px">
+                                        <div class="col-md-12 noPadding"><b>Many</b></div>
+                                        <div class="col-md-12 noPadding" style="font-size: 12px">Readers <i class="fa fa-clock-o"></i></div>
                                     </div>
                                 </div>-->
                             </div>
                         </div>
-                    </div>
+                       </div>
+
                         @endif
+                        <div class="col-md-12" style="z-index: 0">&nbsp;</div>
                         </div>
                     @endif
                 @endforeach
                 <input type="hidden" id="PICOUNT" value="{{$PIcount}}">
-
             </div>
             @endif
         </div>
@@ -515,7 +512,7 @@
     @endif
 
 
-    <div id="contentDiv" class="col-lg-12" style="display: none; padding: 0px">
+    <div id="contentDiv" class="col-md-12" style="display: none; padding: 0px">
 
     </div>
 

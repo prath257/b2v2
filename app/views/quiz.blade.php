@@ -130,7 +130,7 @@
                 <fieldset>
                 <br>
                 Would you like to send this quiz to your friends?
-                   <div class="fb-send" data-href="https://b2.com/quiz/{{$quiz->id}}" data-colorscheme="light"></div>
+                   <div class="fb-send" data-href="https://bbarters.com/quiz/{{$quiz->id}}" data-colorscheme="light"></div>
                 <br>
                 <br>
                 Or would you share this on facebook/twitter?

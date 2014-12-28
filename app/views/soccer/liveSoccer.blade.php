@@ -38,10 +38,10 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li id="chats"> <a href="{{route('chats')}}" target="_blank" style="cursor: pointer">Chats</a></li>
-                <li id="profile"> <a href="{{route('profile')}}" style="cursor: pointer">{{Auth::user()->first_name}}</a></li>
-                <li id="soccerhome"> <a href="{{route('soccerSpace')}}" style="cursor: pointer">SoccerSpace</a></li>
-                <li id="logOut"> <a href="{{route('signout')}}" style="cursor: pointer">Log Out</a></li>
+               <li id="soccerhome"> <a href="{{route('soccerSpace')}}" style="cursor: pointer">SoccerSpace</a></li>
+               <li id="home"> <a href="{{route('home')}}" style="cursor: pointer">Home</a></li>
+               <li id="profile"> <a href="{{route('profile')}}" style="cursor: pointer">{{Auth::user()->first_name}}</a></li>
+               <li id="logOut"> <a href="{{route('signout')}}" style="cursor: pointer">Log Out</a></li>
             </ul>
         </div>
     </div>
