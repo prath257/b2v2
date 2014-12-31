@@ -1,11 +1,11 @@
 @if ($moreActions == null && $count == null)
-    <div class="col-lg-12">
+    <div class="col-xs-12 col-sm-12 col-md-12">
 
     <div id="ActionContent" style="max-height: 450px; overflow: auto;">
 @endif
     @foreach ($actions as $action)
     <?php $user1=User::find($action->user1id);?>
-    <div class="col-lg-12 action-jackson" style="padding-left: 0px; padding-right: 0px; padding-top: 10px; padding-bottom: 10px">
+    <div class="col-xs-12 col-sm-12 col-md-12 action-jackson" style="padding-left: 0px; padding-right: 0px; padding-top: 10px; padding-bottom: 10px">
         <a href="{{route('user',$user1->username)}}"><img class="actionImages" style="float:left; width:50px; height: 50px; margin-right: 10px" src="{{$user1->profile->profilePic}}"/></a>
     @if($action->type=='A new')
 
